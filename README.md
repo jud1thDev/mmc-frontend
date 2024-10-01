@@ -22,12 +22,12 @@
 - `issue 규칙`
   - 각 기능에 맞는 이슈템플릿 작성
   - to-do에 구현해야할 기능과, 구현이 끝나면 체크표시
-
-<br>
+  
+  <br>
 - `branch 규칙`
     - 이슈 생성후, branch에서 추가할 내용과 이슈번호를 branch 이름으로 생성
         - 예시: feat/#1, design/#2
-<br>
+  <br>
 ## 실행 방법
 - yarn이 안깔려있다면 yarn 설치: npm을 이용한 yarn 설치
    > npm install -g yarn
