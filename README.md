@@ -33,13 +33,12 @@
 ## 실행 방법
 
 - yarn이 안깔려있다면 yarn 설치: npm을 이용한 yarn 설치
-  > npm install -g yarn
+     > npm install -g yarn
 - 1. yarn.lock 설치 (의존성 설치): 터미널 창에 yarn 입력
      > yarn
 - 2. 실행: 터미털 창에 yarn dev 입력
      > yarn dev
-
-각 branch에서 pull받은 이후에는 `yarn` 으로 의존성 업데이트를 반드시 해주세요.
+- 3. 각 branch에서 pull받은 이후에는 `yarn` 으로 의존성 업데이트를 반드시 해주세요.
 
 🔨 tailwind CSS 사용 참고 링크
 https://tailwindcss.com/
