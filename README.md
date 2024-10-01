@@ -41,7 +41,9 @@
 
 각 branch에서 pull받은 이후에는 `yarn` 으로 의존성 업데이트를 반드시 해주세요.
 
-tailwind CSS 사용 참고 링크
+🔨 tailwind CSS 사용 참고 링크
 https://tailwindcss.com/
 
-- tailwind CSS 사이트에서 ctrl + K를 누르면 원하는 스타일을 검색할 수 있어요! ex) Font Style, Flex ..
+- tailwind CSS 사이트에서 ctrl + K를 누르면 원하는 스타일을 검색할 수 있어요!
+<br>
+  ex) Font Style, Flex ..
