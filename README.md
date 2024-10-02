@@ -26,15 +26,11 @@
 - `issue 규칙`
 
   - ### 1. 제목
-  - 
-
-```markdown
+  - ```markdown
 [n주차] 페이지 | 기능 
 ```
-
   - ### 2. 본문
-
-```markdown
+    ```markdown
 ## 📜 설명
 간단한 설명을 작성해주세요
 
@@ -45,22 +41,6 @@
 ## 🌟 기타
 기타 사항을 작성해주세요
 ```
-
-  - ### 3. 설정
-
-- Assignees: 본인
-- **Labels: 작업 유형에 맞게 선택**
-- Projects: GiftU-front
-
-  - ### 4. 예시
-![이슈예시.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2e945415-982c-4645-abbf-c9aaf6371c0d/c37b3c66-5904-409b-96b6-57e8c2edfcd1/%EC%9D%B4%EC%8A%88%EC%98%88%EC%8B%9C.png)
-
-  - ### 5. 활용
-
- - [레포지토리 > Projects 메뉴 > GiftU-front 프로젝트](https://github.com/orgs/EFUB-GeumJaSsi/projects/2) 접속 시,
-아래 사진처럼 확인할 수 있습니다.
-    
-    ![6528918c159b9d00.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2e945415-982c-4645-abbf-c9aaf6371c0d/8fb3631b-60ac-46f7-a6fc-596abcaf4bbb/6528918c159b9d00.png)
   <br>
 
 - `branch 규칙`
