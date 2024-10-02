@@ -50,7 +50,7 @@
 <br>
 
 - `branch 규칙`
-  - - 브랜치 네이밍 규칙: `feat/#{issue 번호}`
+    - 브랜치 네이밍 규칙: `feat/#{issue 번호}`
     - 돌아가면서 리뷰
     - 이슈 생성후, branch에서 추가할 내용(ex. feat, design, refactor, ...)과 이슈번호를 branch 이름으로 생성
     - 예시: `feat/#12`, `design/#27`
