@@ -31,7 +31,14 @@
   <br>
 
 - `branch 규칙`
-  - 이슈 생성후, branch에서 추가할 내용과 이슈번호를 branch 이름으로 생성 - 예시: feat/#1, design/#2
+  - - 브랜치 네이밍 규칙: `feat/#{issue 번호}`
+    - 돌아가면서 리뷰
+    - 이슈 생성후, branch에서 추가할 내용(ex. feat, design, refactor, ...)과 이슈번호를 branch 이름으로 생성
+    - 예시: `feat/#12`, `design/#27`
+    - `feat -> develop -> main(master)` 순으로 merge
+    - `feat` : 각 기능을 개발하는 브랜치
+    - `develop` : 각 기능의 개발을 완료하고 테스트 완료 후 병합하는 브랜치
+    - `main` : 배포 브랜치
     <br>
 
 ## 실행 방법
