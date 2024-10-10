@@ -29,7 +29,7 @@ const TextField = ({ type, title, edit, error, handleEdit }) => {
               : "border-b-[1px] border-gray-200"
           } text-b1 text-gray-800`}
         />
-        {!edit && (
+        {edit && (
           <div
             onClick={handleEdit}
             className="absolute top-[16px] right-[40px] text-c1 text-orange-400 cursor-pointer"

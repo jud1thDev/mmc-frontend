@@ -1,10 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import TextField from "./components/common/TextField";
+import Header1 from "./components/common/Header1";
+import Header2 from "./components/common/Header2";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<TextField type="내용" title="제목" />} />
+      <Route path="/" element={<Header2 />} />
     </Routes>
   );
 }
