@@ -4,6 +4,25 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        white: "#FFF",
+        black: "#000000",
+        orange: {
+          300: "#FFBF68",
+          400: "#FF9F1C",
+          600: "#EA7120",
+        },
+        gray: {
+          50: "#F7F7F7",
+          100: "#EEEEEE",
+          200: "#E2E2E2",
+          400: "#ABABAB",
+          500: "#8A8A8A",
+          600: "#636363",
+          700: "#505050",
+          800: "#323232",
+        },
+      },
       fontSize: {
         t1: ["1.5rem", { lineHeight: "2.25rem" }],
         t2: ["1.25rem", { lineHeight: "1.75rem" }],
