@@ -4,7 +4,7 @@ import alarm from "../../assets/common/alarm.svg";
 
 //탭 이름을 props로 받음. default 값은 "제목"
 //BookDuck이 탭 이름인 경우에는 main값이 true
-const Header2 = ({ title = "제목", main = false }) => {
+const Header2 = ({ title = "제목", main = true }) => {
   return (
     <div className="flex justify-between items-center w-[393px] h-[52px]">
       {main ? (

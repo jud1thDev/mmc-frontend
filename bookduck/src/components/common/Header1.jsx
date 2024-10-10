@@ -1,7 +1,7 @@
 import back from "../../assets/common/back.svg";
 //title을 props로 받음. default 값은 "제목"
 //편집 가능한 header라면 edit 값이 true
-const Header1 = ({ title = "제목", edit }) => {
+const Header1 = ({ title = "제목", edit = true }) => {
   return (
     <div className="flex justify-between items-center w-[393px] h-[52px]">
       <button className="w-[36px] h-[36px]">
