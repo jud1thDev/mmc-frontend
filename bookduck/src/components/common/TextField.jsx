@@ -23,7 +23,7 @@ const TextField = ({ type, title, edit, error, handleEdit }) => {
           value={inputValue}
           onChange={handleValue}
           placeholder={type}
-          className={`w-[361px] h-[48px] pl-[4px] pr-[4px] pb-[12px] pt-[12px]  ${
+          className={`w-[361px] h-[48px] px-[4px] py-[12px]  ${
             error
               ? "border-b-[1px] border-orange-600"
               : "border-b-[1px] border-gray-200"
