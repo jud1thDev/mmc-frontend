@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import alarmduck from "../../assets/common/duck-alarm.svg";
 import alarmheart from "../../assets/common/heart-alarm.svg";
+import alarmhand from "../../assets/common/waving-hand-alarm.svg";
 
 const notificationTemplates = {
   "친구 요청": {
@@ -16,7 +17,8 @@ const notificationTemplates = {
     icon: alarmduck,
     message: (text) => (
       <span>
-        야호! {text}가 <strong style={{ fontWeight: "bold" }}>Lv.2</strong>로
+ design/#4
+        야호! 오리가 <strong style={{ fontWeight: "bold" }}>Lv.{text}</strong>로
         성장했어요.
       </span>
     ),
@@ -45,14 +47,20 @@ const NotificationItemComponent = ({ type, text }) => {
   const notificationData = notificationTemplates[type];
 
   return (
-    <div className="flex items-center px-[16px] py-[8px]">
-      <div className="w-[46px] h-[46px] rounded-full bg-[#FFFAE6] flex items-center justify-center">
+design/#4
+    <div className="flex gap-[1rem] items-center w-[24.5625rem] px-[1rem] py-[0.5rem]">
+      <div className="w-[2.875rem] h-[2.875rem] rounded-full bg-[#FFFAE6] flex items-center justify-center">
+
+ dev
         {notificationData.icon && (
           <img src={notificationData.icon} alt={type} className="w-8 h-8" />
         )}
       </div>
 
-      <div className="flex flex-col ml-[16px]">
+
+      <div className="flex flex-col">
+
+      
         <span className="text-gray-500 text-c1">{type}</span>
         <span className="text-black text-b1">
           {notificationData.message(text)}
