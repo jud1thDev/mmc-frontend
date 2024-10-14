@@ -31,7 +31,6 @@ dfn,
 em,
 img,
 ins,
-input,
 kbd,
 q,
 s,
@@ -139,7 +138,6 @@ button {
   cursor: pointer;
 }
 input {
-  border: none;
   outline: none;
   appearance: none;
   border-radius: none;
