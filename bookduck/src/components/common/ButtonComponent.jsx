@@ -34,16 +34,16 @@ const ButtonComponent = ({
   };
 
   const sizeStyles = {
-    small: "px-[12px] py-[4px] font-regular text-b3",
-    medium: "px-[16px] py-[8px] font-regular text-base",
+    small: "px-[0.75rem] py-[0.25rem] font-regular text-b3",
+    medium: "px-[1rem] py-[0.5rem] font-regular text-base",
   };
 
   const buttonStyles =
     type === "primary"
-      ? `${baseStyles} w-[361px] h-[48px] font-semibold rounded-[8px] ${
+      ? `${baseStyles} w-[22.5625rem] h-[3rem] font-semibold rounded-[0.5rem] ${
           disabled ? primaryDisabledStyle : primaryEnabledStyle
         }`
-      : `${baseStyles} ${sizeStyles[size]} rounded-[6px] ${secondaryColorStyles[color]}`;
+      : `${baseStyles} ${sizeStyles[size]} rounded-[0.375rem] ${secondaryColorStyles[color]}`;
 
   return (
     <button
