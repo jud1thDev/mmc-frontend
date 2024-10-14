@@ -3,7 +3,7 @@ import DeleteIcon from "../../assets/common/delete.svg?react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchComponent = () => {
+const SearchComponent = ({ text }) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const handleChange = (e) => {
@@ -17,19 +17,19 @@ const SearchComponent = () => {
   };
 
   return (
-    <div className="flex items-center w-[393px] px-[16px] py-[4px] gap-[12px]">
-      <div className="flex w-[313px] h-[40px] bg-gray-50 items-center rounded-[8px]">
-        <SearchIcon className="w-[14px] h-[14px] m-[8px] text-gray-50" />
+    <div className="flex items-center w-[24.5625rem] px-[1rem] py-[0.25rem] gap-[0.75rem]">
+      <div className="flex w-[19.5625rem] h-[2.5rem] bg-gray-50 items-center rounded-[0.5rem]">
+        <SearchIcon className="w-[0.875rem] h-[0.875rem] m-[0.5rem] text-gray-50" />
         <input
           type="text"
           value={search}
-          placeholder="검색어를 입력하세요"
+          placeholder={text}
           onChange={handleChange}
-          className="w-[235px] bg-transparent text-b1 text-black placeholder-gray-300 mr-[21px]"
+          className="w-[24.6875rem] bg-transparent text-b1 text-black placeholder-gray-300 mr-[1.3125rem]"
         />
         {search.length > 0 && (
           <button onClick={clearSearch}>
-            <DeleteIcon className="w[16px] h-[16px]" />
+            <DeleteIcon className="w-[1rem] h-[1rem]" />
           </button>
         )}
       </div>
