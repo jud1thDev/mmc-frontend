@@ -42,8 +42,6 @@ const TextField = ({
               : "border-b-[1px] border-blue"
           } text-b1 text-gray-800`}
         />
-
-=======
         {check && (
           <div
             onClick={handleEdit}
