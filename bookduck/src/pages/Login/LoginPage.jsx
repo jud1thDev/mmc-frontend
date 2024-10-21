@@ -1,6 +1,5 @@
-import React from "react";
-import { KAKAO_AUTH_URL } from "../../api/oauth";
 import duck from "../../assets/common/duck.svg";
+import { KakaoURI } from "../../api/oauth";
 const LoginPage = () => {
   return (
     <div className="flex flex-col">
@@ -20,7 +19,7 @@ const LoginPage = () => {
           Sign up with Google
         </a>
         <a
-          href={KAKAO_AUTH_URL}
+          href={KakaoURI}
           className="flex justify-center items-center w-[22.0625rem] h-[3rem] rounded-[0.5rem] bg-[#FEE500] mt-[0.75rem]"
         >
           카카오로 시작하기
