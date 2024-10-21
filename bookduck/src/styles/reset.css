@@ -137,13 +137,7 @@ button {
   padding: 0;
   cursor: pointer;
 }
-input {
-  outline: none;
-  appearance: none;
-  border-radius: none;
-  -webkit-appearance: none;
-  -webkit-border-radius: 0;
-}
+
 input[type="submit"] {
   cursor: pointer;
 }
