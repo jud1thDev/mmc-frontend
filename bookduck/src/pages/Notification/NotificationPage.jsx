@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header1 from "../../components/common/Header1";
 import StatusBar from "../../components/common/StatusBar";
-import TabBarComponent from "../../components/TabBarComponent";
+import TabBarComponent from "../../components/common/TabBarComponent";
 import NotificationItemComponent from "../../components/notification/NotificationItemComponent";
 const NotificationPage = () => {
   const [tab, setTab] = useState("일반");
