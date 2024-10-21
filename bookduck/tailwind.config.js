@@ -32,6 +32,7 @@ export default {
           700: "#505050",
           800: "#323232",
         },
+        special: "#FF9F1C",
       },
       fontSize: {
         t1: ["1.5rem", { lineHeight: "2.25rem" }],
