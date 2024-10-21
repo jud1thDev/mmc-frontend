@@ -4,7 +4,9 @@ import Header1 from "../../components/common/Header1";
 import edit from "../../assets/setting/edit.svg";
 import kakao from "../../assets/setting/kakao.png";
 import ToggleButton from "../../components/common/ToggleButtonComponent";
-import BottomSheetModal from "../../components/common/BottomSheetModal"; // BottomSheet import
+import BottomSheetModal from "../../components/common/BottomSheetModal";
+import TextField from "../../components/common/TextField";
+import ButtonComponent from "../../components/common/ButtonComponent";
 
 const SettingPage = () => {
   const [isPushOn, setPushOn] = useState(true);
@@ -75,10 +77,18 @@ const SettingPage = () => {
       </div>
 
       <BottomSheetModal
+        title="이름 수정"
         bottomSheetShow={bottomSheetShow}
         setBottomSheetShow={setBottomSheetShow}
       >
-        <p>바텀시트입니다</p>
+        <TextField title="제목" placeholder="유저닉네임" />
+        <ButtonComponent
+          text="완료"
+          type="primary"
+          disabled={false}
+          className="mt-7"
+          onClick={() => setBottomSheetShow(false)}
+        />
       </BottomSheetModal>
     </div>
   );

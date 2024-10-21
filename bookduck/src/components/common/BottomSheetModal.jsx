@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-
 const BottomSheetModal = ({
+  title,
+  isCancel = "true",
   bottomSheetShow,
   setBottomSheetShow,
   children,
@@ -13,18 +14,31 @@ const BottomSheetModal = ({
   if (!bottomSheetShow) return null;
 
   const slideModal = (
-    <div
-      onClick={handleBackdropClick}
-      className={`${
-        bottomSheetShow ? "bg-slate-500" : "rgba(0,0,0,0)"
-      }  flex justify-center w-full h-screen z-50 relative`}
-    >
-      <section
-        onClick={(e) => e.stopPropagation()}
-        className="bg-pink-200 absolute bottom-0 w-[24.5625rem] shadow-lg"
+    <div className="flex justify-center">
+      <div
+        onClick={handleBackdropClick}
+        className={`${
+          bottomSheetShow ? "bg-black bg-opacity-50" : "bg-transparent"
+        }   w-[24.5625rem] h-screen z-30 fixed top-0 transition-colors duration-300`}
       >
-        {children}
-      </section>
+        <section
+          onClick={(e) => e.stopPropagation()}
+          className="bg-white animate-slideUp bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-[35.5625rem] z-50 rounded-t-xl px-[1rem] pt-[2rem] pb-[1rem]"
+        >
+          <div className="flex justify-between mb-[1.62rem]">
+            <span className="text-st font-semibold">{title}</span>
+            {isCancel && (
+              <button
+                onClick={() => setBottomSheetShow(false)}
+                className="text-btn2 text-gray-500"
+              >
+                취소
+              </button>
+            )}
+          </div>
+          {children}
+        </section>
+      </div>
     </div>
   );
 
