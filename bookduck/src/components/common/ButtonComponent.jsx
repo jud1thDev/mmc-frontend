@@ -13,6 +13,7 @@
   onClick={() => alert('메시지')}
 />
 */
+import classNames from "classnames";
 const ButtonComponent = ({
   text,
   type = "primary",
@@ -20,11 +21,12 @@ const ButtonComponent = ({
   size = "medium",
   onClick,
   disabled = false,
+  className,
   ...props
 }) => {
   const baseStyles = "text-center";
 
-  const primaryEnabledStyle = "bg-orange-400 text-white";
+  const primaryEnabledStyle = "bg-gray-600 text-white";
   const primaryDisabledStyle = "bg-gray-100 text-white cursor-not-allowed";
 
   const secondaryColorStyles = {
@@ -38,12 +40,14 @@ const ButtonComponent = ({
     medium: "px-[1rem] py-[0.5rem] font-regular text-base",
   };
 
-  const buttonStyles =
+  const buttonStyles = classNames(
     type === "primary"
       ? `${baseStyles} w-[22.5625rem] h-[3rem] font-semibold rounded-[0.5rem] ${
           disabled ? primaryDisabledStyle : primaryEnabledStyle
         }`
-      : `${baseStyles} ${sizeStyles[size]} rounded-[0.375rem] ${secondaryColorStyles[color]}`;
+      : `${baseStyles} ${sizeStyles[size]} rounded-[0.375rem] ${secondaryColorStyles[color]}`,
+    className
+  );
 
   return (
     <button
