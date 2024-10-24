@@ -2,6 +2,7 @@ import polygon from "../../assets/CharacterPage/polygon.svg";
 import bookIcon from "../../assets/CharacterPage/book.svg";
 import reviewIcon from "../../assets/CharacterPage/review.svg";
 import right from "../../assets/CharacterPage/right.svg";
+import UserDuck from "../../components/CharacterPage/UserDuck";
 import Header2 from "../../components/common/Header2";
 
 const CharacterPage = () => {
@@ -13,9 +14,9 @@ const CharacterPage = () => {
           <div className="flex justify-center px-6 py-2 bg-gray-50 rounded-[100px] text-b2 font-semibold text-gray-500 h-[40px]">
             캐릭터 말풍선
           </div>
-          <img className="w-4 h-3" src={polygon} />
+          <img className="w-4 h-3 mt-[-1px]" src={polygon} />
         </div>
-        캐릭터 들어갈 자리
+        <UserDuck />
       </div>
       {/* 유저 정보  */}
       <div className="flex flex-col my-1 p-4 gap-4 w-[361px]">
@@ -64,6 +65,7 @@ const CharacterPage = () => {
         <div className="text-b2 text-gray-500 font-semibold ">나의 배지</div>
         <img className="w-6 h-6" src={right} />
       </div>
+      {/* 네비바 들어갈 자리  */}
     </div>
   );
 };
