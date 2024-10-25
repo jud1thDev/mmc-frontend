@@ -14,7 +14,7 @@ const UserDuck = () => {
   return (
     <div className="w-[288px] h-[260px]">
       <Canvas>
-        <ambientLight intensity={0.7} color="#ffe262" />
+        <ambientLight intensity={0.7} />
         <directionalLight position={[0, 5, 5]} />
         <DuckModel />
         <OrbitControls enablePan={true} enableRotate={true} enableZoom={true} />
