@@ -77,10 +77,18 @@ const SettingPage = () => {
       </div>
 
       <BottomSheetModal
-        title="이름 수정"
         bottomSheetShow={bottomSheetShow}
         setBottomSheetShow={setBottomSheetShow}
       >
+        <div className="flex justify-between mb-[1.62rem]">
+          <span className="text-st font-semibold">이름 수정</span>
+          <button
+            onClick={() => setBottomSheetShow(false)}
+            className="text-btn2 text-gray-500"
+          >
+            취소
+          </button>
+        </div>
         <TextField title="제목" placeholder="유저닉네임" />
         <ButtonComponent
           text="완료"
