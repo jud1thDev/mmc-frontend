@@ -1,31 +1,32 @@
 import SearchIcon from "../../assets/common/search-gray.svg?react";
 import DeleteIcon from "../../assets/common/delete.svg?react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchComponent = ({ text }) => {
+const SearchComponent = ({ search, setSearch }) => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
+
   const handleCancel = () => {
     navigate(-1);
   };
+
   const clearSearch = () => {
     setSearch("");
   };
 
   return (
-    <div className="flex items-center w-[24.5625rem] px-[1rem] py-[0.25rem] gap-[0.75rem]">
-      <div className="flex w-[19.5625rem] h-[2.5rem] bg-gray-50 items-center rounded-[0.5rem]">
-        <SearchIcon className="w-[0.875rem] h-[0.875rem] m-[0.5rem] text-gray-50" />
+    <div className="flex items-center w-[24.5625rem] px-4 py-1 gap-2">
+      <div className="flex w-[19.5625rem] h-[2.5rem] bg-gray-50 items-center rounded-[0.5rem] px-2">
+        <SearchIcon className=" text-gray-50 mr-2" />
         <input
           type="text"
           value={search}
-          placeholder={text}
+          placeholder="검색어를 입력하세요"
           onChange={handleChange}
-          className="w-[24.6875rem] bg-transparent text-b1 text-black placeholder-gray-300 mr-[1.3125rem]"
+          className="w-[18rem] bg-gray-50 text-b1 text-black placeholder-gray-300 mr-[1.3125rem]"
         />
         {search.length > 0 && (
           <button onClick={clearSearch}>
@@ -33,8 +34,14 @@ const SearchComponent = ({ text }) => {
           </button>
         )}
       </div>
-      <button onClick={handleCancel}>취소</button>
+      <button
+        onClick={handleCancel}
+        className="text-btn2 text-gray800 w-auto px-[0.62rem] whitespace-nowrap"
+      >
+        취소
+      </button>
     </div>
   );
 };
+
 export default SearchComponent;
