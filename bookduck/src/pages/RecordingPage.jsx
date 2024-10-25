@@ -4,6 +4,7 @@ import { recordTab } from "../constant/recordTab";
 import Archiving from "../components/common/RecordingPage/Archiving";
 import Search from "../components/common/RecordingPage/Search";
 import Library from "../components/common/RecordingPage/Library";
+import DirectRegister from "../components/common/RecordingPage/DirectRegister";
 
 const RecordingPage = () => {
   const [tab, setTab] = useState(0);
@@ -36,6 +37,7 @@ const RecordingPage = () => {
           {tab === 0 && <Archiving />}
           {tab === 1 && <Library />}
           {tab === 2 && <Search />}
+          {tab === 3 && <DirectRegister />}
         </div>
       </div>
     </>
