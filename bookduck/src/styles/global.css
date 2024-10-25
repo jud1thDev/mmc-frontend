@@ -45,6 +45,9 @@ body {
     width: 100svw;
   }
 }
+input:focus {
+  outline: none;
+}
 
 input[type="radio"] {
   -webkit-appearance: none;
