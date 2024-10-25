@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header1 from "../../components/common/Header1";
 import StatusBar from "../../components/common/StatusBar";
 import TabBarComponent from "../../components/common/TabBarComponent";
-import FriendListComponent from "../../components/friend/FriendListComponent";
+import FriendListComponent from "../../components/common/FriendListComponent";
 const FriendListPage = () => {
   const [tab, setTab] = useState("친구");
   const friendList = [
