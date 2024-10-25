@@ -1,41 +1,70 @@
-import React, { useState, useEffect } from "react";
+/*사용방법
+부모 컴포넌트에
+const [bottomSheetShow, setBottomSheetShow] = useState(false);
+const [visible, setVisible] = useState(false);
+를 하고
+
+부모 컴포넌트의 부분을 클릭할 시 이벤트가 일어나게 하고 싶으면
+const handleSortChange = (newSort) => {
+    setSort(newSort);
+    setVisible(false);
+    setTimeout(() => {
+      setBottomSheetShow(false);
+    }, 200);
+  };
+와 같이 setVisible(false)를 해서 흰색 부분이 내려가는 효과를 발생시키고,
+그 후에 setBottomSheetShow(false)가 되도록 합니다.
+
+<BottomSheetModal
+        bottomSheetShow={bottomSheetShow}
+        setBottomSheetShow={setBottomSheetShow}
+        visible={visible}
+        setVisible={setVisible}
+> 내용 </BottomSheetModal>
+*/
+
+import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
+
 const BottomSheetModal = ({
-  title,
-  isCancel = "true",
   bottomSheetShow,
   setBottomSheetShow,
+  visible,
+  setVisible,
   children,
 }) => {
+  // 모달이 열릴 때 visible을 true로 설정해 애니메이션을 실행
+  useEffect(() => {
+    if (bottomSheetShow) {
+      setVisible(true);
+    }
+  }, [bottomSheetShow]);
+
+  // 모달이 닫힐 때 애니메이션 후 상태 변경
   const handleBackdropClick = () => {
-    setBottomSheetShow(false);
+    setVisible(false); // 닫는 애니메이션 시작
+    setTimeout(() => {
+      setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
+    }, 300);
   };
 
-  if (!bottomSheetShow) return null;
+  // 모달이 닫힌 후  언마운트
+  if (!bottomSheetShow && !visible) return null;
 
   const slideModal = (
     <div className="flex justify-center">
       <div
         onClick={handleBackdropClick}
         className={`${
-          bottomSheetShow ? "bg-black bg-opacity-50" : "bg-transparent"
-        }   w-[24.5625rem] h-screen z-30 fixed top-0 transition-colors duration-300`}
+          visible ? "bg-black bg-opacity-50" : "bg-transparent"
+        } w-[24.5625rem] h-screen z-30 fixed top-0 transition-colors duration-300`}
       >
         <section
           onClick={(e) => e.stopPropagation()}
-          className="bg-white animate-slideUp bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-[35.5625rem] z-50 rounded-t-xl px-[1rem] pt-[2rem] pb-[1rem]"
+          className={`bg-white ${
+            visible ? "animate-slideUp" : "animate-slideDown"
+          } bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-fit z-50 rounded-t-xl px-4 pt-8 pb-4 transition-transform duration-300`}
         >
-          <div className="flex justify-between mb-[1.62rem]">
-            <span className="text-st font-semibold">{title}</span>
-            {isCancel && (
-              <button
-                onClick={() => setBottomSheetShow(false)}
-                className="text-btn2 text-gray-500"
-              >
-                취소
-              </button>
-            )}
-          </div>
           {children}
         </section>
       </div>
