@@ -12,6 +12,7 @@ const BookListView = ({
   author = "지은이",
   edit = true,
   dropdown = true,
+  dropdownActive = true,
 }) => {
   const [rating, setRating] = useState(0);
   return (
@@ -40,12 +41,12 @@ const BookListView = ({
         </div>
       </div>
       {edit ? (
-        dropdown ? (
+        !dropdown ? (
           <div className="w-[24px] h-[24px] cursor-pointer">
             <img src={menuBar} alt="menuBar" />
           </div>
         ) : (
-          <BookListViewDropdown />
+          <BookListViewDropdown dropdownActive={dropdownActive} />
         )
       ) : (
         <></>

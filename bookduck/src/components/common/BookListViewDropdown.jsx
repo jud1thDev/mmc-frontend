@@ -23,12 +23,14 @@ const dropdownList = [
     name: "서재 담기",
   },
 ];
-const BookListViewDropdown = () => {
+const BookListViewDropdown = (dropdownActive) => {
   const [dropdownView, setDropdownView] = useState(false);
   const [initState, setInitState] = useState("서재 담기");
 
   const handleClickDropdown = () => {
-    setDropdownView(!dropdownView);
+    if (!dropdownActive) {
+      setDropdownView(!dropdownView);
+    }
   };
   const onChangeState = (value) => {
     setInitState(value);

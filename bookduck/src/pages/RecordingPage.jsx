@@ -3,6 +3,7 @@ import Header3 from "../components/common/Header3";
 import { recordTab } from "../constant/recordTab";
 import Archiving from "../components/common/RecordingPage/Archiving";
 import Search from "../components/common/RecordingPage/Search";
+import Library from "../components/common/RecordingPage/Library";
 
 const RecordingPage = () => {
   const [tab, setTab] = useState(0);
@@ -33,6 +34,7 @@ const RecordingPage = () => {
             ))}
           </div>
           {tab === 0 && <Archiving />}
+          {tab === 1 && <Library />}
           {tab === 2 && <Search />}
         </div>
       </div>
