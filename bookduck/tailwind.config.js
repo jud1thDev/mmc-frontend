@@ -9,6 +9,7 @@ export default {
         black: "#000000",
         blue: "#0066FF",
         orange: {
+          50: "#FFFAE6",
           300: "#FFBF68",
           400: "#FF9F1C",
           600: "#EA7120",
