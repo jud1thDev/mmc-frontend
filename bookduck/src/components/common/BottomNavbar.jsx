@@ -1,13 +1,13 @@
-import main from "../../assets/common/main.svg";
-import main_active from "../../assets/common/main-active.svg";
-import search from "../../assets/common/search.svg";
-import search_active from "../../assets/common/search-active.svg";
-import record from "../../assets/common/record.svg";
-import record_active from "../../assets/common/record-active.svg";
-import character from "../../assets/common/character.svg";
-import character_active from "../../assets/common/character-active.svg";
-import library from "../../assets/common/library.svg";
-import library_active from "../../assets/common/library-active.svg";
+import main from "../../assets/common/bottom-nav-main.svg";
+import main_active from "../../assets/common/bottom-nav-main-active.svg";
+import search from "../../assets/common/bottom-nav-search.svg";
+import search_active from "../../assets/common/bottom-nav-search-active.svg";
+import record from "../../assets/common/bottom-nav-record.svg";
+import record_active from "../../assets/common/bottom-nav-record-active.svg";
+import character from "../../assets/common/bottom-nav-character.svg";
+import character_active from "../../assets/common/bottom-nav-character-active.svg";
+import library from "../../assets/common/bottom-nav-library.svg";
+import library_active from "../../assets/common/bottom-nav-library-active.svg";
 
 import { useState } from "react";
 
