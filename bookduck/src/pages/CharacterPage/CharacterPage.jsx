@@ -8,7 +8,6 @@ import CharacterHeader from "../../components/CharacterPage/CharacterHeader";
 const CharacterPage = () => {
   return (
     <div className="flex flex-col justify-center items-center">
-      {/* <Header2 title="캐릭터" main={false} /> */}
       <CharacterHeader />
       <div className="flex flex-col mt-[35px] gap-1 w-[288px] h-[355px]">
         <div class="flex flex-col items-center">
@@ -62,7 +61,7 @@ const CharacterPage = () => {
         </div>
       </div>
       {/* 나의 배지 */}
-      <div className="flex justify-between my-3 px-5 py-4 bg-gray-25 rounded-xl w-[361px]">
+      <div className="flex justify-between my-3 px-5 py-4 bg-gray-25 rounded-xl w-[361px] cursor-pointer">
         <div className="text-b2 text-gray-500 font-semibold ">나의 배지</div>
         <img className="w-6 h-6" src={right} />
       </div>
