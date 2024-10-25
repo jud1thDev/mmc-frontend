@@ -9,7 +9,7 @@ const BookListView = ({
   edit = false,
 }) => {
   return (
-    <div className="flex items-center justify-between w-[393px] h-[124px] pl-[16px] pr-[16px] pb-[8px] pt=[8px]">
+    <div className="flex items-center justify-between w-[393px] h-[124px] pl-[16px] pr-[16px] pb-[8px] pt-[8px]">
       <div className="flex gap-[12px] items-center w-[252px] h-[108px]">
         <img src={coverEx} alt="coverEx" />
         <div className="flex flex-col gap-1">
