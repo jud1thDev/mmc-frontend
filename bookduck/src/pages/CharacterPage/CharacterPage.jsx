@@ -4,11 +4,12 @@ import reviewIcon from "../../assets/CharacterPage/review.svg";
 import right from "../../assets/CharacterPage/right.svg";
 import UserDuck from "../../components/CharacterPage/UserDuck";
 import Header2 from "../../components/common/Header2";
-
+import CharacterHeader from "../../components/CharacterPage/CharacterHeader";
 const CharacterPage = () => {
   return (
     <div className="flex flex-col justify-center items-center">
-      <Header2 title="캐릭터" main={false} />
+      {/* <Header2 title="캐릭터" main={false} /> */}
+      <CharacterHeader />
       <div className="flex flex-col mt-[35px] gap-1 w-[288px] h-[355px]">
         <div class="flex flex-col items-center">
           <div className="flex justify-center px-6 py-2 bg-gray-50 rounded-[100px] text-b2 font-semibold text-gray-500 h-[40px]">
