@@ -12,7 +12,7 @@ const DuckModel = () => {
 
 const UserDuck = () => {
   return (
-    <div className="w-[100%]">
+    <div className="w-full">
       <Canvas>
         <ambientLight intensity={0.7} />
         <directionalLight position={[0, 5, 5]} />
