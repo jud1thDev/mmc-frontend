@@ -1,15 +1,10 @@
 import { useState } from "react";
 import { archiveTab } from "../../constant/archiveTab";
 
-const MenuBar = () => {
-  const [tab, setTab] = useState(0);
-  const handleTab = (index) => {
-    setTab(index);
-  };
-
+const MenuBar = ({ tab, handleTab }) => {
   return (
     <>
-      <div className="flex gap-[2rem]  mx-[1rem] ">
+      <div className="flex gap-[1.37rem]  mx-[1rem] ">
         {archiveTab.map((it) => (
           <div>
             <div

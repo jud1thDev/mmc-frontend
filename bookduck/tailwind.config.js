@@ -7,12 +7,14 @@ export default {
       colors: {
         white: "#FFF",
         black: "#000000",
+        blue: "#0066FF",
         orange: {
           300: "#FFBF68",
           400: "#FF9F1C",
           600: "#EA7120",
         },
         gray: {
+          10: "#FBFBFB",
           50: "#F7F7F7",
           100: "#EEEEEE",
           200: "#E2E2E2",
