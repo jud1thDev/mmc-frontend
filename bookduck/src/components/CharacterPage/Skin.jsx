@@ -17,7 +17,7 @@ const Skin = ({ isLock = true }) => {
         </div>
       ) : (
         <div
-          className="pt-2 pl-2 bg-gray-300 w-[110px] h-[110px] rounded-[12px]"
+          className="pt-2 pl-2 bg-gray-300 w-[110px] h-[110px] rounded-[12px] cursor-pointer"
           onClick={handleClick}
         >
           <img src={isSelected ? yesCheck : noCheck} />
