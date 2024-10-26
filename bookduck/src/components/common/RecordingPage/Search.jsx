@@ -1,5 +1,7 @@
 import BookListView from "../BookListView";
+
 import SearchBar from "./SearchBar";
+
 const Search = () => {
   return (
     <>
