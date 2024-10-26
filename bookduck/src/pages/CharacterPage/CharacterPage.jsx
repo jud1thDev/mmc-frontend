@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import polygon from "../../assets/CharacterPage/polygon.svg";
 import bookIcon from "../../assets/CharacterPage/book.svg";
 import reviewIcon from "../../assets/CharacterPage/review.svg";
@@ -5,6 +6,11 @@ import right from "../../assets/CharacterPage/right.svg";
 import UserDuck from "../../components/CharacterPage/UserDuck";
 import CharacterHeader from "../../components/CharacterPage/CharacterHeader";
 const CharacterPage = () => {
+  const navigate = useNavigate();
+
+  const handleBadgeClick = () => {
+    navigate("/myBadge");
+  };
   return (
     <div className="flex flex-col justify-center items-center">
       <CharacterHeader />
@@ -62,7 +68,10 @@ const CharacterPage = () => {
         </div>
       </div>
       {/* 나의 배지 */}
-      <div className="flex justify-between my-3 px-5 py-4 bg-gray-25 rounded-xl w-[22.5625rem] cursor-pointer">
+      <div
+        className="flex justify-between my-3 px-5 py-4 bg-gray-25 rounded-xl w-[22.5625rem] cursor-pointer"
+        onClick={handleBadgeClick}
+      >
         <div className="text-b2 text-gray-500 font-semibold ">나의 배지</div>
         <img className="w-6 h-6" src={right} />
       </div>
