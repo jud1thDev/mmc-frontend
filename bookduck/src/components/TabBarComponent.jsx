@@ -28,20 +28,20 @@ const TabBarComponent = ({
       {tabs.map((tab, index) => (
         <div
           key={index}
-          onClick={() => onTabClick(index)}
+          onClick={() => onTabClick(tab)}
           className={`${
             isBig ? "flex-1" : "flex justify-center"
           } text-center cursor-pointer relative`}
         >
           <div
             className={
-              activeTab === index ? "text-black font-semibold" : "text-gray-500"
+              activeTab === tab ? "text-black font-semibold" : "text-gray-500"
             }
           >
             {tab}
           </div>
 
-          {activeTab === index && (
+          {activeTab === tab && (
             <div
               style={{ width: borderWidth }}
               className={`absolute bottom-[-12px] h-[2px] bg-black ${

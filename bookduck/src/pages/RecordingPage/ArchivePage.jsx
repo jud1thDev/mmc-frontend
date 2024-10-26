@@ -10,8 +10,8 @@ import TabBarComponent from "../../components/TabBarComponent";
 import ExtractView from "../../components/common/RecordingPage/ExtractView";
 import ReviewView from "../../components/common/RecordingPage/ReviewView";
 
-const RecordingPage = () => {
-  const [tab, setTab] = useState(0);
+const ArchivePage = () => {
+  const [tab, setTab] = useState("전체보기");
   const handleTab = (index) => {
     setTab(index);
   };
@@ -25,12 +25,12 @@ const RecordingPage = () => {
           tabs={["전체보기", "발췌", "감상평"]}
           activeTab={tab}
           onTabClick={setTab}
-          size=""
+          size="small"
           borderWidth="3rem"
         />
-        {tab === 0 && <TotalView />}
-        {tab === 1 && <ExtractView />}
-        {tab === 2 && <ReviewView />}
+        {tab === "전체보기" && <TotalView />}
+        {tab === "발췌" && <ExtractView />}
+        {tab === "감상평" && <ReviewView />}
 
         <FloatingRecordButton />
         <BottomNavbar />
@@ -38,4 +38,4 @@ const RecordingPage = () => {
     </>
   );
 };
-export default RecordingPage;
+export default ArchivePage;
