@@ -1,9 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import back from "../../assets/CharacterPage/back.svg";
 import help from "../../assets/CharacterPage/help-circle.svg";
 import BadgeModal from "./BadgeModal";
 
 const BadgeHeader = () => {
+  const navigate = useNavigate();
+  const handleBackClick = () => {
+    navigate(-1);
+  };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -13,7 +18,7 @@ const BadgeHeader = () => {
     <div>
       <div className="flex justify-between items-center px-4 py-1 w-[393px] h-[44px]">
         <div className="flex items-center">
-          <button className="w-[36px] h-[36px]">
+          <button className="w-[36px] h-[36px]" onClick={handleBackClick}>
             <img src={back} alt="backIcon" />
           </button>
           <div className="text-st font-semibold">나의 배지</div>{" "}
