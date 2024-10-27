@@ -1,23 +1,28 @@
 import { Routes, Route } from "react-router-dom";
-import NotificationPage from "./pages/Notification/NotificationPage";
-import FriendListPage from "./pages/Friend/FriendListPage";
-import FriendRequestPage from "./pages/Friend/FriendRequestPage";
-import SearchMainPage from "./pages/Search/SearchMainPage";
-import SearchBookPage from "./pages/Search/SearchBookPage";
-import SearchArchivePage from "./pages/Search/SearchArchivePage";
-import SearchUserPage from "./pages/Search/SearchUserPage";
-import RegisterPage from "./pages/Search/RegisterPage";
+import HomePage from "./pages/HomePage";
+import CharacterPage from "./pages/CharacterPage/CharacterPage";
+import MyBadgePage from "./pages/CharacterPage/MyBadgePage";
+import CharacterCustomPage from "./pages/CharacterPage/CharacterCustomPage";
+import CharacterPage from "./pages/CharacterPage/CharacterPage";
+
+import SelectBookPage from "./pages/RecordingPage/SelectBookPage";
+import ArchivePage from "./pages/RecordingPage/ArchivePage";
+import ArchiveDetail from "./pages/RecordingPage/ArchiveDetailPage";
+
 function App() {
   return (
     <Routes>
-      <Route path="/notification" element={<NotificationPage />} />
-      <Route path="/friend/list" element={<FriendListPage />} />
-      <Route path="/friend/request" element={<FriendRequestPage />} />
-      <Route path="/search" element={<SearchMainPage />} />
-      <Route path="/search/book" element={<SearchBookPage />} />
-      <Route path="/search/archive" element={<SearchArchivePage />} />
-      <Route path="/search/user" element={<SearchUserPage />} />
-      <Route path="/search/register" element={<RegisterPage />} />
+      <Route path="/" element={<HomePage />} />
+
+      <Route path="/selectBook" element={<SelectBookPage />} />
+      <Route path="/archive" element={<ArchivePage />} />
+      <Route path="/extract-archive-detail" element={<ArchiveDetail />} />
+      <Route path="/review-archive-detail" element={<ArchiveDetail />} />
+      <Route path="/total-archive-detail" element={<ArchiveDetail />} />
+
+      <Route path="/character" element={<CharacterPage />} />
+      <Route path="/myBadge" element={<MyBadgePage />} />
+      <Route path="/character/custom" element={<CharacterCustomPage />} />
     </Routes>
   );
 }

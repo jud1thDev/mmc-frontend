@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 /*사용예시
-const [tab, setTab] = useState("공지");
 <TabBarComponent
-        tabs={["일반", "공지"]}
-        activeTab={tab}
-        onTabClick={setTab}
-        size="small"
+ tabs={["전체보기", "발췌", "감상평"]}
+ activeTab={tab}
+ onTabClick={setTab}
+ size=""
+ borderWidth="4rem"
 />
 */
 const TabBarComponent = ({
@@ -13,7 +13,7 @@ const TabBarComponent = ({
   activeTab,
   onTabClick,
   size = "big",
-  isNoti = false,
+  borderWidth,
   ...props
 }) => {
   const isBig = size === "big";
@@ -30,17 +30,22 @@ const TabBarComponent = ({
           key={index}
           onClick={() => onTabClick(tab)}
           className={`${
-            isBig ? "flex-1" : ""
+            isBig ? "flex-1" : "flex justify-center"
           } text-center cursor-pointer relative`}
         >
-          <div className={activeTab === tab ? "text-black" : "text-gray-500"}>
+          <div
+            className={
+              activeTab === tab ? "text-black font-semibold" : "text-gray-500"
+            }
+          >
             {tab}
           </div>
 
           {activeTab === tab && (
             <div
-              className={`absolute bottom-[-8px] left-0 right-0 h-[0.1375rem] rounded-[0.25rem] bg-[#323232] ${
-                isBig ? "w-[64px] justify-self-center" : ""
+              style={{ width: borderWidth }}
+              className={`absolute bottom-[-12px] h-[2px] bg-black ${
+                isBig ? " left-0 right-0  justify-self-center " : ""
               }`}
             />
           )}

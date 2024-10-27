@@ -26,13 +26,16 @@ const ButtonComponent = ({
 }) => {
   const baseStyles = "text-center";
 
-  const primaryEnabledStyle = "bg-gray-600 text-white";
+  const primaryEnabledStyle = color
+    ? "bg-gray-700 text-white"
+    : "bg-orange-400 text-white";
   const primaryDisabledStyle = "bg-gray-100 text-white cursor-not-allowed";
 
   const secondaryColorStyles = {
     orange: "bg-orange-300 text-white",
     white: "bg-white text-gray-600",
     gray: "bg-gray-600 text-white",
+    gray700: "bg-gray-700 text-white",
   };
 
   const sizeStyles = {
