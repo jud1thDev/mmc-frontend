@@ -41,7 +41,7 @@ export default {
         btn1: ["1.125rem", { lineHeight: "1.5rem" }],
         btn2: ["1rem", { lineHeight: "1.25rem" }],
         btn3: ["0.875rem", { lineHeight: "1.25rem" }],
-        btn4: ["0.75rem", { lineHeight: "1rem" }],
+        btn4: ["0.75rem", { lineHeight: "1rem" }], //12px
         c1: ["0.75rem", { lineHeight: "1rem" }],
         c2: ["0.6875rem", { lineHeight: "0.8125rem" }],
       },
