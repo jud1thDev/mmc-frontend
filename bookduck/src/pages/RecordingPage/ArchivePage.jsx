@@ -1,14 +1,11 @@
 import { useState } from "react";
 import BottomNavbar from "../../components/common/BottomNavbar";
-import MenuBar from "../../components/common/menuBar";
-import ExtractComponents from "../../components/common/RecordingPage/ExtractComponents";
-import FloatingRecordButton from "../../components/common/RecordingPage/FloatingRecordButton";
-import Header from "../../components/common/RecordingPage/Header";
-import ReviewComponents from "../../components/common/RecordingPage/ReviewComponents";
-import TotalView from "../../components/common/RecordingPage/TotalView";
+import FloatingRecordButton from "../../components/RecordingPage/FloatingRecordButton";
+import Header from "../../components/RecordingPage/Header";
+import TotalView from "../../components/RecordingPage/TotalView";
 import TabBarComponent from "../../components/TabBarComponent";
-import ExtractView from "../../components/common/RecordingPage/ExtractView";
-import ReviewView from "../../components/common/RecordingPage/ReviewView";
+import ExtractView from "../../components/RecordingPage/ExtractView";
+import ReviewView from "../../components/RecordingPage/ReviewView";
 
 const ArchivePage = () => {
   const [tab, setTab] = useState("전체보기");

@@ -1,4 +1,4 @@
-import img_template from "../../../assets/recordingPage/img-template.svg";
+import img_template from "../../assets/recordingPage/img-template.svg";
 const AuthorComponent = () => {
   return (
     <>

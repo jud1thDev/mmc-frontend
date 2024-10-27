@@ -1,10 +1,10 @@
-import heart_white from "../../../assets/recordingPage/heart-white.svg";
-import share_white from "../../../assets/recordingPage/share-white.svg";
+import heart_white from "../../assets/recordingPage/heart-white.svg";
+import share_white from "../../assets/recordingPage/share-white.svg";
 
 const ReviewDetailComponent = () => {
   return (
     <div>
-      <div className="w-[22.5825rem]  px-5 py-6 rounded-[0.88rem] bg-gray-400 ">
+      <div className="w-[22.5825rem]  px-5 py-6 rounded-[0.88rem] bg-gray-400 shadow-custom ">
         <div className="flex flex-col gap-2 ">
           <div className="text-c1 text-white ">2024.09.20 / 비공개</div>
           <div className="text-st font-semibold text-white ">걸작. 최고다.</div>

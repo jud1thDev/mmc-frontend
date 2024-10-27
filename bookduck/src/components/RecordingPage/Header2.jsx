@@ -1,6 +1,6 @@
 //<-와 ... 만 있는 헤더
-import left_arrow from "../../../assets/common/left-arrow.svg";
-import horizontal_menu from "../../../assets/common/horizontal-menu.svg";
+import left_arrow from "../../assets/common/left-arrow.svg";
+import horizontal_menu from "../../assets/common/horizontal-menu.svg";
 import { useNavigate } from "react-router-dom";
 
 const Header2 = () => {

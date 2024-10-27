@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import record_icon from "../../../assets/recordingPage/record-icon.svg";
-import record_icon_circle from "../../../assets/recordingPage/record-circle-icon.svg";
+import record_icon from "../../assets/recordingPage/record-icon.svg";
+import record_icon_circle from "../../assets/recordingPage/record-circle-icon.svg";
 import { useNavigate } from "react-router-dom";
 const FloatingRecordButton = () => {
   const [text, setText] = useState(true); //텍스트까지 다 보이는지 아닌지 상태관리

@@ -1,4 +1,4 @@
-import BookListView from "../BookListView";
+import BookListView from "../common/BookListView";
 
 const Library = () => {
   return (

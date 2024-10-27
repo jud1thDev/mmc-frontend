@@ -8,7 +8,7 @@ const ExtractComponents = () => {
       onClick={() => navigate("/extract-archive-detail")}
       className="cursor-pointer"
     >
-      <div className="flex flex-col gap-[1.25rem] w-[22.5625rem]  p-[1.25rem] rounded-[0.875rem] bg-gray-10">
+      <div className="flex flex-col gap-[1.25rem] w-[22.5625rem]  p-[1.25rem] rounded-[0.875rem] bg-gray-10 shadow-custom">
         <div className="text-right text-b2 text-gray-400">54p</div>
         <div className="flex flex-col gap-[0.5rem]">
           <div className="text-b2 text-gray-800">

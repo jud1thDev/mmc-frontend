@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import AuthorComponent from "../../components/common/RecordingPage/AuthorComponent";
-import CloseButton from "../../components/common/RecordingPage/CloseButton";
-import Header2 from "../../components/common/RecordingPage/Header2";
-import ReviewDetailComponent from "../../components/common/RecordingPage/ReviewDetailComponent";
+import AuthorComponent from "../../components/RecordingPage/AuthorComponent";
+import CloseButton from "../../components/RecordingPage/CloseButton";
+import Header2 from "../../components/RecordingPage/Header2";
+import ReviewDetailComponent from "../../components/RecordingPage/ReviewDetailComponent";
 import { useEffect, useRef, useState } from "react";
-import ExtractDetailComponent from "../../components/common/RecordingPage/ExtractDetailComponent";
+import ExtractDetailComponent from "../../components/RecordingPage/ExtractDetailComponent";
 const ArchiveDetail = () => {
   const pathname = window.location.pathname;
   const [isHeightExceeded, setIsHeightExceeded] = useState(false);

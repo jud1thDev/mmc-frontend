@@ -1,10 +1,10 @@
-import heart_gray from "../../../assets/recordingPage/heart-gray.svg";
-import share_gray from "../../../assets/recordingPage/share-gray.svg";
+import heart_gray from "../../assets/recordingPage/heart-gray.svg";
+import share_gray from "../../assets/recordingPage/share-gray.svg";
 
 const ExtractDetailComponent = () => {
   return (
     <div>
-      <div className="w-[22.5825rem]  px-5 py-6 rounded-[0.88rem] bg-gray-10  ">
+      <div className="w-[22.5825rem]  px-5 py-6 rounded-[0.88rem] bg-gray-10 shadow-custom  ">
         <div className="flex flex-col gap-5  ">
           <div className="flex justify-between">
             <div className="text-c1 text-gray-400">2024.09.20 / 비공개</div>

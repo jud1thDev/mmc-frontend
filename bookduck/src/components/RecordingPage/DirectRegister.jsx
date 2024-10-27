@@ -1,5 +1,5 @@
 import { useState } from "react";
-import img_template from "../../../assets/recordingPage/img-template.svg";
+import img_template from "../../assets/recordingPage/img-template.svg";
 import CompleteButton from "./CompleteButton";
 import RegisterInput from "./RegisterInput";
 const DirectRegister = () => {
