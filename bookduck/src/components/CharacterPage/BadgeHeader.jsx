@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import back from "../../assets/CharacterPage/back.svg";
-import help from "../../assets/CharacterPage/help-circle.svg";
+import back from "../../assets/characterPage/back.svg";
+import help from "../../assets/characterPage/help-circle.svg";
 import BadgeModal from "./BadgeModal";
 
 const BadgeHeader = () => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import noCheck from "../../assets/CharacterPage/check-no.svg";
-import yesCheck from "../../assets/CharacterPage/check-yes.svg";
-import lock from "../../assets/CharacterPage/lock.svg";
+import noCheck from "../../assets/characterPage/check-no.svg";
+import yesCheck from "../../assets/characterPage/check-yes.svg";
+import lock from "../../assets/characterPage/lock.svg";
 const Skin = ({ isLock = true }) => {
   const [isSelected, setIsSelected] = useState(false);
 

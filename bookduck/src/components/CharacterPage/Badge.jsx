@@ -1,4 +1,4 @@
-import lock from "../../assets/CharacterPage/lock.svg";
+import lock from "../../assets/characterPage/lock.svg";
 const Badge = () => {
   return (
     <div className="flex justify-center items-center bg-gray-50 w-16 h-16 rounded-[100px]">

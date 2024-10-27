@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import costumeIcon from "../../assets/CharacterPage/costume.svg";
+import costumeIcon from "../../assets/characterPage/costume.svg";
 const CharacterHeader = () => {
   const navigate = useNavigate();
 

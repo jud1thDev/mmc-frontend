@@ -2,8 +2,9 @@ import { useState } from "react";
 import BottomNavbar from "../../components/common/BottomNavbar";
 import FloatingRecordButton from "../../components/RecordingPage/FloatingRecordButton";
 import Header from "../../components/RecordingPage/Header";
+
 import TotalView from "../../components/RecordingPage/TotalView";
-import TabBarComponent from "../../components/TabBarComponent";
+import TabBarComponent from "../../components/common/TabBarComponent";
 import ExtractView from "../../components/RecordingPage/ExtractView";
 import ReviewView from "../../components/RecordingPage/ReviewView";
 

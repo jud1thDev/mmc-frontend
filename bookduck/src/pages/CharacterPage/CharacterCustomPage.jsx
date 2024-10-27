@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import back from "../../assets/CharacterPage/back.svg";
 import UserDuck from "../../components/CharacterPage/UserDuck";
-import TabBarComponent from "../../components/TabBarComponent";
+import TabBarComponent from "../../components/common/TabBarComponent";
 import Skin from "../../components/CharacterPage/Skin";
 import ButtonComponent from "../../components/common/ButtonComponent";
 

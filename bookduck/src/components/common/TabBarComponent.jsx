@@ -14,6 +14,7 @@ const TabBarComponent = ({
   onTabClick,
   size = "big",
   borderWidth,
+  isNoti = "false",
   ...props
 }) => {
   const isBig = size === "big";
@@ -51,7 +52,7 @@ const TabBarComponent = ({
           )}
         </div>
       ))}
-      {isNoti ? (
+      {!isNoti ? (
         <button className="absolute right-[1rem] text-special text-btn4">
           모두 읽음
         </button>
