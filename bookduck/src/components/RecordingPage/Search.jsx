@@ -1,5 +1,6 @@
-import BookListView from "../BookListView";
-import SearchBar from "./SerachBar";
+import BookListView from "../common/BookListView";
+import SearchBar from "./SearchBar";
+
 const Search = () => {
   return (
     <>
