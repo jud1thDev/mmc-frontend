@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SigninPage from "./pages/LoginPage/SigninPage";
 import NotificationPage from "./pages/NotificationPage/NotificationPage";
+import SearchBookPage from "./pages/SearchPage/SearchBookPage";
 import MyBadgePage from "./pages/CharacterPage/MyBadgePage";
 import CharacterCustomPage from "./pages/CharacterPage/CharacterCustomPage";
 import SelectBookPage from "./pages/RecordingPage/SelectBookPage";
@@ -22,6 +23,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/notification" element={<NotificationPage />} />
+      <Route path="/search/book" element={<SearchBookPage />} />
     </Routes>
   );
 }

@@ -16,6 +16,7 @@ const FriendListPage = () => {
     { id: "2", userName: "유저2" },
     { id: "3", userName: "유저3" },
   ];
+
   const handleRequested = () => {
     setIsRequested((prev) => !prev);
   };
@@ -35,7 +36,7 @@ const FriendListPage = () => {
       {/*요청된*/}
       <div>
         <div className="flex justify-between items-center px-4 py-2">
-          <span className="text-btn3 font-semibold text-[#323232]">요청된</span>
+          <span className="text-btn3 font-semibold text-gray-800">요청된</span>
           <button onClick={handleRequested} className="w-[2.5rem] h-[2.5rem]">
             {isRequested ? (
               <img src={up} alt="upIcon" />
@@ -60,7 +61,7 @@ const FriendListPage = () => {
       {/*요청한*/}
       <div className="mt-4">
         <div className="flex justify-between items-center px-4 py-2">
-          <span className="text-btn3 font-semibold text-[#323232]">요청한</span>
+          <span className="text-btn3 font-semibold text-gray-800">요청한</span>
           <button onClick={handleSent} className="w-[2.5rem] h-[2.5rem]">
             {isSent ? (
               <img src={up} alt="upIcon" />

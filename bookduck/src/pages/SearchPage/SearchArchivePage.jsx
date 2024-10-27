@@ -8,11 +8,11 @@ import BottomSheetModal from "../../components/common/BottomSheetModal";
 import check from "../../assets/common/check.svg";
 const SearchArchivePage = () => {
   const [search, setSearch] = useState("");
-  const [allArchives] = useState([
+  const [allArchives] = [
     { id: "1", date: "2024.01.01", isPublic: true, content: "콩국수" },
     { id: "2", date: "2024.01.01", isPublic: true, content: "짜장면" },
     { id: "3", date: "2024.01.01", isPublic: true, content: "전복" },
-  ]);
+  ];
   const [results, setResults] = useState(allArchives);
 
   const [tab, setTab] = useState("기록");
@@ -29,7 +29,7 @@ const SearchArchivePage = () => {
     } else {
       setResults(allArchives);
     }
-  }, [search, allArchives]);
+  }, [search]);
 
   const handleClick = () => {
     setBottomSheetShow(true);

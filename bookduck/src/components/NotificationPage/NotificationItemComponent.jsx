@@ -57,13 +57,9 @@ const NotificationItemComponent = ({ type, text, read = false }) => {
   const notificationData = notificationTemplates[type];
 
   return (
-    <div className="flex gap-[1rem] items-center w-[24.5625rem] px-[1rem] py-[0.75rem]">
-      <div className="w-[3rem] h-[3rem] rounded-full bg-gray-50 flex items-center justify-center relative ">
-        <img
-          src={notificationData.icon}
-          alt={type}
-          className="w-[1.75rem] h-[1.75rem]"
-        />
+    <div className="flex gap-4 items-center w-[24.5625rem] px-4 py-3">
+      <div className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center relative ">
+        <img src={notificationData.icon} alt={type} className="w-7 h-7" />
         {!read && (
           <img
             src={alarmCircle}

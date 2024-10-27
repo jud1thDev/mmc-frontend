@@ -21,8 +21,8 @@ const TabBarComponent = ({
 
   return (
     <div
-      className={`flex items-center w-full h-[40px] px-[16px] border-b-[2px] border-[#F7F7F7] relative ${
-        isBig ? "justify-around" : "space-x-[32px]"
+      className={`flex items-center w-full h-[2.75rem] px-4 border-b-2 border-gray-50 relative ${
+        isBig ? "justify-around" : "gap-8"
       }`}
       {...props}
     >
@@ -45,7 +45,7 @@ const TabBarComponent = ({
           {activeTab === tab && (
             <div
               style={{ width: borderWidth }}
-              className={`absolute bottom-[-12px] h-[2px] bg-black ${
+              className={`absolute bottom-[-0.75rem] h-[0.125rem] bg-black ${
                 isBig ? " left-0 right-0  justify-self-center " : ""
               }`}
             />
@@ -53,7 +53,7 @@ const TabBarComponent = ({
         </div>
       ))}
       {!isNoti ? (
-        <button className="absolute right-[1rem] text-special text-btn4">
+        <button className="absolute right-4 text-special text-btn4">
           모두 읽음
         </button>
       ) : (

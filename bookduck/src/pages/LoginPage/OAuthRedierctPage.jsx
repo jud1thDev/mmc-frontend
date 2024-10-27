@@ -23,7 +23,9 @@ const OAuthRedierctPage = () => {
   };
 
   useEffect(() => {
-    readAccessTokenKakao();
+    if (code) {
+      readAccessTokenKakao();
+    }
   }, []);
 
   return <div>리다이렉트</div>;

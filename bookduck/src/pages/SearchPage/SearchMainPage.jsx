@@ -38,7 +38,7 @@ const SearchMainPage = () => {
           })}
         </div>
       </div>
-      <div className="flex justify-between px-7 py-4 bg-[#FBFBFB] my-5">
+      <div className="flex justify-between px-7 py-4 bg-gray-10 my-5">
         <div className="flex flex-col gap-1 justify-center">
           <span className="text-btn3 text-gray-400">
             원하는 책을 찾을 수 없나요?

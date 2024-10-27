@@ -7,7 +7,7 @@ const FriendListComponent = ({ image, userName, text }) => {
     e.target.src = duck;
   };
   return (
-    <div className="flex justify-between items-center px-[1rem] py-[0.5rem]">
+    <div className="flex justify-between items-center px-4 py-[0.5rem]">
       <div className="flex gap-3 items-center">
         <div className="w-[3.5rem] h-[3.5rem]">
           <img

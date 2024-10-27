@@ -1,7 +1,6 @@
 import { api, apiAuth } from "./api";
-
 /*카카오에 인가코드 요청*/
-const FRONT_DOMAIN = "http://localhost:8080";
+const FRONT_DOMAIN = import.meta.env.VITE_API_BASE_URL;
 export const KakaoURI = `${FRONT_DOMAIN}/oauth2/authorization/kakao`;
 
 /*머메클 서버에 인가코드 주고 토큰을 받아서 localStorage에 set*/

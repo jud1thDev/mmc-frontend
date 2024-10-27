@@ -27,7 +27,7 @@ const RegisterPage = () => {
       <StatusBar />
       <Header1 title="책 등록하기" edit={false} />
       <div className="flex flex-col gap-4 items-center mt-6 px-4">
-        <button className="w-[6.25rem] h-[9.25rem] bg-gray-100 text-btn4 text-gray-400 rounded px-3">
+        <button className="w-[6.25rem] h-[9.25rem] bg-gray-100 text-btn4 text-gray-400 rounded-1 px-3">
           표지 이미지를 추가해주세요
         </button>
         <TextField type="제목" check={false} placeholder="제목" />

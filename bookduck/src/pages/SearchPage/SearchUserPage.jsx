@@ -7,11 +7,11 @@ import FriendListComponent from "../../components/common/FriendListComponent";
 const SearchUserPage = () => {
   const [tab, setTab] = useState("사용자");
   const [search, setSearch] = useState("");
-  const [allUsers] = useState([
+  const [allUsers] = [
     { id: 1, userName: "찬희야", text: "그랬어" },
     { id: 2, userName: "민수", text: "안녕하세요" },
     { id: 3, userName: "영희", text: "반가워요" },
-  ]);
+  ];
   const [results, setResults] = useState(allUsers);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const SearchUserPage = () => {
     } else {
       setResults(allUsers);
     }
-  }, [search, allUsers]);
+  }, [search]);
 
   return (
     <div className="w-[24.5625rem]">
