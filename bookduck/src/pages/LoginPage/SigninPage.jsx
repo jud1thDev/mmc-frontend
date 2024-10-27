@@ -6,7 +6,7 @@ import StatusBar from "../../components/common/StatusBar";
 const SigninPage = () => {
   const Btn = <ButtonComponent text="완료" type="primary" disabled={true} />;
   return (
-    <div className="w-[375px]">
+    <div className="w-[24.5625rem]">
       <StatusBar />
       <div className="px-[1rem]">
         <div className="text-t2 font-semibold mt-[1.5rem]">

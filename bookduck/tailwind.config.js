@@ -29,9 +29,7 @@ export default {
           600: "#EA7120",
         },
         gray: {
-
           10: "#FBFBFB",
-
           50: "#F7F7F7",
           100: "#EEEEEE",
           200: "#E2E2E2",
@@ -70,11 +68,7 @@ export default {
         regular: 400,
       },
       boxShadow: {
-
         custom: "0px 0px 3px 0px rgba(0, 0, 0, 0.10)",
-
-
-
       },
     },
   },
