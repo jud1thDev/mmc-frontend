@@ -4,6 +4,7 @@ import CharacterPage from "./pages/CharacterPage/CharacterPage";
 import MyBadgePage from "./pages/CharacterPage/MyBadgePage";
 import CharacterCustomPage from "./pages/CharacterPage/CharacterCustomPage";
 
+
 function App() {
   return (
     <Routes>
