@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import CharacterPage from "./pages/CharacterPage/CharacterPage";
 import MyBadgePage from "./pages/CharacterPage/MyBadgePage";
 import CharacterCustomPage from "./pages/CharacterPage/CharacterCustomPage";
+import CharacterPage from "./pages/CharacterPage/CharacterPage";
 
 
 function App() {
