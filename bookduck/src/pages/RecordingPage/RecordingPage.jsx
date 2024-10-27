@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Header3 from "../components/common/Header3";
-import { recordTab } from "../constant/recordTab";
+import Header3 from "../../components/common/Header3";
+import { recordTab } from "../../constant/recordTab";
 import Archiving from "../components/common/RecordingPage/Archiving";
 import Search from "../components/common/RecordingPage/Search";
 import Library from "../components/common/RecordingPage/Library";

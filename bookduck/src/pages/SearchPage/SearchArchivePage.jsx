@@ -3,7 +3,7 @@ import StatusBar from "../../components/common/StatusBar";
 import SearchComponent from "../../components/common/SearchComponent";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import downArrow from "../../assets/common/down-arrow.svg";
-import ReviewComponent from "../../components/search/ReviewComponent";
+import ReviewComponent from "../../components/SearchPage/ReviewComponent";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import check from "../../assets/common/check.svg";
 const SearchArchivePage = () => {

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../../components/common/StatusBar";
 import SearchComponent from "../../components/common/SearchComponent";
-import BookComponent from "../../components/search/BookComponent";
+import BookComponent from "../../components/SearchPage/BookComponent";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import duck from "../../assets/common/duck.svg";
 const SearchMainPage = () => {
