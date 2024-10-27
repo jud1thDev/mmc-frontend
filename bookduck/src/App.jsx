@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import SigninPage from "./pages/LoginPage/SigninPage";
 import MyBadgePage from "./pages/CharacterPage/MyBadgePage";
 import CharacterCustomPage from "./pages/CharacterPage/CharacterCustomPage";
 import SelectBookPage from "./pages/RecordingPage/SelectBookPage";
@@ -18,6 +19,7 @@ function App() {
       <Route path="/myBadge" element={<MyBadgePage />} />
       <Route path="/character/custom" element={<CharacterCustomPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signin" element={<SigninPage />} />
     </Routes>
   );
 }

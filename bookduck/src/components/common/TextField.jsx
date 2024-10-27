@@ -29,7 +29,7 @@ const TextField = ({
           )}
         </div>
       )}
-      <div className="flex relative ">
+      <div className="flex relative">
         <input
           value={inputValue}
           onChange={handleValue}
@@ -45,7 +45,7 @@ const TextField = ({
         {check && (
           <div
             onClick={handleEdit}
-            className="absolute top-[16px] right-[40px] text-b2 text-gray-600 cursor-pointer underline underline-offset-4"
+            className="absolute top-[16px] right-0 text-b2 text-gray-600 cursor-pointer "
           >
             확인
           </div>
