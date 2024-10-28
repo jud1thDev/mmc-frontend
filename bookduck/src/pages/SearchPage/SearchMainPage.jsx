@@ -5,6 +5,8 @@ import SearchComponent from "../../components/common/SearchComponent";
 import BookComponent from "../../components/SearchPage/BookComponent";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import duck from "../../assets/common/duck.svg";
+import CarouselComponent from "../../components/SearchPage/CarouselComponent";
+import BottomNavbar from "../../components/common/BottomNavbar";
 const SearchMainPage = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
@@ -13,13 +15,7 @@ const SearchMainPage = () => {
     { id: "2", img: duck, title: "마바사" },
     { id: "3", img: duck, title: "큐큐" },
   ];
-  const bestBooks = [
-    { id: "1", img: duck, title: "가나다라", writer: "나작가" },
-    { id: "2", img: duck, title: "마바사", writer: "김작가" },
-    { id: "3", img: duck, title: "큐큐", writer: "하이" },
-    { id: "4", img: duck, title: "안녕", writer: "나작가" },
-    { id: "5", img: duck, title: "가나다라", writer: "나작가" },
-  ];
+
   return (
     <div>
       <StatusBar />
@@ -53,19 +49,9 @@ const SearchMainPage = () => {
       </div>
       <div className="flex flex-col px-4 gap-3">
         <div>요즘 많이 읽는 책 Top 10</div>
-        <div className="flex flex-row gap-3">
-          {bestBooks.map((book) => {
-            return (
-              <BookComponent
-                key={book.id}
-                img={book.img}
-                title={book.title}
-                wrtier={book.writer}
-              />
-            );
-          })}
-        </div>
+        <CarouselComponent />
       </div>
+      <BottomNavbar />
     </div>
   );
 };
