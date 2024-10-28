@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import img_template from "../../assets/recordingPage/img-template.svg";
-import CompleteButton from "./CompleteButton";
-import RegisterInput from "./RegisterInput";
 import TextField from "../common/TextField";
 import ButtonComponent from "../common/ButtonComponent";
 const DirectRegister = () => {
@@ -9,7 +7,6 @@ const DirectRegister = () => {
   const [author, setAuthor] = useState("");
   const [pages, setPages] = useState("");
   const [publisher, setPublisher] = useState("");
-  const [buttonStatus, setButtonStatus] = useState(false);
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
