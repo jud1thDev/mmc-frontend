@@ -2,6 +2,7 @@ import { useState } from "react";
 import img_template from "../../assets/recordingPage/img-template.svg";
 import CompleteButton from "./CompleteButton";
 import RegisterInput from "./RegisterInput";
+import TextField from "../common/TextField";
 const DirectRegister = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -32,25 +33,37 @@ const DirectRegister = () => {
           />
         </div>
         <div className="flex flex-col gap-[2rem] mb-[1.23rem]">
-          <RegisterInput
-            handleInputValue={handleTitle}
-            inputValue={title}
+          <TextField
+            type="제목"
+            title
             placeholder="제목"
+            check={false}
+            handleValue={handleTitle}
+            inputValue={title}
           />
-          <RegisterInput
-            handleInputValue={handleAuthor}
-            inputValue={author}
+          <TextField
+            type="제목"
+            title
             placeholder="저자 명"
+            check={false}
+            handleValue={handleAuthor}
+            inputValue={author}
           />
-          <RegisterInput
-            handleInputValue={handlePages}
+          <TextField
+            type="제목"
+            title
+            placeholder="페이지 수 (선택)"
+            check={false}
+            handleValue={handlePages}
             inputValue={pages}
-            placeholder="페이지 수(선택)"
           />
-          <RegisterInput
-            handleInputValue={handlePublisher}
+          <TextField
+            type="제목"
+            title
+            placeholder="출판사 (선택)"
+            check={false}
+            handleValue={handlePublisher}
             inputValue={publisher}
-            placeholder="출판사(선택)"
           />
         </div>
         <div className="flex justify-center items-center w-[24.5625rem] h-[7rem] mb-[0.94rem] bg-gray-50 text-b2 text-gray-400 text-center">

@@ -14,11 +14,9 @@ const TextField = ({
   handleEdit,
   isSubmitted,
   defaultType,
+  handleValue,
+  inputValue,
 }) => {
-  const [inputValue, setInputValue] = useState("");
-  const handleValue = (e) => {
-    setInputValue(e.target.value);
-  };
   return (
     <>
       {type === "내용" && (
