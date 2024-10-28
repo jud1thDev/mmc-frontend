@@ -2,10 +2,15 @@ import { useState } from "react";
 import starNo from "../../assets/bookinfoPage/star-no.svg";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import ButtonComponent from "../common/ButtonComponent";
+import BottomSheetModal2 from "./BottomSheetModal2";
 const MyComment = () => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
+  const [bottomSheet2Show, setBottomSheet2Show] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+
   const [inputValue, setInputValue] = useState("");
+  const [text, setText] = useState(false);
   const handleChange = (event) => {
     const { value } = event.target;
     if (value.length <= 20) {
@@ -13,6 +18,13 @@ const MyComment = () => {
     }
   };
   const handleCancleClick = () => {
+    setVisible(false);
+    setTimeout(() => {
+      setBottomSheetShow(false);
+    }, 200);
+  };
+  const handleCompleteClick = () => {
+    setText(inputValue);
     setVisible(false);
     setTimeout(() => {
       setBottomSheetShow(false);
@@ -29,12 +41,21 @@ const MyComment = () => {
           <img src={starNo} />
           <img src={starNo} />
         </div>
-        <div
-          className="px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD] w-full"
-          onClick={() => setBottomSheetShow(true)}
-        >
-          책에 대한 나의 한줄 평을 작성해주세요!
-        </div>
+        {text ? (
+          <div
+            className="max-h-12 text-b2 text-gray-500"
+            onClick={() => setBottomSheet2Show(true)}
+          >
+            {text}
+          </div>
+        ) : (
+          <div
+            className="px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD] w-full"
+            onClick={() => setBottomSheetShow(true)}
+          >
+            책에 대한 나의 한줄 평을 작성해주세요!
+          </div>
+        )}
       </div>
       <BottomSheetModal
         bottomSheetShow={bottomSheetShow}
@@ -59,9 +80,19 @@ const MyComment = () => {
             placeholder="책에 대한 나의 한줄 평을 작성해주세요! (20자 이내)"
             onChange={handleChange}
           />
-          <ButtonComponent text="완료" disabled={!inputValue} />
+          <ButtonComponent
+            text="완료"
+            disabled={!inputValue}
+            onClick={handleCompleteClick}
+          />
         </div>
       </BottomSheetModal>
+      <BottomSheetModal2
+        bottomSheetShow={bottomSheet2Show}
+        setBottomSheetShow={setBottomSheet2Show}
+        visible={visible2}
+        setVisible={setVisible2}
+      ></BottomSheetModal2>
     </div>
   );
 };
