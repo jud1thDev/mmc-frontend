@@ -18,9 +18,8 @@ const ArchivePage = () => {
   return (
     <>
       <StatusBar />
-      <div className="flex flex-col h-[53.25rem] ">
+      <div className="flex flex-col">
         <Header title="기록 아카이브" />
-
         <TabBarComponent
           tabs={["전체보기", "발췌", "감상평"]}
           activeTab={tab}
@@ -28,10 +27,11 @@ const ArchivePage = () => {
           size="small"
           borderWidth="3rem"
         />
-        {tab === "전체보기" && <TotalView />}
-        {tab === "발췌" && <ExtractView />}
-        {tab === "감상평" && <ReviewView />}
-
+        <div className="h-[33rem] overflow-y-auto">
+          {tab === "전체보기" && <TotalView />}
+          {tab === "발췌" && <ExtractView />}
+          {tab === "감상평" && <ReviewView />}
+        </div>
         <FloatingRecordButton />
         <BottomNavbar />
       </div>
