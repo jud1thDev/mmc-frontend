@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../../components/common/StatusBar";
 import SearchComponent from "../../components/common/SearchComponent";
@@ -7,10 +7,11 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 import duck from "../../assets/common/duck.svg";
 const SearchMainPage = () => {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
   const recentBooks = [
-    { id: "1", img: duck, title: "가나다라", writer: "나작가" },
-    { id: "2", img: duck, title: "마바사", writer: "김작가" },
-    { id: "3", img: duck, title: "큐큐", writer: "하이" },
+    { id: "1", img: duck, title: "가나다라" },
+    { id: "2", img: duck, title: "마바사" },
+    { id: "3", img: duck, title: "큐큐" },
   ];
   const bestBooks = [
     { id: "1", img: duck, title: "가나다라", writer: "나작가" },
@@ -22,18 +23,13 @@ const SearchMainPage = () => {
   return (
     <div>
       <StatusBar />
-      <SearchComponent />
+      <SearchComponent search={search} setSearch={setSearch} />
       <div className="flex flex-col px-4 gap-3 mt-4">
         <div>최근 기록한 책</div>
         <div className="flex flex-row gap-3">
           {recentBooks.map((book) => {
             return (
-              <BookComponent
-                key={book.id}
-                img={book.img}
-                title={book.title}
-                writer={book.writer}
-              />
+              <BookComponent key={book.id} img={book.img} title={book.title} />
             );
           })}
         </div>
@@ -58,9 +54,16 @@ const SearchMainPage = () => {
       <div className="flex flex-col px-4 gap-3">
         <div>요즘 많이 읽는 책 Top 10</div>
         <div className="flex flex-row gap-3">
-          <BookComponent />
-          <BookComponent />
-          <BookComponent />
+          {bestBooks.map((book) => {
+            return (
+              <BookComponent
+                key={book.id}
+                img={book.img}
+                title={book.title}
+                wrtier={book.writer}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
