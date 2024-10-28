@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import img_template from "../../assets/recordingPage/img-template.svg";
 import CompleteButton from "./CompleteButton";
 import RegisterInput from "./RegisterInput";
 import TextField from "../common/TextField";
+import ButtonComponent from "../common/ButtonComponent";
 const DirectRegister = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [pages, setPages] = useState("");
   const [publisher, setPublisher] = useState("");
+  const [buttonStatus, setButtonStatus] = useState(false);
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -70,7 +72,11 @@ const DirectRegister = () => {
           직접 등록한 책에 대해서는 별점 및 한줄평과
           <br /> 독서 기록 모두 나만 남길 수 있어요.
         </div>
-        <CompleteButton complete={!!(title && author)} />
+        <ButtonComponent
+          text="완료"
+          type="primary"
+          disabled={!(title && author)}
+        />
       </div>
     </>
   );
