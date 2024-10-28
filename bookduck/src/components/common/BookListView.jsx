@@ -32,7 +32,7 @@ const BookListView = ({
                   key={index}
                   src={index <= rating ? filledImage : emptyImage} // 채워진 이미지 또는 비워진 이미지 표시
                   alt="rating"
-                  className="cursor-pointer" // 이미지 크기 조절
+                  className="" // 이미지 크기 조절
                 />
               </div>
             ))}
