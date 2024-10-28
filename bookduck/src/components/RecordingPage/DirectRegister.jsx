@@ -26,7 +26,7 @@ const DirectRegister = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center pb-[2.15rem]">
+      <div className="flex flex-col justify-center items-center pb-[2.15rem] mx-4">
         <div>
           <img
             className="mt-[2.77rem] mb-[2rem]"

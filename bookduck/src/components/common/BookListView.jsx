@@ -16,7 +16,7 @@ const BookListView = ({
 }) => {
   const [rating, setRating] = useState(0);
   return (
-    <div className="flex items-center justify-between w-[24.5625rem] h-[7.75rem] pb-[0.5rem] pt-[0.5rem]">
+    <div className="flex items-center justify-between w-full h-[7.75rem] pb-[0.5rem] pt-[0.5rem]">
       <div className="flex gap-[0.75rem] items-center w-[15.75rem] h-[6.75rem]">
         <img src={coverEx} alt="coverEx" />
         <div className="flex flex-col gap-1">

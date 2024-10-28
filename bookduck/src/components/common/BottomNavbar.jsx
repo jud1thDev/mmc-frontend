@@ -17,7 +17,7 @@ const BottomNavbar = () => {
     setBar(index);
   };
   return (
-    <div className="fixed bottom-0 w-[24.5625rem] h-[5.375rem] border-t-[0.3px] border-[#00000030] bg-[#FFFFFF]">
+    <div className="fixed bottom-0 w-full h-[5.375rem] border-t-[0.3px] border-[#00000030] bg-[#FFFFFF]">
       <div className="flex justify-center items-center gap-[1.89rem] mt-[0.62rem] cursor-pointer">
         <img
           src={bar === 0 ? main_active : main}

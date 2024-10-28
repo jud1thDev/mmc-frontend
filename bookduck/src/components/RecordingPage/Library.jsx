@@ -2,7 +2,7 @@ import BookListView from "../common/BookListView";
 
 const Library = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mx-4">
       <BookListView edit={true} dropdown={true} dropdownActive={false} />
       <BookListView edit={true} dropdown={true} dropdownActive={false} />
       <BookListView edit={true} dropdown={true} dropdownActive={false} />
