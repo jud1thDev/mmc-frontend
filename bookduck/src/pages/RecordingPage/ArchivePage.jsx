@@ -7,6 +7,7 @@ import TotalView from "../../components/RecordingPage/TotalView";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import ExtractView from "../../components/RecordingPage/ExtractView";
 import ReviewView from "../../components/RecordingPage/ReviewView";
+import StatusBar from "../../components/common/StatusBar";
 
 const ArchivePage = () => {
   const [tab, setTab] = useState("전체보기");
@@ -16,6 +17,7 @@ const ArchivePage = () => {
 
   return (
     <>
+      <StatusBar />
       <div className="flex flex-col h-[53.25rem] ">
         <Header title="기록 아카이브" />
 

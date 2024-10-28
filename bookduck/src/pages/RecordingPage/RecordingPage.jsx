@@ -5,6 +5,7 @@ import Archiving from "../components/common/RecordingPage/Archiving";
 import Search from "../components/common/RecordingPage/Search";
 import Library from "../components/common/RecordingPage/Library";
 import DirectRegister from "../components/common/RecordingPage/DirectRegister";
+import StatusBar from "../../components/common/StatusBar";
 
 const RecordingPage = () => {
   const [tab, setTab] = useState(0);
@@ -14,7 +15,9 @@ const RecordingPage = () => {
   };
   return (
     <>
-      <div className="pt-[3.69rem]">
+      <StatusBar />
+
+      <div className="">
         <Header3 title="기록할 책 선택" />
         <div className=" ml-[1rem] mr-[1rem]">
           <div className="flex justify-center w-full h-[2.75rem] mb-[0.75rem] items-center">

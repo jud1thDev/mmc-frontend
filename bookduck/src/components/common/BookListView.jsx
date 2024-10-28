@@ -27,13 +27,12 @@ const BookListView = ({
           <div className=" text-b1 text-gray-500">{author}</div>
           <div className="flex mt-[0.5rem]">
             {[...Array(5)].map((_, index) => (
-              <div>
+              <div key={index}>
                 <img
                   key={index}
                   src={index <= rating ? filledImage : emptyImage} // 채워진 이미지 또는 비워진 이미지 표시
                   alt="rating"
                   className="cursor-pointer" // 이미지 크기 조절
-                  onClick={() => setRating(index)} // 클릭 시 별점 설정
                 />
               </div>
             ))}

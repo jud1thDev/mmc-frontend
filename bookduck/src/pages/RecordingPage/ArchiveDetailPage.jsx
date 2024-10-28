@@ -5,6 +5,7 @@ import Header2 from "../../components/RecordingPage/Header2";
 import ReviewDetailComponent from "../../components/RecordingPage/ReviewDetailComponent";
 import { useEffect, useRef, useState } from "react";
 import ExtractDetailComponent from "../../components/RecordingPage/ExtractDetailComponent";
+import StatusBar from "../../components/common/StatusBar";
 const ArchiveDetail = () => {
   const pathname = window.location.pathname;
   const [isHeightExceeded, setIsHeightExceeded] = useState(false);
@@ -17,6 +18,7 @@ const ArchiveDetail = () => {
   }, [pathname]); // pathname이 변경될 때마다 높이를 재계산
   return (
     <>
+      <StatusBar />
       <div className=" mx-4">
         <div className="flex flex-col gap-[0.31rem]">
           <Header2 />
