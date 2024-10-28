@@ -21,7 +21,7 @@ const TabBarComponent = ({
 
   return (
     <div
-      className={`flex items-center w-full h-[2.75rem] px-4 border-b-2 border-gray-50 relative ${
+      className={`flex items-center w-[24.5625rem] h-[2.75rem] px-4 border-b-2 border-gray-50 relative ${
         isBig ? "justify-around" : "gap-8"
       }`}
       {...props}
