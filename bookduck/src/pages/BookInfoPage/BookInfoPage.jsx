@@ -26,7 +26,9 @@ const BookInfoPage = () => {
         </div>
         {activeTab === "책 정보" && <InfoView />}
         {activeTab === "기록" && <ArchiveView />}
-        <FloatingRecordButton />
+        <div className="fixed bottom-[2.625rem] flex justify-end w-[24.5625rem] cursor-pointer">
+          <FloatingRecordButton />
+        </div>
       </div>
     </div>
   );
