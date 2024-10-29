@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Header3 from "../../components/common/Header3";
 import { recordTab } from "../../constant/recordTab";
-import Archiving from "../components/common/RecordingPage/Archiving";
-import Search from "../components/common/RecordingPage/Search";
-import Library from "../components/common/RecordingPage/Library";
-import DirectRegister from "../components/common/RecordingPage/DirectRegister";
+import Archiving from "../../components/RecordingPage/Archiving";
+import Search from "../../components/RecordingPage/Search";
+import Library from "../../components/RecordingPage/Library";
+import DirectRegister from "../../components/RecordingPage/DirectRegister";
 
 const RecordingPage = () => {
   const [tab, setTab] = useState(0);

@@ -7,6 +7,7 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 import duck from "../../assets/common/duck.svg";
 import CarouselComponent from "../../components/SearchPage/CarouselComponent";
 import BottomNavbar from "../../components/common/BottomNavbar";
+
 const SearchMainPage = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
@@ -19,7 +20,11 @@ const SearchMainPage = () => {
   return (
     <div>
       <StatusBar />
-      <SearchComponent search={search} setSearch={setSearch} />
+      <SearchComponent
+        search={search}
+        setSearch={setSearch}
+        onEnter={() => navigate("/search/detail")}
+      />
       <div className="flex flex-col px-4 gap-3 mt-4">
         <div>최근 기록한 책</div>
         <div className="flex flex-row gap-3">
@@ -44,7 +49,7 @@ const SearchMainPage = () => {
           type="secondary"
           color="orange"
           size="medium"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/search/register")}
         />
       </div>
       <div className="flex flex-col px-4 gap-3">
