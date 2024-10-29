@@ -2,11 +2,14 @@ import { useState } from "react";
 import StatusBar from "../../components/common/StatusBar";
 import SearchComponent from "../../components/common/SearchComponent";
 import TabBarComponent from "../../components/common/TabBarComponent";
-import BookListView from "../../components/common/BookListView";
-import Divider1 from "../../components/common/Divider1";
-const SearchBookPage = () => {
+
+import SearchBookComponent from "../../components/SearchPage/SearchBookComponent";
+import SearchArchiveComponent from "../../components/SearchPage/SearchArchiveComponent";
+import SearchUserComponent from "../../components/SearchPage/SearchUserComponent";
+const SearchDetailPage = () => {
   const [tab, setTab] = useState("책");
   const [search, setSearch] = useState("");
+
   return (
     <div className="w-[24.5625rem]">
       <StatusBar />
@@ -18,20 +21,12 @@ const SearchBookPage = () => {
           onTabClick={setTab}
           size="small"
         />
-        <div>
-          <BookListView />
-          <BookListView />
-        </div>
-        <Divider1 />
-        <div>
-          <BookListView register={false} />
-          <BookListView register={false} />
-          <BookListView register={false} />
-          <BookListView register={false} />
-        </div>
+        {tab === "책" && <SearchBookComponent search={search} />}
+        {tab === "기록" && <SearchArchiveComponent search={search} />}
+        {tab === "사용자" && <SearchUserComponent search={search} />}
       </div>
     </div>
   );
 };
 
-export default SearchBookPage;
+export default SearchDetailPage;
