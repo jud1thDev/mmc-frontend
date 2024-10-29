@@ -6,7 +6,7 @@ const api = axios.create({
 });
 
 /*인증 필요한 요청*/
-const token = JSON.parse(localStorage.getItem("token"));
+const token = localStorage.getItem("token");
 const auth = token ? `Bearer ${token.accessToken}` : null;
 const apiAuth = axios.create({
   baseURL: `${import.meta.env.VITE_SERVER_URL}`,
