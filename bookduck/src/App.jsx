@@ -13,6 +13,8 @@ import RecordingPage from "./pages/RecordingPage/RecordingPage";
 import MainPage from "./pages/MainPage/MainPage";
 import CharacterPage from "./pages/CharacterPage/CharacterPage";
 import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
+import SearchArchivePage from "./pages/SearchPage/SearchArchivePage";
+
 function App() {
   return (
     <Routes>
@@ -21,7 +23,7 @@ function App() {
       <Route path="/extract-archive-detail" element={<ArchiveDetail />} />
       <Route path="/review-archive-detail" element={<ArchiveDetail />} />
       <Route path="/total-archive-detail" element={<ArchiveDetail />} />
-
+      <Route path="/recording" element={<RecordingPage />} />
       <Route path="/myBadge" element={<MyBadgePage />} />
       <Route path="/character/custom" element={<CharacterCustomPage />} />
       <Route path="/character" element={<CharacterPage />} />
@@ -35,6 +37,7 @@ function App() {
       <Route path="/search/detail" element={<SearchDetailPage />} />
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/search/register" element={<RegisterPage />} />
+      <Route path="/search/book" element={<SearchArchivePage />} />
     </Routes>
   );
 }

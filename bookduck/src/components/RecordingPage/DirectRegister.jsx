@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import img_template from "../../assets/recordingPage/img-template.svg";
 import TextField from "../common/TextField";
 import ButtonComponent from "../common/ButtonComponent";
+import { useNavigate } from "react-router-dom";
 const DirectRegister = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [pages, setPages] = useState("");
   const [publisher, setPublisher] = useState("");
+  const navigate = useNavigate();
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -19,6 +21,10 @@ const DirectRegister = () => {
   };
   const handlePublisher = (e) => {
     setPublisher(e.target.value);
+  };
+
+  const handleRecording = () => {
+    navigate("/recording");
   };
 
   return (
@@ -70,6 +76,7 @@ const DirectRegister = () => {
           <br /> 독서 기록 모두 나만 남길 수 있어요.
         </div>
         <ButtonComponent
+          onClick={handleRecording}
           text="완료"
           type="primary"
           disabled={!(title && author)}
