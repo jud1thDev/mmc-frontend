@@ -2,7 +2,7 @@ import SearchIcon from "../../assets/common/search-gray.svg?react";
 import DeleteIcon from "../../assets/common/delete.svg?react";
 import { useNavigate } from "react-router-dom";
 
-const SearchComponent = ({ search, setSearch }) => {
+const SearchComponent = ({ search, setSearch, onEnter }) => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -16,6 +16,11 @@ const SearchComponent = ({ search, setSearch }) => {
   const clearSearch = () => {
     setSearch("");
   };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      onEnter();
+    }
+  };
 
   return (
     <div className="flex items-center w-[24.5625rem] px-4 py-1 gap-2">
@@ -26,6 +31,7 @@ const SearchComponent = ({ search, setSearch }) => {
           value={search}
           placeholder="검색어를 입력하세요"
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
           className="w-[18rem] bg-gray-50 text-b1 text-black placeholder-gray-300 mr-[1.3125rem]"
         />
         {search.length > 0 && (
