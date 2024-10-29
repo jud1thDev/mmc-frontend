@@ -5,14 +5,14 @@ const BookPlot = () => {
   const [showMoreBtn, setShowMoreBtn] = useState(false);
   const contentRef = useRef(null);
 
+  const text = `책 줄거리  소개글이 들어갈 자리입니다들.책   소개글이 들어갈 자리입니다들.  소개글이 들어갈 자리입니다들.  소개글이 들어갈 자리입니다들.  소개글이 들어갈 자리입니다들.줄거리  소개글이 들어갈 자리입니다.책 줄거리  소개글이 들어갈 자리입니다. 책 줄거리 및 소개글이 들어갈 자리입니다.`;
   useEffect(() => {
-    // 텍스트 높이를 계산해서 "더보기" 버튼 표시 여부 결정
-    if (contentRef.current.scrollHeight > contentRef.current.clientHeight) {
-      setShowMoreBtn(true);
+    if (contentRef.current) {
+      setShowMoreBtn(
+        contentRef.current.scrollHeight > contentRef.current.clientHeight
+      );
     }
-  }, []);
-
-  const text = `책 줄거리 및 소개글이 들어갈 자리입니다. 책 줄거리 및 소개글이 들어갈 자리입니다. 책 줄거리 및 소개글이 들어갈 자리입니다. 책 줄거리 및 소개글이 들어갈 자리입니다. 책 줄거리 및 소개글이 들어갈 자리입니다. 책 줄거리 및 소개글이 들어갈 자리입니다. 책 줄거리 및 소개글이 들어갈 자리입니다. 책 줄거리 및 소개글이 들어갈 자리입니다.`;
+  }, [text]);
 
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
@@ -32,18 +32,21 @@ const BookPlot = () => {
             <div className="text-black">133pg</div>
           </div>
         </div>
+
         <div
-          className={`text-b2 font-regular overflow-hidden transition-max-height duration-300 ease-in-out cursor-pointer ${
-            isExpanded ? "max-h-full" : "max-h-20"
-          }`}
           ref={contentRef}
+          className={`relative overflow-hidden transition-all text-b2 font-regular cursor-pointer ${
+            isExpanded ? "max-h-full" : "max-h-24"
+          }`}
           onClick={toggleExpand}
         >
           {text}
           {showMoreBtn && (
             <span
-              className={`px-2 ${
-                isExpanded ? "text-blue-400" : "text-gray-400"
+              className={` px-2 cursor-pointer w-[5.5rem] ${
+                isExpanded
+                  ? "text-blue-400"
+                  : "flex justify-end text-gray-400 bg-white-gradiation absolute bottom-0 right-0"
               }`}
             >
               {isExpanded ? "접기" : "더보기"}
