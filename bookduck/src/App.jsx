@@ -3,18 +3,16 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import SigninPage from "./pages/LoginPage/SigninPage";
 import SearchMainPage from "./pages/SearchPage/SearchMainPage";
 import NotificationPage from "./pages/NotificationPage/NotificationPage";
-import SearchBookPage from "./pages/SearchPage/SearchBookPage";
+import SearchDetailPage from "./pages/SearchPage/SearchDetailPage";
 import MyBadgePage from "./pages/CharacterPage/MyBadgePage";
 import CharacterCustomPage from "./pages/CharacterPage/CharacterCustomPage";
 import SelectBookPage from "./pages/RecordingPage/SelectBookPage";
 import ArchivePage from "./pages/RecordingPage/ArchivePage";
 import ArchiveDetail from "./pages/RecordingPage/ArchiveDetailPage";
-import SearchArchivePage from "./pages/SearchPage/SearchArchivePage";
-import SearchUserPage from "./pages/SearchPage/SearchUserPage";
-import RegisterPage from "./pages/SearchPage/RegisterPage";
 import RecordingPage from "./pages/RecordingPage/RecordingPage";
 import MainPage from "./pages/MainPage/MainPage";
 import CharacterPage from "./pages/CharacterPage/CharacterPage";
+import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
 function App() {
   return (
     <Routes>
@@ -34,11 +32,9 @@ function App() {
 
       <Route path="/" element={<MainPage />} />
       <Route path="/search" element={<SearchMainPage />} />
-      <Route path="/search/book" element={<SearchBookPage />} />
-      <Route path="/search/archive" element={<SearchArchivePage />} />
-      <Route path="/search/user" element={<SearchUserPage />} />
-      <Route path="/search/register" element={<RegisterPage />} />
+      <Route path="/search/detail" element={<SearchDetailPage />} />
       <Route path="/recording" element={<RecordingPage />} />
+      <Route path="/search/register" element={<RegisterPage />} />
     </Routes>
   );
 }
