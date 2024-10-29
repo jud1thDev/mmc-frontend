@@ -49,6 +49,8 @@ export default {
           "linear-gradient(180deg, #FFBF68 0%, #FF9F1C 100%)",
         "orange-gradation-mission":
           "linear-gradient(0deg, var(--Primary-300, #FFBF68) 0%, var(--Primary-300, #FFBF68) 100%), linear-gradient(110deg, #FFE16E 0%, #FFBF68 53.83%)",
+        "white-gradiation":
+          "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFF 35.43%)",
       },
       fontSize: {
         t1: ["1.5rem", { lineHeight: "2.25rem" }], //24px
