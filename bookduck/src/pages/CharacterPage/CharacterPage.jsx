@@ -15,7 +15,7 @@ const CharacterPage = () => {
     <div className="flex flex-col justify-center items-center">
       <CharacterHeader />
       <div className="flex flex-col mt-[2.1875rem] gap-1 w-full h-[22.1875rem]">
-        <div class="flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <div className="flex justify-center px-6 py-2 bg-gray-50 rounded-[6.25rem] text-b2 font-semibold text-gray-500 h-10">
             캐릭터 말풍선
           </div>

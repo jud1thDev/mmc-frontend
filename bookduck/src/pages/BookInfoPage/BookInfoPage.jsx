@@ -4,7 +4,7 @@ import BookInfo from "../../components/BookInfoPage/BookInfo";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import InfoView from "../../components/BookInfoPage/InfoView";
 import ArchiveView from "../../components/BookInfoPage/ArchiveView";
-import FloatingRecordButton from "../../components/RecordingPage/FloatingRecordButton";
+import FloatingRecordButton from "../../components/common/FloatingRecordButton";
 import MyComment from "../../components/BookInfoPage/MyComment";
 const BookInfoPage = () => {
   const [activeTab, setActiveTab] = useState("책 정보");
