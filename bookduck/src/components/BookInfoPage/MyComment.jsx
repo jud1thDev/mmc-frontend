@@ -15,7 +15,7 @@ const MyComment = () => {
   const [text, setText] = useState(false);
   const handleChange = (event) => {
     const { value } = event.target;
-    if (value.length <= 20) {
+    if (value.length <= 25) {
       setInputValue(value);
     }
   };
@@ -107,7 +107,7 @@ const MyComment = () => {
             type="text"
             value={inputValue}
             className="mt-[1.625rem] mb-[3.1875rem] px-1 py-2 text-b1 placeholder:text-gray-400 border-b border-[#DDDDDD] w-full"
-            placeholder="책에 대한 나의 한줄 평을 작성해주세요! (20자 이내)"
+            placeholder="책에 대한 나의 한줄 평을 작성해주세요! (25자 이내)"
             onChange={handleChange}
           />
           <ButtonComponent
