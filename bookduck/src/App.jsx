@@ -17,6 +17,7 @@ import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
 import BookInfoAddedPage from "./pages/BookInfoPage/BoonInfoAddedPage";
+import StatisticsPage from "./pages/StatisticsPage/StatisticsPage";
 function App() {
   return (
     <Routes>
@@ -33,6 +34,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/notification" element={<NotificationPage />} />
+      <Route path="/statistics" element={<StatisticsPage />} />
 
       <Route path="/" element={<MainPage />} />
       <Route path="/search" element={<SearchMainPage />} />
