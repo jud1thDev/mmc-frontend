@@ -1,6 +1,6 @@
 import { useState } from "react";
 import starNo from "../../assets/bookinfoPage/star-no.svg";
-import starYes from "../../assets/bookinfoPage/start-yes.svg";
+import starYes from "../../assets/bookinfoPage/star-yes.svg";
 import leftMark from "../../assets/bookinfoPage/left-quotmark.svg";
 import rightMark from "../../assets/bookinfoPage/right-quotmark.svg";
 import menu from "../../assets/bookinfoPage/menu-vertical.svg";
