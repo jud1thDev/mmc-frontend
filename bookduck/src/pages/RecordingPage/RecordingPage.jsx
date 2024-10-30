@@ -56,7 +56,7 @@ const RecordingPage = () => {
       <Header3 title="기록하기" check={true} handleBack={handleBack} />
       <div className="flex flex-col gap-[1rem] mx-4">
         <div className="mt-5">
-          <ColoredAuthorComponent />
+          <ColoredAuthorComponent title="책제목" author="지은이" />
         </div>
       </div>
       <div className="mx-4">
@@ -74,6 +74,8 @@ const RecordingPage = () => {
           inputValue={reviewInputValue}
           handleTextField={handleReviewTextField}
           titleInputValue={titleInputValue}
+          bookTitleValue="책제목"
+          authorValue="지은이"
         />
       </div>
       <div className="h-[7.5rem]"></div>
@@ -87,53 +89,66 @@ const RecordingPage = () => {
           <div className="absolute w-10 h-1 top-[0.75rem] left-1/2 -translate-x-1/2 rounded-[0.25rem] bg-gray-300"></div>
 
           <div className="flex flex-col gap-3">
-            <WritingTemplate height="18rem">
-              {bottomSheetType === "발췌" && (
-                <div className="flex flex-col gap-2">
-                  <div className="flex justify-end">
-                    <div className="flex items-center justify-center gap-1">
-                      <input
-                        type="number"
-                        placeholder="페이지"
-                        value={pageInputValue}
-                        onChange={(e) => setPageInputValue(e.target.value)}
-                        className="w-[2.5rem] bg-transparent text-b2 text-gray-800"
-                      />
-                      <div className="text-b2 text-gray-400">p</div>
+            {bottomSheetType === "발췌" && (
+              <>
+                <WritingTemplate height="18rem">
+                  <div className="flex flex-col gap-2">
+                    <div className="flex justify-end">
+                      <div className="flex items-center justify-center gap-1">
+                        <input
+                          type="number"
+                          placeholder="페이지"
+                          value={pageInputValue}
+                          onChange={(e) => setPageInputValue(e.target.value)}
+                          className="w-[2.5rem] bg-transparent text-b2 text-gray-800"
+                        />
+                        <div className="text-b2 text-gray-400">p</div>
+                      </div>
                     </div>
+                    <textarea
+                      value={extractInputValue}
+                      onChange={handleExtractOnChange}
+                      placeholder="책의 구절을 입력하세요"
+                      className="w-[20.5625rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none"
+                    />
                   </div>
-                  <textarea
-                    value={extractInputValue}
-                    onChange={handleExtractOnChange}
-                    placeholder="책의 구절을 입력하세요"
-                    className="w-[20.5625rem] h-[13.5rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none"
-                  />
-                </div>
-              )}
-              {bottomSheetType === "감상평" && (
-                <div className="flex flex-col gap-2">
-                  <input
-                    value={titleInputValue}
-                    onChange={(e) => setTitleInputValue(e.target.value)}
-                    placeholder="제목"
-                    className="text-b1 font-semibold bg-transparent"
-                  />
-                  <textarea
-                    value={reviewInputValue}
-                    onChange={handleReviewOnChange}
-                    placeholder="책에 대한 자유로운 감상을 기록하세요"
-                    className="w-[20.5625rem] h-[13.5rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none"
-                  />
-                </div>
-              )}
-            </WritingTemplate>
-            <ButtonComponent
-              text="완료"
-              type="primary"
-              color="gray"
-              onClick={handleBackdropClick}
-              disabled={!extractInputValue}
-            />
+                </WritingTemplate>
+                <ButtonComponent
+                  text="완료"
+                  type="primary"
+                  color="gray"
+                  onClick={handleBackdropClick}
+                  disabled={!extractInputValue}
+                />
+              </>
+            )}
+            {bottomSheetType === "감상평" && (
+              <>
+                <WritingTemplate height="18rem">
+                  <div className="flex flex-col gap-2">
+                    <input
+                      value={titleInputValue}
+                      onChange={(e) => setTitleInputValue(e.target.value)}
+                      placeholder="제목"
+                      className="text-b1 font-semibold bg-transparent"
+                    />
+                    <textarea
+                      value={reviewInputValue}
+                      onChange={handleReviewOnChange}
+                      placeholder="책에 대한 자유로운 감상을 기록하세요"
+                      className="w-[20.5625rem] h-[13.5rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none"
+                    />
+                  </div>
+                </WritingTemplate>
+                <ButtonComponent
+                  text="완료"
+                  type="primary"
+                  color="gray"
+                  onClick={handleBackdropClick}
+                  disabled={!reviewInputValue}
+                />
+              </>
+            )}
           </div>
         </BottomSheetModal>
       </div>

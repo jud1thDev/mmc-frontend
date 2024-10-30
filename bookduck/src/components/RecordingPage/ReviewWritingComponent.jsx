@@ -2,14 +2,17 @@ import cards from "../../assets/recordingPage/cards.svg";
 import WritingTemplate from "./WritingTemplate";
 import PublicRange from "./PublicRange";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ReviewWritingComponent = ({
   inputValue,
   handleTextField,
   titleInputValue,
+  bookTitleValue = "책제목",
+  authorValue = "지은이",
 }) => {
   const [reviewPublicState, setReviewPublicState] = useState("전체공개");
-
+  const navigate = useNavigate();
   const handleState = (state) => {
     setReviewPublicState(state);
   };
@@ -21,7 +24,21 @@ const ReviewWritingComponent = ({
           <div className="flex gap-[1.12rem]">
             <div className="flex items-center cursor-pointer">
               <img src={cards} alt="cards" />
-              <div className="text-b2 text-gray-500">카드색상</div>
+              <div
+                onClick={() =>
+                  navigate("/recording/decoration", {
+                    state: {
+                      textValue: inputValue,
+                      titleValue: titleInputValue,
+                      bookTitleValue: bookTitleValue,
+                      authorValue: authorValue,
+                    },
+                  })
+                }
+                className="text-b2 text-gray-500"
+              >
+                카드색상
+              </div>
             </div>
             <PublicRange
               handleState={handleState}

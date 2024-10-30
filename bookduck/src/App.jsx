@@ -16,6 +16,7 @@ import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
 
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
+import CardDecorationPage from "./pages/RecordingPage/CardDecorationPage";
 function App() {
   return (
     <Routes>
@@ -25,6 +26,8 @@ function App() {
       <Route path="/review-archive-detail" element={<ArchiveDetail />} />
       <Route path="/total-archive-detail" element={<ArchiveDetail />} />
       <Route path="/recording" element={<RecordingPage />} />
+      <Route path="/recording/decoration" element={<CardDecorationPage />} />
+
       <Route path="/myBadge" element={<MyBadgePage />} />
       <Route path="/character/custom" element={<CharacterCustomPage />} />
       <Route path="/character" element={<CharacterPage />} />
