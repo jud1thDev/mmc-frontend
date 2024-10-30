@@ -26,7 +26,7 @@ const BookInfo = ({ isMe = "default" }) => {
           </div>
         ) : (
           <div className="flex justify-between items-center">
-            {isMe === "defualt" ? (
+            {isMe === "default" ? (
               <div className="flex items-center gap-1 text-b2 text-gray-400">
                 <div>기본평점</div>
                 <div>4.3</div>
