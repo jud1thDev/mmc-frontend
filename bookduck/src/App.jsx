@@ -16,6 +16,7 @@ import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
 
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
+import BookInfoAddedPage from "./pages/BookInfoPage/BoonInfoAddedPage";
 function App() {
   return (
     <Routes>
@@ -39,6 +40,7 @@ function App() {
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/search/register" element={<RegisterPage />} />
       <Route path="/info/book" element={<BookInfoPage />} />
+      <Route path="/info/book/user" element={<BookInfoAddedPage />} />
       <Route path="/info/book/comment" element={<UserCommentPage />} />
     </Routes>
   );
