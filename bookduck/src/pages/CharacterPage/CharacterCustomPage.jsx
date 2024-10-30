@@ -1,26 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import back from "../../assets/CharacterPage/back.svg";
 import UserDuck from "../../components/CharacterPage/UserDuck";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import Skin from "../../components/CharacterPage/Skin";
 import ButtonComponent from "../../components/common/ButtonComponent";
-
+import Header3 from "../../components/common/Header3";
 const CharacterCustomPage = () => {
   const [activeTab, setActiveTab] = useState("전체");
-  const navigate = useNavigate();
-  const handleBackClick = () => {
-    navigate(-1);
-  };
+
   return (
     <div className="flex flex-col bg-orange-50">
-      <div className="flex justify-start items-center w-[24.5625rem] h-11">
-        <img
-          className="px-4 py-1 cursor-pointer"
-          src={back}
-          onClick={handleBackClick}
-        />
-      </div>
+      <Header3 title="" />
       <div className="flex justify-center h-[19.8125rem]">
         <UserDuck />
       </div>
