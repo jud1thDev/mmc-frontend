@@ -3,9 +3,10 @@ import TabBarComponent from "../common/TabBarComponent";
 import ReviewComponent from "./ReviewComponent";
 import BottomSheetModal from "../common/BottomSheetModal";
 import downArrow from "../../assets/common/down-arrow.svg";
-import check from "../../assets/common/check.svg";
+import SBottomSheetComponent from "./SBottomSheetComponent";
 
 const SearchArchiveComponent = ({ search }) => {
+  const sortingArr = ["정확도순", "최신순"];
   const allArchives = [
     {
       id: "1",
@@ -25,8 +26,6 @@ const SearchArchiveComponent = ({ search }) => {
     { id: "4", date: "2024.01.01", isPublic: true, content: "전복" },
   ];
   const [results, setResults] = useState(allArchives);
-
-  const [tab, setTab] = useState("기록");
   const [sort, setSort] = useState("정확도순");
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -100,22 +99,11 @@ const SearchArchiveComponent = ({ search }) => {
         visible={visible}
         setVisible={setVisible}
       >
-        <div className="flex flex-col">
-          <div
-            className="flex flex-row justify-between items-center w-[22.5625rem] h-[3rem]"
-            onClick={() => handleSortChange("정확도순")}
-          >
-            <div>정확도순</div>
-            {sort === "정확도순" && <img src={check} alt="check-icon" />}
-          </div>
-          <div
-            className="flex flex-row justify-between items-center w-[22.5625rem] h-[3rem]"
-            onClick={() => handleSortChange("최신순")}
-          >
-            <span>최신순</span>
-            {sort === "최신순" && <img src={check} alt="check-icon" />}
-          </div>
-        </div>
+        <SBottomSheetComponent
+          options={sortingArr}
+          currentOption={sort}
+          handleOption={handleSortChange}
+        />
       </BottomSheetModal>
     </>
   );
