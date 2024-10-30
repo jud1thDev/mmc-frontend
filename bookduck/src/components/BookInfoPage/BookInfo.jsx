@@ -1,7 +1,8 @@
 import cover from "../../assets/bookinfoPage/cover.svg";
 import down from "../../assets/common/down-arrow.svg";
 
-const BookInfo = () => {
+const BookInfo = ({ isMe = "default" }) => {
+  // 기본으로 등록되어 있는 책: default 내가 직접 등록한 책: me 타유저가 직접 등록한 책: other
   return (
     <div className="flex gap-4 w-[361px]">
       <img
@@ -19,16 +20,27 @@ const BookInfo = () => {
             <div>2024</div>
           </div>
         </div>
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-1 text-b2 text-gray-400">
-            <div>기본평점</div>
-            <div>4.3</div>
+        {isMe === "other" ? (
+          <div className="text-b2 text-orange-400">
+            유저닉네임님이 등록한 책
           </div>
-          <div className="flex p-1.5 text-btn4 text-gray-500 ">
-            읽고 싶어요
-            <img src={down} />
+        ) : (
+          <div className="flex justify-between items-center">
+            {isMe === "defualt" ? (
+              <div className="flex items-center gap-1 text-b2 text-gray-400">
+                <div>기본평점</div>
+                <div>4.3</div>
+              </div>
+            ) : (
+              <div className="text-b2 text-orange-400">내가 등록한 책</div>
+            )}
+
+            <div className="flex p-1.5 text-btn4 text-gray-500 ">
+              읽고 싶어요
+              <img src={down} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
