@@ -1,6 +1,8 @@
 import { useState } from "react";
 import starNo from "../../assets/bookinfoPage/star-no.svg";
 import starYes from "../../assets/bookinfoPage/start-yes.svg";
+import leftMark from "../../assets/bookinfoPage/left-quotmark.svg";
+import rightMark from "../../assets/bookinfoPage/right-quotmark.svg";
 import menu from "../../assets/bookinfoPage/menu-vertical.svg";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import ButtonComponent from "../common/ButtonComponent";
@@ -60,19 +62,9 @@ const MyComment = () => {
               ))}
             </div>
             <div className="flex justify-center items-center max-h-12 text-b2 gap-2">
-              <span
-                className="text-t2 w-[0.875rem] h-[1.25rem] text-gray-500"
-                style={{ fontFamily: "Caprasimo" }}
-              >
-                "
-              </span>
+              <img src={leftMark} />
               {text}
-              <span
-                className="text-t2 w-[0.875rem] h-[1.25rem] text-gray-500"
-                style={{ fontFamily: "Caprasimo" }}
-              >
-                "
-              </span>
+              <img src={rightMark} />
             </div>
             <img
               className="absolute top-5 right-5 cursor-pointer"
