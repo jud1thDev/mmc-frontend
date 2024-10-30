@@ -37,6 +37,7 @@ const SBottomSheetComponent = ({
   currentOption,
   handleOption,
   isCancel = false,
+  cancelText = "서재담기 취소",
 }) => {
   return (
     <div className="flex flex-col gap-3 mb-[2.81rem]">
@@ -66,7 +67,7 @@ const SBottomSheetComponent = ({
       {isCancel && (
         <div className="flex items-center gap-1 w-[22.2625rem] h-[3rem] px-3 py-3 bg-gray-10 rounded-2 mt-4">
           <img src={Trash} className="w-6 h-6" />
-          <span className="text-btn3 text-gray-500">서재 담기 취소</span>
+          <span className="text-btn3 text-gray-500">{cancelText}</span>
         </div>
       )}
     </div>
