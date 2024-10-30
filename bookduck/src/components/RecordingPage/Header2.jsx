@@ -3,7 +3,7 @@ import left_arrow from "../../assets/common/left-arrow.svg";
 import horizontal_menu from "../../assets/common/horizontal-menu.svg";
 import { useNavigate } from "react-router-dom";
 
-const Header2 = () => {
+const Header2 = ({ handleMenu }) => {
   const navigate = useNavigate();
 
   return (
@@ -11,7 +11,7 @@ const Header2 = () => {
       <div onClick={() => navigate("/archive")}>
         <img className="cursor-pointer" src={left_arrow} alt="left_arrow" />
       </div>
-      <div>
+      <div onClick={handleMenu}>
         <img
           className="cursor-pointer"
           src={horizontal_menu}
