@@ -27,8 +27,9 @@ const [sort, setSort] = useState("정확도순");
       </BottomSheetModal>
   
 */
-import Trash from "../../assets/common/trash.svg";
+
 import React from "react";
+import trash from "../../assets/common/trash.svg";
 import check from "../../assets/common/check.svg";
 import Divider2 from "../common/Divider2";
 const ListBottomSheet = ({
@@ -66,7 +67,7 @@ const ListBottomSheet = ({
       })}
       {isCancel && (
         <div className="flex items-center gap-1 w-[22.2625rem] h-[3rem] px-3 py-3 bg-gray-10 rounded-2 mt-4">
-          <img src={Trash} className="w-6 h-6" />
+          <img src={trash} className="w-6 h-6" />
           <span className="text-btn3 text-gray-500">{cancelText}</span>
         </div>
       )}
