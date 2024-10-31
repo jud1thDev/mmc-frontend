@@ -12,12 +12,20 @@ import Divider2 from "../common/Divider2";
 
 const BookListPage = ({ view }) => {
   const [sort, setSort] = useState("최신순");
-  const [tab, setTab] = useState("");
+  const [tab, setTab] = useState([]);
   const [sortingBottomSheet, setSortingBottomSheet] = useState(false); //최신순, 별점순, 제목순 보여주는 바텀시트 보이는지 여부
   const [visible, setVisible] = useState(false);
+
   const handleSorting = () => {
     setSortingBottomSheet(true);
   };
+
+  const handleTabClick = (tab) => {
+    setTab((prev) =>
+      prev.includes(tab) ? prev.filter((t) => t !== tab) : [...prev, tab]
+    );
+  };
+
   return (
     <>
       <div className="flex flex-col">
@@ -35,8 +43,9 @@ const BookListPage = ({ view }) => {
             <RoundedTabComponent
               type="secondary"
               tabs={["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"]}
-              activeTab={tab}
-              onTabClick={setTab}
+              activeTabs={tab}
+              onTabClick={handleTabClick}
+              multiple={true}
             />
           </div>
         </div>

@@ -2,6 +2,8 @@ const RoundedTabComponent = ({
   type = "primary",
   tabs = [],
   activeTab,
+  activeTabs,
+  multiple = false,
   onTabClick,
 }) => {
   return (
@@ -13,10 +15,10 @@ const RoundedTabComponent = ({
             key={index}
             className={`h-7 px-3 py-[0.38rem] rounded-[1.88rem] ${
               type === "primary"
-                ? activeTab === tab
+                ? (multiple ? activeTabs.includes(tab) : activeTab === tab)
                   ? "w-18 bg-gray-700"
                   : "w-18 border-[0.0625rem] border-gray-200 bg-gray-50"
-                : activeTab === tab
+                : (multiple ? activeTabs.includes(tab) : activeTab === tab)
                 ? "w-20 bg-orange-400"
                 : "w-20 border-[0.0625rem] border-gray-200 bg-gray-50"
             } cursor-pointer`}
@@ -25,7 +27,9 @@ const RoundedTabComponent = ({
               className={`flex justify-center items-center ${
                 type === "primary" ? "w-[3rem]" : "w-[3.5rem]"
               } h-4 text-c1 ${
-                activeTab === tab ? "text-white" : "text-gray-400"
+                (multiple ? activeTabs.includes(tab) : activeTab === tab)
+                  ? "text-white"
+                  : "text-gray-400"
               }`}
             >
               {tab}
