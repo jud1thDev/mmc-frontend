@@ -5,15 +5,27 @@ import BookListView from "../common/BookListView";
 import BottomNavbar from "../common/BottomNavbar";
 import BookComponent from "../SearchPage/BookComponent";
 import cover_img_ex from "../../assets/libraryPage/cover-img-ex.svg";
+import BottomSheetModal from "../common/BottomSheetModal";
+import BottomSheetMenuComponent from "../common/BottomSheetMenuComponent";
+import Divider1 from "../common/Divider1";
+import Divider2 from "../common/Divider2";
 
 const BookListPage = ({ view }) => {
   const [sort, setSort] = useState("최신순");
-  const [tab, setTab] = useState("읽고 싶어요");
+  const [tab, setTab] = useState("");
+  const [sortingBottomSheet, setSortingBottomSheet] = useState(false); //최신순, 별점순, 제목순 보여주는 바텀시트 보이는지 여부
+  const [visible, setVisible] = useState(false);
+  const handleSorting = () => {
+    setSortingBottomSheet(true);
+  };
   return (
     <>
       <div className="flex flex-col">
         <div className="flex gap-5 w-[24.5625rem] p-4">
-          <div className="flex items-center justify-center">
+          <div
+            onClick={handleSorting}
+            className="flex items-center justify-center cursor-pointer"
+          >
             <div className="text-b2 text-gray-500 whitespace-nowrap">
               {sort}
             </div>
@@ -83,6 +95,44 @@ const BookListPage = ({ view }) => {
         )}
       </div>
       <BottomNavbar />
+      {sortingBottomSheet && (
+        <BottomSheetModal
+          bottomSheetShow={sortingBottomSheet}
+          setBottomSheetShow={setSortingBottomSheet}
+          visible={visible}
+          setVisible={setVisible}
+        >
+          <div className="pb-[1.88rem]">
+            <div
+              onClick={() => setSort("최신순")}
+              className={`flex items-center h-12 pt-1 pb-3 text-b2 ${
+                sort === "최신순" ? "text-orange-400" : "text-gray-500"
+              } cursor-pointer`}
+            >
+              최신순
+            </div>
+            <Divider2 />
+            <div
+              onClick={() => setSort("별점순")}
+              className={`h-12 py-3 text-b2 ${
+                sort === "별점순" ? "text-orange-400" : "text-gray-500"
+              } cursor-pointer`}
+            >
+              별점순
+            </div>
+            <Divider2 />
+
+            <div
+              onClick={() => setSort("제목순")}
+              className={`h-12 py-3 text-b2 ${
+                sort === "제목순" ? "text-orange-400" : "text-gray-500"
+              } cursor-pointer`}
+            >
+              제목순
+            </div>
+          </div>
+        </BottomSheetModal>
+      )}
     </>
   );
 };

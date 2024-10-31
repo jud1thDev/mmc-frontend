@@ -7,7 +7,7 @@ const BottomSheetMenuComponent = ({ img, text, onClick }) => {
         onClick={onClick}
         className="flex gap-3 items-center w-[22.5625rem] h-[3.5rem] p-4 cursor-pointer"
       >
-        <img src={img} />
+        {img && <img src={img} />}
         <div className="text-b1 text-gray-800 ">{text}</div>
       </div>
     </>
