@@ -12,6 +12,7 @@ import pencil from "../../assets/recordingPage/pencil.svg";
 import trash from "../../assets/recordingPage/trash.svg";
 import Divider2 from "../../components/common/Divider2";
 import DeleteModal from "../../components/common/modal/DeleteModal";
+import BottomSheetModal2 from "../../components/BookInfoPage/BottomSheetModal2";
 
 const ArchiveDetail = () => {
   const pathname = window.location.pathname;
@@ -33,15 +34,16 @@ const ArchiveDetail = () => {
     }, 300);
   };
 
+  //메뉴 바텀시트에서 삭제 버튼 누르면 실행
   const handleDelete = () => {
     handleCancel();
     setShowDeleteModal(true);
   };
 
+  //삭제 모달창에서 취소 버튼 누르면 실행
   const handleDeleteModal = () => {
     setShowDeleteModal(false);
   };
-
   useEffect(() => {
     const totalHeight = ref.current ? ref.current.clientHeight : 0; // 현재 높이 측정
     setIsHeightExceeded(totalHeight > 621);
@@ -81,26 +83,13 @@ const ArchiveDetail = () => {
         </div>
       </div>
       {visibleMenu && (
-        <BottomSheetModal
+        <BottomSheetModal2
           bottomSheetShow={visibleMenu}
           setBottomSheetShow={setVisibleMenu}
           visible={visible}
           setVisible={setVisible}
-        >
-          <BottomSheetMenuComponent img={pencil} text="수정하기" />
-          <Divider2 />
-          <BottomSheetMenuComponent
-            img={trash}
-            text="삭제하기"
-            onClick={handleDelete}
-          />
-          <div
-            onClick={handleCancel}
-            className="flex justify-center items-center w-[22.5625rem] h-[3.25rem] mt-[2.56rem] p-4 text-b1 text-gray-800 cursor-pointer"
-          >
-            취소
-          </div>
-        </BottomSheetModal>
+          handleDelete={handleDelete}
+        />
       )}
       {showDeleteModal && (
         <DeleteModal
