@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useReviewColorStore from "../../store/useReviewColorStore";
 import Cards from "./Cards";
-
+import cards from "../../assets/recordingPage/cards.svg";
 const ReviewWritingComponent = ({
   inputValue,
   handleTextField,
@@ -25,7 +25,11 @@ const ReviewWritingComponent = ({
           <div className="text-b1 font-semibold">감상평</div>
           <div className="flex gap-[1.12rem]">
             <div className="flex items-center cursor-pointer">
-              <Cards stroke={reviewColor} />
+              {reviewColor ? (
+                <Cards stroke={reviewColor} />
+              ) : (
+                <img src={cards} />
+              )}
               <div
                 onClick={() =>
                   navigate("/recording/decoration", {

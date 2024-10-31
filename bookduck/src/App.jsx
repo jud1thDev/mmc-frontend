@@ -17,6 +17,7 @@ import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
 import CardDecorationPage from "./pages/RecordingPage/CardDecorationPage";
+import LibraryPage from "./pages/LibraryPage/LibraryPage";
 function App() {
   return (
     <Routes>
@@ -27,6 +28,8 @@ function App() {
       <Route path="/total-archive-detail" element={<ArchiveDetail />} />
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/recording/decoration" element={<CardDecorationPage />} />
+
+      <Route path="/library" element={<LibraryPage />} />
 
       <Route path="/myBadge" element={<MyBadgePage />} />
       <Route path="/character/custom" element={<CharacterCustomPage />} />

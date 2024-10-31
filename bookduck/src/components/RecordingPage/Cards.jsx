@@ -1,4 +1,4 @@
-const Cards = ({ stroke }) => (
+const Cards = ({ stroke = "#8A8A8A" }) => (
   <svg
     width="31"
     height="31"
