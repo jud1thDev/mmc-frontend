@@ -38,6 +38,10 @@ const ArchiveDetail = () => {
     setShowDeleteModal(true);
   };
 
+  const handleDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
   useEffect(() => {
     const totalHeight = ref.current ? ref.current.clientHeight : 0; // 현재 높이 측정
     setIsHeightExceeded(totalHeight > 621);
@@ -98,7 +102,16 @@ const ArchiveDetail = () => {
           </div>
         </BottomSheetModal>
       )}
-      {showDeleteModal && <DeleteModal handleCancel={setShowDeleteModal} />}
+      {showDeleteModal && (
+        <DeleteModal
+          title="정말 삭제하시겠어요?"
+          content="삭제된 카드는 다시 복구할 수 없어요."
+          leftBtnText="삭제"
+          rightBtnText="취소"
+          onLeftClick={() => {}}
+          onRightClick={handleDeleteModal}
+        />
+      )}
     </>
   );
 };
