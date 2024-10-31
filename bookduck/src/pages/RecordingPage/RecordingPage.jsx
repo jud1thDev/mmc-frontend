@@ -8,7 +8,7 @@ import ColoredAuthorComponent from "../../components/RecordingPage/ColoredAuthor
 import ExtractWritingComponent from "../../components/RecordingPage/ExtractWritingComponent";
 import Header2 from "../../components/RecordingPage/Header2";
 import ReviewWritingComponent from "../../components/RecordingPage/ReviewWritingComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import WritingTemplate from "../../components/RecordingPage/WritingTemplate";
 import ButtonComponent from "../../components/common/ButtonComponent";
@@ -22,6 +22,7 @@ const RecordingPage = () => {
   const [viewBottomSheet, setViewBottomSheet] = useState(false);
   const [visible, setVisible] = useState(false);
   const [bottomSheetType, setBottomSheetType] = useState("");
+
   const handleBack = () => {
     navigate("/selectBook");
   };
