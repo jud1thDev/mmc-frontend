@@ -1,30 +1,18 @@
-import right from "../../assets/statisticsPage/right.svg";
 import Header3 from "../../components/common/Header3";
-import UserDuck from "../../components/CharacterPage/UserDuck";
 import RecordCalender from "../../components/StatisticsPage/RecordCalender";
-import StatisticsHeader from "../../components/StatisticsPage/StatisticsHeader";
+import Divider2 from "../../components/common/Divider2";
+import MyKeyword from "../../components/StatisticsPage/MyKeyword";
 import SummaryFloatingButton from "../../components/StatisticsPage/SummaryFloatingButton";
+import PreferredAuthor from "../../components/StatisticsPage/PreferredAuthor";
+import PreferredGenre from "../../components/StatisticsPage/PreferredGenre";
+import MonthlyReading from "../../components/StatisticsPage/MonthlyReading";
+import UserCard from "../../components/StatisticsPage/UserCard";
+
 const StatisticsPage = () => {
   return (
-    <div>
+    <div className="flex flex-col pb-[11.25rem]">
       <Header3 title="독서 리포트" />
-      <div className="flex h-[10rem]">
-        <div className="flex flex-col gap-1 mt-[3.8125rem] ml-[1.75rem]">
-          <div className="text-t2 font-semibold w-[10.8125rem]">
-            <span className="font-regular">여덟글자잖아요오</span>님은
-            <br />
-            문학에 진심인 문학덕!
-          </div>
-          <div className="flex text-btn4 text-gray-400 gap-0.5">
-            자세히보기
-            <img className="ml-2" src={right} />
-          </div>
-        </div>
-        {/* 임시  */}
-        <div className="w-[180px]">
-          <UserDuck />
-        </div>
-      </div>
+      <UserCard />
       <div className="flex flex-col pt-6 px-7 pb-7 gap-7 bg-gray-50">
         <div className="text-b1 font-semibold">
           이번달 기록은 총 <span className="text-blue-800">16</span>개!
@@ -35,24 +23,17 @@ const StatisticsPage = () => {
           <RecordCalender num="12" text="다 읽은 책" big={true} />
         </div>
       </div>
-      <div className="flex flex-col pt-5 h-[24.3125rem]">
-        {/* 하반기도 만들어야함  */}
-        <StatisticsHeader title="상반기 월별 독서량" />
-        <div className="flex flex-col pt-[2.3475rem]">
-          <div className="flex justify-between items-end">
-            <div className=" bg-gray-100 rounded-r-[0.625rem] w-[3.5rem] h-[3.75rem]" />
-            <div className="bg-orange-200 w-[16.1537rem] h-[224px]">
-              {/* 최대 높이 224px = 14rem
-            최소 높이 112px = 7 rem
-            0권일 때 4px = 0.25rem
-            - 독서량이 0일 경우에는 모두 0도로 고정 */}
-            </div>
-            <div className=" bg-gray-100 rounded-l-[0.625rem] w-[3.5rem] h-[3.75rem]" />
-          </div>
-          <div className="text-center mt-[0.625rem] text-btn4 font-semibold text-gray-[#7B7B7B]">
-            1월 2월 3월 4월 5월 6월
-          </div>
-        </div>
+      <MonthlyReading />
+      <PreferredGenre />
+      <Divider2 />
+      {/* 같은 작가의 작품을 최소 2권 이상을 읽어야 ‘선호하는 작가' 카드가 보임 */}
+      <PreferredAuthor />
+      <Divider2 />
+      <MyKeyword />
+      <div className="flex justify-center text-center mt-[3.75rem] text-b2 text-gray-400">
+        북덕은 언제나 여덟글자잖아요오님의
+        <br />
+        독서를 응원합니다!
       </div>
       <div className="flex justify-center">
         <SummaryFloatingButton />
