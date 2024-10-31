@@ -52,7 +52,7 @@ const LibraryPage = () => {
           {tab === "책장" && (
             <div
               onClick={() => setShowAddBookCaseBottomSheet(true)}
-              className="flex gap-1 items-center cursor-pointer"
+              className="flex gap-1 items-center mr-[0.37rem] cursor-pointer"
             >
               <img src={plus_orange} />
               <div className="text-b2 text-gray-800">책장추가</div>
