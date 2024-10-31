@@ -1,10 +1,11 @@
 import BookCaseComponent from "./BookCaseComponent";
-import book_case_ex1 from "../../assets/libraryPage/bookcase-ex1.svg";
-import book_case_ex2 from "../../assets/libraryPage/bookcase-ex2.svg";
-import book_case_ex3 from "../../assets/libraryPage/bookcase-ex3.svg";
 import BottomNavbar from "../common/BottomNavbar";
 import DeleteModal from "../common/modal/DeleteModal";
 import { useState } from "react";
+import BottomSheetModal2 from "../BookInfoPage/BottomSheetModal2";
+import book_case_ex1 from "../../assets/libraryPage/bookcase-ex1.svg";
+import book_case_ex2 from "../../assets/libraryPage/bookcase-ex2.svg";
+import book_case_ex3 from "../../assets/libraryPage/bookcase-ex3.svg";
 
 const bookList = [
   { img: book_case_ex1 },
@@ -44,20 +45,42 @@ const BookCasePage = () => {
           <BookCaseComponent
             bookCaseTitle="내 책장"
             bookList={bookList2}
-            showMenuBottomSheet={showMenuBottomSheet}
             setShowMenuBottomSheet={setShowMenuBottomSheet}
-            visible={visible}
-            setVisible={setVisible}
-            handleDelete={handleDelete}
           />
-          <BookCaseComponent bookCaseTitle="책장명" bookList={bookList} />
-          <BookCaseComponent bookCaseTitle="내 책장2" bookList={bookList} />
-          <BookCaseComponent bookCaseTitle="책장명" bookList={bookList} />
-          <BookCaseComponent bookCaseTitle="내 책장2" bookList={bookList} />
+          <BookCaseComponent
+            bookCaseTitle="책장명"
+            bookList={bookList}
+            setShowMenuBottomSheet={setShowMenuBottomSheet}
+          />
+          <BookCaseComponent
+            bookCaseTitle="내 책장2"
+            bookList={bookList}
+            setShowMenuBottomSheet={setShowMenuBottomSheet}
+          />
+          <BookCaseComponent
+            bookCaseTitle="책장명"
+            bookList={bookList}
+            setShowMenuBottomSheet={setShowMenuBottomSheet}
+          />
+          <BookCaseComponent
+            bookCaseTitle="내 책장2"
+            bookList={bookList}
+            setShowMenuBottomSheet={setShowMenuBottomSheet}
+          />
         </div>
         <div className="h-[6rem] bg-transparent"></div>
       </div>
       <BottomNavbar />
+      {showMenuBottomSheet && (
+        <BottomSheetModal2
+          bottomSheetShow={showMenuBottomSheet}
+          setBottomSheetShow={setShowMenuBottomSheet}
+          visible={visible}
+          setVisible={setVisible}
+          handleDelete={handleDelete}
+          deleteOnly={true}
+        ></BottomSheetModal2>
+      )}
       {showDeleteModal && (
         <DeleteModal
           title="정말 삭제하시겠어요?"

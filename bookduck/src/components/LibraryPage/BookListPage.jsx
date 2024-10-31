@@ -50,7 +50,7 @@ const BookListPage = ({ view }) => {
           </div>
         </div>
         {view === "list" && (
-          <div className="h-[40rem] overflow-y-auto ">
+          <div className="h-[40rem]  mx-4 overflow-y-auto ">
             <BookListView />
             <BookListView />
             <BookListView />
@@ -61,7 +61,7 @@ const BookListPage = ({ view }) => {
           </div>
         )}
         {view === "cover" && (
-          <div className="h-[40rem] mx-4  overflow-y-auto">
+          <div className="h-[40rem] mx-4 overflow-y-auto">
             <div className="grid grid-cols-3 place-items-center gap-x-3 gap-y-5">
               <BookComponent
                 img={cover_img_ex}

@@ -18,6 +18,7 @@ import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
 import CardDecorationPage from "./pages/RecordingPage/CardDecorationPage";
 import LibraryPage from "./pages/LibraryPage/LibraryPage";
+import EnterBookCasePage from "./pages/LibraryPage/EnterBookCasePage";
 function App() {
   return (
     <Routes>
@@ -30,6 +31,7 @@ function App() {
       <Route path="/recording/decoration" element={<CardDecorationPage />} />
 
       <Route path="/library" element={<LibraryPage />} />
+      <Route path="/library/bookcase/:id" element={<EnterBookCasePage />} />
 
       <Route path="/myBadge" element={<MyBadgePage />} />
       <Route path="/character/custom" element={<CharacterCustomPage />} />

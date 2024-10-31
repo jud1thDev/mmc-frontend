@@ -1,17 +1,7 @@
-import { useState } from "react";
-import BottomSheetModal from "../common/BottomSheetModal";
-import BottomSheetMenuComponent from "../common/BottomSheetMenuComponent";
 import horizontal_menu from "../../assets/common/horizontal-menu-gray.svg";
-import trash from "../../assets/common/trash.svg";
-import BottomSheetModal2 from "../BookInfoPage/BottomSheetModal2";
-import DeleteModal from "../common/modal/DeleteModal";
 
 const BookCaseComponent = ({
-  showMenuBottomSheet,
   setShowMenuBottomSheet,
-  visible,
-  setVisible,
-  handleDelete,
   bookCaseTitle = "책장명",
   bookList = [],
 }) => {
@@ -40,16 +30,6 @@ const BookCaseComponent = ({
           </div>
         </div>
       </div>
-      {showMenuBottomSheet && (
-        <BottomSheetModal2
-          bottomSheetShow={showMenuBottomSheet}
-          setBottomSheetShow={setShowMenuBottomSheet}
-          visible={visible}
-          setVisible={setVisible}
-          handleDelete={handleDelete}
-          deleteOnly={true}
-        ></BottomSheetModal2>
-      )}
     </>
   );
 };
