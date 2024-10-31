@@ -31,7 +31,7 @@ import Trash from "../../assets/common/trash.svg";
 import React from "react";
 import check from "../../assets/common/check.svg";
 import Divider2 from "../common/Divider2";
-const SBottomSheetComponent = ({
+const ListBottomSheet = ({
   title,
   options,
   currentOption,
@@ -74,4 +74,4 @@ const SBottomSheetComponent = ({
   );
 };
 
-export default SBottomSheetComponent;
+export default ListBottomSheet;

@@ -5,7 +5,7 @@ import ButtonComponent from "../common/ButtonComponent";
 import { useNavigate } from "react-router-dom";
 import BottomSheetModal from "../common/BottomSheetModal";
 import check from "../../assets/common/check.svg";
-import SBottomSheetComponent from "./SBottomSheetComponent";
+import ListBottomSheet from "../common/ListBottomSheet";
 const SearchBookComponent = ({ search }) => {
   const [isCancel, setIsCancel] = useState(false);
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
@@ -156,7 +156,7 @@ const SearchBookComponent = ({ search }) => {
         visible={visible}
         setVisible={setVisible}
       >
-        <SBottomSheetComponent
+        <ListBottomSheet
           title="책 상태"
           options={statusArr}
           currentOption={status1}

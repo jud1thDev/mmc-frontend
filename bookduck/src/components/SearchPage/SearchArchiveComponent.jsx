@@ -3,7 +3,7 @@ import TabBarComponent from "../common/TabBarComponent";
 import ReviewComponent from "./ReviewComponent";
 import BottomSheetModal from "../common/BottomSheetModal";
 import downArrow from "../../assets/common/down-arrow.svg";
-import SBottomSheetComponent from "./SBottomSheetComponent";
+import ListBottomSheet from "../common/ListBottomSheet";
 
 const SearchArchiveComponent = ({ search }) => {
   const sortingArr = ["정확도순", "최신순"];
@@ -99,7 +99,7 @@ const SearchArchiveComponent = ({ search }) => {
         visible={visible}
         setVisible={setVisible}
       >
-        <SBottomSheetComponent
+        <ListBottomSheet
           options={sortingArr}
           currentOption={sort}
           handleOption={handleSortChange}
