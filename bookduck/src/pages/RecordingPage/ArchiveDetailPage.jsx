@@ -75,7 +75,7 @@ const ArchiveDetail = () => {
             className={`mt-8 ${
               isHeightExceeded
                 ? "mb-[1.38rem]"
-                : "absolute bottom-[1.38rem] left-1/2 transform-translate-x-1/2"
+                : "absolute bottom-[1.38rem] left-1/2 -translate-x-1/2"
             }`}
           >
             <CloseButton />
