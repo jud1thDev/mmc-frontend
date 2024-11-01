@@ -2,8 +2,15 @@ import { useNavigate } from "react-router-dom";
 import header_arrow from "../../assets/common/header-arrow.svg";
 
 //check = true면 취소 / 완료 버튼 표시
-
-const Header3 = ({ title = "제목", check = false }) => {
+//edit은 "편집" 텍스트 띄울지 여부
+//editState는 편집 텍스트를 클릭했는지 여부 (편집 버튼 클릭했으면 true)
+const Header3 = ({
+  title = "제목",
+  check = false,
+  edit = false,
+  editState = false,
+  handleEdit,
+}) => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
@@ -21,6 +28,15 @@ const Header3 = ({ title = "제목", check = false }) => {
         <div className="flex gap-6">
           <div className="text-b1 text-gray-400 cursor-pointer">취소</div>
           <div className="text-b1 text-blue-400 cursor-pointer">완료</div>
+        </div>
+      )}
+      {edit && (
+        <div
+          onClick={handleEdit}
+          className={`flex items-center w-[36px] h-[36px] text-b1 text-gray-400 underline underline-offset-4 cursor-pointer
+        `}
+        >
+          {editState ? "완료" : "편집"}
         </div>
       )}
     </div>
