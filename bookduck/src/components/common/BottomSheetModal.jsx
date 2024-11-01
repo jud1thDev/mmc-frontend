@@ -63,7 +63,7 @@ const BottomSheetModal = ({
           onClick={(e) => e.stopPropagation()}
           className={`bg-white ${
             visible ? "animate-slideUp" : "animate-slideDown"
-          } bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-fit z-50 rounded-t-xl px-4 pt-8 pb-4 transition-transform duration-300`}
+          } bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-fit z-50 rounded-t-xl pt-8 pb-4 transition-transform duration-300`}
         >
           {children}
         </section>
