@@ -19,6 +19,7 @@ export default {
         slideDown: "slideDown 0.3s ease-in-out",
       },
       colors: {
+        yellow: "#FFFAE6",
         white: "#FFF",
         black: "#000000",
         blue: "#0066FF",
@@ -29,7 +30,9 @@ export default {
           600: "#EA7120",
         },
         gray: {
+          5: "#00000033",
           10: "#FBFBFB",
+          20: "#DDDDDD",
           50: "#F7F7F7",
           100: "#EEEEEE",
           200: "#E2E2E2",
@@ -38,6 +41,7 @@ export default {
           600: "#636363",
           700: "#505050",
           800: "#323232",
+          custom: "#DDD",
         },
         blue: {
           400: "#6B7FF0",
