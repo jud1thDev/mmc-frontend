@@ -5,9 +5,12 @@ import Header2 from "../../components/common/Header2";
 import Right from "../../assets/common/right-yellow.svg";
 import MainDuck from "../../assets/common/main-duck.svg";
 import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceComponent";
+
 const MainPage = () => {
+  const [color, setColor] = useState("bg-gray-50");
+
   return (
-    <div className="bg-gray-50 relative h-[50rem]">
+    <div className={`${color} relative overflow-hidden h-screen`}>
       <StatusBar />
       <div className="px-4">
         <Header2 />
@@ -38,9 +41,8 @@ const MainPage = () => {
           <img src={Right} />
         </div>
         <img src={MainDuck} className="absolute top-[11.42rem] left-[9rem]" />
-        <ReadingSpaceComponent />
+        <ReadingSpaceComponent setColor={setColor} />
       </div>
-
       <BottomNavbar />
     </div>
   );
