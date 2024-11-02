@@ -11,17 +11,17 @@ const PreferredAuthor = () => {
       </div>
       <div className="flex gap-1.5 overflow-scroll">
         <img
-          className="w-[5.125rem] h-[6.9375rem] shadow-book"
+          className="w-[5.125rem] h-[6.9375rem]"
           src={book_cover}
           alt="book-cover"
         />
         <img
-          className="w-[5.125rem] h-[6.9375rem] shadow-book"
+          className="w-[5.125rem] h-[6.9375rem]"
           src={book_cover}
           alt="book-cover"
         />
         <img
-          className="w-[5.125rem] h-[6.9375rem] shadow-book"
+          className="w-[5.125rem] h-[6.9375rem]"
           src={book_cover}
           alt="book-cover"
         />
