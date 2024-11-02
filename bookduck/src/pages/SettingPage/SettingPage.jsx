@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import StatusBar from "../../components/common/StatusBar";
 import Header1 from "../../components/common/Header1";
-import edit from "../../assets/setting/edit.svg";
-import kakao from "../../assets/setting/kakao.png";
 import ToggleButton from "../../components/common/ToggleButtonComponent";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import TextField from "../../components/common/TextField";
 import ButtonComponent from "../../components/common/ButtonComponent";
+
+import edit from "../../assets/setting/edit.svg";
+import kakao from "../../assets/setting/kakao.png";
 
 const SettingPage = () => {
   const [isPushOn, setPushOn] = useState(true);

@@ -13,9 +13,12 @@ import ArchiveDetail from "./pages/RecordingPage/ArchiveDetailPage";
 import RecordingPage from "./pages/RecordingPage/RecordingPage";
 import MainPage from "./pages/MainPage/MainPage";
 import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
-
+import SelectCardPage from "./pages/MainPage/SelectCardPage";
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
+import SelectExtractPage from "./pages/MainPage/SelectExtractPage";
+import SelectReviewPage from "./pages/MainPage/SelectReviewPage";
+import SelectCustomPage from "./pages/MainPage/SelectCustomPage";
 function App() {
   return (
     <Routes>
@@ -40,6 +43,10 @@ function App() {
       <Route path="/search/register" element={<RegisterPage />} />
       <Route path="/info/book" element={<BookInfoPage />} />
       <Route path="/info/book/comment" element={<UserCommentPage />} />
+      <Route path="/selectcard" element={<SelectCardPage />} />
+      <Route path="/selectcard/extract" element={<SelectExtractPage />} />
+      <Route path="/selectcard/review" element={<SelectReviewPage />} />
+      <Route path="/selectcard/custom" element={<SelectCustomPage />} />
     </Routes>
   );
 }
