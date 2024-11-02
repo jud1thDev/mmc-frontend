@@ -58,6 +58,9 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
   const handleMenuClick = () => {
     setBottomSheetShow(true);
   };
+  const handleEditClick = () => {
+    setIsEditMode(true);
+  };
 
   const bind = useDrag(
     ({ movement: [, my], memo = height.get(), last }) => {
@@ -226,7 +229,10 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
               추가하기
             </div>
             <Divider2 />
-            <div className="flex items-center p-4 gap-3 text-btn2 cursor-pointer">
+            <div
+              className="flex items-center p-4 gap-3 text-btn2 cursor-pointer"
+              onClick={handleEditClick}
+            >
               <img className="w-6 h-6" src={editIcon} />
               편집하기
             </div>
