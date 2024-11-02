@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
@@ -6,6 +6,7 @@ import OneBookCard from "../../components/MainPage/OneBookCard";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import SearchComponent from "../../components/common/SearchComponent";
 import BookListView from "../../components/common/BookListView";
+
 const SelectCustomPage = () => {
   const location = useLocation();
   const bookNumber = location.state?.bookNumber;

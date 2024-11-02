@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import BookCard from "../../assets/mainPage/bookcard.svg";
+import bookCard from "../../assets/mainPage/bookcard.svg";
 import music from "../../assets/mainPage/music.svg";
 import infoMusicBox from "../../assets/mainPage/info-musicbox.svg";
 import infoMemoBox from "../../assets/mainPage/info-memobox.svg";
@@ -84,7 +84,7 @@ const OneBookCard = ({
             selected === "firstBook" ? "border-[1px] border-[#6B7FF0]" : ""
           } flex items-center justify-center w-[5.125rem] h-full bg-gray-custom rounded-[0.375rem] shadow-custom`}
         >
-          <img src={BookCard} alt="Book Card" />
+          <img src={bookCard} alt="Book Card" />
         </div>
 
         {/* 두 번째 북박스 */}
@@ -103,7 +103,7 @@ const OneBookCard = ({
               selected === "secondBook" ? "border-[1px] border-[#6B7FF0]" : ""
             } flex items-center justify-center w-[5.125rem] h-full bg-gray-custom rounded-[0.375rem] shadow-custom`}
           >
-            <img src={BookCard} alt="Book Card" />
+            <img src={bookCard} alt="Book Card" />
           </div>
         )}
 

@@ -52,7 +52,7 @@ const BottomSheetModal = ({
   if (!bottomSheetShow && !visible) return null;
 
   const slideModal = (
-    <div className="flex justify-center">
+    <div className="flex justify-center z-50">
       <div
         onClick={handleBackdropClick}
         className={`${

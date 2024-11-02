@@ -4,6 +4,7 @@ import Header3 from "../../components/common/Header3";
 import SearchComponent from "../../components/common/SearchComponent";
 import ExtractCard from "../../components/MainPage/ExtractCard";
 import ButtonComponent from "../../components/common/ButtonComponent";
+
 const SelectExtractPage = () => {
   const [search, setSearch] = useState("");
   const [selectedCard, setSelectedCard] = useState("");

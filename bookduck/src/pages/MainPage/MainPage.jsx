@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import BottomNavbar from "../../components/common/BottomNavbar";
 import StatusBar from "../../components/common/StatusBar";
 import Header2 from "../../components/common/Header2";
-import Right from "../../assets/common/right-yellow.svg";
-import MainDuck from "../../assets/common/main-duck.svg";
 import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceComponent";
+import right from "../../assets/common/right-yellow.svg";
+import mainDuck from "../../assets/common/main-duck.svg";
 
 const MainPage = () => {
   const [color, setColor] = useState("bg-gray-50");
@@ -38,9 +38,9 @@ const MainPage = () => {
           <span className="text-b2 text-gray-500 font-semibold">
             독서 리포트 보러가기
           </span>
-          <img src={Right} />
+          <img src={right} />
         </div>
-        <img src={MainDuck} className="absolute top-[11.42rem] left-[9rem]" />
+        <img src={mainDuck} className="absolute top-[11.42rem] left-[9rem]" />
         <ReadingSpaceComponent setColor={setColor} />
       </div>
       <BottomNavbar />

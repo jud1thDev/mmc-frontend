@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import TabBarComponent from "../common/TabBarComponent";
 import ReviewComponent from "./ReviewComponent";
 import BottomSheetModal from "../common/BottomSheetModal";
-import downArrow from "../../assets/common/down-arrow.svg";
 import ListBottomSheet from "../common/ListBottomSheet";
+import downArrow from "../../assets/common/down-arrow.svg";
 
 const SearchArchiveComponent = ({ search }) => {
   const sortingArr = ["정확도순", "최신순"];

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import emptyImage from "../../assets/recordingPage/rating-empty.svg";
 import filledImage from "../../assets/recordingPage/rating-filled.svg";
 const ReviewCard = ({ selected, review, rating, title, author, onClick }) => {

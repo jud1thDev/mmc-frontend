@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import StatusBar from "../../components/common/StatusBar";
 import Header1 from "../../components/common/Header3";
 import DirectRegister from "../../components/RecordingPage/DirectRegister";
