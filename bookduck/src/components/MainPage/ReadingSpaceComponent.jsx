@@ -16,7 +16,7 @@ import deleteIcon from "../../assets/bookinfoPage/trash.svg";
 import plusIcon from "../../assets/mainPage/plus.svg";
 import helpCircle from "../../assets/mainPage/help-circle.svg";
 
-const ReadingSpaceComponent = ({ setColor }) => {
+const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
   const navigate = useNavigate();
   const screenHeight = window.innerHeight;
   const initialHeight = screenHeight * 0.55;
@@ -48,6 +48,7 @@ const ReadingSpaceComponent = ({ setColor }) => {
     onChange: () => {
       setFloatingVisible(height.get() < hideButtonThreshold);
       setHelpVisible(height.get() > hideButtonThreshold);
+      setIsNavBar(height.get() < hideButtonThreshold);
     },
   }));
 
@@ -100,12 +101,12 @@ const ReadingSpaceComponent = ({ setColor }) => {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative z-0">
         <DragDropContext onDragEnd={handleDragEnd} className="z-[-3] bg-white">
           <animated.div
             style={{ height, boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.10)" }}
             className={` ${
-              isEditMode ? "bg-gray-100" : "bg-white"
+              isEditMode ? "bg-[#DDD]" : "bg-white"
             } fixed z-40 w-[24.5625rem] bottom-0 left-0 right-0 mx-auto max-w-md rounded-t-[1.875rem] shadow-lg cursor-pointer overflow-hidden`}
           >
             <div className="relative">
@@ -116,7 +117,7 @@ const ReadingSpaceComponent = ({ setColor }) => {
               <div className="flex flex-row items-center justify-between px-5 pt-1 mb-2">
                 <div className="flex flex-row items-center gap-1">
                   <p className="text-btn3 text-gray-500">리딩 스페이스</p>
-                  {isHelpVisible && (
+                  {!isEditMode && isHelpVisible && (
                     <img src={helpCircle} onClick={handleHelpClick} />
                   )}
                   {isHelp && (
@@ -127,10 +128,12 @@ const ReadingSpaceComponent = ({ setColor }) => {
                   )}
                 </div>
                 <div className="flex flex-row items-center gap-2 flex-nowrap">
-                  <div onClick={handleEditMode} className="text-c2">
+                  {/* <div onClick={handleEditMode} className="text-c2">
                     {isEditMode ? "편집" : "완료"}
-                  </div>
-                  <img src={menu} alt="menu" onClick={handleMenuClick} />
+                  </div> */}
+                  {isHelpVisible && (
+                    <img src={menu} alt="menu" onClick={handleMenuClick} />
+                  )}
                 </div>
               </div>
 
@@ -214,9 +217,9 @@ const ReadingSpaceComponent = ({ setColor }) => {
         setBottomSheetShow={setBottomSheetShow}
         visible={visible}
         setVisible={setVisible}
-        style={{ zIndex: 50 }}
+        style={{ zIndex: 100, position: "absolute" }}
       >
-        <div className="w-[24.5625rem] rounded-t-xl pb-[3.125rem] pt-4 px-5 bg-gray-10 z-[500]">
+        <div className="w-[24.5625rem] rounded-t-xl pb-[3.125rem] pt-4 px-5 bg-gray-10 ">
           <div className="flex flex-col bg-white rounded-lg">
             <div className="flex items-center p-4 gap-3 text-btn2 cursor-pointer">
               <img className="w-6 h-6" src={plusIcon} />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BottomNavbar from "../../components/common/BottomNavbar";
 import StatusBar from "../../components/common/StatusBar";
 import Header2 from "../../components/common/Header2";
@@ -8,7 +8,8 @@ import mainDuck from "../../assets/common/main-duck.svg";
 
 const MainPage = () => {
   const [color, setColor] = useState("bg-gray-50");
-
+  const [isNavBar, setIsNavBar] = useState("true");
+  useEffect(() => {}, [isNavBar]);
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
       <StatusBar />
@@ -41,9 +42,9 @@ const MainPage = () => {
           <img src={right} />
         </div>
         <img src={mainDuck} className="absolute top-[11.42rem] left-[9rem]" />
-        <ReadingSpaceComponent setColor={setColor} />
+        <ReadingSpaceComponent setColor={setColor} setIsNavBar={setIsNavBar} />
       </div>
-      <BottomNavbar />
+      {isNavBar && <BottomNavbar />}
     </div>
   );
 };
