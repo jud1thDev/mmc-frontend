@@ -7,6 +7,7 @@ import BottomSheetModal from "../common/BottomSheetModal";
 import Divider2 from "../common/Divider2";
 import OneBookCard from "./OneBookCard";
 import ButtonComponent from "../common/ButtonComponent";
+import DeleteModal from "../common/modal/DeleteModal";
 import goEdit from "../../assets/mainPage/go-edit.svg";
 import menu from "../../assets/mainPage/menu-vertical.svg";
 import recordCircleIcon from "../../assets/recordingPage/record-circle-icon.svg";
@@ -27,7 +28,7 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     // { id: "1", title: "첫 번째 카드" },
     // { id: "2", title: "두 번째 카드" },
   ]);
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isHelp, setIsHelp] = useState(false);
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
@@ -51,6 +52,9 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
       setIsNavBar(height.get() < hideButtonThreshold);
     },
   }));
+  const handleDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
 
   const handleHelpClick = () => {
     setIsHelp(!isHelp);
@@ -78,6 +82,10 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     },
     { axis: "y" }
   );
+
+  const handleDelete = () => {
+    setShowDeleteModal(true);
+  };
 
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -237,7 +245,10 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
               편집하기
             </div>
             <Divider2 />
-            <div className="flex items-center p-4 gap-3 text-btn2 cursor-pointer">
+            <div
+              className="flex items-center p-4 gap-3 text-btn2 cursor-pointer"
+              onClick={handleDelete}
+            >
               <img src={deleteIcon} />
               전체 삭제하기
             </div>
@@ -250,6 +261,16 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
           </div>
         </div>
       </BottomSheetModal>
+      {showDeleteModal && (
+        <DeleteModal
+          title="정말 삭제하시겠어요?"
+          content="카드들이 모두 삭제되며 복구할 수 없어요."
+          leftBtnText="삭제"
+          rightBtnText="취소"
+          onLeftClick={() => {}}
+          onRightClick={handleDeleteModal}
+        />
+      )}
     </>
   );
 };
