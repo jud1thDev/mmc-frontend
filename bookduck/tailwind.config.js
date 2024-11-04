@@ -73,6 +73,7 @@ export default {
       },
       boxShadow: {
         custom: "0px 0px 3px 0px rgba(0, 0, 0, 0.10)",
+        custom2: "0px 0px 10px 0px rgba(0, 0, 0, 0.10)",
       },
     },
   },

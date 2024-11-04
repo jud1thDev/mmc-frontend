@@ -16,11 +16,16 @@ import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
 import SelectCardPage from "./pages/MainPage/SelectCardPage";
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
+
+import CardDecorationPage from "./pages/RecordingPage/CardDecorationPage";
+import LibraryPage from "./pages/LibraryPage/LibraryPage";
+
 import SelectExtractPage from "./pages/MainPage/SelectExtractPage";
 import SelectReviewPage from "./pages/MainPage/SelectReviewPage";
 import SelectCustomPage from "./pages/MainPage/SelectCustomPage";
 import SettingPage from "./pages/SettingPage/SettingPage";
 import FriendListPage from "./pages/FriendPage/FriendListPage";
+
 function App() {
   return (
     <Routes>
@@ -30,6 +35,10 @@ function App() {
       <Route path="/review-archive-detail" element={<ArchiveDetail />} />
       <Route path="/total-archive-detail" element={<ArchiveDetail />} />
       <Route path="/recording" element={<RecordingPage />} />
+      <Route path="/recording/decoration" element={<CardDecorationPage />} />
+
+      <Route path="/library" element={<LibraryPage />} />
+
       <Route path="/myBadge" element={<MyBadgePage />} />
       <Route path="/character/custom" element={<CharacterCustomPage />} />
       <Route path="/character" element={<CharacterPage />} />
