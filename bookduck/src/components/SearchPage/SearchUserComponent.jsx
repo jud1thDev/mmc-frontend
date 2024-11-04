@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FriendListComponent from "../../components/common/FriendListComponent";
+
 const SearchUserComponent = ({ search }) => {
   const allUsers = [
     { id: 1, userName: "찬희야", text: "그랬어" },
