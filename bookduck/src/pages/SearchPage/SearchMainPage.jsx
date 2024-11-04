@@ -4,9 +4,10 @@ import StatusBar from "../../components/common/StatusBar";
 import SearchComponent from "../../components/common/SearchComponent";
 import BookComponent from "../../components/SearchPage/BookComponent";
 import ButtonComponent from "../../components/common/ButtonComponent";
-import duck from "../../assets/common/duck.svg";
 import CarouselComponent from "../../components/SearchPage/CarouselComponent";
 import BottomNavbar from "../../components/common/BottomNavbar";
+
+import duck from "../../assets/common/duck.svg";
 
 const SearchMainPage = () => {
   const navigate = useNavigate();

@@ -1,14 +1,23 @@
 import { useState } from "react";
-import img_template from "../../assets/recordingPage/img-template.svg";
+import bookCover from "../../assets/common/book-cover.svg";
 import TextField from "../common/TextField";
 import ButtonComponent from "../common/ButtonComponent";
 import { useNavigate } from "react-router-dom";
+
 const DirectRegister = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [pages, setPages] = useState("");
   const [publisher, setPublisher] = useState("");
   const navigate = useNavigate();
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log(file);
+      // 파일 처리 로직 추가 가능
+    }
+  };
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -30,13 +39,19 @@ const DirectRegister = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center pb-[2.15rem] mx-4">
-        <div>
-          <img
-            className="mt-[2.77rem] mb-[2rem]"
-            src={img_template}
-            alt="img-template"
-          />
+        <div
+          onClick={() => document.getElementById("fileInput").click()}
+          className="mt-5"
+        >
+          <img src={bookCover} alt="Book Cover" />
         </div>
+        <input
+          id="fileInput"
+          type="file"
+          className="hidden"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
         <div className="flex flex-col gap-[2rem] mb-[1.23rem]">
           <TextField
             type="제목"
@@ -85,4 +100,5 @@ const DirectRegister = () => {
     </>
   );
 };
+
 export default DirectRegister;

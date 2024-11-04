@@ -1,8 +1,8 @@
-import BookListViewDropdown from "./BookListViewDropdown";
 import coverEx from "../../assets/common/book-cover-ex.svg";
 import menuBar from "../../assets/common/menu-bar.svg";
 import emptyImage from "../../assets/recordingPage/rating-empty.svg";
 import filledImage from "../../assets/recordingPage/rating-filled.svg";
+import downArrow from "../../assets/common/down-arrow.svg";
 import { useState } from "react";
 //edit이 false면 편집 기능 없이 "읽고 있어요" 상태인 책 확인 in 기록할 책 선택 페이지
 //edit이 true, dropdown도 true면 상태 선택 가능한 드롭다운 표시
@@ -11,10 +11,11 @@ const BookListView = ({
   bookTitle = "책제목",
   author = "지은이",
   edit = true,
-  dropdown = true,
-  dropdownActive = true,
   handleOnClick,
   bookImg,
+  handleStatusClick,
+  status = "읽고 싶어요",
+  bottomSheet = false,
 }) => {
   const [rating, setRating] = useState(0);
   return (
@@ -45,12 +46,15 @@ const BookListView = ({
         </div>
       </div>
       {edit ? (
-        !dropdown ? (
+        !bottomSheet ? (
           <div className="w-[1.5rem] h-[1.5rem] cursor-pointer">
             <img src={menuBar} alt="menuBar" />
           </div>
         ) : (
-          <BookListViewDropdown dropdownActive={dropdownActive} />
+          <button onClick={handleStatusClick} className="flex flex-row">
+            <div className="text-btn4 text-gray-500">{status}</div>
+            <img src={downArrow} />
+          </button>
         )
       ) : (
         <></>

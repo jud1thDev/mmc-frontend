@@ -22,7 +22,7 @@ const BookCaseComponent = ({
       >
         <div className="flex flex-col gap-2">
           <div className="flex justify-between">
-            <div className="flex items-center">
+            <div className="flex items-center gap-[0.12rem]">
               <div className="text-b2 text-gray-800">{bookCaseTitle}</div>
               <div className="text-b2 text-orange-400">({bookList.length})</div>
             </div>
