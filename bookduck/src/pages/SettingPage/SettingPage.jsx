@@ -33,7 +33,7 @@ const SettingPage = () => {
   return (
     <div className="relative w-[24.5625rem]">
       <StatusBar />
-      <Header3 title="책 등록하기" />
+      <Header3 title="설정" />
       <div className="flex flex-col gap-[2.5rem] px-4 pt-[1.31rem]">
         <div>
           <div className="mb-5 text-st font-semibold">계정 정보</div>

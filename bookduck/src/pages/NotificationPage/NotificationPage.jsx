@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Header1 from "../../components/common/Header1";
+import Header3 from "../../components/common/Header3";
 import StatusBar from "../../components/common/StatusBar";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import GeneralNotiComponent from "../../components/NotificationPage/GeneralNotiComponent";
@@ -23,7 +23,7 @@ const NotificationPage = () => {
   return (
     <div>
       <StatusBar />
-      <Header1 title="알림" edit={false} />
+      <Header3 title="알림" edit={false} />
       <TabBarComponent
         tabs={["일반", "공지"]}
         activeTab={tab}
