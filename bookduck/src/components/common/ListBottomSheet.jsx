@@ -29,9 +29,9 @@ const [sort, setSort] = useState("정확도순");
 */
 
 import React from "react";
-import trash from "../../assets/common/trash.svg";
-import check from "../../assets/common/check.svg";
 import Divider2 from "../common/Divider2";
+import check from "../../assets/common/check.svg";
+import trash from "../../assets/common/trash.svg";
 const ListBottomSheet = ({
   title,
   options,

@@ -2,8 +2,9 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import duck from "../../assets/common/duck.svg";
 import BookComponent from "./BookComponent";
+import duck from "../../assets/common/duck.svg";
+
 const CarouselComponent = () => {
   const bestBooks = [
     { id: "1", img: duck, title: "가나다라", writer: "나작가" },
