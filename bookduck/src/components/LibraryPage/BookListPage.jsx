@@ -16,6 +16,14 @@ const BookListPage = ({ view }) => {
   const [sortingBottomSheet, setSortingBottomSheet] = useState(false); //최신순, 별점순, 제목순 보여주는 바텀시트 보이는지 여부
   const [visible, setVisible] = useState(false);
 
+  const handleSortChange = (newSort) => {
+    setSort(newSort);
+    setVisible(false);
+    setTimeout(() => {
+      setSortingBottomSheet(false);
+    }, 200);
+  };
+
   const handleSorting = () => {
     setSortingBottomSheet(true);
   };
@@ -113,7 +121,7 @@ const BookListPage = ({ view }) => {
         >
           <div className="pb-[1.88rem]">
             <div
-              onClick={() => setSort("최신순")}
+              onClick={() => handleSortChange("최신순")}
               className={`flex items-center h-12 pt-1 pb-3 text-b2 ${
                 sort === "최신순" ? "text-orange-400" : "text-gray-500"
               } cursor-pointer`}
@@ -122,7 +130,7 @@ const BookListPage = ({ view }) => {
             </div>
             <Divider2 />
             <div
-              onClick={() => setSort("별점순")}
+              onClick={() => handleSortChange("별점순")}
               className={`h-12 py-3 text-b2 ${
                 sort === "별점순" ? "text-orange-400" : "text-gray-500"
               } cursor-pointer`}
@@ -132,7 +140,7 @@ const BookListPage = ({ view }) => {
             <Divider2 />
 
             <div
-              onClick={() => setSort("제목순")}
+              onClick={() => handleSortChange("제목순")}
               className={`h-12 py-3 text-b2 ${
                 sort === "제목순" ? "text-orange-400" : "text-gray-500"
               } cursor-pointer`}
