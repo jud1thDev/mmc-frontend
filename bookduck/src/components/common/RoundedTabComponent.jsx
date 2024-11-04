@@ -19,7 +19,7 @@ const RoundedTabComponent = ({
                 : activeTab === tab
                 ? "bg-orange-400 text-white"
                 : "border-[0.0625rem] border-gray-200 bg-gray-50 text-gray-400 "
-            } cursor-pointer`}
+            } text-c1 cursor-pointer`}
           >
             <div className="flex justify-center items-center min-w-[3rem] h-4">
               {tab}
