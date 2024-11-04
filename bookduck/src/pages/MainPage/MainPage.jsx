@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BottomNavbar from "../../components/common/BottomNavbar";
 import StatusBar from "../../components/common/StatusBar";
 import Header2 from "../../components/common/Header2";
@@ -7,9 +8,11 @@ import right from "../../assets/common/right-yellow.svg";
 import mainDuck from "../../assets/common/main-duck.svg";
 
 const MainPage = () => {
+  const navigate = useNavigate();
   const [color, setColor] = useState("bg-gray-50");
   const [isNavBar, setIsNavBar] = useState("true");
   useEffect(() => {}, [isNavBar]);
+
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
       <StatusBar />
@@ -27,20 +30,27 @@ const MainPage = () => {
           </span>
           <div className="flex flex-row">
             <div className="flex gap-[0.38rem]">
-              <div className="w-[2.25rem] h-[2.75rem] bg-orange-50"></div>
-              <div className="w-[2.25rem] h-[2.75rem] bg-orange-50"></div>
+              <p className="w-[2.25rem] h-[2.75rem] bg-orange-50 baloo text-[2rem] text-orange-300 font-bold text-center">
+                0
+              </p>
+              <p className="w-[2.25rem] h-[2.75rem] bg-orange-50 baloo text-[2rem] text-orange-300 font-bold text-center">
+                2
+              </p>
             </div>
             <div className="ml-[0.62rem] self-end text-b2 text-gray-500 font-semibold">
               개
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center gap-[0.38rem] w-[10.625rem] py-1 px-3 bg-white rounded-[0.625rem] mt-[0.81rem]">
+        <button
+          className="flex justify-center items-center gap-[0.38rem] w-[10.625rem] py-1 px-3 bg-white rounded-[0.625rem] mt-[0.81rem]"
+          onClick={() => navigate("/recording")}
+        >
           <span className="text-b2 text-gray-500 font-semibold">
             독서 리포트 보러가기
           </span>
-          <img src={right} />
-        </div>
+          <img src={right} alt="arrow" />
+        </button>
         <img src={mainDuck} className="absolute top-[11.42rem] left-[9rem]" />
         <ReadingSpaceComponent setColor={setColor} setIsNavBar={setIsNavBar} />
       </div>

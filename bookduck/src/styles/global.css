@@ -1,8 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Myeongjo&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Nanum+Gothic&family=Nanum+Myeongjo&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -92,4 +90,8 @@ input[type="number"] {
 
 .ridibatang {
   font-family: "RIDIBatang", serif;
+}
+
+.baloo {
+  font-family: "Baloo 2", serif;
 }
