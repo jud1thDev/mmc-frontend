@@ -20,6 +20,9 @@ import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
 import CardDecorationPage from "./pages/RecordingPage/CardDecorationPage";
 import LibraryPage from "./pages/LibraryPage/LibraryPage";
 
+import EnterBookCasePage from "./pages/LibraryPage/EnterBookCasePage";
+
+
 import SelectExtractPage from "./pages/MainPage/SelectExtractPage";
 import SelectReviewPage from "./pages/MainPage/SelectReviewPage";
 import SelectCustomPage from "./pages/MainPage/SelectCustomPage";
@@ -38,6 +41,7 @@ function App() {
       <Route path="/recording/decoration" element={<CardDecorationPage />} />
 
       <Route path="/library" element={<LibraryPage />} />
+      <Route path="/library/bookcase/:id" element={<EnterBookCasePage />} />
 
       <Route path="/myBadge" element={<MyBadgePage />} />
       <Route path="/character/custom" element={<CharacterCustomPage />} />
