@@ -52,18 +52,18 @@ const BottomSheetModal = ({
   if (!bottomSheetShow && !visible) return null;
 
   const slideModal = (
-    <div className="flex justify-center z-50">
+    <div className="flex justify-center">
       <div
         onClick={handleBackdropClick}
         className={`${
           visible ? "bg-black bg-opacity-50" : "bg-transparent"
-        } w-[24.5625rem] h-screen z-30 fixed top-0 transition-colors duration-300`}
+        } w-[24.5625rem] h-screen  fixed top-0 transition-colors duration-300`}
       >
         <section
           onClick={(e) => e.stopPropagation()}
           className={`bg-white ${
             visible ? "animate-slideUp" : "animate-slideDown"
-          } bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-fit z-50 rounded-t-xl pt-8 pb-4 transition-transform duration-300`}
+          } bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-fit rounded-t-xl pt-8 pb-4 transition-transform duration-300`}
         >
           {children}
         </section>

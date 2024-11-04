@@ -12,7 +12,7 @@ const DeleteModal = ({
     <>
       <div className="flex justify-center items-center fixed top-0 z-30 w-[24.5625rem] h-screen bg-black bg-opacity-50">
         <div className="flex flex-col items-center justify-center w-[18rem] h-[10.5rem] px-4 rounded-[1rem] bg-[#FFFFFF] text-center">
-          <div className="flex flex-col gap-2 my-3">
+          <div className="flex flex-col gap-2 my-3  whitespace-pre-line">
             <div className="text-st text-gray-800 font-semibold">{title}</div>
             {content && <div className="text-b2 text-gray-400">{content}</div>}
           </div>

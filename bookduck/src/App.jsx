@@ -19,6 +19,7 @@ import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
 import SelectExtractPage from "./pages/MainPage/SelectExtractPage";
 import SelectReviewPage from "./pages/MainPage/SelectReviewPage";
 import SelectCustomPage from "./pages/MainPage/SelectCustomPage";
+import SettingPage from "./pages/SettingPage/SettingPage";
 function App() {
   return (
     <Routes>
@@ -34,6 +35,7 @@ function App() {
 
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signin" element={<SigninPage />} />
+      <Route path="/setting" element={<SettingPage />} />
       <Route path="/notification" element={<NotificationPage />} />
 
       <Route path="/" element={<MainPage />} />
