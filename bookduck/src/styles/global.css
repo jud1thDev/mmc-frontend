@@ -1,16 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Nanum+Gothic&family=Nanum+Myeongjo&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-  font-family: "Pretendard";
-  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.woff2")
-    format("woff2-variations");
-  font-weight: 100 900;
-  font-style: normal;
-}
 
 :root {
   font-family: Pretendard, sans-serif;
@@ -35,6 +28,13 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
 #root {
   width: 24.5625rem;
   height: 100svh;
@@ -44,4 +44,54 @@
   #root {
     width: 100svw;
   }
+}
+input:focus {
+  outline: none;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1px solid #ababab;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked {
+  width: 1.4rem;
+  height: 1.4rem;
+  background-color: white;
+  border: 7px solid orange;
+}
+
+/* 증감 화살표 숨기기 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox에서 화살표 숨기기 */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.nanum-myeongjo {
+  font-family: "Nanum Myeongjo", serif;
+}
+
+.nanum-gothic {
+  font-family: "Nanum Gothic", serif;
+}
+
+.ridibatang {
+  font-family: "RIDIBatang", serif;
+}
+
+.baloo {
+  font-family: "Baloo 2", serif;
 }
