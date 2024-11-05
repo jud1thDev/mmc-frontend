@@ -1,22 +1,10 @@
 import React, { useState } from "react";
-import Header1 from "../../components/common/Header1";
-import StatusBar from "../../components/common/StatusBar";
-import TabBarComponent from "../../components/common/TabBarComponent";
-import FriendListComponent from "../../components/common/FriendListComponent";
+import FriendListComponent from "../common/FriendListComponent";
 import up from "../../assets/common/up.svg";
 import down from "../../assets/common/down.svg";
-
-const FriendListPage = () => {
-  const [tab, setTab] = useState("요청");
+const FriendRequestComponent = ({ friendList }) => {
   const [isRequested, setIsRequested] = useState(true);
   const [isSent, setIsSent] = useState(true);
-
-  const friendList = [
-    { id: "1", userName: "유저1" },
-    { id: "2", userName: "유저2" },
-    { id: "3", userName: "유저3" },
-  ];
-
   const handleRequested = () => {
     setIsRequested((prev) => !prev);
   };
@@ -24,16 +12,7 @@ const FriendListPage = () => {
     setIsSent((prev) => !prev);
   };
   return (
-    <div>
-      <StatusBar />
-      <Header1 title="친구 목록" edit={false} />
-      <TabBarComponent
-        tabs={["친구", "요청"]}
-        activeTab={tab}
-        onTabClick={setTab}
-        size="small"
-      />
-      {/*요청된*/}
+    <>
       <div>
         <div className="flex justify-between items-center px-4 py-2">
           <span className="text-btn3 font-semibold text-gray-800">요청된</span>
@@ -58,7 +37,6 @@ const FriendListPage = () => {
           </div>
         )}
       </div>
-      {/*요청한*/}
       <div className="mt-4">
         <div className="flex justify-between items-center px-4 py-2">
           <span className="text-btn3 font-semibold text-gray-800">요청한</span>
@@ -77,14 +55,15 @@ const FriendListPage = () => {
                 <FriendListComponent
                   key={friend.id}
                   userName={friend.userName}
+                  text="취소"
                 />
               );
             })}
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
-export default FriendListPage;
+export default FriendRequestComponent;

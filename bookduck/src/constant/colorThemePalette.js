@@ -1,0 +1,17 @@
+export const colorThemePalette = [
+  { id: 1, color: "#DFC679" },
+  { id: 2, color: "#8B4259" },
+  { id: 3, color: "#9B0D27" },
+  { id: 4, color: "#DCBD9E" },
+  { id: 5, color: "#C09E3C" },
+  { id: 6, color: "#F87015" },
+  { id: 7, color: "#CCB1B8" },
+  { id: 8, color: "#51594C" },
+  { id: 9, color: "#00691A" },
+  { id: 10, color: "#94A2BA" },
+  { id: 11, color: "#1D4173" },
+  { id: 12, color: "#0066FF" },
+  { id: 13, color: "#756F59" },
+  { id: 14, color: "#2D210D" },
+  { id: 15, color: "#611966" },
+];

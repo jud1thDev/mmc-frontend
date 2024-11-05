@@ -34,6 +34,8 @@ const BottomSheetModal2 = ({
   setBottomSheetShow,
   visible,
   setVisible,
+  handleDelete,
+  deleteOnly = false,
   children,
 }) => {
   // 모달이 열릴 때 visible을 true로 설정해 애니메이션을 실행
@@ -70,12 +72,19 @@ const BottomSheetModal2 = ({
         >
           <div className="rounded-t-xl px-4 pt-5 pb-[3.125rem] bg-gray-50">
             <div className="flex flex-col bg-white rounded-lg">
-              <div className="flex items-center p-4 gap-3 text-btn2 cursor-pointer">
-                <img className="w-6 h-6" src={editIcon} />
-                수정하기
-              </div>
-              <Divider2 />
-              <div className="flex items-center p-4 gap-3 text-btn2 cursor-pointer">
+              {!deleteOnly && (
+                <>
+                  <div className="flex items-center p-4 gap-3 text-btn2 cursor-pointer">
+                    <img className="w-6 h-6" src={editIcon} />
+                    수정하기
+                  </div>
+                  <Divider2 />
+                </>
+              )}
+              <div
+                onClick={handleDelete}
+                className="flex items-center p-4 gap-3 text-btn2 cursor-pointer"
+              >
                 <img src={deleteIcon} />
                 삭제하기
               </div>

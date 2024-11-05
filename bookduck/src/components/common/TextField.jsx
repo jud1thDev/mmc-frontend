@@ -7,6 +7,8 @@ import { useState } from "react";
 //defaultType의 경우 에러메시지가 input 아래에 생기는 게 아니라 title 옆에 생김
 const TextField = ({
   type,
+  type2 = "text",
+  name = "",
   title,
   placeholder,
   check = true,
@@ -29,6 +31,8 @@ const TextField = ({
       )}
       <div className="flex relative">
         <input
+          type={type2}
+          name={name}
           value={inputValue}
           onChange={handleValue}
           placeholder={placeholder}

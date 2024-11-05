@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Header1 from "../../components/common/Header1";
+import Header3 from "../../components/common/Header3";
 import StatusBar from "../../components/common/StatusBar";
 import TabBarComponent from "../../components/common/TabBarComponent";
-import NotificationItemComponent from "../../components/NotificationPage/NotificationItemComponent";
+import GeneralNotiComponent from "../../components/NotificationPage/GeneralNotiComponent";
+import AnnounceNotiComponent from "../../components/NotificationPage/AnnounceNotiComponent";
 
 const NotificationPage = () => {
   const [tab, setTab] = useState("일반");
@@ -22,7 +23,7 @@ const NotificationPage = () => {
   return (
     <div>
       <StatusBar />
-      <Header1 title="알림" edit={false} />
+      <Header3 title="알림" edit={false} />
       <TabBarComponent
         tabs={["일반", "공지"]}
         activeTab={tab}
@@ -30,15 +31,10 @@ const NotificationPage = () => {
         size="small"
         isNoti={true}
       />
-      {notifications.map((notification) => (
-        <div key={notification.id}>
-          <NotificationItemComponent
-            type={notification.type}
-            text={notification.text}
-            read={notification.read}
-          />
-        </div>
-      ))}
+      {tab === "일반" && <GeneralNotiComponent notifications={notifications} />}
+      {tab === "공지" && (
+        <AnnounceNotiComponent notifications={notifications} />
+      )}
     </div>
   );
 };
