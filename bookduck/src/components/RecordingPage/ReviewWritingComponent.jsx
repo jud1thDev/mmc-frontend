@@ -1,15 +1,20 @@
-import cards from "../../assets/recordingPage/cards.svg";
 import WritingTemplate from "./WritingTemplate";
 import PublicRange from "./PublicRange";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import useReviewColorStore from "../../store/useReviewColorStore";
+import Cards from "./Cards";
+import cards from "../../assets/recordingPage/cards.svg";
 const ReviewWritingComponent = ({
   inputValue,
   handleTextField,
   titleInputValue,
+  bookTitleValue = "책제목",
+  authorValue = "지은이",
 }) => {
   const [reviewPublicState, setReviewPublicState] = useState("전체공개");
-
+  const { reviewColor } = useReviewColorStore();
+  const navigate = useNavigate();
   const handleState = (state) => {
     setReviewPublicState(state);
   };
@@ -20,8 +25,27 @@ const ReviewWritingComponent = ({
           <div className="text-b1 font-semibold">감상평</div>
           <div className="flex gap-[1.12rem]">
             <div className="flex items-center cursor-pointer">
-              <img src={cards} alt="cards" />
-              <div className="text-b2 text-gray-500">카드색상</div>
+              {reviewColor ? (
+                <Cards stroke={reviewColor} />
+              ) : (
+                <img src={cards} />
+              )}
+              <div
+                onClick={() =>
+                  navigate("/recording/decoration", {
+                    state: {
+                      textValue: inputValue,
+                      titleValue: titleInputValue,
+                      bookTitleValue: bookTitleValue,
+                      authorValue: authorValue,
+                    },
+                  })
+                }
+                style={reviewColor ? { color: reviewColor } : undefined} // bgColor가 있을 때만 style 적용
+                className={`text-b2 ${reviewColor ? "" : "text-gray-500"}`} // bgColor가 없을 때 gray-500 사용
+              >
+                카드색상
+              </div>
             </div>
             <PublicRange
               handleState={handleState}

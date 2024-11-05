@@ -21,9 +21,15 @@ const SearchDetailPage = () => {
           onTabClick={setTab}
           size="small"
         />
-        {tab === "책" && <SearchBookComponent search={search} />}
-        {tab === "기록" && <SearchArchiveComponent search={search} />}
-        {tab === "사용자" && <SearchUserComponent search={search} />}
+        {tab === "책" && (
+          <SearchBookComponent search={search} setSearch={setSearch} />
+        )}
+        {tab === "기록" && (
+          <SearchArchiveComponent search={search} setSearch={setSearch} />
+        )}
+        {tab === "사용자" && (
+          <SearchUserComponent search={search} setSearch={setSearch} />
+        )}
       </div>
     </div>
   );

@@ -1,34 +1,53 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAccessTokenKakao } from "../../api/oauth";
 
-const OAuthRedierctPage = () => {
+const OAuthRedirectPage = () => {
   const navigate = useNavigate();
-  const code = new URL(window.location.href).searchParams.get("code");
+  const isCalled = useRef(false);
 
   const readAccessTokenKakao = async () => {
     try {
-      const response = await getAccessTokenKakao(code);
-      response.data.isnewUser
-        ? navigate("/signin", {
-            replace: true,
-          })
-        : navigate("/", { replace: true });
-      location.reload(true);
-      return;
+      const urlParams = new URLSearchParams(window.location.search);
+      const accessToken = urlParams.get("accessToken");
+      const expiresIn = urlParams.get("expiresIn");
+      const isNewUser = urlParams.get("isNewUser") === "true";
+
+      console.log("전체 URL 검색어:", window.location.search);
+      console.log("Access Token:", accessToken);
+      console.log("Expires In:", expiresIn);
+      console.log("Is New User:", isNewUser);
+
+      if (accessToken) {
+        console.log("Access Token 존재");
+        const token = {
+          accessToken: accessToken,
+          expiresIn: expiresIn,
+          isNewUser: isNewUser,
+        };
+        localStorage.setItem("token", JSON.stringify(token));
+        if (isNewUser) {
+          navigate("/signin", { replace: true });
+        } else {
+          navigate("/home", { replace: true });
+        }
+      } else {
+        throw new Error("엑세스 토큰 없음");
+      }
     } catch (error) {
       console.error(error);
+      localStorage.removeItem("token");
       navigate("/login", { replace: true });
     }
   };
 
   useEffect(() => {
-    if (code) {
+    if (!isCalled.current) {
       readAccessTokenKakao();
+      isCalled.current = true;
     }
   }, []);
 
-  return <div>리다이렉트</div>;
+  return <div>리다이렉트 중입니다...</div>;
 };
 
-export default OAuthRedierctPage;
+export default OAuthRedirectPage;
