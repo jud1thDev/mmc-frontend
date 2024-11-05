@@ -6,6 +6,7 @@ const api = axios.create({
 });
 
 /*인증 필요한 요청*/
+
 /* 로컬스토리지에서 토큰 정보 가져오기*/
 const storedToken = localStorage.getItem("token");
 const tokenData = storedToken ? JSON.parse(storedToken) : null;

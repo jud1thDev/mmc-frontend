@@ -53,15 +53,17 @@ export default {
           "linear-gradient(180deg, #FFBF68 0%, #FF9F1C 100%)",
         "orange-gradation-mission":
           "linear-gradient(0deg, var(--Primary-300, #FFBF68) 0%, var(--Primary-300, #FFBF68) 100%), linear-gradient(110deg, #FFE16E 0%, #FFBF68 53.83%)",
+        "white-gradiation":
+          "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFF 35.43%)",
       },
       fontSize: {
         t1: ["1.5rem", { lineHeight: "2.25rem" }], //24px
         t2: ["1.25rem", { lineHeight: "1.75rem" }], //20px
-        st: ["1.125rem", { lineHeight: "1.5rem" }], //18px
-        b1: ["1rem", { lineHeight: "1.5rem" }], //16px
+        st: ["1.125rem", { lineHeight: "1.5rem" }], //18px / 24px
+        b1: ["1rem", { lineHeight: "1.5rem" }], //16px / 24px
         b2: ["0.875rem", { lineHeight: "1.5rem" }], //14px
         btn1: ["1.125rem", { lineHeight: "1.5rem" }],
-        btn2: ["1rem", { lineHeight: "1.25rem" }],
+        btn2: ["1rem", { lineHeight: "1.25rem" }], //16px / 20px
         btn3: ["0.875rem", { lineHeight: "1.25rem" }],
         btn4: ["0.75rem", { lineHeight: "1rem" }], //12px
         c1: ["0.75rem", { lineHeight: "1rem" }],

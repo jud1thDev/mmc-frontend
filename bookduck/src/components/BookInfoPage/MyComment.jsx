@@ -1,8 +1,13 @@
 import { useState } from "react";
 import starNo from "../../assets/bookinfoPage/star-no.svg";
+import starYes from "../../assets/bookinfoPage/start-yes.svg";
+import leftMark from "../../assets/bookinfoPage/left-quotmark.svg";
+import rightMark from "../../assets/bookinfoPage/right-quotmark.svg";
+import menu from "../../assets/bookinfoPage/menu-vertical.svg";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import ButtonComponent from "../common/ButtonComponent";
 import BottomSheetModal2 from "./BottomSheetModal2";
+
 const MyComment = () => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [bottomSheet2Show, setBottomSheet2Show] = useState(false);
@@ -11,9 +16,11 @@ const MyComment = () => {
 
   const [inputValue, setInputValue] = useState("");
   const [text, setText] = useState(false);
+  const [rating, setRating] = useState(0);
+
   const handleChange = (event) => {
     const { value } = event.target;
-    if (value.length <= 20) {
+    if (value.length <= 25) {
       setInputValue(value);
     }
   };
@@ -31,32 +38,65 @@ const MyComment = () => {
     }, 200);
   };
 
+  const handleStarClick = (index) => {
+    if (rating === index + 1) {
+      setRating(0);
+    } else {
+      setRating(index + 1);
+    }
+  };
   return (
     <div>
-      <div className="flex flex-col items-center px-4 pt-4 pb-5 gap-2 bg-gray-10 w-[361px] rounded-lg">
-        <div className="flex items-center gap-1">
-          <img src={starNo} />
-          <img src={starNo} />
-          <img src={starNo} />
-          <img src={starNo} />
-          <img src={starNo} />
+      {text ? (
+        <div>
+          <div className="relative flex flex-col items-center p-5 gap-4 bg-gray-10 w-[361px] rounded-lg">
+            <div className="flex items-center gap-1">
+              {Array.from({ length: 5 }, (_, index) => (
+                <img
+                  className="cursor-pointer"
+                  key={index}
+                  src={index < rating ? starYes : starNo}
+                  onClick={() => handleStarClick(index)}
+                  alt="star"
+                />
+              ))}
+            </div>
+            <div className="flex justify-center items-center max-h-12 text-b2 gap-2">
+              <img src={leftMark} />
+              {text}
+              <img src={rightMark} />
+            </div>
+            <img
+              className="absolute top-5 right-5 cursor-pointer"
+              src={menu}
+              onClick={() => setBottomSheet2Show(true)}
+            />
+          </div>
         </div>
-        {text ? (
-          <div
-            className="max-h-12 text-b2 text-gray-500"
-            onClick={() => setBottomSheet2Show(true)}
-          >
-            {text}
+      ) : (
+        <div>
+          <div className="flex flex-col items-center px-4 pt-4 pb-5 gap-2 bg-gray-10 w-[361px] rounded-lg">
+            <div className="flex items-center gap-1">
+              {Array.from({ length: 5 }, (_, index) => (
+                <img
+                  className="cursor-pointer"
+                  key={index}
+                  src={index < rating ? starYes : starNo}
+                  onClick={() => handleStarClick(index)}
+                  alt="star"
+                />
+              ))}
+            </div>
+            <textfield
+              className="px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD] w-full"
+              onClick={() => setBottomSheetShow(true)}
+            >
+              책에 대한 나의 한줄 평을 작성해주세요!
+            </textfield>
           </div>
-        ) : (
-          <div
-            className="px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD] w-full"
-            onClick={() => setBottomSheetShow(true)}
-          >
-            책에 대한 나의 한줄 평을 작성해주세요!
-          </div>
-        )}
-      </div>
+        </div>
+      )}
+
       <BottomSheetModal
         bottomSheetShow={bottomSheetShow}
         setBottomSheetShow={setBottomSheetShow}
@@ -77,7 +117,7 @@ const MyComment = () => {
             type="text"
             value={inputValue}
             className="mt-[1.625rem] mb-[3.1875rem] px-1 py-2 text-b1 placeholder:text-gray-400 border-b border-[#DDDDDD] w-full"
-            placeholder="책에 대한 나의 한줄 평을 작성해주세요! (20자 이내)"
+            placeholder="책에 대한 나의 한줄 평을 작성해주세요! (25자 이내)"
             onChange={handleChange}
           />
           <ButtonComponent
