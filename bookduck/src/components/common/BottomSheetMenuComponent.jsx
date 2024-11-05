@@ -14,7 +14,7 @@ const BottomSheetMenuComponent = ({
           isExported ? "py-3" : "p-4"
         } cursor-pointer`}
       >
-        <img src={img} />
+        {img && <img src={img} />}
         <div
           className={`text-b1 ${isExported ? "text-black" : "text-gray-800"} `}
         >

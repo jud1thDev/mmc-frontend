@@ -19,6 +19,7 @@ const PreferredAuthor = () => {
             alt={`book-cover-${index}`}
           />
         ))}
+
       </div>
     </div>
   );

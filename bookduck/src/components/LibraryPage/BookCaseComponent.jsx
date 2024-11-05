@@ -1,0 +1,48 @@
+import { useNavigate } from "react-router-dom";
+import horizontal_menu from "../../assets/common/horizontal-menu-gray.svg";
+import useBookListStore from "../../store/useBookListStore";
+
+const BookCaseComponent = ({
+  setShowMenuBottomSheet,
+  bookCaseTitle = "책장명",
+  bookList = [],
+  id = 1,
+}) => {
+  const { setBookList } = useBookListStore();
+  const navigate = useNavigate();
+  const handleBookCase = () => {
+    setBookList(bookList);
+    navigate(`/library/bookcase/${id}`);
+  };
+  return (
+    <>
+      <div
+        onClick={handleBookCase}
+        className="p-4 border-[0.0625rem] border-gray-100 rounded-[0.5rem] bg-gray-10 cursor-pointer"
+      >
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between">
+            <div className="flex items-center gap-[0.12rem]">
+              <div className="text-b2 text-gray-800">{bookCaseTitle}</div>
+              <div className="text-b2 text-orange-400">({bookList.length})</div>
+            </div>
+            <div
+              onClick={() => setShowMenuBottomSheet(true)}
+              className="cursor-pointer"
+            >
+              <img src={horizontal_menu} />
+            </div>
+          </div>
+          <div className="flex gap-2 w-[20.6rem] overflow-x-auto">
+            {bookList.map((it, index) => (
+              <div key={index} className="w-16 h-23 flex-shrink-0">
+                <img src={it.img} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+export default BookCaseComponent;

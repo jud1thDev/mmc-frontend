@@ -21,10 +21,10 @@ const FriendListComponent = ({ image, userName, text }) => {
       </div>
       <div>
         {text ? (
-          text === "취소" || text === "친구" ? (
+          text === "삭제" || text === "취소" ? (
             <button
               className={`text-btn3 ${
-                text === "취소" ? "text-[#FFBF68]" : "text-blue-400"
+                text === "삭제" ? "text-[#FFBF68]" : "text-gray-400"
               } px-3 py-1`}
             >
               {text}

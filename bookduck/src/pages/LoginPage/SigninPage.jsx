@@ -10,11 +10,11 @@ const SigninPage = () => {
       <StatusBar />
       <div className="px-4">
         <div className="text-t2 font-semibold mt-6">
-          북덕과 독서를 시작하기 전에,
+          BookDuck과 독서를 시작하기 전에,
           <br /> 이름을 설정해주세요.
         </div>
         <div className="text-b2  mt-7 mb-[2.75rem] text-gray-500">
-          이름 짓기가 어렵다면 랜덤이름으로 시작하세요.
+          이름 짓기가 어렵다면 바로 확인을 눌러 랜덤이름으로 시작하세요.
           <br />
           이름은 언제든 변경할 수 있어요.
         </div>
