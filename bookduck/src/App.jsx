@@ -22,13 +22,12 @@ import LibraryPage from "./pages/LibraryPage/LibraryPage";
 
 import EnterBookCasePage from "./pages/LibraryPage/EnterBookCasePage";
 
-
 import SelectExtractPage from "./pages/MainPage/SelectExtractPage";
 import SelectReviewPage from "./pages/MainPage/SelectReviewPage";
 import SelectCustomPage from "./pages/MainPage/SelectCustomPage";
 import SettingPage from "./pages/SettingPage/SettingPage";
 import FriendListPage from "./pages/FriendPage/FriendListPage";
-
+import OAuthRedierctPage from "./pages/LoginPage/OAuthRedierctPage";
 function App() {
   return (
     <Routes>
@@ -51,6 +50,7 @@ function App() {
       <Route path="/setting" element={<SettingPage />} />
       <Route path="/notification" element={<NotificationPage />} />
       <Route path="/" element={<Navigate to="/home" replace />} />
+      <Route path="/api/oauth" element={<OAuthRedierctPage />} />
       <Route path="/home" element={<MainPage />} />
       <Route path="/friend" element={<FriendListPage />} />
       <Route path="/search" element={<SearchMainPage />} />

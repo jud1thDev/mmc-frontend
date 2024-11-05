@@ -1,5 +1,5 @@
-import { KakaoURI } from "../../api/oauth";
-import duck from "../../assets/common/duck.svg";
+import { KakaoURI, GoogleURI } from "../../api/oauth";
+import mainDuck from "../../assets/common/main-duck.svg";
 import kakao from "../../assets/loginPage/kakao.svg";
 import google from "../../assets/loginPage/google.svg";
 const LoginPage = () => {
@@ -7,7 +7,7 @@ const LoginPage = () => {
     <div className="flex flex-col">
       <div className="flex flex-col h-[36.875rem] bg-gray-10 px-5">
         <img
-          src={duck}
+          src={mainDuck}
           className="w-[12.75rem] h-[12.375rem] mx-auto mt-[10.31rem] mb-[6rem]"
         />
         <p className="text-t1 font-semibold mb-[0.37rem]">환영합니다!</p>
@@ -15,7 +15,7 @@ const LoginPage = () => {
       </div>
       <div className="flex flex-col gap-3 items-center h-[16.37rem] bg-white">
         <a
-          href="#"
+          href={GoogleURI}
           className="flex justify-center items-center gap-[0.62rem] w-[22.0625rem] h-[3rem] rounded-[0.5rem] border-solid border-[0.0938rem] border-[#ADADAD] bg-white mt-[1.69rem]"
         >
           <img src={google} alt="google logo" />
