@@ -1,7 +1,6 @@
 import { useState } from "react";
 import starNo from "../../assets/bookinfoPage/star-no.svg";
 import starYes from "../../assets/bookinfoPage/star-yes.svg";
-
 import leftMark from "../../assets/bookinfoPage/left-quotmark.svg";
 import rightMark from "../../assets/bookinfoPage/right-quotmark.svg";
 import menu from "../../assets/bookinfoPage/menu-vertical.svg";
@@ -50,7 +49,7 @@ const MyComment = () => {
     <div>
       {text ? (
         <div>
-          <div className="relative flex flex-col items-center p-5 gap-4 bg-gray-10 w-[361px] rounded-lg">
+          <div className="relative flex flex-col items-center p-5 gap-4 bg-gray-10 w-[22.5625rem] rounded-lg">
             <div className="flex items-center gap-1">
               {Array.from({ length: 5 }, (_, index) => (
                 <img
@@ -62,7 +61,7 @@ const MyComment = () => {
                 />
               ))}
             </div>
-            <div className="flex justify-center items-center max-h-12 text-b2 gap-2">
+            <div className="flex justify-center items-center gap-2 max-h-12 text-b2">
               <img src={leftMark} />
               {text}
               <img src={rightMark} />
@@ -76,7 +75,7 @@ const MyComment = () => {
         </div>
       ) : (
         <div>
-          <div className="flex flex-col items-center px-4 pt-4 pb-5 gap-2 bg-gray-10 w-[361px] rounded-lg">
+          <div className="flex flex-col items-center px-4 pt-4 pb-5 gap-2 bg-gray-10 w-[22.5625rem] rounded-lg">
             <div className="flex items-center gap-1">
               {Array.from({ length: 5 }, (_, index) => (
                 <img
@@ -89,7 +88,7 @@ const MyComment = () => {
               ))}
             </div>
             <textfield
-              className="px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD] w-full"
+              className="w-full px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD]"
               onClick={() => setBottomSheetShow(true)}
             >
               책에 대한 나의 한줄 평을 작성해주세요!

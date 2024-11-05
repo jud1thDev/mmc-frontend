@@ -4,15 +4,15 @@ import down from "../../assets/common/down-arrow.svg";
 const BookInfo = ({ isMe = "default" }) => {
   // 기본으로 등록되어 있는 책: default 내가 직접 등록한 책: me 타유저가 직접 등록한 책: other
   return (
-    <div className="flex gap-4 w-[361px]">
+    <div className="flex gap-4 w-[22.5625rem]">
       <img
-        className="w-[112px] h-[156px] rounded bg-cover bg-no-repeat shadow-custom"
+        className="w-[7rem] h-[9.75rem] rounded bg-cover bg-no-repeat shadow-custom"
         src={cover}
         alt="Cover"
       />
       <div className="flex flex-col justify-between pt-1 w-full">
         <div className="flex flex-col gap-1">
-          <div className="text-t2 font-semibold max-h-[56px]">책 제목</div>
+          <div className="text-t2 font-semibold max-h-[3.5rem]">책 제목</div>
           <div className="text-b2 text-gray-500 h-6">지은이</div>
           <div className="flex items-center gap-1 text-b2 text-gray-500 h-6">
             <div>출판사</div>
