@@ -35,7 +35,7 @@ const BookPlot = () => {
 
         <div
           ref={contentRef}
-          className={`relative overflow-hidden transition-all text-b2 font-regular cursor-pointer ${
+          className={`relative text-b2 font-regular overflow-hidden transition-all cursor-pointer ${
             isExpanded ? "max-h-full" : "max-h-24"
           }`}
           onClick={toggleExpand}
@@ -43,7 +43,7 @@ const BookPlot = () => {
           {text}
           {showMoreBtn && (
             <span
-              className={` px-2 cursor-pointer w-[5.5rem] ${
+              className={` px-2 w-[5.5rem] cursor-pointer ${
                 isExpanded
                   ? "text-blue-400"
                   : "flex justify-end text-gray-400 bg-white-gradiation absolute bottom-0 right-0"
