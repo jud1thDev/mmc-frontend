@@ -1,5 +1,4 @@
-import * as zustand from "zustand";
-const create = zustand.create;
+import create from "zustand";
 
 const useBookListStore = create((set) => ({
   bookList: [],

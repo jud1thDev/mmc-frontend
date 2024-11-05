@@ -1,4 +1,4 @@
-import book_cover from "../../assets/common/book-cover.png";
+import book_cover from "../../assets/common/book-cover.svg";
 
 const PreferredAuthor = () => {
   const images = [book_cover, book_cover, book_cover];
@@ -19,7 +19,6 @@ const PreferredAuthor = () => {
             alt={`book-cover-${index}`}
           />
         ))}
-
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import BookListViewDropdown from "./BookListViewDropdown";
 import coverEx from "../../assets/common/book-cover-ex.svg";
 import menuBar from "../../assets/common/menu-bar.svg";
 import emptyImage from "../../assets/recordingPage/rating-empty.svg";
