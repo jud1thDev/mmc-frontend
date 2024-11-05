@@ -46,7 +46,7 @@ const BookPlot = () => {
               className={` px-2 w-[5.5rem] cursor-pointer ${
                 isExpanded
                   ? "text-blue-400"
-                  : "flex justify-end text-gray-400 bg-white-gradiation absolute bottom-0 right-0"
+                  : "absolute bottom-0 right-0 flex justify-end text-gray-400 bg-white-gradiation"
               }`}
             >
               {isExpanded ? "접기" : "더보기"}
