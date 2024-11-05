@@ -5,7 +5,6 @@ const api = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}`,
 });
 
-/*인증 필요한 요청*/
 
 /* 로컬스토리지에서 토큰 정보 가져오기*/
 const storedToken = localStorage.getItem("token");

@@ -45,6 +45,10 @@ export default {
         },
         blue: {
           400: "#6B7FF0",
+          800: "#364390",
+        },
+        yellow: {
+          100: "#FFECA4",
         },
         special: "#FF9F1C",
       },
@@ -58,16 +62,17 @@ export default {
       },
       fontSize: {
         t1: ["1.5rem", { lineHeight: "2.25rem" }], //24px
-        t2: ["1.25rem", { lineHeight: "1.75rem" }], //20px
+        t2: ["1.25rem", { lineHeight: "1.75rem" }], //20px /26px
         st: ["1.125rem", { lineHeight: "1.5rem" }], //18px / 24px
         b1: ["1rem", { lineHeight: "1.5rem" }], //16px / 24px
-        b2: ["0.875rem", { lineHeight: "1.5rem" }], //14px
+        b2: ["0.875rem", { lineHeight: "1.5rem" }], //14px /24px
         btn1: ["1.125rem", { lineHeight: "1.5rem" }],
         btn2: ["1rem", { lineHeight: "1.25rem" }], //16px / 20px
-        btn3: ["0.875rem", { lineHeight: "1.25rem" }],
-        btn4: ["0.75rem", { lineHeight: "1rem" }], //12px
+        btn3: ["0.875rem", { lineHeight: "1.25rem" }], //14px / 20px
+        btn4: ["0.75rem", { lineHeight: "1rem" }], //12px / 16px
         c1: ["0.75rem", { lineHeight: "1rem" }],
         c2: ["0.6875rem", { lineHeight: "0.8125rem" }],
+        c3: ["2rem", { lineHeight: "2.25rem" }], //32px / 36px
       },
       fontWeight: {
         semibold: 600,

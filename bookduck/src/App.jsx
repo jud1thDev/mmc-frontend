@@ -17,7 +17,7 @@ import SelectCardPage from "./pages/MainPage/SelectCardPage";
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
 import BookInfoAddedPage from "./pages/BookInfoPage/BoonInfoAddedPage";
-
+import StatisticsPage from "./pages/StatisticsPage/StatisticsPage";
 import CardDecorationPage from "./pages/RecordingPage/CardDecorationPage";
 import LibraryPage from "./pages/LibraryPage/LibraryPage";
 
@@ -51,6 +51,8 @@ function App() {
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/setting" element={<SettingPage />} />
       <Route path="/notification" element={<NotificationPage />} />
+      <Route path="/statistics" element={<StatisticsPage />} />
+
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
       <Route path="/home" element={<MainPage />} />
