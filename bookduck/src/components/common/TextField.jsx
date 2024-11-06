@@ -13,6 +13,7 @@ const TextField = ({
   placeholder,
   check = true,
   error,
+  inputError,
   handleEdit,
   isSubmitted,
   defaultType,
@@ -40,22 +41,36 @@ const TextField = ({
             !isSubmitted
               ? "border-b-[1px] border-gray-200"
               : error === true
-              ? "border-b-[1px] border-orange-600"
-              : "border-b-[1px] border-blue"
+              ? "border-b-[1px] border-red"
+              : "border-b-[1px] border-blue-400"
           } text-b1 text-gray-800`}
         />
         {check && (
           <div
-            onClick={handleEdit}
+            onClick={inputError ? null : handleEdit}
             className="absolute top-[16px] right-0 text-b2 text-gray-600 cursor-pointer "
           >
             확인
           </div>
         )}
       </div>
+      {!defaultType && !isSubmitted && (
+        <p
+          className={`text-c1 ${
+            inputError ? "text-orange-600" : "text-gray-400"
+          } mt-2`}
+        >
+          8자 이내로 작성해야하며, 띄어쓰기와 특수문자는 사용할 수 없어요.
+        </p>
+      )}
+
       {/* 확인 버튼이 클릭된 경우에만 메시지 표시 */}
-      {!defaultType && isSubmitted && (
-        <div className={`text-c1 ${error ? "text-orange-600" : "text-blue"}`}>
+      {!defaultType && isSubmitted && !inputError && (
+        <div
+          className={`text-c1 mt-[0.12rem] ${
+            error ? "text-red" : "text-blue-400"
+          }`}
+        >
           {error ? "이미 사용 중인 이름입니다!" : "사용 가능한 이름입니다!"}
         </div>
       )}
