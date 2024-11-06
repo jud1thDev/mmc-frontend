@@ -55,7 +55,7 @@ const ButtonComponent = ({
   return (
     <button
       className={buttonStyles}
-      onClick={!disabled ? onClick : null}
+      onClick={disabled ? undefined : onClick}
       disabled={disabled}
       {...props}
     >
