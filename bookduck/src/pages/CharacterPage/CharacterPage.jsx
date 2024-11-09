@@ -5,6 +5,8 @@ import reviewIcon from "../../assets/characterPage/review.svg";
 import right from "../../assets/characterPage/right.svg";
 import UserDuck from "../../components/CharacterPage/UserDuck";
 import CharacterHeader from "../../components/CharacterPage/CharacterHeader";
+import BottomNavbar from "../../components/common/BottomNavbar";
+
 const CharacterPage = () => {
   const navigate = useNavigate();
 
@@ -76,6 +78,7 @@ const CharacterPage = () => {
         <img className="w-6 h-6" src={right} />
       </div>
       {/* 네비바 들어갈 자리  */}
+      <BottomNavbar />
     </div>
   );
 };
