@@ -12,7 +12,7 @@ import BookComponent from "../../components/SearchPage/BookComponent";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import EditBookListView from "../../components/common/EditBookListView";
 import add_book_btn from "../../assets/libraryPage/add-book-btn.svg";
-import RoundedTabComponent from "../../components/common/roundedTabComponent";
+import RoundedTabComponent from "../../components/common/RoundedTabComponent";
 
 const EnterBookCasePage = () => {
   const { id } = useParams(); // URL에서 id를 추출

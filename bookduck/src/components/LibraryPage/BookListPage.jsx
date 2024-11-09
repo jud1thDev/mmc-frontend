@@ -1,6 +1,6 @@
 import { useState } from "react";
 import down from "../../assets/common/down.svg";
-import RoundedTabComponent from "../common/roundedTabComponent";
+import RoundedTabComponent from "../common/RoundedTabComponent";
 import BookListView from "../common/BookListView";
 import BottomNavbar from "../common/BottomNavbar";
 import BookComponent from "../SearchPage/BookComponent";
