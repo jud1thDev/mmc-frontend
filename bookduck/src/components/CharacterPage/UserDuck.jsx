@@ -5,7 +5,7 @@ import { OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const DuckModel = () => {
-  const gltf = useLoader(GLTFLoader, "/src/assets/characterPage/duck.glb");
+  const gltf = useLoader(GLTFLoader, "/assets/characterPage/duck.glb");
 
   return <primitive object={gltf.scene} scale={2.3} position={[0, -2.8, 0]} />;
 };
