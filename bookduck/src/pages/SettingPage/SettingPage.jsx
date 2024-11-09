@@ -140,9 +140,6 @@ const SettingPage = () => {
     }
   }, [error]);
 
-  // useEffect(() => {
-  //   postAccessTokenIssue();
-  // }, []);
   //이벤트 핸들러
 
   //바텀시트 닫기

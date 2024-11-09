@@ -21,7 +21,7 @@ const OAuthRedirectPage = () => {
         console.log("Access Token 존재");
         const token = {
           accessToken: accessToken,
-          expiresIn: expiresIn,
+          expiresIn: new Date().getTime() + expiresIn,
           isNewUser: isNewUser,
         };
         localStorage.setItem("token", JSON.stringify(token));
