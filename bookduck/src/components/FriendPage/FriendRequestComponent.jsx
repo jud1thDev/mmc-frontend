@@ -26,8 +26,8 @@ const FriendRequestComponent = () => {
       const response = await getReceivedFriendList();
       setReceivedFriendList(response.data.requestList);
       setReceivedFriendCount(response.data.requestCount);
-      console.log(response.data.requestList);
-      console.log(response.data.requestCount);
+      // console.log(response.data.requestList);
+      // console.log(response.data.requestCount);
     } catch (error) {
       console.error("받은 친구 목록 조회 에러", error);
     }
@@ -57,11 +57,11 @@ const FriendRequestComponent = () => {
   const readSentFriendList = async () => {
     try {
       const response = await getSentFriendList();
-      console.log(response.data);
+      // console.log(response.data);
       setSentFriendList(response.data.requestList);
       setSentFriendCount(response.data.requestCount);
-      console.log(response.data.requestList);
-      console.log(response.data.requestCount);
+      // console.log(response.data.requestList);
+      // console.log(response.data.requestCount);
     } catch (error) {
       console.error("보낸 친구 목록 조회 에러", error);
     }
@@ -69,10 +69,10 @@ const FriendRequestComponent = () => {
 
   //API-친구 요청취소
   const delFriendRequest = async (friendRequestId) => {
-    console.log(friendRequestId);
+    // console.log(friendRequestId);
     try {
       await deleteFriendRequest(friendRequestId);
-      console.log("친구 요청취소 성공");
+      // console.log("친구 요청취소 성공");
       readSentFriendList();
     } catch (error) {
       console.error("친구 요청취소 에러", error);

@@ -11,8 +11,8 @@ const CurrentFriendComponent = () => {
       const response = await getFriendList();
       setFriendList(response.data.friendList);
       setFriendCount(response.data.friendCount);
-      console.log(response.data.friendList);
-      console.log(response.data.friendCount);
+      // console.log(response.data.friendList);
+      // console.log(response.data.friendCount);
     } catch (error) {
       console.error("친구 정보 읽기 오류", error);
     }
