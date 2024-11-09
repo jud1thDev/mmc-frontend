@@ -22,7 +22,6 @@ export default {
         yellow: "#FFFAE6",
         white: "#FFF",
         black: "#000000",
-        blue: "#0066FF",
         orange: {
           50: "#FFFAE6",
           300: "#FFBF68",
@@ -44,12 +43,14 @@ export default {
           custom: "#DDD",
         },
         blue: {
+          200: "#0066FF",
           400: "#6B7FF0",
           800: "#364390",
         },
         yellow: {
           100: "#FFECA4",
         },
+        red: "#EA4520",
         special: "#FF9F1C",
       },
       backgroundImage: {
