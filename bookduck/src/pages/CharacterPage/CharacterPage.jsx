@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import polygon from "../../assets/CharacterPage/polygon.svg";
-import bookIcon from "../../assets/CharacterPage/book.svg";
-import reviewIcon from "../../assets/CharacterPage/review.svg";
-import right from "../../assets/CharacterPage/right.svg";
+import polygon from "../../assets/characterPage/polygon.svg";
+import bookIcon from "../../assets/characterPage/book.svg";
+import reviewIcon from "../../assets/characterPage/review.svg";
+import right from "../../assets/characterPage/right.svg";
 import UserDuck from "../../components/CharacterPage/UserDuck";
 import CharacterHeader from "../../components/CharacterPage/CharacterHeader";
 const CharacterPage = () => {
