@@ -29,6 +29,7 @@ const OAuthRedirectPage = () => {
           navigate("/signin", { replace: true });
         } else {
           navigate("/home", { replace: true });
+          window.location.reload();
         }
       } else {
         throw new Error("엑세스 토큰 없음");

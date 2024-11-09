@@ -20,6 +20,7 @@ import DeleteModal from "../../components/common/modal/DeleteModal";
 import edit from "../../assets/settingPage/edit.svg";
 import kakaoLogin from "../../assets/settingPage/kakao-login.svg";
 import google from "../../assets/loginPage/google.svg";
+import { postAccessTokenIssue } from "../../api/oauth";
 const SettingPage = () => {
   //상태 관리
   const navigate = useNavigate();
@@ -42,17 +43,17 @@ const SettingPage = () => {
   const [visible, setVisible] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [error, setError] = useState(false);
-  const [inputError, setInputError] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState(null);
+  const [inputError, setInputError] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(null);
 
   //API연결
   //API-세팅정보받기
   const readSettingInfo = async () => {
-    console.log("세팅인포", settingInfo);
+    // console.log("세팅인포", settingInfo);
     try {
       const response = await getSettingInfo();
-      console.log(response.data);
+      // console.log(response.data);
       setSettingInfo(response.data);
     } catch (error) {
       console.error("세팅 읽어오기 오류", error);
@@ -63,8 +64,8 @@ const SettingPage = () => {
   const updateSettingOption = async (field, value) => {
     try {
       const updatedSetting = { [field]: value };
-      const response = await patchSettingOption(updatedSetting);
-      console.log("설정 업데이트 성공:", updatedSetting);
+      await patchSettingOption(updatedSetting);
+      // console.log("설정 업데이트 성공:", updatedSetting);
     } catch (error) {
       console.error("옵션 업데이트 오류", error);
     }
@@ -74,8 +75,8 @@ const SettingPage = () => {
   const readNicknameCheck = async (nickname) => {
     try {
       const response = await getNicknameCheck(nickname);
-      console.log("응답", response.data);
-      setError(!response.data);
+      // console.log("응답", response.data.isAvailable);
+      setError(!response.data.isAvailable);
     } catch (error) {
       console.error("닉네임 오류", error);
     }
@@ -86,7 +87,7 @@ const SettingPage = () => {
     try {
       const updatedNickname = { nickname: nickname };
       const response = await patchNickname(updatedNickname);
-      console.log("닉네임 변경 성공:", response.data);
+      // console.log("닉네임 변경 성공:", response.data);
       window.location.reload();
     } catch (error) {
       console.error("닉네임 변경 오류", error);
@@ -97,7 +98,7 @@ const SettingPage = () => {
   const createLogout = async () => {
     try {
       await postLogout();
-      console.log("로그아웃 완료");
+      // console.log("로그아웃 완료");
     } catch (error) {
       console.error("로그아웃 오류", error);
     }
@@ -126,13 +127,22 @@ const SettingPage = () => {
   //바텀시트 닫기 시  설정 초기화
   useEffect(() => {
     if (!bottomSheetShow) {
-      setInputValue(settingInfo.nickname);
-      setError(false);
+      setInputValue(null);
+      setError(null);
       setInputError(false);
       setIsSubmitted(false);
     }
   }, [bottomSheetShow]);
 
+  useEffect(() => {
+    if (error !== null) {
+      console.log("현재 error 상태:", error);
+    }
+  }, [error]);
+
+  // useEffect(() => {
+  //   postAccessTokenIssue();
+  // }, []);
   //이벤트 핸들러
 
   //바텀시트 닫기
@@ -140,6 +150,7 @@ const SettingPage = () => {
     setVisible(false);
     setTimeout(() => {
       setBottomSheetShow(false);
+      setInputValue(settingInfo.nickname);
     }, 200);
   };
 
@@ -161,6 +172,7 @@ const SettingPage = () => {
 
   //확인버튼 클릭 시
   const handleEdit = () => {
+    setError(null);
     setIsSubmitted(true);
     readNicknameCheck(inputValue);
   };
