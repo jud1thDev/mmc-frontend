@@ -23,6 +23,7 @@ const FriendListPage = () => {
         activeTab={tab}
         onTabClick={setTab}
         size="small"
+        borderWidth="2rem"
       />
       {tab === "친구" && <CurrentFriendComponent />}
       {tab === "요청" && <FriendRequestComponent />}
