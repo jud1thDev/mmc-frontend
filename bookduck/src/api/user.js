@@ -64,7 +64,7 @@ export const postLogout = async () => {
 //회원 탈퇴
 export const deleteUser = async () => {
   try {
-    const response = await apiAuth.delete(`/users`);
+    const response = await apiAuth.delete(`/users/me`);
     localStorage.clear();
     return response;
   } catch (error) {

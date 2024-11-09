@@ -17,8 +17,8 @@ const FriendRequestComponent = () => {
   const [sentFriendList, setSentFriendList] = useState([]);
   const [sentFriendCount, setSentFriendCount] = useState(0);
 
-  const [showReceived, setShowReceived] = useState(false);
-  const [showSent, setShowSent] = useState(false);
+  const [showReceived, setShowReceived] = useState(true);
+  const [showSent, setShowSent] = useState(true);
 
   //API-받은 친구 목록 조회
   const readReceivedFriendList = async () => {
@@ -111,7 +111,7 @@ const FriendRequestComponent = () => {
             {receivedFriendList.map((friend, index) => (
               <FriendListComponent
                 key={index}
-                userName={friend.receiverNickname}
+                userName={friend.userNickname}
                 handleDecline={() => replaceFriendRequest(friend.requestId)}
                 handleAccept={() => createFriend(friend.requestId)}
               />
@@ -135,7 +135,7 @@ const FriendRequestComponent = () => {
             {sentFriendList.map((friend, index) => (
               <FriendListComponent
                 key={index}
-                userName={friend.receiverNickname}
+                userName={friend.userNickname}
                 text="취소"
                 handleCancel={() => delFriendRequest(friend.requestId)}
               />

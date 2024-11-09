@@ -27,9 +27,9 @@ const SettingPage = () => {
     nickname: "",
     loginType: "",
     email: "",
-    isPushAlarmEnabled: true,
-    isFriendRequestEnabled: true,
-    recordFont: "NANUMGOTHIC",
+    isPushAlarmEnabled: null,
+    isFriendRequestEnabled: null,
+    recordFont: "",
   });
 
   const fonts = [
@@ -64,7 +64,7 @@ const SettingPage = () => {
     try {
       const updatedSetting = { [field]: value };
       const response = await patchSettingOption(updatedSetting);
-      console.log("설정 업데이트 성공:", response.data);
+      console.log("설정 업데이트 성공:", updatedSetting);
     } catch (error) {
       console.error("옵션 업데이트 오류", error);
     }
@@ -243,10 +243,11 @@ const SettingPage = () => {
           <div className="flex justify-between items-center h-8">
             <span>로그인정보</span>
             <div className="flex items-center gap-[0.62rem]">
-              {settingInfo.loginType === "KAKAO" ? (
+              {settingInfo.loginType === "KAKAO" && (
                 <img src={kakaoLogin} alt="kakao account" />
-              ) : (
-                <img src={google} />
+              )}
+              {settingInfo.loginType === "GOOGLE" && (
+                <img src={google} alt="google account" />
               )}
               <span>{settingInfo.email}</span>
             </div>
