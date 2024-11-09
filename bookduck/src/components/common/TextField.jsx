@@ -12,7 +12,7 @@ const TextField = ({
   title,
   placeholder,
   check = true,
-  error,
+  error = null,
   inputError,
   handleEdit,
   isSubmitted,
@@ -37,13 +37,13 @@ const TextField = ({
           value={inputValue}
           onChange={handleValue}
           placeholder={placeholder}
-          className={`w-[361px] h-[48px] px-[4px] py-[12px]  ${
-            !isSubmitted
-              ? "border-b-[1px] border-gray-200"
+          className={`w-[361px] h-[48px] px-[4px] py-[12px] text-b1 text-gray-800 border-b-[1px] ${
+            !isSubmitted || error === null
+              ? "border-gray-200"
               : error === true
-              ? "border-b-[1px] border-red"
-              : "border-b-[1px] border-blue-400"
-          } text-b1 text-gray-800`}
+              ? "border-red"
+              : "border-blue-200"
+          }`}
         />
         {check && (
           <div
@@ -64,14 +64,21 @@ const TextField = ({
         </p>
       )}
 
-      {/* 확인 버튼이 클릭된 경우에만 메시지 표시 */}
       {!defaultType && isSubmitted && !inputError && (
         <div
-          className={`text-c1 mt-[0.12rem] ${
-            error ? "text-red" : "text-blue-400"
+          className={`text-c1 ${
+            !isSubmitted || error === null
+              ? ""
+              : error === true
+              ? "text-red"
+              : "text-blue-200"
           }`}
         >
-          {error ? "이미 사용 중인 이름입니다!" : "사용 가능한 이름입니다!"}
+          {!isSubmitted || error === null
+            ? ""
+            : error === true
+            ? "이미 사용 중인 이름입니다!"
+            : "사용 가능한 이름입니다!"}
         </div>
       )}
     </>
