@@ -3,7 +3,7 @@ import Header3 from "../../components/common/Header3";
 import StatusBar from "../../components/common/StatusBar";
 import ReviewComponents from "../../components/RecordingPage/ReviewComponents";
 import Divider1 from "../../components/common/Divider1";
-import RoundedTabComponent from "../../components/common/roundedTabComponent";
+import RoundedTabComponent from "../../components/common/RoundedTabComponent";
 import { useEffect, useState } from "react";
 import ColorPalette from "../../components/RecordingPage/ColorPalette";
 import { colorDefaultPalette } from "../../constant/colorDefaultPalette";
