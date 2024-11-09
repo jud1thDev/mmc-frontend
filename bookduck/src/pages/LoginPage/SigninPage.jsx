@@ -1,10 +1,100 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import BottomBackgroundComponent from "../../components/common/BottomBackgroundComponent";
 import TextField from "../../components/common/TextField";
 import StatusBar from "../../components/common/StatusBar";
+import { getNickname, getNicknameCheck, patchNickname } from "../../api/user";
+import { update } from "@react-spring/web";
 const SigninPage = () => {
-  const Btn = <ButtonComponent text="완료" type="primary" disabled={true} />;
+  //상태 관리
+  const navigate = useNavigate();
+  const [nickname, setNickname] = useState("");
+  const [error, setError] = useState(null);
+  const [inputError, setInputError] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(null);
+
+  //API 연결
+  //API-닉네임받기
+  const readNickname = async (nickname) => {
+    try {
+      const response = await getNickname(nickname);
+      setNickname(response.data.nickname);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //API-닉네임체크
+  const readNicknameCheck = async (nickname) => {
+    try {
+      const response = await getNicknameCheck(nickname);
+      // console.log("응답", response.data.isAvailable);
+      setError(!response.data.isAvailable);
+    } catch (error) {
+      console.error("닉네임 오류", error);
+    }
+  };
+
+  //API-닉네임변경
+  const updateNickname = async (nickname) => {
+    try {
+      const updatedNickname = { nickname: nickname };
+      await patchNickname(updatedNickname);
+      // console.log("닉네임 업데이트 성공:", response.data);
+    } catch (error) {
+      console.error("닉네임 변경 오류", error);
+    }
+  };
+
+  //useEffect hook
+  useEffect(() => {
+    readNickname();
+  }, []);
+
+  // error 상태 변경 시 로그 출력
+  useEffect(() => {
+    if (error !== null) {
+      console.log("현재 error 상태:", error);
+    }
+  }, [error]);
+
+  //이벤트 핸들러
+  //입력값 변경
+  const handleValue = (e) => {
+    const newValue = e.target.value;
+    setNickname(newValue);
+    setInputError(
+      newValue.length > 8 || /[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]/.test(newValue)
+    );
+    setIsSubmitted(false);
+  };
+
+  //확인버튼 클릭 시
+  const handleEdit = () => {
+    setIsSubmitted(true);
+    setError(null);
+    readNicknameCheck(nickname);
+  };
+
+  //완료 버튼 클릭 시
+  const handleComplete = (nickname) => {
+    try {
+      updateNickname(nickname);
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const Btn = (
+    <ButtonComponent
+      text="완료"
+      type="primary"
+      disabled={!isSubmitted || error}
+      onClick={() => handleComplete(nickname)}
+    />
+  );
   return (
     <div className="w-[24.5625rem]">
       <StatusBar />
@@ -18,9 +108,20 @@ const SigninPage = () => {
           <br />
           이름은 언제든 변경할 수 있어요.
         </div>
-        <TextField type="제목" placeholder="랜덤닉네임" />
+        <TextField
+          type="제목"
+          title="닉네임"
+          placeholder="닉네임을 입력해주세요"
+          check={true}
+          error={error}
+          inputError={inputError}
+          handleEdit={handleEdit}
+          isSubmitted={isSubmitted}
+          defaultType={false}
+          handleValue={handleValue}
+          inputValue={nickname}
+        />
       </div>
-
       <BottomBackgroundComponent Button={Btn} />
     </div>
   );
