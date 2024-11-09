@@ -7,10 +7,11 @@ export const GoogleURI = `${BACK_DOMAIN}/oauth2/authorization/google`;
 export const postAccessTokenIssue = async () => {
   try {
     const response = await apiAuth.post(`/auth/refresh`);
+    console.log(response);
     const token = {
       accessToken: response.data.accessToken,
-      grantType: response.data.grantType,
-      expiresIn: new Date().getTime() + response.data.expiresIn,
+      expiresIn: new Date().getTime() + response.data.accessTokenMaxAge,
+      isNewUser: false,
     };
   } catch (error) {
     localStorage.removeItem("token");
