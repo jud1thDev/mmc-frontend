@@ -67,12 +67,15 @@ const SettingPage = () => {
 
   //API-닉네임체크
   const postNicknameCheck = async (nickname) => {
+    console.log(nickname);
     try {
-      const response = await post(`/settings/nickname/check`, nickname);
+      const response = await post(`/settings/nickname/check`, {
+        nickname: nickname,
+      });
       // console.log("응답", response.isAvailable);
       setError(!response.isAvailable);
     } catch (error) {
-      console.error("닉네임 오류", error);
+      console.error("닉네임체크 오류", error);
     }
   };
 
@@ -91,7 +94,7 @@ const SettingPage = () => {
   //API-로그아웃
   const postLogout = async () => {
     try {
-      await post(`/logout`, {});
+      await post(`/logout`);
       // console.log("로그아웃 완료");
     } catch (error) {
       console.error("로그아웃 오류", error);

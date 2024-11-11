@@ -8,7 +8,6 @@ const SearchComponent = ({
   setSearch,
   onEnter,
   className,
-  autoInputref,
 }) => {
   const navigate = useNavigate();
 

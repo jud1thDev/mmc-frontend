@@ -25,11 +25,7 @@ const SearchMainPage = () => {
   return (
     <div>
       <StatusBar />
-      <SearchComponent
-        search={search}
-        setSearch={setSearch}
-        onEnter={() => navigate("/search/detail")}
-      />
+      <SearchComponent search={search} setSearch={setSearch} />
       {!search ? (
         <>
           <div className="flex flex-col px-4 gap-3 mt-4">
