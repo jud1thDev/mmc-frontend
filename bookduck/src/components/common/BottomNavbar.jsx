@@ -14,7 +14,7 @@ const BottomNavbar = () => {
   return (
     <div className="fixed bottom-0 w-[24.5625rem] h-[5.375rem] border-t-[0.3px] border-[#0000004D] bg-[#FFFFFF] z-[110]">
       <div className="flex justify-center items-center gap-[1.89rem] mt-[0.62rem] cursor-pointer">
-        <NavLink to="/">
+        <NavLink to="/home">
           {({ isActive }) => (
             <>{isActive ? <img src={main_active} /> : <img src={main} />}</>
           )}

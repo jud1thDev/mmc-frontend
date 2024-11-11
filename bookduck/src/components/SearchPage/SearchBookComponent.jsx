@@ -12,7 +12,10 @@ const SearchBookComponent = ({ search }) => {
   const [visible, setVisible] = useState(false);
   const [status1, setStatus1] = useState("읽고 싶어요");
   const [status2, setStatus2] = useState("서재에 담기");
+  const [registered, setRegistered] = useState([]);
+  const [nonRegistered, setNonRegistered] = useState([]);
   const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
+
   const handleOpenClick1 = () => {
     setIsCancel(false);
     setBottomSheetShow(true);
@@ -73,9 +76,6 @@ const SearchBookComponent = ({ search }) => {
       inLibrary: true,
     },
   ];
-
-  const [registered, setRegistered] = useState([]);
-  const [nonRegistered, setNonRegistered] = useState([]);
 
   useEffect(() => {
     if (search) {

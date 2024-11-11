@@ -21,7 +21,7 @@ const OAuthRedirectPage = () => {
         console.log("Access Token 존재");
         const token = {
           accessToken: accessToken,
-          expiresIn: expiresIn,
+          expiresIn: new Date().getTime() + expiresIn,
           isNewUser: isNewUser,
         };
         localStorage.setItem("token", JSON.stringify(token));
@@ -29,6 +29,7 @@ const OAuthRedirectPage = () => {
           navigate("/signin", { replace: true });
         } else {
           navigate("/home", { replace: true });
+          window.location.reload();
         }
       } else {
         throw new Error("엑세스 토큰 없음");

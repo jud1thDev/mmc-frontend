@@ -12,7 +12,8 @@ const TextField = ({
   title,
   placeholder,
   check = true,
-  error,
+  error = null,
+  inputError,
   handleEdit,
   isSubmitted,
   defaultType,
@@ -36,27 +37,48 @@ const TextField = ({
           value={inputValue}
           onChange={handleValue}
           placeholder={placeholder}
-          className={`w-[361px] h-[48px] px-[4px] py-[12px]  ${
-            !isSubmitted
-              ? "border-b-[1px] border-gray-200"
+          className={`w-[361px] h-[48px] px-[4px] py-[12px] text-b1 text-gray-800 border-b-[1px] ${
+            !isSubmitted || error === null
+              ? "border-gray-200"
               : error === true
-              ? "border-b-[1px] border-orange-600"
-              : "border-b-[1px] border-blue"
-          } text-b1 text-gray-800`}
+              ? "border-red"
+              : "border-blue-200"
+          }`}
         />
         {check && (
           <div
-            onClick={handleEdit}
+            onClick={inputError ? null : handleEdit}
             className="absolute top-[16px] right-0 text-b2 text-gray-600 cursor-pointer "
           >
             확인
           </div>
         )}
       </div>
-      {/* 확인 버튼이 클릭된 경우에만 메시지 표시 */}
-      {!defaultType && isSubmitted && (
-        <div className={`text-c1 ${error ? "text-orange-600" : "text-blue"}`}>
-          {error ? "이미 사용 중인 이름입니다!" : "사용 가능한 이름입니다!"}
+      {!defaultType && !isSubmitted && (
+        <p
+          className={`text-c1 ${
+            inputError ? "text-orange-600" : "text-gray-400"
+          } mt-2`}
+        >
+          8자 이내로 작성해야하며, 띄어쓰기와 특수문자는 사용할 수 없어요.
+        </p>
+      )}
+
+      {!defaultType && isSubmitted && !inputError && (
+        <div
+          className={`text-c1 ${
+            !isSubmitted || error === null
+              ? ""
+              : error === true
+              ? "text-red"
+              : "text-blue-200"
+          }`}
+        >
+          {!isSubmitted || error === null
+            ? ""
+            : error === true
+            ? "이미 사용 중인 이름입니다!"
+            : "사용 가능한 이름입니다!"}
         </div>
       )}
     </>

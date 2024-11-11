@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import duck from "../../assets/common/duck.svg";
 import ButtonComponent from "./ButtonComponent";
 
-const FriendListComponent = ({ image, userName, text }) => {
+const FriendListComponent = ({
+  image,
+  userName,
+  text,
+  handleDelete,
+  handleCancel,
+  handleDecline,
+  handleAccept,
+}) => {
   const handleImage = (e) => {
     e.target.src = duck;
   };
@@ -23,6 +31,7 @@ const FriendListComponent = ({ image, userName, text }) => {
         {text ? (
           text === "삭제" || text === "취소" ? (
             <button
+              onClick={text === "삭제" ? handleDelete : handleCancel}
               className={`text-btn3 ${
                 text === "삭제" ? "text-[#FFBF68]" : "text-gray-400"
               } px-3 py-1`}
@@ -37,12 +46,18 @@ const FriendListComponent = ({ image, userName, text }) => {
               text="거절"
               color="gray"
               size="small"
+              disabled={false}
+              onClick={() => {
+                handleDecline();
+              }}
             />
             <ButtonComponent
               type="secondary"
               text="수락"
               color="orange"
               size="small"
+              disabled={false}
+              onClick={handleAccept}
             />
           </div>
         )}
