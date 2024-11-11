@@ -3,7 +3,6 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import SigninPage from "./pages/LoginPage/SigninPage";
 import SearchMainPage from "./pages/SearchPage/SearchMainPage";
 import NotificationPage from "./pages/NotificationPage/NotificationPage";
-import SearchDetailPage from "./pages/SearchPage/SearchDetailPage";
 import CharacterPage from "./pages/CharacterPage/CharacterPage";
 import MyBadgePage from "./pages/CharacterPage/MyBadgePage";
 import CharacterCustomPage from "./pages/CharacterPage/CharacterCustomPage";
@@ -56,7 +55,6 @@ function App() {
       <Route path="/home" element={<MainPage />} />
       <Route path="/friend" element={<FriendListPage />} />
       <Route path="/search" element={<SearchMainPage />} />
-      <Route path="/search/detail" element={<SearchDetailPage />} />
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/search/register" element={<RegisterPage />} />
       <Route path="/info/book" element={<BookInfoPage />} />
