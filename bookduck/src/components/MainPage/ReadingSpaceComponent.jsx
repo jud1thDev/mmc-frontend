@@ -19,15 +19,6 @@ import helpCircle from "../../assets/mainPage/help-circle.svg";
 
 const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
   const navigate = useNavigate();
-  const screenHeight = window.innerHeight;
-  const initialHeight = screenHeight * 0.55;
-  const expandedHeight = screenHeight * 0.95;
-  const hideButtonThreshold = initialHeight + 50;
-
-  const [cards, setCards] = useState([
-    // { id: "1", title: "첫 번째 카드" },
-    // { id: "2", title: "두 번째 카드" },
-  ]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isHelp, setIsHelp] = useState(false);
@@ -35,15 +26,14 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
   const [visible, setVisible] = useState(false);
   const [isFloatingVisible, setFloatingVisible] = useState(true);
   const [isHelpVisible, setHelpVisible] = useState(false);
-
-  useEffect(() => {
-    if (isEditMode) {
-      setColor("bg-gray-5");
-    } else {
-      setColor("bg-gray-50");
-    }
-  }, [isEditMode]);
-
+  const screenHeight = window.innerHeight;
+  const initialHeight = screenHeight * 0.55;
+  const expandedHeight = screenHeight * 0.95;
+  const hideButtonThreshold = initialHeight + 50;
+  const [cards, setCards] = useState([
+    // { id: "1", title: "첫 번째 카드" },
+    // { id: "2", title: "두 번째 카드" },
+  ]);
   const [{ height }, api] = useSpring(() => ({
     height: initialHeight,
     onChange: () => {
@@ -52,19 +42,6 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
       setIsNavBar(height.get() < hideButtonThreshold);
     },
   }));
-  const handleDeleteModal = () => {
-    setShowDeleteModal(false);
-  };
-
-  const handleHelpClick = () => {
-    setIsHelp(!isHelp);
-  };
-  const handleMenuClick = () => {
-    setBottomSheetShow(true);
-  };
-  const handleEditClick = () => {
-    setIsEditMode(true);
-  };
 
   const bind = useDrag(
     ({ movement: [, my], memo = height.get(), last }) => {
@@ -83,14 +60,6 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     { axis: "y" }
   );
 
-  const handleDelete = () => {
-    setShowDeleteModal(true);
-  };
-
-  const handleEditMode = () => {
-    setIsEditMode(!isEditMode);
-  };
-
   const handleDragEnd = (result) => {
     if (!result.destination) return;
 
@@ -99,6 +68,37 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     reorderedCards.splice(result.destination.index, 0, movedCard);
 
     setCards(reorderedCards);
+  };
+  //useEffect 훅
+  useEffect(() => {
+    if (isEditMode) {
+      setColor("bg-gray-5");
+    } else {
+      setColor("bg-gray-50");
+    }
+  }, [isEditMode]);
+
+  //이벤트 핸들러
+  const handleDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
+  const handleHelpClick = () => {
+    setIsHelp(!isHelp);
+  };
+  const handleMenuClick = () => {
+    setBottomSheetShow(true);
+  };
+  const handleEditClick = () => {
+    setIsEditMode(true);
+  };
+
+  const handleDelete = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleEditMode = () => {
+    setIsEditMode(!isEditMode);
   };
 
   const handleBackdropClick = () => {
