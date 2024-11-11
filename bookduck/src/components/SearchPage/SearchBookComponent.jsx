@@ -5,17 +5,76 @@ import Divider1 from "../../components/common/Divider1";
 import ButtonComponent from "../common/ButtonComponent";
 import BottomSheetModal from "../common/BottomSheetModal";
 import ListBottomSheet from "../common/ListBottomSheet";
-
+import { get } from "../../api/example";
 const SearchBookComponent = ({ search }) => {
+  const navigate = useNavigate();
   const [isCancel, setIsCancel] = useState(false);
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
   const [status1, setStatus1] = useState("읽고 싶어요");
   const [status2, setStatus2] = useState("서재에 담기");
-  const [registered, setRegistered] = useState([]);
-  const [nonRegistered, setNonRegistered] = useState([]);
   const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
+  const [registeredBooks, setRegisteredBooks] = useState([]);
+  const [books, setBooks] = useState([]);
 
+  //API연결
+  //API-등록 책 정보받기
+  const getRegisteredBooks = async (keyword, page, size) => {
+    try {
+      let data = [];
+      const response = await get(
+        `/bookinfo/search/custom?keyword=${keyword}&page=${page}&size=${size}`
+      );
+      console.log(response);
+      if (response.bookCount > 0) {
+        data = response.bookList.map((book) => ({
+          id: book.bookinfoId,
+          title: book.title,
+          author: book.author,
+          img: book.imgPath,
+          myRating: book.myRating,
+          readStatus: book.readStatus,
+        }));
+      }
+
+      console.log("data", data);
+      setRegisteredBooks(data);
+      console.log("registeredBooks:", registeredBooks);
+    } catch (error) {
+      console.error("등록 책 읽어오기 오류", error);
+    }
+  };
+
+  //API-일반 책 정보받기
+  const getBooks = async (keyword, page, size) => {
+    try {
+      const response = await get(
+        `/bookinfo/search?keyword=${keyword}&page=${page}&size=${size}`
+      );
+      const data = response.bookList.map((book) => ({
+        id: book.bookinfoId,
+        title: book.title,
+        author: book.author,
+        img: book.imgPath,
+        myRating: book.myRating,
+        readStatus: book.readStatus,
+      }));
+      setBooks(data);
+      console.log("books:", books);
+    } catch (error) {
+      console.error("일반 책 읽어오기 오류", error);
+    }
+  };
+
+  //useEffect 훅
+  useEffect(() => {
+    if (search) {
+      // getRegisteredBooks(search, 1, 10);
+      getBooks(search, 1, 10);
+    }
+  }, [search]);
+
+  //이벤트 핸들러
   const handleOpenClick1 = () => {
     setIsCancel(false);
     setBottomSheetShow(true);
@@ -34,76 +93,18 @@ const SearchBookComponent = ({ search }) => {
     }, 200);
   };
 
-  const navigate = useNavigate();
-  const registeredBooks = [
-    {
-      id: "1",
-      title: "고고고",
-      author: "마바사",
-      inLibrary: true,
-    },
-    {
-      id: "2",
-      title: "ㅎㅎㅎ",
-      author: "마바사",
-      inLibrary: true,
-    },
-    {
-      id: "3",
-      title: "범죄수학",
-      author: "마바사",
-      inLibrary: true,
-    },
-  ];
-
-  const books = [
-    {
-      id: "1",
-      title: "가나다라",
-      author: "마바사",
-      inLibrary: true,
-    },
-    {
-      id: "2",
-      title: "가나다라",
-      author: "마바사",
-      inLibrary: false,
-    },
-    {
-      id: "3",
-      title: "고고고",
-      author: "마바사",
-      inLibrary: true,
-    },
-  ];
-
-  useEffect(() => {
-    if (search) {
-      const filteredRegistered = registeredBooks.filter((registered) =>
-        registered.title.includes(search)
-      );
-      const filteredNonRegistered = books.filter((nonRegistered) =>
-        nonRegistered.title.includes(search)
-      );
-      setRegistered(filteredRegistered);
-      setNonRegistered(filteredNonRegistered);
-    } else {
-      setRegistered([]);
-      setNonRegistered([]);
-    }
-  }, [search]);
-
   return (
     <>
-      {registered.length > 0 || nonRegistered.length > 0 ? (
+      {registeredBooks.length > 0 || books.length > 0 ? (
         <>
           <div>
-            {registered.length > 0 &&
-              registered.map((book) => (
+            {registeredBooks.length > 0 &&
+              registeredBooks.map((book) => (
                 <BookListView
                   key={book.id}
                   bookTitle={book.title}
                   author={book.author}
+                  bookImg={book.img}
                   register={true}
                   status={status1}
                   edit={true}
@@ -112,14 +113,16 @@ const SearchBookComponent = ({ search }) => {
                 />
               ))}
           </div>
-          {registered.length > 0 && nonRegistered.length > 0 && <Divider1 />}
+          {registeredBooks.length > 0 && books.length > 0 && <Divider1 />}
           <div>
-            {nonRegistered.length > 0 &&
-              nonRegistered.map((book) => (
+            {books.length > 0 &&
+              books.map((book) => (
                 <BookListView
-                  key={book.id}
+                  key={book.bookinfoId}
                   bookTitle={book.title}
                   author={book.author}
+                  bookImg={book.img}
+                  rating={book.rating}
                   status={status2}
                   edit={true}
                   bottomSheet={true}

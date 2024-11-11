@@ -46,7 +46,7 @@ const SettingPage = () => {
   const getSettingInfo = async () => {
     // console.log("세팅인포", settingInfo);
     try {
-      const response = await get("settings");
+      const response = await get(`settings`);
       // console.log(response);
       setSettingInfo(response);
     } catch (error) {

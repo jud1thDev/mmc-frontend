@@ -8,6 +8,7 @@ const OAuthRedirectPage = () => {
   const readAccessTokenKakao = async () => {
     try {
       const urlParams = new URLSearchParams(window.location.search);
+      console.log(urlParams);
       const accessToken = urlParams.get("accessToken");
       const expiresIn = urlParams.get("expiresIn");
       const isNewUser = urlParams.get("isNewUser") === "true";

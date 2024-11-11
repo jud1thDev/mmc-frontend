@@ -10,11 +10,13 @@ import SearchBookComponent from "../../components/SearchPage/SearchBookComponent
 import SearchArchiveComponent from "../../components/SearchPage/SearchArchiveComponent";
 import SearchUserComponent from "../../components/SearchPage/SearchUserComponent";
 import TabBarComponent from "../../components/common/TabBarComponent";
+import { get, patch, del, post } from "../../api/example";
 import duck from "../../assets/common/duck.svg";
 
 const SearchMainPage = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [submittedSearch, setSubmittedSearch] = useState("");
   const [tab, setTab] = useState("책");
   const recentBooks = [
     { id: "1", img: duck, title: "가나다라" },
@@ -22,10 +24,18 @@ const SearchMainPage = () => {
     { id: "3", img: duck, title: "큐큐" },
   ];
 
+  //이벤트 핸들러
+  const handleSearch = () => {
+    setSubmittedSearch(search);
+  };
   return (
     <div>
       <StatusBar />
-      <SearchComponent search={search} setSearch={setSearch} />
+      <SearchComponent
+        search={search}
+        setSearch={setSearch}
+        onEnter={handleSearch}
+      />
       {!search ? (
         <>
           <div className="flex flex-col px-4 gap-3 mt-4">
@@ -73,13 +83,22 @@ const SearchMainPage = () => {
             size="small"
           />
           {tab === "책" && (
-            <SearchBookComponent search={search} setSearch={setSearch} />
+            <SearchBookComponent
+              search={submittedSearch}
+              setSearch={setSearch}
+            />
           )}
           {tab === "기록" && (
-            <SearchArchiveComponent search={search} setSearch={setSearch} />
+            <SearchArchiveComponent
+              search={submittedSearch}
+              setSearch={setSearch}
+            />
           )}
           {tab === "사용자" && (
-            <SearchUserComponent search={search} setSearch={setSearch} />
+            <SearchUserComponent
+              search={submittedSearch}
+              setSearch={setSearch}
+            />
           )}
         </div>
       )}
