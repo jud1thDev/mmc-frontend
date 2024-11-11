@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import duck from "../../assets/common/duck.svg";
 import ButtonComponent from "./ButtonComponent";
 

@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  getSettingInfo,
-  patchSettingOption,
-  deleteUser,
-  getNicknameCheck,
-  patchNickname,
-  postLogout,
-} from "../../api/user";
+import { get, patch, del, post } from "../../api/example";
 
 import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
@@ -21,6 +14,7 @@ import edit from "../../assets/settingPage/edit.svg";
 import kakaoLogin from "../../assets/settingPage/kakao-login.svg";
 import google from "../../assets/loginPage/google.svg";
 import { postAccessTokenIssue } from "../../api/oauth";
+
 const SettingPage = () => {
   //상태 관리
   const navigate = useNavigate();
@@ -49,22 +43,22 @@ const SettingPage = () => {
 
   //API연결
   //API-세팅정보받기
-  const readSettingInfo = async () => {
+  const getSettingInfo = async () => {
     // console.log("세팅인포", settingInfo);
     try {
-      const response = await getSettingInfo();
-      // console.log(response.data);
-      setSettingInfo(response.data);
+      const response = await get("settings");
+      // console.log(response);
+      setSettingInfo(response);
     } catch (error) {
       console.error("세팅 읽어오기 오류", error);
     }
   };
 
   //API-세팅옵션변경
-  const updateSettingOption = async (field, value) => {
+  const patchSettingOption = async (field, value) => {
     try {
       const updatedSetting = { [field]: value };
-      await patchSettingOption(updatedSetting);
+      await patch(`/settings/options`, updatedSetting);
       // console.log("설정 업데이트 성공:", updatedSetting);
     } catch (error) {
       console.error("옵션 업데이트 오류", error);
@@ -72,22 +66,22 @@ const SettingPage = () => {
   };
 
   //API-닉네임체크
-  const readNicknameCheck = async (nickname) => {
+  const postNicknameCheck = async (nickname) => {
     try {
-      const response = await getNicknameCheck(nickname);
-      // console.log("응답", response.data.isAvailable);
-      setError(!response.data.isAvailable);
+      const response = await post(`/settings/nickname/check`, nickname);
+      // console.log("응답", response.isAvailable);
+      setError(!response.isAvailable);
     } catch (error) {
       console.error("닉네임 오류", error);
     }
   };
 
   //API-닉네임변경
-  const updateNickname = async (nickname) => {
+  const patchNickname = async (nickname) => {
     try {
       const updatedNickname = { nickname: nickname };
-      const response = await patchNickname(updatedNickname);
-      // console.log("닉네임 변경 성공:", response.data);
+      const response = await patch(`/settings/nickname`, updatedNickname);
+      // console.log("닉네임 변경 성공:", response);
       window.location.reload();
     } catch (error) {
       console.error("닉네임 변경 오류", error);
@@ -95,9 +89,9 @@ const SettingPage = () => {
   };
 
   //API-로그아웃
-  const createLogout = async () => {
+  const postLogout = async () => {
     try {
-      await postLogout();
+      await post(`/logout`, {});
       // console.log("로그아웃 완료");
     } catch (error) {
       console.error("로그아웃 오류", error);
@@ -107,7 +101,8 @@ const SettingPage = () => {
   //API-회원 탈퇴
   const delUser = async () => {
     try {
-      const response = await deleteUser();
+      await del(`/users/me`);
+      localStorage.clear();
       setTimeout(() => location.reload(true), 2000);
     } catch (error) {
       console.error("회원 탈퇴 오류", error);
@@ -117,7 +112,7 @@ const SettingPage = () => {
   //useEffect hooks
   //설정 읽기 정보 받아오기
   useEffect(() => {
-    readSettingInfo();
+    getSettingInfo();
   }, []);
 
   useEffect(() => {
@@ -171,7 +166,7 @@ const SettingPage = () => {
   const handleEdit = () => {
     setError(null);
     setIsSubmitted(true);
-    readNicknameCheck(inputValue);
+    postNicknameCheck(inputValue);
   };
 
   //토글 알람
@@ -182,7 +177,7 @@ const SettingPage = () => {
       isPushAlarmEnabled: newValue,
     }));
 
-    updateSettingOption("isPushAlarmEnabled", String(newValue));
+    patchSettingOption("isPushAlarmEnabled", String(newValue));
   };
 
   //토글 친구신청
@@ -192,7 +187,7 @@ const SettingPage = () => {
       ...prev,
       isFriendRequestEnabled: newValue,
     }));
-    updateSettingOption("isFriendRequestEnabled", String(newValue));
+    patchSettingOption("isFriendRequestEnabled", String(newValue));
   };
 
   //폰트 변경
@@ -201,13 +196,13 @@ const SettingPage = () => {
       ...prev,
       recordFont: fontValue,
     }));
-    updateSettingOption("recordFont", fontValue);
+    patchSettingOption("recordFont", fontValue);
   };
 
   //완료 버튼 클릭
   const handleComplete = (inputValue) => {
     try {
-      updateNickname(inputValue);
+      patchNickname(inputValue);
       closeBottomSheet();
     } catch (error) {
       console.error(error);
@@ -217,8 +212,7 @@ const SettingPage = () => {
   //로그아웃
   const handleLogout = async () => {
     try {
-      await createLogout();
-
+      await postLogout();
       localStorage.removeItem("token");
       navigate(`/login`, { replace: true });
     } catch (error) {

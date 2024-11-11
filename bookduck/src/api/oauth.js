@@ -25,7 +25,6 @@ export const postAccessTokenIssue = async () => {
     return response;
   } catch (error) {
     localStorage.removeItem("token");
-    localStorage.removeItem("token");
     throw error;
   }
 };

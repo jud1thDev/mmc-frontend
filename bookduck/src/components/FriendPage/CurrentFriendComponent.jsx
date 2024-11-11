@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import FriendListComponent from "../common/FriendListComponent";
-import { getFriendList, deleteFriend } from "../../api/friend";
+import { get, del } from "../../api/example";
 const CurrentFriendComponent = () => {
   const [friendList, setFriendList] = useState([]);
   const [friendCount, setFriendCount] = useState(0);
   //API연결
   //API-친구 목록 조회
-  const readfriendList = async () => {
+  const getFriendList = async () => {
     try {
-      const response = await getFriendList();
-      setFriendList(response.data.friendList);
-      setFriendCount(response.data.friendCount);
-      // console.log(response.data.friendList);
-      // console.log(response.data.friendCount);
+      const response = await get(`/friends`);
+      setFriendList(response.friendList);
+      setFriendCount(response.friendCount);
+      // console.log(response.friendList);
+      // console.log(response.friendCount);
     } catch (error) {
       console.error("친구 정보 읽기 오류", error);
     }
@@ -20,8 +20,8 @@ const CurrentFriendComponent = () => {
   //API-친구 삭제
   const delFriend = async (friendId) => {
     try {
-      await deleteFriend(friendId);
-      await readfriendList();
+      await del(`/friends/${friendId}`);
+      await getFriendList();
     } catch (error) {
       console.error(error);
     }
@@ -29,17 +29,8 @@ const CurrentFriendComponent = () => {
 
   //useEffect hook
   useEffect(() => {
-    readfriendList();
+    getFriendList();
   }, []);
-
-  //이벤트 핸들러
-  const handleDelete = async (friendId) => {
-    try {
-      await delFriend(friendId);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div>

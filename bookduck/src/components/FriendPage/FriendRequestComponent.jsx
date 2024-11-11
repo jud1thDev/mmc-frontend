@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  getReceivedFriendList,
-  postFriendRequest,
-  putFriendRequest,
-  getSentFriendList,
-  deleteFriendRequest,
-} from "../../api/friend";
+import { get, post, put } from "../../api/example";
 import FriendListComponent from "../common/FriendListComponent";
 import up from "../../assets/common/up.svg";
 import down from "../../assets/common/down.svg";
@@ -21,47 +15,49 @@ const FriendRequestComponent = () => {
   const [showSent, setShowSent] = useState(true);
 
   //API-받은 친구 목록 조회
-  const readReceivedFriendList = async () => {
+  const getReceivedFriendList = async () => {
     try {
-      const response = await getReceivedFriendList();
-      setReceivedFriendList(response.data.requestList);
-      setReceivedFriendCount(response.data.requestCount);
-      // console.log(response.data.requestList);
-      // console.log(response.data.requestCount);
+      const response = await get(`/friendrequests/received`);
+      setReceivedFriendList(response.requestList);
+      setReceivedFriendCount(response.requestCount);
+      // console.log(response.requestList);
+      // console.log(response.requestCount);
     } catch (error) {
       console.error("받은 친구 목록 조회 에러", error);
     }
   };
 
   //API-친구 요청 거절
-  const replaceFriendRequest = async (friendRequestId) => {
+  const putFriendRequest = async (friendRequestId) => {
     try {
-      await putFriendRequest(friendRequestId);
-      readReceivedFriendList();
+      await put(`/friendrequests/${friendRequestId}/reject`);
+      getReceivedFriendList();
     } catch (error) {
       console.error("친구 요청 거절 에러", error);
     }
   };
 
   //API-친구 요청 수락
-  const createFriend = async (friendRequestId) => {
+  const postFriend = async (friendRequestId) => {
     try {
-      await postFriendRequest(friendRequestId);
-      readReceivedFriendList();
+      await post(`/friends`, {
+        friendRequestId: friendRequestId,
+      });
+      getReceivedFriendList();
     } catch (error) {
       console.error("친구 요청 수락 에러", error);
     }
   };
 
   //API-보낸 친구 목록 조회
-  const readSentFriendList = async () => {
+  const getSentFriendList = async () => {
     try {
-      const response = await getSentFriendList();
-      // console.log(response.data);
-      setSentFriendList(response.data.requestList);
-      setSentFriendCount(response.data.requestCount);
-      // console.log(response.data.requestList);
-      // console.log(response.data.requestCount);
+      const response = await get(`/friendrequests/sent`);
+      // console.log(response);
+      setSentFriendList(response.requestList);
+      setSentFriendCount(response.requestCount);
+      // console.log(response.requestList);
+      // console.log(response.requestCount);
     } catch (error) {
       console.error("보낸 친구 목록 조회 에러", error);
     }
@@ -71,17 +67,17 @@ const FriendRequestComponent = () => {
   const delFriendRequest = async (friendRequestId) => {
     // console.log(friendRequestId);
     try {
-      await deleteFriendRequest(friendRequestId);
+      await delFriendRequest(`/friendrequests/${friendRequestId}`);
       // console.log("친구 요청취소 성공");
-      readSentFriendList();
+      getSentFriendList();
     } catch (error) {
       console.error("친구 요청취소 에러", error);
     }
   };
   //useEffect hook
   useEffect(() => {
-    readReceivedFriendList();
-    readSentFriendList();
+    getReceivedFriendList();
+    getSentFriendList();
   }, []);
 
   //이벤트 핸들러
@@ -112,8 +108,8 @@ const FriendRequestComponent = () => {
               <FriendListComponent
                 key={index}
                 userName={friend.userNickname}
-                handleDecline={() => replaceFriendRequest(friend.requestId)}
-                handleAccept={() => createFriend(friend.requestId)}
+                handleDecline={() => putFriendRequest(friend.requestId)}
+                handleAccept={() => postFriend(friend.requestId)}
               />
             ))}
           </div>

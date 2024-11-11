@@ -4,8 +4,8 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 import BottomBackgroundComponent from "../../components/common/BottomBackgroundComponent";
 import TextField from "../../components/common/TextField";
 import StatusBar from "../../components/common/StatusBar";
-import { getNickname, getNicknameCheck, patchNickname } from "../../api/user";
-import { update } from "@react-spring/web";
+import { post, get, patch } from "../../api/example";
+
 const SigninPage = () => {
   //상태 관리
   const navigate = useNavigate();
@@ -16,32 +16,34 @@ const SigninPage = () => {
 
   //API 연결
   //API-닉네임받기
-  const readNickname = async (nickname) => {
+  const getNickname = async () => {
     try {
-      const response = await getNickname(nickname);
-      setNickname(response.data.nickname);
+      const response = await get(`/settings/nickname`);
+      setNickname(response.nickname);
     } catch (error) {
       console.error(error);
     }
   };
 
   //API-닉네임체크
-  const readNicknameCheck = async (nickname) => {
+  const postNicknameCheck = async (nickname) => {
     try {
-      const response = await getNicknameCheck(nickname);
-      // console.log("응답", response.data.isAvailable);
-      setError(!response.data.isAvailable);
+      const response = await post(`/settings/nickname/check`, {
+        nickname: nickname,
+      });
+      // console.log("응답", response.isAvailable);
+      setError(!response.isAvailable);
     } catch (error) {
       console.error("닉네임 오류", error);
     }
   };
 
   //API-닉네임변경
-  const updateNickname = async (nickname) => {
+  const patchNickname = async (nickname) => {
     try {
       const updatedNickname = { nickname: nickname };
-      await patchNickname(updatedNickname);
-      // console.log("닉네임 업데이트 성공:", response.data);
+      await patch(`/settings/nickname`, updatedNickname);
+      // console.log("닉네임 업데이트 성공:", response);
     } catch (error) {
       console.error("닉네임 변경 오류", error);
     }
@@ -49,7 +51,7 @@ const SigninPage = () => {
 
   //useEffect hook
   useEffect(() => {
-    readNickname();
+    getNickname();
   }, []);
 
   // error 상태 변경 시 로그 출력
@@ -74,13 +76,13 @@ const SigninPage = () => {
   const handleEdit = () => {
     setIsSubmitted(true);
     setError(null);
-    readNicknameCheck(nickname);
+    postNicknameCheck(nickname);
   };
 
   //완료 버튼 클릭 시
   const handleComplete = (nickname) => {
     try {
-      updateNickname(nickname);
+      patchNickname(nickname);
       navigate("/home");
     } catch (error) {
       console.error(error);
