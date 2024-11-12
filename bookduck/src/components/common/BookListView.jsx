@@ -16,15 +16,19 @@ const BookListView = ({
   handleStatusClick,
   status = "읽고 싶어요",
   bottomSheet = false,
+  rating,
 }) => {
-  const [rating, setRating] = useState(0);
   return (
     <div
       onClick={handleOnClick}
       className="flex items-center justify-between w-full h-[7.75rem] pb-[0.5rem] pt-[0.5rem] cursor-pointer"
     >
       <div className="flex gap-[0.75rem] items-center w-[15.75rem] h-[6.75rem]">
-        <img src={bookImg ? bookImg : coverEx} alt="coverEx" />
+        <img
+          className="w-[4.5rem] h-[7rem]"
+          src={bookImg ? bookImg : coverEx}
+          alt="coverEx"
+        />
         <div className="flex flex-col gap-1">
           {register && (
             <div className=" text-c1 text-orange-400">직접 등록한 책</div>
