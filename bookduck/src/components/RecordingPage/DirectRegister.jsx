@@ -3,18 +3,22 @@ import bookCover from "../../assets/common/book-cover.svg";
 import TextField from "../common/TextField";
 import ButtonComponent from "../common/ButtonComponent";
 import { useNavigate } from "react-router-dom";
+import { postRegisterBook } from "../../api/recording";
 
 const DirectRegister = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [pages, setPages] = useState("");
   const [publisher, setPublisher] = useState("");
+  const [imgFile, setImgFile] = useState();
+
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       console.log(file);
+      setImgFile(file);
       // 파일 처리 로직 추가 가능
     }
   };
@@ -32,8 +36,19 @@ const DirectRegister = () => {
     setPublisher(e.target.value);
   };
 
-  const handleRecording = () => {
-    navigate("/recording");
+  const handleRecording = async () => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("author", author);
+    formData.append("pageCount", pages);
+    formData.append("publisher", publisher);
+    formData.append("coverImage", imgFile);
+
+    const res = await postRegisterBook(formData);
+    console.log(res);
+    if (res) {
+      navigate("/recording");
+    }
   };
 
   return (
@@ -43,7 +58,11 @@ const DirectRegister = () => {
           onClick={() => document.getElementById("fileInput").click()}
           className="mt-5"
         >
-          <img src={bookCover} alt="Book Cover" />
+          <img
+            className="w-[6.5rem] h-[9.75rem] object-cover cursor-pointer"
+            src={imgFile ? URL.createObjectURL(imgFile) : bookCover}
+            alt="Book Cover"
+          />
         </div>
         <input
           id="fileInput"

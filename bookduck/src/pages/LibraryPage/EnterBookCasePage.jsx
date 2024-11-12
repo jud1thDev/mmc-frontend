@@ -103,7 +103,7 @@ const EnterBookCasePage = () => {
             </>
           )
         )}
-        {bookList.length === 0 ? (
+        {!addBookState && bookList.length === 0 ? (
           <div className="mt-[6.62rem] text-b2 text-gray-500 text-center">
             아직 추가된 책이 없어요. <br /> 아래 버튼을 눌러 책을 추가하세요!
           </div>
