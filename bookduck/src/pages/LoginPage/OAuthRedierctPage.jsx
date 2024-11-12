@@ -12,22 +12,21 @@ const OAuthRedirectPage = () => {
       const accessToken = urlParams.get("accessToken");
       const expiresIn = urlParams.get("expiresIn");
       const isNewUser = urlParams.get("isNewUser") === "true";
-
-      console.log("전체 URL 검색어:", window.location.search);
-      console.log("Access Token:", accessToken);
-      console.log("Expires In:", expiresIn);
-      console.log("Is New User:", isNewUser);
+      const userId = urlParams.get("userId");
 
       if (accessToken) {
         console.log("Access Token 존재");
         const token = {
           accessToken: accessToken,
-          expiresIn: new Date().getTime() + expiresIn,
+          expiresIn: new Date().getTime() + expiresIn * 1000,
           isNewUser: isNewUser,
+          userId: userId,
         };
         localStorage.setItem("token", JSON.stringify(token));
+
         if (isNewUser) {
           navigate("/signin", { replace: true });
+          window.location.reload();
         } else {
           navigate("/home", { replace: true });
           window.location.reload();

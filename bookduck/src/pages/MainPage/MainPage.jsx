@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get } from "../../api/example";
+import { getUserId } from "../../api/oauth";
 import BottomNavbar from "../../components/common/BottomNavbar";
 import StatusBar from "../../components/common/StatusBar";
 import Header2 from "../../components/common/Header2";
@@ -29,8 +30,15 @@ const MainPage = () => {
 
   //useEffect 훅
   useEffect(() => {}, [isNavBar]);
+
   useEffect(() => {
-    getUserInfo(5);
+    //토큰 출력
+    const token = JSON.parse(localStorage.getItem("token"));
+    console.log(token);
+
+    //유저아이디
+    const userId = getUserId();
+    getUserInfo(userId);
   }, []);
 
   return (
