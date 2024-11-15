@@ -13,7 +13,6 @@ import DeleteModal from "../../components/common/modal/DeleteModal";
 import edit from "../../assets/settingPage/edit.svg";
 import kakaoLogin from "../../assets/settingPage/kakao-login.svg";
 import google from "../../assets/loginPage/google.svg";
-import { postAccessTokenIssue } from "../../api/oauth";
 
 const SettingPage = () => {
   //상태 관리

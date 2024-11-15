@@ -9,6 +9,7 @@ import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceCompone
 import right from "../../assets/common/right-yellow.svg";
 import mainDuck from "../../assets/common/main-duck.svg";
 import BookCountDisplay from "../../components/MainPage/BookCountDisplay";
+import { isTokenExpired } from "../../api/oauth";
 
 const MainPage = () => {
   //상태 관리
@@ -20,9 +21,9 @@ const MainPage = () => {
   //API 연결
   const getUserInfo = async (userId) => {
     try {
+      console.log(isTokenExpired());
       const data = await get(`/users/${userId}`);
       setUserInfo(data);
-      console.log("userInfo", userInfo);
     } catch (error) {
       console.error(error);
     }
@@ -31,11 +32,12 @@ const MainPage = () => {
   //useEffect 훅
   useEffect(() => {}, [isNavBar]);
 
+  //userInfo 업데이트 확인
   useEffect(() => {
-    //토큰 출력
-    const token = JSON.parse(localStorage.getItem("token"));
-    console.log(token);
+    console.log("Updated userInfo:", userInfo);
+  }, [userInfo]);
 
+  useEffect(() => {
     //유저아이디
     const userId = getUserId();
     getUserInfo(userId);
