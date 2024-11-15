@@ -1,17 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { get } from "../../api/example";
+import { getUserId } from "../../api/oauth";
 import BottomNavbar from "../../components/common/BottomNavbar";
 import StatusBar from "../../components/common/StatusBar";
 import Header2 from "../../components/common/Header2";
 import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceComponent";
 import right from "../../assets/common/right-yellow.svg";
 import mainDuck from "../../assets/common/main-duck.svg";
+import BookCountDisplay from "../../components/MainPage/BookCountDisplay";
+import { isTokenExpired } from "../../api/oauth";
 
 const MainPage = () => {
+  //상태 관리
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState(null);
   const [color, setColor] = useState("bg-gray-50");
   const [isNavBar, setIsNavBar] = useState("true");
+
+  //API 연결
+  const getUserInfo = async (userId) => {
+    try {
+      console.log(isTokenExpired());
+      const data = await get(`/users/${userId}`);
+      setUserInfo(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //useEffect 훅
   useEffect(() => {}, [isNavBar]);
+
+  //userInfo 업데이트 확인
+  useEffect(() => {
+    console.log("Updated userInfo:", userInfo);
+  }, [userInfo]);
+
+  useEffect(() => {
+    //유저아이디
+    const userId = getUserId();
+    getUserInfo(userId);
+  }, []);
 
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
@@ -20,7 +50,9 @@ const MainPage = () => {
         <Header2 />
       </div>
       <div className="pl-5 mt-[1.75rem]">
-        <div className="text-t2 font-semibold text-black">유저닉네임님</div>
+        <div className="text-t2 font-semibold text-black">
+          {userInfo?.nickname}님
+        </div>
         <div className="text-t2 font-semibold text-black mt-[0.38rem]">
           꾸준한 독서 함께해요!
         </div>
@@ -29,14 +61,7 @@ const MainPage = () => {
             현재 나의 기록수
           </span>
           <div className="flex flex-row">
-            <div className="flex gap-[0.38rem]">
-              <p className="w-[2.25rem] h-[2.75rem] bg-orange-50 baloo text-[2rem] text-orange-300 font-bold text-center">
-                0
-              </p>
-              <p className="w-[2.25rem] h-[2.75rem] bg-orange-50 baloo text-[2rem] text-orange-300 font-bold text-center">
-                2
-              </p>
-            </div>
+            <BookCountDisplay bookCount={userInfo?.bookCount} />
             <div className="ml-[0.62rem] self-end text-b2 text-gray-500 font-semibold">
               개
             </div>

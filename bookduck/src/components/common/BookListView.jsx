@@ -16,7 +16,9 @@ const BookListView = ({
   handleStatusClick,
   status = "읽고 싶어요",
   bottomSheet = false,
+
   rating = 0,
+
 }) => {
   return (
     <div
@@ -25,7 +27,9 @@ const BookListView = ({
     >
       <div className="flex gap-[0.75rem] items-center w-[15.75rem] h-[6.75rem]">
         <img
+
           className="w-[4.75rem] h-[6.75rem]"
+
           src={bookImg ? bookImg : coverEx}
           alt="coverEx"
         />

@@ -13,7 +13,6 @@ import DeleteModal from "../../components/common/modal/DeleteModal";
 import edit from "../../assets/settingPage/edit.svg";
 import kakaoLogin from "../../assets/settingPage/kakao-login.svg";
 import google from "../../assets/loginPage/google.svg";
-import { postAccessTokenIssue } from "../../api/oauth";
 
 const SettingPage = () => {
   //상태 관리
@@ -46,7 +45,7 @@ const SettingPage = () => {
   const getSettingInfo = async () => {
     // console.log("세팅인포", settingInfo);
     try {
-      const response = await get("settings");
+      const response = await get(`settings`);
       // console.log(response);
       setSettingInfo(response);
     } catch (error) {
