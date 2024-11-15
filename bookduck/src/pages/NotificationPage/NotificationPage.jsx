@@ -7,18 +7,6 @@ import AnnounceNotiComponent from "../../components/NotificationPage/AnnounceNot
 
 const NotificationPage = () => {
   const [tab, setTab] = useState("일반");
-  const [notifications, setNotifications] = useState([]);
-
-  useEffect(() => {
-    const fetchedNotifications = [
-      { id: 1, type: "친구요청", text: "찬희", read: false },
-      { id: 2, type: "친구수락", text: "찬희", read: false },
-      { id: 3, type: "레벨업", text: "2", read: true },
-      { id: 4, type: "기록", text: "찬희", read: true },
-      { id: 5, type: "업적", text: "ㅇㅇ", read: true },
-    ];
-    setNotifications(fetchedNotifications);
-  }, []);
 
   return (
     <div>
@@ -31,10 +19,8 @@ const NotificationPage = () => {
         size="small"
         isNoti={true}
       />
-      {tab === "일반" && <GeneralNotiComponent notifications={notifications} />}
-      {tab === "공지" && (
-        <AnnounceNotiComponent notifications={notifications} />
-      )}
+      {tab === "일반" && <GeneralNotiComponent />}
+      {tab === "공지" && <AnnounceNotiComponent />}
     </div>
   );
 };

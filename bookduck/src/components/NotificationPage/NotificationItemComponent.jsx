@@ -5,7 +5,7 @@ import alarmhand from "../../assets/common/waving-hand-alarm.svg";
 import alarmbadge from "../../assets/common/badge-alarm.svg";
 import alarmCircle from "../../assets/common/circle-alarm.svg";
 const notificationTemplates = {
-  친구요청: {
+  치: {
     icon: alarmhand,
     message: (text) => (
       <span>
