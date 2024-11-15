@@ -4,11 +4,12 @@ import NotificationItemComponent from "./NotificationItemComponent";
 const GeneralNotiComponent = () => {
   //상태 관리
   const [notifications, setNotifications] = useState([]);
+
   //API 연결
   //API-알람 목록 받아오기
   const patchAlarmList = async () => {
     try {
-      const response = await patch(`/alarms`);
+      const response = await patch(`/alarms/common`);
       console.log(response);
       setNotifications(response.alarmList);
     } catch (error) {
@@ -20,14 +21,15 @@ const GeneralNotiComponent = () => {
   useEffect(() => {
     patchAlarmList();
     console.log(notifications);
-  }, [notifications]);
+  }, []);
 
   return notifications.map((notification, index) => (
     <div key={index}>
       <NotificationItemComponent
         alarmType={notification.alarmType}
-        text={notification.boldText}
-        read={notification.isRead}
+        boldText={notification.boldText}
+        isRead={notification.isRead}
+        createdTime={notification.createdTime}
       />
     </div>
   ));

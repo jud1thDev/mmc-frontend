@@ -9,16 +9,20 @@ const NotificationPage = () => {
   const [tab, setTab] = useState("일반");
 
   return (
-    <div>
+    <div className="relative">
       <StatusBar />
       <Header3 title="알림" edit={false} />
-      <TabBarComponent
-        tabs={["일반", "공지"]}
-        activeTab={tab}
-        onTabClick={setTab}
-        size="small"
-        isNoti={true}
-      />
+      <div>
+        <TabBarComponent
+          tabs={["일반", "공지"]}
+          activeTab={tab}
+          onTabClick={setTab}
+          size="small"
+          isNoti={true}
+          borderWidth="3rem"
+        />
+      </div>
+
       {tab === "일반" && <GeneralNotiComponent />}
       {tab === "공지" && <AnnounceNotiComponent />}
     </div>
