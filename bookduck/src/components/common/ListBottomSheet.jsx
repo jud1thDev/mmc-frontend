@@ -69,7 +69,7 @@ const ListBottomSheet = ({
       {isCancel && (
         <div
           onClick={handlePutCancel}
-          className="flex items-center gap-1 w-[22.2625rem] h-[3rem] px-3 py-3 bg-gray-10 rounded-2 mt-4"
+          className="flex items-center gap-1 w-[22.2625rem] h-[3rem] px-3 py-3 bg-gray-10 rounded-2 mt-4 cursor-pointer"
         >
           <img src={trash} className="w-6 h-6" />
           <span className="text-btn3 text-gray-500">{cancelText}</span>

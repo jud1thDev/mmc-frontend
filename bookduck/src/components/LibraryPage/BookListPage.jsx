@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import down from "../../assets/common/down.svg";
 import RoundedTabComponent from "../common/RoundedTabComponent";
 import BookListView from "../common/BookListView";
@@ -11,6 +11,7 @@ import Divider1 from "../common/Divider1";
 import Divider2 from "../common/Divider2";
 import ListBottomSheet from "../common/ListBottomSheet";
 import {
+  deleteBook,
   getSortedTotalBook,
   getTotalBook,
   patchBookStatus,
@@ -19,7 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const BookListPage = ({ view }) => {
   const [sort, setSort] = useState("최신순");
-  const [tab, setTab] = useState([]);
+  const [tabList, setTabList] = useState([]);
   const [sortingBottomSheet, setSortingBottomSheet] = useState(false); //최신순, 별점순, 제목순 보여주는 바텀시트 보이는지 여부
   const [visible, setVisible] = useState(false);
   const [statusBottomSheet, setStatusBottomSheet] = useState(false); //최신순, 별점순, 제목순 보여주는 바텀시트 보이는지 여부
@@ -76,7 +77,7 @@ const BookListPage = ({ view }) => {
   };
 
   const {
-    data: bookListData,
+    data: bookListData = { bookList: [] },
     isError,
     error,
   } = useQuery({
@@ -84,7 +85,6 @@ const BookListPage = ({ view }) => {
     queryFn: () => getTotalBook(getSortKey(sort)),
   });
 
-  console.log(bookListData.bookList[0].rating);
   const handleSortChange = (newSort) => {
     setSort(newSort);
     setVisible(false);
@@ -98,15 +98,23 @@ const BookListPage = ({ view }) => {
   };
 
   const handleTabClick = async (tab) => {
-    setTab((prev) =>
+    setTabList((prev) =>
       prev.includes(tab) ? prev.filter((t) => t !== tab) : [...prev, tab]
     );
-    const res = await getSortedTotalBook(
-      getReadingStatusKey(tab),
-      getSortKey(sort)
-    );
-    setSortedBookList(res.bookList);
+    console.log(tabList);
   };
+
+  useEffect(() => {
+    const selectSortedList = async () => {
+      const statusList = tabList.map((it) => getReadingStatusKey(it));
+      console.log(statusList);
+      const res = await getSortedTotalBook(statusList, getSortKey(sort));
+      setSortedBookList(res.bookList);
+    };
+    if (tabList.length !== 0) {
+      selectSortedList();
+    }
+  }, [tabList]);
 
   const handleStatusClick = (userBookId) => {
     setSelectedId(userBookId);
@@ -116,11 +124,17 @@ const BookListPage = ({ view }) => {
 
   const handleStatusChange = async (status) => {
     setCurrentState(status);
-    const res = await patchBookStatus(selectedBookId, status);
+    const res = await patchBookStatus(
+      selectedBookId,
+      getReadingStatusKey(status)
+    );
     console.log(res);
   };
 
-  const handlePutCancel = () => {};
+  const handlePutCancel = async () => {
+    const res = await deleteBook(selectedBookId);
+    window.location.reload();
+  };
 
   return (
     <>
@@ -139,7 +153,7 @@ const BookListPage = ({ view }) => {
             <RoundedTabComponent
               type="secondary"
               tabs={["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"]}
-              activeTabs={tab}
+              activeTabs={tabList}
               onTabClick={handleTabClick}
               multiple={true}
             />
@@ -147,7 +161,7 @@ const BookListPage = ({ view }) => {
         </div>
         {view === "list" && (
           <div className="h-[40rem]  mx-4 overflow-y-auto ">
-            {tab.length === 0
+            {tabList.length === 0
               ? bookListData.bookList.map((book) => (
                   <BookListView
                     handleStatusClick={() => handleStatusClick(book.userBookId)}
@@ -160,7 +174,8 @@ const BookListPage = ({ view }) => {
                     rating={book.rating}
                   />
                 ))
-              : sortedBookList.map((book) => (
+              : sortedBookList &&
+                sortedBookList.map((book) => (
                   <BookListView
                     handleStatusClick={handleStatusClick}
                     edit={true}
@@ -179,7 +194,7 @@ const BookListPage = ({ view }) => {
         {view === "cover" && (
           <div className="h-[40rem] mx-4 overflow-y-auto">
             <div className="grid grid-cols-3 place-items-center gap-x-3 gap-y-5">
-              {tab.length === 0
+              {tabList.length === 0
                 ? bookListData.bookList.map((book) => (
                     <BookComponent
                       img={book.imgPath}
@@ -187,7 +202,8 @@ const BookListPage = ({ view }) => {
                       rating={book.rating}
                     />
                   ))
-                : sortedBookList.map((book) => (
+                : sortedBookList &&
+                  sortedBookList.map((book) => (
                     <BookComponent
                       img={book.imgPath}
                       title={book.title}
