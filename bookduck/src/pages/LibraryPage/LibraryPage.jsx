@@ -9,6 +9,7 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 import ListIcon from "../../components/LibraryPage/ListIcon";
 import CoverIcon from "../../components/LibraryPage/CoverIcon";
 import plus_orange from "../../assets/common/plus-orange.svg";
+import { getTotalBook } from "../../api/library";
 
 const LibraryPage = () => {
   const [tab, setTab] = useState("책 목록");

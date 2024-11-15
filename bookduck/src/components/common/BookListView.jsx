@@ -16,15 +16,19 @@ const BookListView = ({
   handleStatusClick,
   status = "읽고 싶어요",
   bottomSheet = false,
+  rating = 0,
 }) => {
-  const [rating, setRating] = useState(0);
   return (
     <div
       onClick={handleOnClick}
       className="flex items-center justify-between w-full h-[7.75rem] pb-[0.5rem] pt-[0.5rem] cursor-pointer"
     >
       <div className="flex gap-[0.75rem] items-center w-[15.75rem] h-[6.75rem]">
-        <img src={bookImg ? bookImg : coverEx} alt="coverEx" />
+        <img
+          className="w-[4.75rem] h-[6.75rem]"
+          src={bookImg ? bookImg : coverEx}
+          alt="coverEx"
+        />
         <div className="flex flex-col gap-1">
           {register && (
             <div className=" text-c1 text-orange-400">직접 등록한 책</div>
@@ -36,7 +40,7 @@ const BookListView = ({
               <div key={index}>
                 <img
                   key={index}
-                  src={index <= rating ? filledImage : emptyImage} // 채워진 이미지 또는 비워진 이미지 표시
+                  src={index < rating ? filledImage : emptyImage} // 채워진 이미지 또는 비워진 이미지 표시
                   alt="rating"
                   className="" // 이미지 크기 조절
                 />

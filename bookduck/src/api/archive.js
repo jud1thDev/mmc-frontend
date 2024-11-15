@@ -1,14 +1,5 @@
 import { apiAuth } from "./api";
-
-const get = async (url) => {
-  const res = await apiAuth.get(url);
-  return res?.data;
-};
-
-const post = async (url, data) => {
-  const res = await apiAuth.post(url, data);
-  return res?.data;
-};
+import { get, post } from "./example";
 
 export const postExtractReview = async (data) => {
   try {
