@@ -12,10 +12,14 @@ export const getTotalBook = async (sort) => {
   }
 };
 
-export const getSortedTotalBook = async (status, sort) => {
-  console.log(status, sort);
+export const getSortedTotalBook = async (statusList, sort) => {
+  console.log(statusList, sort);
   try {
-    const res = await get(`/books/filter?status=${status}&sort=${sort}`);
+    const statusParams = statusList
+      .map((status) => `status=${status}`)
+      .join("&");
+    console.log(statusParams);
+    const res = await get(`/books/filter?${statusParams}&sort=${sort}`);
     console.log("내 서재 분류 전체 조회 성공", res);
     return res;
   } catch (error) {

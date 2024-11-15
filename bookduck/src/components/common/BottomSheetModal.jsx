@@ -57,7 +57,7 @@ const BottomSheetModal = ({
         onClick={handleBackdropClick}
         className={`${
           visible ? "bg-black bg-opacity-50" : "bg-transparent"
-        } w-[24.5625rem] h-screen  fixed top-0 transition-colors duration-300`}
+        } w-[24.5625rem] h-screen fixed top-0 transition-colors duration-300`}
       >
         <section
           onClick={(e) => e.stopPropagation()}

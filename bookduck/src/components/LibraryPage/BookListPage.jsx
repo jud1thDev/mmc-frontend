@@ -46,20 +46,20 @@ const BookListPage = ({ view }) => {
     }
   };
 
-  const getReadingStatus = (status) => {
-    switch (status) {
-      case "NOT_STARTED":
-        return "읽고 싶어요";
-      case "READING,":
-        return "읽고 있어요";
-      case "FINISHED":
-        return "다 읽었어요";
-      case "STOPPED":
-        return "중단했어요";
-      default:
-        return "읽고 싶어요";
-    }
-  };
+  // const getReadingStatus = (status) => {
+  //   switch (status) {
+  //     case "NOT_STARTED":
+  //       return "읽고 싶어요";
+  //     case "READING,":
+  //       return "읽고 있어요";
+  //     case "FINISHED":
+  //       return "다 읽었어요";
+  //     case "STOPPED":
+  //       return "중단했어요";
+  //     default:
+  //       return "읽고 싶어요";
+  //   }
+  // };
 
   const getReadingStatusKey = (status) => {
     switch (status) {

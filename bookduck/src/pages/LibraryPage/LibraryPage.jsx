@@ -63,7 +63,11 @@ const LibraryPage = () => {
 
         <div>
           {tab === "책 목록" && <BookListPage view={isClicked} />}
-          {tab === "책장" && <BookCasePage />}
+          {tab === "책장" && (
+            <BookCasePage
+              showAddBookCaseBottomSheet={showAddBookCaseBottomSheet}
+            />
+          )}
         </div>
       </div>
       {showAddBookCaseBottomSheet && (
@@ -73,22 +77,30 @@ const LibraryPage = () => {
           visible={visible}
           setVisible={setVisible}
         >
-          <div className="flex justify-between">
-            <div className="text-st text-gray-800 font-semibold">책장 추가</div>
-            <div
-              onClick={handleModalCancel}
-              className="text-b1 text-gray-500 cursor-pointer"
-            >
-              취소
+          <div className="px-4 pb-3">
+            <div className="flex justify-between">
+              <div className="text-st text-gray-800 font-semibold">
+                책장 추가
+              </div>
+              <div
+                onClick={handleModalCancel}
+                className="text-b1 text-gray-500 cursor-pointer"
+              >
+                취소
+              </div>
             </div>
+            <input
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="책장 이름을 입력하세요"
+              className="w-full mt-[1.62rem] mb-[3.19rem] px-1 py-2 border-b-[1px] border-[#DDDDDD]"
+            />
+            <ButtonComponent
+              text="완료"
+              type="primary"
+              disabled={!inputValue}
+            />
           </div>
-          <input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="책장 이름을 입력하세요"
-            className="w-full mt-[1.62rem] mb-[3.19rem] px-1 py-2 border-b-[1px] border-[#DDDDDD]"
-          />
-          <ButtonComponent text="완료" type="primary" disabled={!inputValue} />
         </BottomSheetModal>
       )}
     </>

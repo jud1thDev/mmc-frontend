@@ -25,7 +25,7 @@ const bookList = [
 
 const bookList2 = [];
 
-const BookCasePage = () => {
+const BookCasePage = ({ showAddBookCaseBottomSheet }) => {
   const [showMenuBottomSheet, setShowMenuBottomSheet] = useState(false);
   const [visible, setVisible] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -80,7 +80,7 @@ const BookCasePage = () => {
         </div>
         <div className="h-[6rem] bg-transparent"></div>
       </div>
-      <BottomNavbar />
+      {!showAddBookCaseBottomSheet && <BottomNavbar />}
       {showMenuBottomSheet && (
         <BottomSheetModal2
           bottomSheetShow={showMenuBottomSheet}
