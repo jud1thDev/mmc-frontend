@@ -102,7 +102,6 @@ const CharacterPage = () => {
         <div className="text-b2 text-gray-500 font-semibold ">나의 배지</div>
         <img className="w-6 h-6" src={right} />
       </div>
-      {/* 네비바 들어갈 자리  */}
       <BottomNavbar />
     </div>
   );
