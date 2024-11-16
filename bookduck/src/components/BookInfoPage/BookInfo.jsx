@@ -1,8 +1,27 @@
+import { useState } from "react";
 import cover from "../../assets/bookinfoPage/cover.svg";
 import down from "../../assets/common/down-arrow.svg";
+import BottomSheetModal from "../common/BottomSheetModal";
+import ListBottomSheet from "../common/ListBottomSheet";
 
 const BookInfo = ({ isMe = "default", bookData }) => {
-  const bookDetailData = bookData.bookInfoDetailDto;
+  const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
+  const [currentState, setCurrentState] = useState("읽고 싶어요");
+  const [bottomSheetShow, setBottomSheetShow] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [isCancel, setCancel] = useState(true);
+
+  const handleStatusClick = () => {
+    setBottomSheetShow(true);
+  };
+
+  const handleStatusChange = (status) => {
+    setCurrentState(status);
+  };
+
+  const handlePutCancel = () => {};
+
+  const bookDetailData = bookData?.bookInfoDetailDto;
   // 기본으로 등록되어 있는 책: default 내가 직접 등록한 책: me 타유저가 직접 등록한 책: other
   return (
     <div className="flex gap-4 w-[22.5625rem]">
@@ -32,10 +51,33 @@ const BookInfo = ({ isMe = "default", bookData }) => {
                 <div className="text-b2 text-orange-400">내가 등록한 책</div>
               )}
 
-              <div className="flex py-1.5 text-b2 text-gray-500 ">
-                읽고 싶어요
+              <div
+                className="flex py-1.5 text-b2 text-gray-500 "
+                onClick={handleStatusClick}
+              >
+                {currentState}
                 <img src={down} />
               </div>
+              {bottomSheetShow && (
+                <BottomSheetModal
+                  bottomSheetShow={bottomSheetShow}
+                  setBottomSheetShow={setBottomSheetShow}
+                  visible={visible}
+                  setVisible={setVisible}
+                >
+                  {" "}
+                  <div className="px-4">
+                    <ListBottomSheet
+                      title="책 상태"
+                      options={statusArr}
+                      currentOption={currentState}
+                      handleOption={handleStatusChange}
+                      isCancel={isCancel}
+                      handlePutCancel={handlePutCancel}
+                    />
+                  </div>{" "}
+                </BottomSheetModal>
+              )}
             </div>
           )}
         </div>
