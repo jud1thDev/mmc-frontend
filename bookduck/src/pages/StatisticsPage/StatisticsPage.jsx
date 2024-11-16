@@ -19,6 +19,8 @@ const StatisticsPage = () => {
     const fetchData = async () => {
       try {
         const userId = getUserId();
+        // const userId = 1;
+
         const res = await getUserStatisticsInfo(userId);
         console.log("조회성공: ", res);
         setUserData(res);
@@ -39,7 +41,7 @@ const StatisticsPage = () => {
       <UserCard nickname={userData?.nickname} />
       <div className="flex flex-col pt-6 px-7 pb-7 gap-7 bg-gray-50">
         <div className="text-b1 font-semibold">
-          이번달 기록은 총{" "}
+          {userData?.isFirstHalf ? "상반기" : "하반기"} 기록은 총{" "}
           <span className="text-blue-800">
             {userData.excerptCount + userData.bookRecordCount}
           </span>
@@ -56,10 +58,13 @@ const StatisticsPage = () => {
         </div>
       </div>
       <MonthlyReading userData={userData} />
-      <PreferredGenre />
+      <PreferredGenre userData={userData.mostReadGenres} />
       <Divider2 />
       {/* 같은 작가의 작품을 최소 2권 이상을 읽어야 ‘선호하는 작가' 카드가 보임 */}
-      <PreferredAuthor />
+      <PreferredAuthor
+        author={userData.mostReadAuthor}
+        imgPath={userData.imgPaths}
+      />
       <Divider2 />
       <MyKeyword />
       <div className="flex justify-center text-center mt-[3.75rem] text-b2 text-gray-400">

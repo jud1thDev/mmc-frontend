@@ -1,6 +1,6 @@
 import StatisticsHeader from "./StatisticsHeader";
 
-const PreferredGenre = () => {
+const PreferredGenre = ({ userData }) => {
   const categories = [
     { id: 1, name: "로맨스", count: "7권" },
     { id: 2, name: "경제, 경영", count: "5권" },

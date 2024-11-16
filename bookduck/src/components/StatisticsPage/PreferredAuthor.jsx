@@ -1,14 +1,14 @@
 import book_cover from "../../assets/common/book-cover.svg";
 
-const PreferredAuthor = () => {
-  const images = [book_cover, book_cover, book_cover];
+const PreferredAuthor = ({ author, imgPath }) => {
+  // const images = [book_cover, book_cover, book_cover];
+  const images = imgPath;
+  console.log(images);
   return (
     <div className="flex pl-5 py-7 gap-5">
       <div className="flex flex-col gap-3 text-b1 font-semibold w-[9.4375rem]">
         선호하는 작가예요
-        <span className="text-t1 text-orange-400 w-[9.4375rem]">
-          어스트 허밍웨이
-        </span>
+        <span className="text-t1 text-orange-400 w-[9.4375rem]">{author}</span>
       </div>
       <div className="flex gap-1.5 overflow-scroll">
         {images.map((cover, index) => (
