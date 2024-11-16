@@ -10,6 +10,7 @@ const Header3 = ({
   edit = false,
   editState = false,
   handleEdit,
+  handleComplete,
 }) => {
   const navigate = useNavigate();
 
@@ -27,7 +28,12 @@ const Header3 = ({
       {check && (
         <div className="flex gap-6">
           <div className="text-b1 text-gray-400 cursor-pointer">취소</div>
-          <div className="text-b1 text-blue-400 cursor-pointer">완료</div>
+          <div
+            onClick={handleComplete}
+            className="text-b1 text-blue-400 cursor-pointer"
+          >
+            완료
+          </div>
         </div>
       )}
       {edit && (

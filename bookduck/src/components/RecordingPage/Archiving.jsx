@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import BookListView from "../common/BookListView";
 import { useQuery } from "@tanstack/react-query";
 import { getSortedTotalBook } from "../../api/library";
+import useBookInfoStore from "../../store/useBookInfoStore";
 
 const Archiving = () => {
   const navigate = useNavigate();
+  const { setBookInfo } = useBookInfoStore();
 
   const {
     data: sortedBookListData = { bookList: [] },
@@ -15,7 +17,9 @@ const Archiving = () => {
     queryFn: () => getSortedTotalBook(["READING"], "latest"),
   });
 
-  const handleRecording = () => {
+  const handleRecording = (bookInfo) => {
+    console.log(bookInfo);
+    setBookInfo(bookInfo);
     navigate("/recording");
   };
   return (
@@ -24,7 +28,7 @@ const Archiving = () => {
         sortedBookListData.bookList.map((book) => (
           <BookListView
             edit={false}
-            handleOnClick={handleRecording}
+            handleOnClick={() => handleRecording(book)}
             bookTitle={book.title}
             author={book.authors}
             bookImg={book.imgPath}

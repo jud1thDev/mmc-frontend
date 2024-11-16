@@ -6,12 +6,13 @@ import { postExtractImage } from "../../api/archive";
 
 const ExtractWritingComponent = ({
   inputValue,
+  setInputValue,
   handleTextField,
   pageInputValue,
+  extractPublicState,
+  setExtractPublicState,
 }) => {
-  const [extractPublicState, setExtractPublicState] = useState("전체공개");
   const [extractImgURL, setExtractImgURL] = useState("");
-
   const handleState = (state) => {
     setExtractPublicState(state);
   };
@@ -19,13 +20,12 @@ const ExtractWritingComponent = ({
   const handleExtractImage = async (e) => {
     const file = e.target.files[0]; // 선택한 파일
     if (file) {
-      setExtractImgURL(URL.createObjectURL(file));
-      console.log(URL.createObjectURL(file));
-      const data = {
-        image: URL.createObjectURL(file),
-      };
-      const res = await postExtractImage(data);
-      console.log(res);
+      const formData = new FormData();
+      formData.append("image", file);
+      console.log("발췌 시작");
+      const res = await postExtractImage(formData);
+      console.log(res.data);
+      setInputValue(res.data);
     }
   };
 

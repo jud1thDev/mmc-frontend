@@ -11,8 +11,9 @@ const ReviewWritingComponent = ({
   titleInputValue,
   bookTitleValue = "책제목",
   authorValue = "지은이",
+  reviewPublicState,
+  setReviewPublicState,
 }) => {
-  const [reviewPublicState, setReviewPublicState] = useState("전체공개");
   const { reviewColor } = useReviewColorStore();
   const navigate = useNavigate();
   const handleState = (state) => {
