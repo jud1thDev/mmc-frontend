@@ -8,7 +8,7 @@ import BottomSheetModal from "../../components/common/BottomSheetModal";
 import ButtonComponent from "../common/ButtonComponent";
 import BottomSheetModal2 from "./BottomSheetModal2";
 
-const MyComment = () => {
+const MyComment = ({ bookData }) => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [bottomSheet2Show, setBottomSheet2Show] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -45,58 +45,68 @@ const MyComment = () => {
       setRating(index + 1);
     }
   };
+
   return (
     <div>
-      {text ? (
+      {bookData?.userbookId ? (
         <div>
-          <div className="relative flex flex-col items-center p-5 gap-4 bg-gray-10 w-[22.5625rem] rounded-lg">
-            <div className="flex items-center gap-1">
-              {Array.from({ length: 5 }, (_, index) => (
+          {text ? (
+            <div>
+              <div className="relative flex flex-col items-center p-5 gap-4 bg-gray-10 w-[22.5625rem] rounded-lg">
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <img
+                      className="cursor-pointer"
+                      key={index}
+                      src={index < rating ? starYes : starNo}
+                      onClick={() => handleStarClick(index)}
+                      alt="star"
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-center items-center gap-2 max-h-12 text-b2">
+                  <img src={leftMark} />
+                  {text}
+                  <img src={rightMark} />
+                </div>
                 <img
-                  className="cursor-pointer"
-                  key={index}
-                  src={index < rating ? starYes : starNo}
-                  onClick={() => handleStarClick(index)}
-                  alt="star"
+                  className="absolute top-5 right-5 cursor-pointer"
+                  src={menu}
+                  onClick={() => setBottomSheet2Show(true)}
                 />
-              ))}
+              </div>
             </div>
-            <div className="flex justify-center items-center gap-2 max-h-12 text-b2">
-              <img src={leftMark} />
-              {text}
-              <img src={rightMark} />
+          ) : (
+            <div>
+              <div className="flex flex-col items-center px-4 pt-4 pb-5 gap-2 bg-gray-10 w-[22.5625rem] rounded-lg">
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <img
+                      className="cursor-pointer"
+                      key={index}
+                      src={index < rating ? starYes : starNo}
+                      onClick={() => handleStarClick(index)}
+                      alt="star"
+                    />
+                  ))}
+                </div>
+                <textfield
+                  className="w-full px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD]"
+                  onClick={() => setBottomSheetShow(true)}
+                >
+                  책에 대한 나의 한줄 평을 작성해주세요!
+                </textfield>
+              </div>
             </div>
-            <img
-              className="absolute top-5 right-5 cursor-pointer"
-              src={menu}
-              onClick={() => setBottomSheet2Show(true)}
-            />
-          </div>
+          )}
         </div>
       ) : (
-        <div>
-          <div className="flex flex-col items-center px-4 pt-4 pb-5 gap-2 bg-gray-10 w-[22.5625rem] rounded-lg">
-            <div className="flex items-center gap-1">
-              {Array.from({ length: 5 }, (_, index) => (
-                <img
-                  className="cursor-pointer"
-                  key={index}
-                  src={index < rating ? starYes : starNo}
-                  onClick={() => handleStarClick(index)}
-                  alt="star"
-                />
-              ))}
-            </div>
-            <textfield
-              className="w-full px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD]"
-              onClick={() => setBottomSheetShow(true)}
-            >
-              책에 대한 나의 한줄 평을 작성해주세요!
-            </textfield>
-          </div>
+        <div className="p-4 bg-gray-50 text-b2 text-gray-400 text-center w-[361px] rounded-lg ">
+          책을 서재에 담아
+          <br />
+          별점과 한줄평을 입력해보세요
         </div>
       )}
-
       <BottomSheetModal
         bottomSheetShow={bottomSheetShow}
         setBottomSheetShow={setBottomSheetShow}

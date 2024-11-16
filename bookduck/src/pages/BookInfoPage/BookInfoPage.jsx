@@ -40,7 +40,7 @@ const BookInfoPage = () => {
         <div className="flex flex-col gap-2 px-4">
           <div className="flex flex-col gap-5">
             <BookInfo bookData={bookData} />
-            <MyComment />
+            <MyComment bookData={bookData} />
           </div>
           <TabBarComponent
             tabs={["책 정보", "기록"]}
