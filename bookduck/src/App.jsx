@@ -57,7 +57,7 @@ function App() {
       <Route path="/search" element={<SearchMainPage />} />
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/search/register" element={<RegisterPage />} />
-      <Route path="/info/book" element={<BookInfoPage />} />
+      <Route path="/info/book/:bookinfoId" element={<BookInfoPage />} />
       <Route path="/info/book/user" element={<BookInfoAddedPage />} />
       <Route path="/info/book/comment" element={<UserCommentPage />} />
       <Route path="/selectcard" element={<SelectCardPage />} />
