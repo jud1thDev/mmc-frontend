@@ -103,7 +103,7 @@ const MyComment = () => {
         visible={visible}
         setVisible={setVisible}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col px-4">
           <div className="flex justify-between items-center">
             <span className="text-st font-semibold">한줄평 작성</span>
             <span
