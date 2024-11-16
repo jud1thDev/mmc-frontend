@@ -329,6 +329,7 @@ const SettingPage = () => {
             inputError={inputError}
             handleEdit={handleEdit}
             isSubmitted={isSubmitted}
+            nickname={true}
             defaultType={false}
             handleValue={(e) => handleValue(e)}
             inputValue={inputValue}

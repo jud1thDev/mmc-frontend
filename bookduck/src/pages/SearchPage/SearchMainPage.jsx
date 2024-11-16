@@ -1,33 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { get } from "../../api/example";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../../components/common/StatusBar";
 import SearchComponent from "../../components/common/SearchComponent";
 import BookComponent from "../../components/SearchPage/BookComponent";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import CarouselComponent from "../../components/SearchPage/CarouselComponent";
-import BottomNavbar from "../../components/common/BottomNavbar";
 import SearchBookComponent from "../../components/SearchPage/SearchBookComponent";
 import SearchArchiveComponent from "../../components/SearchPage/SearchArchiveComponent";
 import SearchUserComponent from "../../components/SearchPage/SearchUserComponent";
 import TabBarComponent from "../../components/common/TabBarComponent";
-import { get, patch, del, post } from "../../api/example";
-import duck from "../../assets/common/duck.svg";
 
 const SearchMainPage = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
   const [tab, setTab] = useState("책");
-  const recentBooks = [
-    { id: "1", img: duck, title: "가나다라" },
-    { id: "2", img: duck, title: "마바사" },
-    { id: "3", img: duck, title: "큐큐" },
-  ];
+  const [recentBooks, setRecentBooks] = useState([]);
+
+  //API 연결
+  const getRecentBooks = async () => {
+    try {
+      const response = await get(`/books/recent`);
+      setRecentBooks(response.bookList);
+    } catch (error) {
+      console.error("최근 책 정보 읽기 오류", error);
+    }
+  };
+
+  //useEffect 훅
+  useEffect(() => {
+    getRecentBooks();
+  }, []);
 
   //이벤트 핸들러
   const handleSearch = () => {
     setSubmittedSearch(search);
   };
+
   return (
     <div>
       <StatusBar />
@@ -41,11 +51,11 @@ const SearchMainPage = () => {
           <div className="flex flex-col px-4 gap-3 mt-4">
             <div>최근 기록한 책</div>
             <div className="flex flex-row gap-3">
-              {recentBooks.map((book) => {
+              {recentBooks.map((book, index) => {
                 return (
                   <BookComponent
-                    key={book.id}
-                    img={book.img}
+                    key={index}
+                    img={book.imgPath}
                     title={book.title}
                   />
                 );
@@ -102,8 +112,6 @@ const SearchMainPage = () => {
           )}
         </div>
       )}
-
-      <BottomNavbar />
     </div>
   );
 };
