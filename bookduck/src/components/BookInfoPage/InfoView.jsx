@@ -5,18 +5,18 @@ import Divider1 from "../common/Divider1";
 import Divider2 from "../common/Divider2";
 import UserComment from "./UserComment";
 
-const InfoView = () => {
+const InfoView = ({ bookData }) => {
   const navigate = useNavigate();
   const handleCommentClick = () => {
     navigate("/info/book/comment");
   };
   return (
     <div className="flex flex-col gap-5">
-      <BookPlot />
+      <BookPlot bookData={bookData} />
       <Divider1 />
       <div className="flex flex-col items-center gap-1">
         <div className="flex px-4 text-b1 font-semibold justify-between items-center w-full">
-          다른 사용자들의 한줄평
+          한줄평
           <img
             className="cursor-pointer"
             src={right}
