@@ -6,11 +6,12 @@ import Divider1 from "../common/Divider1";
 import Divider2 from "../common/Divider2";
 import UserComment from "./UserComment";
 
-const InfoView = ({ bookData }) => {
+const InfoView = ({ bookData, ratingData }) => {
   const images = [cover, cover, cover, cover, cover, cover, cover];
+  const ratingList = ratingData?.oneLineRatingList || [];
   const navigate = useNavigate();
   const handleCommentClick = () => {
-    navigate("/info/book/comment");
+    navigate("/info/book/comment", { state: { ratingList } });
   };
   return (
     <div className="flex flex-col pb-[8rem] gap-5">
@@ -18,19 +19,19 @@ const InfoView = ({ bookData }) => {
       <Divider1 />
       <div className="flex flex-col items-center gap-1">
         <div className="flex px-4 text-b1 font-semibold justify-between items-center w-full">
-          한줄평
+          한줄평 ({ratingList?.length})
           <img
             className="cursor-pointer"
             src={right}
             onClick={handleCommentClick}
           />
         </div>
-        <UserComment />
-        <Divider2 />
-        <UserComment />
-        <Divider2 />
-        <UserComment />
-        <Divider2 />
+        {ratingList.map((oneLine, index) => (
+          <div className="flex flex-col items-center">
+            <UserComment data={oneLine} key={index} />
+            <Divider2 />
+          </div>
+        ))}
       </div>
       <Divider1 />
       <div className="flex flex-col px-4 gap-6 text-b1 font-semibold">

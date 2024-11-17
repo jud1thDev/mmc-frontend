@@ -30,9 +30,18 @@ export const getOneLineRatingsInfo = async ({
   size,
 }) => {
   try {
-    const res = await get(
-      `/bookinfo/${bookinfoId}/onelineratings?orderBy=${orderBy}&page=${page}&size=${size}`
-    );
+    // Query Parameter 생성 (값이 존재하는 경우에만 추가)
+    const queryParams = new URLSearchParams();
+    if (orderBy) queryParams.append("orderBy", orderBy);
+    if (page) queryParams.append("page", page);
+    if (size) queryParams.append("size", size);
+
+    // 최종 URL
+    const url = `/bookinfo/${bookinfoId}/onelineratings${
+      queryParams.toString() ? `?${queryParams}` : ""
+    }`;
+
+    const res = await get(url);
     console.log("한줄평 목록 조회 성공: ", res);
     return res;
   } catch (error) {

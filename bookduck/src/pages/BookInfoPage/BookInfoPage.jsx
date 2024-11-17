@@ -12,7 +12,7 @@ import { getBookInfo, getOneLineRatingsInfo } from "../../api/bookinfo";
 const BookInfoPage = () => {
   const { bookinfoId } = useParams();
   const [activeTab, setActiveTab] = useState("책 정보");
-  // const [RatingListData, setRatingListData] = useState(null);
+  const [RatingListData, setRatingListData] = useState(null);
   const [bookData, setBookData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -20,10 +20,11 @@ const BookInfoPage = () => {
     const fetchData = async () => {
       try {
         const res = await getBookInfo({ bookinfoId });
-        // const res2 = await getOneLineRatingsInfo({ bookinfoId });
+        const res2 = await getOneLineRatingsInfo({ bookinfoId });
         console.log("조회성공: ", res);
-        // setRatingListData(res);
         setBookData(res);
+        setRatingListData(res2);
+        console.log("조회2 성공: ", res2);
       } catch (err) {
         console.error("오류 발생: ", err);
       } finally {
@@ -50,7 +51,10 @@ const BookInfoPage = () => {
           />
         </div>
         {activeTab === "책 정보" && (
-          <InfoView bookData={bookData?.bookInfoDetailDto} />
+          <InfoView
+            bookData={bookData?.bookInfoDetailDto}
+            ratingData={RatingListData}
+          />
         )}
         {activeTab === "기록" && <ArchiveView />}
         <div className="fixed bottom-[2.625rem] flex justify-end w-[24.5625rem] cursor-pointer">
