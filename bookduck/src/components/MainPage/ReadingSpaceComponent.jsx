@@ -90,6 +90,9 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     setBottomSheetShow(true);
   };
   const handleEditClick = () => {
+    if (height.get() < expandedHeight) {
+      api.start({ height: expandedHeight });
+    }
     setIsEditMode(true);
   };
 
@@ -131,12 +134,11 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
                   {!isEditMode && isHelpVisible && (
                     <img src={helpCircle} onClick={handleHelpClick} />
                   )}
-                  {isHelp && (
-                    <img
-                      src={goEdit}
-                      className="absolute top-[0.37rem] left-[7.47rem] "
-                    />
-                  )}
+                  <img
+                    src={goEdit}
+                    onClick={handleEditClick}
+                    className="absolute top-[0.37rem] left-[7.47rem]"
+                  />
                 </div>
                 <div className="flex flex-row items-center gap-2 flex-nowrap">
                   {/* <div onClick={handleEditMode} className="text-c2">
