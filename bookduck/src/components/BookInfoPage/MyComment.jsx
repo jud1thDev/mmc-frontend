@@ -8,7 +8,7 @@ import menu from "../../assets/bookinfoPage/menu-vertical.svg";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import ButtonComponent from "../common/ButtonComponent";
 import BottomSheetModal2 from "./BottomSheetModal2";
-import { enrollRating } from "../../api/bookinfo";
+import { enrollRating, deleteRating } from "../../api/bookinfo";
 
 const MyComment = ({ bookData }) => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
@@ -44,10 +44,19 @@ const MyComment = ({ bookData }) => {
     //클릭된 위치
     const { offsetX, target } = event.nativeEvent;
     const starWidth = target.offsetWidth;
-    const newRating = offsetX < starWidth / 2 ? index + 0.5 : index + 1;
+    let newRating = offsetX < starWidth / 2 ? index + 0.5 : index + 1;
+    // 최소 별점 1점 적용
+    if (newRating < 1) {
+      newRating = 1;
+    }
     //클릭 범위 절반 이하인지 구분하기
     if (rating === newRating) {
       setRating(0);
+      try {
+        await deleteRating(bookData.userbookId);
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       setRating(newRating);
       try {

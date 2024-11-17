@@ -15,6 +15,11 @@ const patch = async (url, data) => {
   return res?.data;
 };
 
+const del = async (url) => {
+  const res = await apiAuth.delete(url);
+  return res?.data;
+};
+
 // 한줄평,별점 목록 조회
 export const getBookInfo = async ({ bookinfoId }) => {
   try {
@@ -64,6 +69,18 @@ export const enrollRating = async (userbookId, rating) => {
     return res?.data;
   } catch (error) {
     console.error("별점 등록 실패:", error);
+    throw error;
+  }
+};
+
+//별점 삭제
+export const deleteRating = async (userbookId) => {
+  const url = `books/${userbookId}/rating`;
+  try {
+    const res = await del(url);
+    console.log("별점 삭제 성공: ", res);
+  } catch (error) {
+    console.error("별점 삭제 실패: ", error);
     throw error;
   }
 };
