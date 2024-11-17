@@ -27,9 +27,11 @@ const InfoView = ({ bookData, ratingData }) => {
           />
         </div>
         {ratingList.map((oneLine, index) => (
-          <div className="flex flex-col items-center">
-            <UserComment data={oneLine} key={index} />
-            <Divider2 />
+          <div className="flex flex-col items-center" key={index}>
+            <UserComment data={oneLine} />
+            <div className="w-[22.5625rem]">
+              <Divider2 />
+            </div>
           </div>
         ))}
       </div>

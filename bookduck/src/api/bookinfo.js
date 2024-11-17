@@ -15,6 +15,11 @@ const patch = async (url, data) => {
   return res?.data;
 };
 
+const put = async (url, data) => {
+  const res = await apiAuth.put(url, data);
+  return res?.data;
+};
+
 const del = async (url) => {
   const res = await apiAuth.delete(url);
   return res?.data;
@@ -98,10 +103,22 @@ export const enrollOneLine = async (userBookId, oneLineContent) => {
     throw error;
   }
 };
-
+// 한줄평 수정
+export const editOneLine = async (onelineId, oneLineContent) => {
+  const url = `onelines/${onelineId}`;
+  const data = { oneLineContent };
+  try {
+    const res = await put(url, data);
+    console.log("한줄평 수정 성공: ", res);
+    return res?.data;
+  } catch (error) {
+    console.error("한줄평 수정 실패:", error);
+    throw error;
+  }
+};
 //한줄평 삭제
 export const deleteOneLine = async (onelineId) => {
-  const url = `oneline/${onelineId}`;
+  const url = `onelines/${onelineId}`;
   try {
     const res = await del(url);
     console.log("한줄평 삭제 성공: ", res);

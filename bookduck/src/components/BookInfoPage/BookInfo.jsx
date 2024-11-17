@@ -20,20 +20,21 @@ const BookInfo = ({ isMe = "default", bookData }) => {
   };
 
   const handlePutCancel = () => {};
-
-  const bookDetailData = bookData?.bookInfoDetailDto;
+  const bookBasicData = bookData?.bookInfoBasicDto;
   // 기본으로 등록되어 있는 책: default 내가 직접 등록한 책: me 타유저가 직접 등록한 책: other
   return (
     <div className="flex gap-4 w-[22.5625rem]">
       <img
         className="w-[7rem] h-[9.75rem] rounded bg-cover bg-no-repeat shadow-custom"
-        src={cover}
+        src={bookBasicData?.imgPath}
         alt="Cover"
       />
       <div className="flex flex-col py-2 w-full h-[10.25rem]">
         <div className="flex flex-col gap-1">
-          <div className="text-t2 font-semibold max-h-[3.5rem]">책 제목</div>
-          <div className="text-b1 h-6">{bookDetailData?.publisher}</div>
+          <div className="text-t2 font-semibold max-h-[3.5rem]">
+            {bookBasicData?.title}
+          </div>
+          <div className="text-b1 h-6">{bookBasicData?.author}</div>
         </div>
         <div className="flex flex-col mt-1 justify-between h-full">
           {isMe === "other" ? (
