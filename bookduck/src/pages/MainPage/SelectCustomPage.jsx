@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { get } from "../../api/example";
+import { get, post } from "../../api/example";
 import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
 import OneBookCard from "../../components/MainPage/OneBookCard";
@@ -12,18 +12,31 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 const SelectCustomPage = () => {
   //상태 관리
   const location = useLocation();
+
   const bookNumber = location.state?.bookNumber;
+  const [selected, setSelected] = useState("firstBook");
+  const [firstImg, setFirstImg] = useState();
+  const [secondImg, setSecondImg] = useState();
+  const [firstId, setFirstId] = useState();
+  const [secondId, setSecondId] = useState();
+
   const [search, setSearch] = useState("");
   const [bottomSheetShow, setBottomSheetShow] = useState(true);
   const [visible, setVisible] = useState(true);
-  const [selected, setSelected] = useState("firstBook");
-  const [selectedBookId, setSelectedBookId] = useState();
-  const [firstImg, setFirstImg] = useState();
-  const [secImg, setSecImg] = useState();
+
   const [books, setBooks] = useState([]);
   const [enabled, setEnabled] = useState(false);
 
+  const [cardData, setCardData] = useState({
+    cardType: "BOOK_WITH_SONG",
+    resourceId1: null,
+    text1: "",
+    text2: "",
+    text3: "",
+  });
+
   //API 연결
+  //리스트 책 받아오기
   const getBooks = async () => {
     try {
       const response = await get(`/books/list?sort=latest`);
@@ -34,30 +47,55 @@ const SelectCustomPage = () => {
     }
   };
 
-  //useEffect hook=
+  // 카드 등록하기
+  const postCard = async () => {
+    try {
+      const response = await post(`/readingspace`, cardData);
+      console.log("Card successfully posted:", response);
+    } catch (error) {
+      console.error("Error posting card:", error);
+    }
+  };
+
+  //useEffect hook
   useEffect(() => {
     getBooks();
   }, []);
 
+  //첫번째 책 아이디
   useEffect(() => {
-    if (selectedBookId) {
-      console.log("선택된 책 ID:", selectedBookId);
+    if (firstId) {
+      console.log("선택된 책 ID 1:", firstId);
     }
-  }, [selectedBookId]);
+  }, [firstId]);
 
-  useEffect(() => {});
+  //두번째 책 아이디
+  useEffect(() => {
+    if (secondId) {
+      console.log("선택된 책 ID 2:", secondId);
+    }
+  }, [secondId]);
+
+  //enabled
+  useEffect(() => {
+    console.log(enabled);
+  }, [enabled]);
 
   //이벤트 핸들러
-  const handleStatusClick = (bookInfoId, imgPath) => {
-    setSelectedBookId(bookInfoId);
-    setFirstImg(imgPath);
+  const handleStatusClick = (bookInfoId, bookImg) => {
+    if (selected === "firstBook") {
+      setFirstId(bookInfoId);
+      setFirstImg(bookImg);
+    } else if (selected === "secondBook") {
+      setSecondId(bookInfoId);
+      setSecondImg(bookImg);
+    }
 
     setVisible(false);
     setTimeout(() => {
       setBottomSheetShow(false);
     }, 200);
   };
-
   return (
     <div className="w-[24.5625rem]">
       <StatusBar />
@@ -65,19 +103,28 @@ const SelectCustomPage = () => {
       <div className="mt-[2.63rem] px-5">
         <OneBookCard
           bookNumber={bookNumber}
-          imgPath={firstImg}
+          firstImg={firstImg}
+          secondImg={secondImg}
+          firstId={firstId}
+          secondId={secondId}
           selected={selected}
           bottomSheetShow={bottomSheetShow}
           setBottomSheetShow={setBottomSheetShow}
           setSelected={setSelected}
           setVisible={setVisible}
-          enabled={enabled}
+          setEnabled={setEnabled}
+          setCardData={setCardData}
         />
       </div>
-      <div className="w-[24.5625rem] h-[12.75rem] flex flex-col fixed bottom-0 bg-gray-50 items-center pt-8 text-gray-400 text-b2">
+      <div className="w-[24.5625rem] h-[12.75rem] flex flex-col fixed bottom-0 bg-gray-50 items-center py-8 text-gray-400 text-b2">
         <p>꾸미기 카드는 수정이 불가능해요.</p>
         <p className="mb-[2.3rem]">꼼꼼히 확인해주세요:)</p>
-        <ButtonComponent text="완료" type="primary" disabled={!enabled} />
+        <ButtonComponent
+          text="완료"
+          type="primary"
+          disabled={!enabled}
+          onClick={postCard}
+        />
       </div>
       <BottomSheetModal
         color="white"
@@ -85,6 +132,7 @@ const SelectCustomPage = () => {
         bottomSheetShow={bottomSheetShow}
         setBottomSheetShow={setBottomSheetShow}
         visible={visible}
+        custom={true}
         setVisible={setVisible}
       >
         <SearchComponent

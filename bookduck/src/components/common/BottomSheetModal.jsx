@@ -32,6 +32,7 @@ const BottomSheetModal = ({
   visible,
   setVisible,
   children,
+  custom = false,
 }) => {
   // 모달이 열릴 때 visible을 true로 설정해 애니메이션을 실행
   useEffect(() => {
@@ -53,21 +54,23 @@ const BottomSheetModal = ({
 
   const slideModal = (
     <div className="flex justify-center">
-      <div
-        onClick={handleBackdropClick}
-        className={`${
-          visible ? "bg-black bg-opacity-50" : "bg-transparent"
-        } w-[24.5625rem] h-screen  fixed top-0 transition-colors duration-300`}
+      {!custom && (
+        <div
+          onClick={handleBackdropClick}
+          className={`${
+            visible ? "bg-black bg-opacity-50" : "bg-transparent"
+          } w-[24.5625rem] h-screen  fixed top-0 transition-colors duration-300`}
+        />
+      )}
+
+      <section
+        onClick={(e) => e.stopPropagation()}
+        className={`bg-white ${
+          visible ? "animate-slideUp" : "animate-slideDown"
+        } bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-fit rounded-t-xl pt-8 pb-4 transition-transform shadow-custom duration-300`}
       >
-        <section
-          onClick={(e) => e.stopPropagation()}
-          className={`bg-white ${
-            visible ? "animate-slideUp" : "animate-slideDown"
-          } bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-fit rounded-t-xl pt-8 pb-4 transition-transform duration-300`}
-        >
-          {children}
-        </section>
-      </div>
+        {children}
+      </section>
     </div>
   );
 
