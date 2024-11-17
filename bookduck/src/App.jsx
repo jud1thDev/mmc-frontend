@@ -17,6 +17,7 @@ import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
 import BookInfoAddedPage from "./pages/BookInfoPage/BoonInfoAddedPage";
 import StatisticsPage from "./pages/StatisticsPage/StatisticsPage";
+import CharacterExportPage from "./pages/StatisticsPage/CharacterExportPage";
 import CardDecorationPage from "./pages/RecordingPage/CardDecorationPage";
 import LibraryPage from "./pages/LibraryPage/LibraryPage";
 import EnterBookCasePage from "./pages/LibraryPage/EnterBookCasePage";
@@ -49,7 +50,10 @@ function App() {
       <Route path="/setting" element={<SettingPage />} />
       <Route path="/notification" element={<NotificationPage />} />
       <Route path="/statistics" element={<StatisticsPage />} />
-
+      <Route
+        path="/statistics/export/character"
+        element={<CharacterExportPage />}
+      />
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
       <Route path="/home" element={<MainPage />} />
