@@ -1,44 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { get } from "../../api/example";
 import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
 import OneBookCard from "../../components/MainPage/OneBookCard";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import SearchComponent from "../../components/common/SearchComponent";
 import BookListView from "../../components/common/BookListView";
+import ButtonComponent from "../../components/common/ButtonComponent";
 
 const SelectCustomPage = () => {
+  //상태 관리
   const location = useLocation();
   const bookNumber = location.state?.bookNumber;
-
-  const cards = [
-    {
-      id: 1,
-      content: "한번 피면 광장을 보게 되는 책이다.",
-      title: "가나다",
-      author: "마바사",
-    },
-    { id: 2, content: "또 다른 책 제목", title: "가나다", author: "마바사" },
-  ];
-
   const [search, setSearch] = useState("");
   const [bottomSheetShow, setBottomSheetShow] = useState(true);
   const [visible, setVisible] = useState(true);
   const [selected, setSelected] = useState("firstBook");
+  const [selectedBookId, setSelectedBookId] = useState();
+  const [firstImg, setFirstImg] = useState();
+  const [secImg, setSecImg] = useState();
+  const [books, setBooks] = useState([]);
+  const [enabled, setEnabled] = useState(false);
+
+  //API 연결
+  const getBooks = async () => {
+    try {
+      const response = await get(`/books/list?sort=latest`);
+      setBooks(response.bookList);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //useEffect hook=
+  useEffect(() => {
+    getBooks();
+  }, []);
+
+  useEffect(() => {
+    if (selectedBookId) {
+      console.log("선택된 책 ID:", selectedBookId);
+    }
+  }, [selectedBookId]);
+
+  useEffect(() => {});
+
+  //이벤트 핸들러
+  const handleStatusClick = (bookInfoId, imgPath) => {
+    setSelectedBookId(bookInfoId);
+    setFirstImg(imgPath);
+
+    setVisible(false);
+    setTimeout(() => {
+      setBottomSheetShow(false);
+    }, 200);
+  };
 
   return (
-    <div>
+    <div className="w-[24.5625rem]">
       <StatusBar />
       <Header3 title="커스텀 카드" />
       <div className="mt-[2.63rem] px-5">
         <OneBookCard
           bookNumber={bookNumber}
+          imgPath={firstImg}
           selected={selected}
           bottomSheetShow={bottomSheetShow}
           setBottomSheetShow={setBottomSheetShow}
           setSelected={setSelected}
           setVisible={setVisible}
+          enabled={enabled}
         />
+      </div>
+      <div className="w-[24.5625rem] h-[12.75rem] flex flex-col fixed bottom-0 bg-gray-50 items-center pt-8 text-gray-400 text-b2">
+        <p>꾸미기 카드는 수정이 불가능해요.</p>
+        <p className="mb-[2.3rem]">꼼꼼히 확인해주세요:)</p>
+        <ButtonComponent text="완료" type="primary" disabled={!enabled} />
       </div>
       <BottomSheetModal
         color="white"
@@ -54,12 +93,17 @@ const SelectCustomPage = () => {
           placeholder="서재에 담긴 책을 검색하세요"
         />
         <div className="px-4">
-          {cards.map((card) => (
+          {books.map((book, index) => (
             <BookListView
-              key={card.id}
-              bookTitle={card.title}
-              author={card.author}
+              key={index}
+              bookTitle={book.title}
+              author={book.author}
               edit={false}
+              bookImg={book.imgPath}
+              rating={book.rating}
+              handleOnClick={() =>
+                handleStatusClick(book.bookInfoId, book.imgPath)
+              }
             />
           ))}
         </div>

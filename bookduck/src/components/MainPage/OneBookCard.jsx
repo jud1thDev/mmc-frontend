@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import bookCard from "../../assets/mainPage/bookcard.svg";
 import music from "../../assets/mainPage/music.svg";
 import infoMusicBox from "../../assets/mainPage/info-musicbox.svg";
 import infoMemoBox from "../../assets/mainPage/info-memobox.svg";
@@ -8,19 +7,25 @@ const OneBookCard = ({
   setBottomSheetShow,
   selected,
   setSelected,
+  imgPath,
   bookNumber = 1,
   readOnly,
   setVisible,
+  setEnabled,
 }) => {
+  //상태 관리
   const singerRef = useRef(null);
   const memoRef = useRef(null);
 
+  const [isMusic, setIsMusic] = useState(true);
   const [singer, setSinger] = useState("");
   const [song, setSong] = useState("");
-  const [memo, setMemo] = useState("");
   const [bookTitle, setBookTitle] = useState("");
-  const [isMusic, setIsMusic] = useState(true);
+  const [memo, setMemo] = useState("");
 
+  //API-API 연결
+
+  //useEffect hook
   useEffect(() => {
     if (!readOnly && selected === "music") {
       if (isMusic) {
@@ -31,6 +36,13 @@ const OneBookCard = ({
     }
   }, [isMusic, selected]);
 
+  useEffect(() => {
+    if (imgPath && isMusic && singer && song && bookTitle) {
+      setEnabled(true);
+    }
+  }, [imgPath, isMusic, singer, song, bookTitle, memo]);
+
+  //이벤트 핸들러
   const handleToggle = () => {
     setIsMusic((prev) => !prev);
   };
@@ -84,7 +96,7 @@ const OneBookCard = ({
             selected === "firstBook" ? "border-[1px] border-[#6B7FF0]" : ""
           } flex items-center justify-center w-[5.125rem] h-full bg-gray-custom rounded-[0.375rem] shadow-custom`}
         >
-          <img src={bookCard} alt="Book Card" />
+          <img src={imgPath} alt="Book Card" />
         </div>
 
         {/* 두 번째 북박스 */}
@@ -103,7 +115,7 @@ const OneBookCard = ({
               selected === "secondBook" ? "border-[1px] border-[#6B7FF0]" : ""
             } flex items-center justify-center w-[5.125rem] h-full bg-gray-custom rounded-[0.375rem] shadow-custom`}
           >
-            <img src={bookCard} alt="Book Card" />
+            <img src={imgPath} alt="Book Card" />
           </div>
         )}
 
@@ -117,30 +129,48 @@ const OneBookCard = ({
         >
           {isMusic ? (
             <>
-              <div className="flex flex-row justify-between">
+              <div className="relative flex flex-row justify-between ">
                 <p>
-                  <span className="text-c1 text-gray-500">OST by</span>{" "}
+                  <span className="text-c1 text-gray-500 mr-1">by</span>
                   <input
                     type="text"
                     value={singer}
                     name="가수명"
                     ref={singerRef}
-                    placeholder="가수명"
+                    placeholder=""
                     className="text-c1 text-gray-500 font-semibold bg-gray-10 focus w-[3.25rem]"
                     onChange={handleChange}
                   />
                 </p>
+                {!singer && (
+                  <div className="absolute top-[0.8rem] left-[1.1rem] transform -translate-y-1/2 pointer-events-none flex items-center text-c1">
+                    <span className="text-red mr-[0.2rem] font-semibold">
+                      *
+                    </span>
+                    <span className="text-gray-500 font-semibold">가수명</span>
+                  </div>
+                )}
                 <img src={music} alt="Music Icon" />
               </div>
-              <div className="flex flex-col items-end">
+              <div className="relative flex flex-col items-end">
                 <input
                   type="text"
                   value={song}
                   name="노래제목"
-                  placeholder="노래 제목"
+                  placeholder=""
                   className="text-b1 text-right text-gray-800 font-semibold bg-gray-10 w-[8.8125rem]"
                   onChange={handleChange}
                 />
+                {!song && (
+                  <div className="absolute top-3 transform -translate-y-1/2 pointer-events-none flex items-center text-c1">
+                    <span className="text-red text-b1 mr-[0.2rem] font-semibold">
+                      *
+                    </span>
+                    <span className="text-gray-500 text-b1 font-semibold">
+                      노래 제목
+                    </span>
+                  </div>
+                )}
                 <input
                   type="text"
                   value={bookTitle}
@@ -165,7 +195,7 @@ const OneBookCard = ({
         </div>
       </div>
       {selected === "music" && (
-        <div className="mt-2 mr-5 absolute right-0" onClick={handleToggle}>
+        <div className="mt-2 mr-10 absolute right-0" onClick={handleToggle}>
           {isMusic ? (
             <img src={infoMusicBox} alt="Music Box Icon" />
           ) : (
