@@ -209,13 +209,15 @@ const OneBookCard = ({
           )}
         </div>
       </div>
-      <div className="mt-2 mr-10 absolute right-0" onClick={handleToggle}>
-        {cardType === "BOOK_WITH_SONG" ? (
-          <img src={infoMusicBox} alt="Music Box Icon" />
-        ) : (
-          <img src={infoMemoBox} alt="Memo Box Icon" />
-        )}
-      </div>
+      {selected === "music" && (
+        <div className="mt-2 mr-10 absolute right-0" onClick={handleToggle}>
+          {cardType === "BOOK_WITH_SONG" ? (
+            <img src={infoMusicBox} alt="Music Box Icon" />
+          ) : (
+            <img src={infoMemoBox} alt="Memo Box Icon" />
+          )}
+        </div>
+      )}
     </div>
   );
 };

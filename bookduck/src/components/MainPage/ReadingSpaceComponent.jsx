@@ -69,6 +69,7 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
 
     setCards(reorderedCards);
   };
+
   //useEffect 훅
   useEffect(() => {
     if (isEditMode) {
@@ -87,13 +88,18 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     setIsHelp(!isHelp);
   };
   const handleMenuClick = () => {
-    setBottomSheetShow(true);
-  };
-  const handleEditClick = () => {
     if (height.get() < expandedHeight) {
       api.start({ height: expandedHeight });
     }
+    setBottomSheetShow(true);
+  };
+
+  const handleEditClick = () => {
     setIsEditMode(true);
+    setVisible(false); // 닫는 애니메이션 시작
+    setTimeout(() => {
+      setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
+    }, 200);
   };
 
   const handleDelete = () => {
@@ -128,25 +134,25 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
                 <div className="h-1 w-12 bg-gray-300 rounded-full mx-auto" />
               </div>
 
-              <div className="flex flex-row items-center justify-between px-5 pt-1 mb-2">
+              <div className="flex flex-row items-center justify-between px-5 pt-1 mb-18">
                 <div className="flex flex-row items-center gap-1">
                   <p className="text-btn3 text-gray-500">리딩 스페이스</p>
                   {!isEditMode && isHelpVisible && (
                     <img src={helpCircle} onClick={handleHelpClick} />
                   )}
-                  <img
-                    src={goEdit}
-                    onClick={handleEditClick}
-                    className="absolute top-[0.37rem] left-[7.47rem]"
-                  />
+
+                  {isHelp && (
+                    <img
+                      src={goEdit}
+                      className="absolute top-[0.37rem] left-[7.47rem] "
+                    />
+                  )}
                 </div>
                 <div className="flex flex-row items-center gap-2 flex-nowrap">
                   {/* <div onClick={handleEditMode} className="text-c2">
                     {isEditMode ? "편집" : "완료"}
                   </div> */}
-                  {isHelpVisible && (
-                    <img src={menu} alt="menu" onClick={handleMenuClick} />
-                  )}
+                  <img src={menu} alt="menu" onClick={handleMenuClick} />
                 </div>
               </div>
 
@@ -210,6 +216,22 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
                   )}
                 </Droppable>
               </div>
+              {isEditMode && height.get() === expandedHeight && (
+                <div className="fixed bottom-0 w-[24.5625rem] h-[4rem] bg-[#DDD] p-4 flex justify-between items-center ">
+                  <button
+                    className="w-[8.4375rem] h-[3rem] flex items-center justify-center text-white bg-gray-400 rounded-lg"
+                    onClick={handleEditMode}
+                  >
+                    나가기
+                  </button>
+                  <button
+                    className="w-[13.375rem] h-[3rem] flex items-center justify-center text-white bg-gray-700 rounded-lg"
+                    onClick={() => console.log("저장 버튼 클릭됨")}
+                  >
+                    저장하기
+                  </button>
+                </div>
+              )}
 
               {isFloatingVisible && (
                 <div className="absolute right-1 bottom-[-4rem] z-[100]">
@@ -234,7 +256,10 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
       >
         <div className="w-[24.5625rem] rounded-t-xl pb-[3.125rem] pt-4 px-5 bg-gray-10 ">
           <div className="flex flex-col bg-white rounded-lg">
-            <div className="flex items-center p-4 gap-3 text-btn2 cursor-pointer">
+            <div
+              className="flex items-center p-4 gap-3 text-btn2 cursor-pointer"
+              onClick={() => navigate("/selectcard")}
+            >
               <img className="w-6 h-6" src={plusIcon} />
               추가하기
             </div>

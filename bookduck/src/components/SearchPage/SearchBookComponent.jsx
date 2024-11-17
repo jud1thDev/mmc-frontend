@@ -149,6 +149,7 @@ const SearchBookComponent = ({ search }) => {
     console.log("id", selectedBookId);
     setBottomSheetShow(true);
   };
+
   /*직접 등록 책 처음 등록*/
   const handleStatusRegister = async (status) => {
     setCurrentStatus(status);
