@@ -84,3 +84,54 @@ export const deleteRating = async (userbookId) => {
     throw error;
   }
 };
+
+//한줄평 생성
+export const enrollOneLine = async (userBookId, oneLineContent) => {
+  const url = `onelines`;
+  const data = { oneLineContent, userBookId };
+  try {
+    const res = await post(url, data);
+    console.log("한줄평 등록 성공: ", res);
+    return res?.data;
+  } catch (error) {
+    console.error("한줄평 등록 실패:", error);
+    throw error;
+  }
+};
+
+//한줄평 삭제
+export const deleteOneLine = async (onelineId) => {
+  const url = `oneline/${onelineId}`;
+  try {
+    const res = await del(url);
+    console.log("한줄평 삭제 성공: ", res);
+  } catch (error) {
+    console.error("한줄평 삭제 실패: ", error);
+    throw error;
+  }
+};
+
+//한줄평 좋아요
+export const enrollLike = async (onelineId) => {
+  const url = `onelines/${onelineId}/like`;
+  try {
+    const res = await post(url);
+    console.log("한줄평 좋아요 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("한줄평 좋아요 실패:", error);
+    throw error;
+  }
+};
+
+//한줄평 좋아요 삭제
+export const deleteLike = async (onelineId) => {
+  const url = `onelines/${onelineId}/like`;
+  try {
+    const res = await del(url);
+    console.log("한줄평 좋아요 삭제 성공: ", res);
+  } catch (error) {
+    console.error("한줄평 좋아요 삭제 실패: ", error);
+    throw error;
+  }
+};

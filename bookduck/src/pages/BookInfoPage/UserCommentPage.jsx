@@ -10,13 +10,13 @@ const UserCommentPage = () => {
       <div className="flex flex-col gap-4">
         <Header3 title={`한줄평 (${ratingList.length})`} />
         <div className="flex flex-col gap-1">
-          {ratingList.map((oneLine, index) => (
-            <div className="flex flex-col items-center">
-              <UserComment data={oneLine} key={index} />
-              <Divider2 />
-            </div>
-          ))}
-          <UserComment />
+          {ratingList.length > 0 &&
+            ratingList.map((oneLine, index) => (
+              <div className="flex flex-col items-center">
+                <UserComment data={oneLine} key={index} />
+                <Divider2 />
+              </div>
+            ))}
         </div>
       </div>
     </div>
