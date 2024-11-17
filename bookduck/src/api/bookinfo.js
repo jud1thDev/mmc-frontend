@@ -10,6 +10,11 @@ const post = async (url, data) => {
   return res?.data;
 };
 
+const patch = async (url, data) => {
+  const res = await apiAuth.patch(url, data);
+  return res?.data;
+};
+
 // 한줄평,별점 목록 조회
 export const getBookInfo = async ({ bookinfoId }) => {
   try {
@@ -46,6 +51,19 @@ export const getOneLineRatingsInfo = async ({
     return res;
   } catch (error) {
     console.error("한줄평 목록 조회 실패: ", error);
+    throw error;
+  }
+};
+// 별점 등록 및 수정
+export const enrollRating = async (userbookId, rating) => {
+  const url = `books/${userbookId}/rating`;
+  const data = { rating };
+  try {
+    const res = await patch(url, data);
+    console.log("별점 등록 성공: ", res);
+    return res?.data;
+  } catch (error) {
+    console.error("별점 등록 실패:", error);
     throw error;
   }
 };

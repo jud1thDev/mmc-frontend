@@ -8,6 +8,7 @@ import menu from "../../assets/bookinfoPage/menu-vertical.svg";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import ButtonComponent from "../common/ButtonComponent";
 import BottomSheetModal2 from "./BottomSheetModal2";
+import { enrollRating } from "../../api/bookinfo";
 
 const MyComment = ({ bookData }) => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
@@ -39,7 +40,7 @@ const MyComment = ({ bookData }) => {
     }, 200);
   };
 
-  const handleStarClick = (index, event) => {
+  const handleStarClick = async (index, event) => {
     //클릭된 위치
     const { offsetX, target } = event.nativeEvent;
     const starWidth = target.offsetWidth;
@@ -49,6 +50,11 @@ const MyComment = ({ bookData }) => {
       setRating(0);
     } else {
       setRating(newRating);
+      try {
+        await enrollRating(bookData.userbookId, newRating);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
