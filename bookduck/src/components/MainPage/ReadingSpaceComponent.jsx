@@ -20,6 +20,7 @@ import helpCircle from "../../assets/mainPage/help-circle.svg";
 const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showOutModal, setShowOutModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isHelp, setIsHelp] = useState(false);
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
@@ -84,6 +85,11 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     setShowDeleteModal(false);
   };
 
+  const handleOutModal = () => {
+    setShowOutModal(false);
+    handleEditMode();
+  };
+
   const handleHelpClick = () => {
     setIsHelp(!isHelp);
   };
@@ -119,6 +125,10 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     }
   };
 
+  const handleOutClick = () => {
+    setShowOutModal(true);
+  };
+
   return (
     <>
       <div className="relative z-0">
@@ -134,11 +144,16 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
                 <div className="h-1 w-12 bg-gray-300 rounded-full mx-auto" />
               </div>
 
-              <div className="flex flex-row items-center justify-between px-5 pt-1 mb-18">
+              <div className="flex flex-row items-center justify-between px-5 mb-18">
                 <div className="flex flex-row items-center gap-1">
-                  <p className="text-btn3 text-gray-500">리딩 스페이스</p>
+                  <p className="text-btn3 text-gray-500 pt-1">리딩 스페이스</p>
                   {!isEditMode && isHelpVisible && (
                     <img src={helpCircle} onClick={handleHelpClick} />
+                  )}
+                  {isEditMode && (
+                    <div className="py-2 px-4 text-c1 ml-2 bg-[#E8E4D5] rounded-[6.25rem]">
+                      카드를 드래그하여 이동해보세요
+                    </div>
                   )}
 
                   {isHelp && (
@@ -220,7 +235,7 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
                 <div className="fixed bottom-0 w-[24.5625rem] h-[4rem] bg-[#DDD] p-4 flex justify-between items-center ">
                   <button
                     className="w-[8.4375rem] h-[3rem] flex items-center justify-center text-white bg-gray-400 rounded-lg"
-                    onClick={handleEditMode}
+                    onClick={handleOutClick}
                   >
                     나가기
                   </button>
@@ -296,6 +311,15 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
           rightBtnText="취소"
           onLeftClick={() => {}}
           onRightClick={handleDeleteModal}
+        />
+      )}
+      {showOutModal && (
+        <DeleteModal
+          title={`편집된 사항을\n저장하지 않고 나갈까요?`}
+          leftBtnText="나가기"
+          rightBtnText="삭제"
+          onLeftClick={handleOutModal}
+          onRightClick={() => {}}
         />
       )}
     </>
