@@ -1,6 +1,7 @@
 import { useState } from "react";
 import starNo from "../../assets/bookinfoPage/star-no.svg";
 import starYes from "../../assets/bookinfoPage/star-yes.svg";
+import starHalf from "../../assets/bookinfoPage/star-half.svg";
 import leftMark from "../../assets/bookinfoPage/left-quotmark.svg";
 import rightMark from "../../assets/bookinfoPage/right-quotmark.svg";
 import menu from "../../assets/bookinfoPage/menu-vertical.svg";
@@ -38,31 +39,44 @@ const MyComment = ({ bookData }) => {
     }, 200);
   };
 
-  const handleStarClick = (index) => {
-    if (rating === index + 1) {
+  const handleStarClick = (index, event) => {
+    //클릭된 위치
+    const { offsetX, target } = event.nativeEvent;
+    const starWidth = target.offsetWidth;
+    const newRating = offsetX < starWidth / 2 ? index + 0.5 : index + 1;
+    //클릭 범위 절반 이하인지 구분하기
+    if (rating === newRating) {
       setRating(0);
     } else {
-      setRating(index + 1);
+      setRating(newRating);
     }
   };
 
   return (
     <div>
+      {/* //책이 서재에 담긴 경우  */}
       {bookData?.userbookId ? (
         <div>
+          {/* 한줄평이 존재하는 경우 */}
           {text ? (
             <div>
               <div className="relative flex flex-col items-center p-5 gap-4 bg-gray-10 w-[22.5625rem] rounded-lg">
                 <div className="flex items-center gap-1">
-                  {Array.from({ length: 5 }, (_, index) => (
-                    <img
-                      className="cursor-pointer"
-                      key={index}
-                      src={index < rating ? starYes : starNo}
-                      onClick={() => handleStarClick(index)}
-                      alt="star"
-                    />
-                  ))}
+                  {Array.from({ length: 5 }, (_, index) => {
+                    let starSrc = starNo;
+                    if (rating > index) {
+                      starSrc = rating >= index + 1 ? starYes : starHalf;
+                    }
+                    return (
+                      <img
+                        className="cursor-pointer"
+                        key={index}
+                        src={starSrc}
+                        onClick={(event) => handleStarClick(index, event)}
+                        alt="star"
+                      />
+                    );
+                  })}
                 </div>
                 <div className="flex justify-center items-center gap-2 max-h-12 text-b2">
                   <img src={leftMark} />
@@ -80,15 +94,21 @@ const MyComment = ({ bookData }) => {
             <div>
               <div className="flex flex-col items-center px-4 pt-4 pb-5 gap-2 bg-gray-10 w-[22.5625rem] rounded-lg">
                 <div className="flex items-center gap-1">
-                  {Array.from({ length: 5 }, (_, index) => (
-                    <img
-                      className="cursor-pointer"
-                      key={index}
-                      src={index < rating ? starYes : starNo}
-                      onClick={() => handleStarClick(index)}
-                      alt="star"
-                    />
-                  ))}
+                  {Array.from({ length: 5 }, (_, index) => {
+                    let starSrc = starNo;
+                    if (rating > index) {
+                      starSrc = rating >= index + 1 ? starYes : starHalf;
+                    }
+                    return (
+                      <img
+                        className="cursor-pointer"
+                        key={index}
+                        src={starSrc}
+                        onClick={(event) => handleStarClick(index, event)}
+                        alt="star"
+                      />
+                    );
+                  })}
                 </div>
                 <textfield
                   className="w-full px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD]"
