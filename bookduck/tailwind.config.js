@@ -63,7 +63,7 @@ export default {
       },
       fontSize: {
         t1: ["1.5rem", { lineHeight: "2.25rem" }], //24px
-        t2: ["1.25rem", { lineHeight: "1.75rem" }], //20px /26px
+        t2: ["1.25rem", { lineHeight: "1.75rem" }], //20px /28px
         st: ["1.125rem", { lineHeight: "1.5rem" }], //18px / 24px
         b1: ["1rem", { lineHeight: "1.5rem" }], //16px / 24px
         b2: ["0.875rem", { lineHeight: "1.5rem" }], //14px /24px
