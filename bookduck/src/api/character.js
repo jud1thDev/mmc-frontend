@@ -1,14 +1,5 @@
 import { apiAuth } from "./api";
-
-const get = async (url) => {
-  const res = await apiAuth.get(url);
-  return res?.data;
-};
-
-const post = async (url, data) => {
-  const res = await apiAuth.post(url, data);
-  return res?.data;
-};
+import { get, post, patch, put, del } from "./example";
 
 // 유저 정보 조회 - 닉네임, 기록 수
 export const getUserInfo = async (userId) => {
@@ -22,7 +13,7 @@ export const getUserInfo = async (userId) => {
   }
 };
 
-// 유저 독서 리포트 조회 - 통계
+// 유저 레벨 정보 조회
 export const getUserLevelInfo = async (userId) => {
   try {
     const res = await get(`/users/${userId}/growth`);
@@ -30,6 +21,18 @@ export const getUserLevelInfo = async (userId) => {
     return res;
   } catch (error) {
     console.error("유저 레벨 정보 조회 실패: ", error);
+    throw error;
+  }
+};
+
+// 캐릭터 아이템 조회
+export const getItemLists = async () => {
+  try {
+    const res = await get(`/useritems`);
+    console.log("아이템 리스트 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("아이템 리스트 조회 실패: ", error);
     throw error;
   }
 };

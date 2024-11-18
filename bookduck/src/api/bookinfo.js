@@ -1,29 +1,5 @@
 import { apiAuth } from "./api";
-
-const get = async (url) => {
-  const res = await apiAuth.get(url);
-  return res?.data;
-};
-
-const post = async (url, data) => {
-  const res = await apiAuth.post(url, data);
-  return res?.data;
-};
-
-const patch = async (url, data) => {
-  const res = await apiAuth.patch(url, data);
-  return res?.data;
-};
-
-const put = async (url, data) => {
-  const res = await apiAuth.put(url, data);
-  return res?.data;
-};
-
-const del = async (url) => {
-  const res = await apiAuth.delete(url);
-  return res?.data;
-};
+import { get, post, patch, put, del } from "./example";
 
 // 한줄평,별점 목록 조회
 export const getBookInfo = async ({ bookinfoId }) => {

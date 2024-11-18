@@ -1,14 +1,5 @@
 import { apiAuth } from "./api";
-
-const get = async (url) => {
-  const res = await apiAuth.get(url);
-  return res?.data;
-};
-
-const post = async (url, data) => {
-  const res = await apiAuth.post(url, data);
-  return res?.data;
-};
+import { get, post, patch, put, del } from "./example";
 
 // 유저 정보 조회 - 닉네임, 기록 수
 export const getUserInfo = async (userId) => {
