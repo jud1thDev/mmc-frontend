@@ -48,6 +48,8 @@ export default {
           800: "#364390",
         },
         yellow: {
+          50: "#FFFAE6",
+          80: "#FFF0B9",
           100: "#FFECA4",
         },
         red: "#EA4520",
@@ -60,6 +62,8 @@ export default {
           "linear-gradient(0deg, var(--Primary-300, #FFBF68) 0%, var(--Primary-300, #FFBF68) 100%), linear-gradient(110deg, #FFE16E 0%, #FFBF68 53.83%)",
         "white-gradiation":
           "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFF 35.43%)",
+        "yellow-gradation":
+          "linear-gradient(199deg, #FFF 53.87%, #FFFAE6 87.72%)",
       },
       fontSize: {
         t1: ["1.5rem", { lineHeight: "2.25rem" }], //24px
@@ -78,6 +82,9 @@ export default {
       fontWeight: {
         semibold: 600,
         regular: 400,
+      },
+      fontFamily: {
+        caprasimo: ["Caprasimo", "sans-serif"], // Caprasimo 폰트 추가
       },
       boxShadow: {
         custom: "0px 0px 3px 0px rgba(0, 0, 0, 0.10)",
