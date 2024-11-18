@@ -17,6 +17,8 @@ const MainPage = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [color, setColor] = useState("bg-gray-50");
   const [isNavBar, setIsNavBar] = useState("true");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showOutModal, setShowOutModal] = useState(false);
 
   //API 연결
   const getUserInfo = async (userId) => {
@@ -77,9 +79,33 @@ const MainPage = () => {
           <img src={right} alt="arrow" />
         </button>
         <img src={mainDuck} className="absolute top-[11.42rem] left-[9rem]" />
-        <ReadingSpaceComponent setColor={setColor} setIsNavBar={setIsNavBar} />
+        <ReadingSpaceComponent
+          setColor={setColor}
+          setIsNavBar={setIsNavBar}
+          showDeleteModal={showDeleteModal}
+          showOutModal={showOutModal}
+        />
       </div>
       {isNavBar && <BottomNavbar />}
+      {showDeleteModal && (
+        <DeleteModal
+          title="정말 삭제하시겠어요?"
+          content="카드들이 모두 삭제되며 복구할 수 없어요."
+          leftBtnText="삭제"
+          rightBtnText="취소"
+          onLeftClick={() => {}}
+          onRightClick={handleDeleteModal}
+        />
+      )}
+      {showOutModal && (
+        <DeleteModal
+          title={`편집된 사항을\n저장하지 않고 나갈까요?`}
+          leftBtnText="나가기"
+          rightBtnText="삭제"
+          onLeftClick={handleOutModal}
+          onRightClick={() => {}}
+        />
+      )}
     </div>
   );
 };

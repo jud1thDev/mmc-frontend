@@ -49,12 +49,16 @@ const OneBookCard = ({
     setCardData({
       cardType: cardType,
       resourceId1: firstId,
-      resourceId2: secondId,
+      resourceId2: secondId || null,
       text1: cardType === "BOOK_WITH_SONG" ? singer : memo,
       text2: cardType === "BOOK_WITH_SONG" ? song : null,
       text3: cardType === "BOOK_WITH_SONG" ? bookTitle : null,
     });
   }, [firstImg, secondImg, singer, song, memo, cardType, bookNumber]);
+
+  useEffect(() => {
+    console.log(bookTitle);
+  }, [bookTitle]);
 
   //이벤트 핸들러
   const handleToggle = () => {

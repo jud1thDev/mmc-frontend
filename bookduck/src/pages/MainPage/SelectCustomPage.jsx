@@ -30,6 +30,7 @@ const SelectCustomPage = () => {
   const [cardData, setCardData] = useState({
     cardType: "BOOK_WITH_SONG",
     resourceId1: null,
+    resourceId2: null,
     text1: "",
     text2: "",
     text3: "",
@@ -50,6 +51,7 @@ const SelectCustomPage = () => {
   // 카드 등록하기
   const postCard = async () => {
     try {
+      console.log(cardData);
       const response = await post(`/readingspace`, cardData);
       console.log("Card successfully posted:", response);
     } catch (error) {
