@@ -1,6 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
-const ExtractCard = ({ content, title, author, page, onClick, selected }) => {
+const ExtractCard = ({
+  onClick,
+  selected,
+  content,
+  visibility,
+  pageNumber,
+  title,
+  author,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -10,7 +18,7 @@ const ExtractCard = ({ content, title, author, page, onClick, selected }) => {
           ${selected && " border-[1px] border-[#6B7FF0]"}`}
       >
         <div className="text-right text-b2 text-gray-400">
-          {page || "페이지"}p
+          {pageNumber || "페이지"}p
         </div>
         <div className="flex flex-col gap-[0.5rem]">
           <div className="text-b2 text-gray-800">
