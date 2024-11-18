@@ -18,6 +18,7 @@ import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
 import BookInfoAddedPage from "./pages/BookInfoPage/BoonInfoAddedPage";
 import StatisticsPage from "./pages/StatisticsPage/StatisticsPage";
 import CharacterExportPage from "./pages/StatisticsPage/CharacterExportPage";
+import SummaryExportPage from "./pages/StatisticsPage/SummaryExportPage";
 import CardDecorationPage from "./pages/RecordingPage/CardDecorationPage";
 import LibraryPage from "./pages/LibraryPage/LibraryPage";
 import EnterBookCasePage from "./pages/LibraryPage/EnterBookCasePage";
@@ -53,6 +54,10 @@ function App() {
       <Route
         path="/statistics/export/character"
         element={<CharacterExportPage />}
+      />
+      <Route
+        path="/statistics/export/summary"
+        element={<SummaryExportPage />}
       />
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
