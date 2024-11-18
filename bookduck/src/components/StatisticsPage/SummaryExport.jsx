@@ -1,6 +1,6 @@
-import summary from "../../assets/characterPage/summary.svg";
-import star from "../../assets/characterPage/star-summary.svg";
-import divider from "../../assets/characterPage/divider.svg";
+import summary from "../../assets/statisticsPage/summary.svg";
+import star from "../../assets/statisticsPage/star-summary.svg";
+import divider from "../../assets/statisticsPage/divider.svg";
 const SummaryExport = () => {
   return (
     <div
