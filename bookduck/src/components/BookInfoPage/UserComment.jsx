@@ -52,7 +52,7 @@ const UserComment = ({ data }) => {
             <span className="text-orange-400">나의 한줄평</span>
           ) : (
             <span className=" underline cursor-pointer">
-              {data?.userNickName}
+              {data?.userNickname}
             </span>
           )}
           <span>{formattedDate}</span>
