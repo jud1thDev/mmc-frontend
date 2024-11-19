@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { get, post } from "../../api/example";
 import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
@@ -12,7 +13,7 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 const SelectCustomPage = () => {
   //상태 관리
   const location = useLocation();
-
+  const navigate = useNavigate();
   const bookNumber = location.state?.bookNumber;
   const [selected, setSelected] = useState("firstBook");
   const [firstImg, setFirstImg] = useState();
@@ -98,6 +99,11 @@ const SelectCustomPage = () => {
       setBottomSheetShow(false);
     }, 200);
   };
+
+  const handleSubmitClick = () => {
+    postCard();
+    navigate("/home");
+  };
   return (
     <div className="w-[24.5625rem]">
       <StatusBar />
@@ -125,7 +131,7 @@ const SelectCustomPage = () => {
           text="완료"
           type="primary"
           disabled={!enabled}
-          onClick={postCard}
+          onClick={handleSubmitClick}
         />
       </div>
       <BottomSheetModal

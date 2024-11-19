@@ -30,6 +30,7 @@ const Card = ({ card }) => {
     default:
       return (
         <BookDisplay
+          type={card.cardType}
           cardId={card.cardId}
           cardIndex={card.cardIndex}
           imgPath1={card.imgPath1}

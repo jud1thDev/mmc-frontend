@@ -15,6 +15,8 @@ import DeleteModal from "../../components/common/modal/DeleteModal";
 const MainPage = () => {
   //상태 관리
   const navigate = useNavigate();
+  const [bottomSheetShow, setBottomSheetShow] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [color, setColor] = useState("bg-gray-50");
   const [isNavBar, setIsNavBar] = useState("true");
@@ -57,15 +59,19 @@ const MainPage = () => {
   const handleDelete = () => {
     setShowDeleteModal(false);
     setIsAllDelete(true);
+    setVisible(false); // 닫는 애니메이션 시작
+    setTimeout(() => {
+      setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
+    }, 200);
   };
 
-  useEffect(() => {
-    if (isAllDelete) {
-      console.log("전체 삭제 완료");
-      setIsEditMode(false);
-      setIsAllDelete(false);
-    }
-  }, [isAllDelete]);
+  // useEffect(() => {
+  //   if (isAllDelete) {
+  //     console.log("전체 삭제 완료");
+  //     setIsEditMode(false);
+  //     setIsAllDelete(false);
+  //   }
+  // }, [isAllDelete]);
 
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
@@ -109,6 +115,11 @@ const MainPage = () => {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
           isAllDelete={isAllDelete}
+          visible={visible}
+          setVisible={setVisible}
+          bottomSheetShow={bottomSheetShow}
+          setBottomSheetShow={setBottomSheetShow}
+          setIsAllDelete={setIsAllDelete}
         />
       </div>
       {isNavBar && <BottomNavbar />}

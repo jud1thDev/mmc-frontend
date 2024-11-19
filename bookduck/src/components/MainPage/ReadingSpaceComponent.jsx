@@ -20,18 +20,22 @@ import { getUserId } from "../../api/oauth";
 const ReadingSpaceComponent = ({
   setColor,
   setIsNavBar,
+  visible,
+  setVisible,
+  bottomSheetShow,
+  setBottomSheetShow,
   setShowDeleteModal = () => {},
   setShowOutModal = () => {},
   isEditMode,
   setIsEditMode,
   isAllDelete = false,
+  setIsAllDelete,
 }) => {
   //상태관리
   const navigate = useNavigate();
 
   const [isHelp, setIsHelp] = useState(false);
-  const [bottomSheetShow, setBottomSheetShow] = useState(false);
-  const [visible, setVisible] = useState(false);
+
   const [isFloatingVisible, setFloatingVisible] = useState(true);
   const [isHelpVisible, setHelpVisible] = useState(false);
   const [cards, setCards] = useState([]);
@@ -69,6 +73,14 @@ const ReadingSpaceComponent = ({
     }
   };
 
+  const handleSave = () => {
+    const updatedCardList = cards.map((card, index) => ({
+      cardId: card.cardId,
+      cardIndex: index + 1,
+    }));
+    patchCards(updatedCardList);
+  };
+
   //useEffect 훅
   useEffect(() => {
     if (isEditMode) {
@@ -80,17 +92,17 @@ const ReadingSpaceComponent = ({
 
   useEffect(() => {
     getCards();
-  }, []);
-
-  useEffect(() => {
-    if (isAllDelete === true) {
-      patchCards([]);
-    }
   }, [isAllDelete]);
 
   useEffect(() => {
-    console.log("cards", cards);
-  }, [cards]);
+    if (isAllDelete) {
+      patchCards([]).then(() => {
+        setCards([]); // API 응답 후 상태 업데이트
+        console.log("전체 삭제 완료 및 UI 업데이트");
+      });
+      setIsAllDelete(false);
+    }
+  }, [isAllDelete]);
 
   //이벤트 핸들러
   const handleDeleteModal = () => {
@@ -135,14 +147,6 @@ const ReadingSpaceComponent = ({
         setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
       }, 300);
     }
-  };
-
-  const handleSave = () => {
-    const updatedCardList = cards.map((card, index) => ({
-      cardId: card.cardId,
-      cardIndex: index + 1,
-    }));
-    patchCards(updatedCardList);
   };
 
   //드래그 관련

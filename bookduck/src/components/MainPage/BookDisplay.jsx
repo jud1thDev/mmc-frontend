@@ -4,6 +4,7 @@ import bookCard from "../../assets/mainPage/bookcard.svg";
 const BookDisplay = ({
   display = false,
   bookNumber = 1,
+  type,
   cardId,
   cardIndex,
   imgPath1,
@@ -42,20 +43,28 @@ const BookDisplay = ({
           }
           py-3 px-4 flex flex-col justify-between bg-gray-10 shadow-custom rounded-[0.75rem]`}
         >
-          <div className="relative flex flex-row justify-between ">
-            <span className="text-c1 text-gray-500 mr-1">
-              by {text1 || "가수"}
-            </span>
-            <img src={music} alt="Music Icon" />
-          </div>
-          <div className="relative flex flex-col items-end">
-            <span className="text-gray-500 text-b1 font-semibold">
-              {text2 || "노래 제목"}
-            </span>
-            <span className="text-right text-gray-800 text-c1 bg-gray-10 w-[8.8125rem]">
-              {text3 || "책 제목"}
-            </span>
-          </div>
+          {type === "BOOK_WITH_SONG" ? (
+            <>
+              <div className="relative flex flex-row justify-between ">
+                <span className="text-c1 text-gray-500 mr-1">
+                  by {text1 || "가수"}
+                </span>
+                <img src={music} alt="Music Icon" />
+              </div>
+              <div className="relative flex flex-col items-end">
+                <span className="text-gray-500 text-b1 font-semibold">
+                  {text2 || "노래 제목"}
+                </span>
+                <span className="text-right text-gray-800 text-c1 bg-gray-10 w-[8.8125rem]">
+                  {text3 || "책 제목"}
+                </span>
+              </div>
+            </>
+          ) : (
+            <p className="text-gray-800 text-c1 bg-gray-10 w-full">
+              {text1 || "메모"}
+            </p>
+          )}
         </div>
       </div>
     </div>
