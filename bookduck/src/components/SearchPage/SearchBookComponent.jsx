@@ -19,8 +19,8 @@ const SearchBookComponent = ({ search }) => {
 
   const [registeredBooks, setRegisteredBooks] = useState([]);
   const [books, setBooks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const loaderRef = useRef(null);
   const DATA_LIMIT = 10;
 
@@ -41,7 +41,7 @@ const SearchBookComponent = ({ search }) => {
 
   //API연결
   //API-등록 책 정보받기
-  const getRegisteredBooks = async (keyword, page = 1) => {
+  const getRegisteredBooks = async (keyword, page = 0) => {
     try {
       const response = await get(
         `/bookinfo/search/custom?keyword=${encodeURIComponent(
@@ -66,7 +66,7 @@ const SearchBookComponent = ({ search }) => {
     }
   };
   // API-일반 책 받아오기
-  const getBooks = async (keyword, page = 1) => {
+  const getBooks = async (keyword, page = 0) => {
     if (!keyword) return;
     try {
       const response = await get(
@@ -85,7 +85,7 @@ const SearchBookComponent = ({ search }) => {
       }));
 
       setBooks((b) => [...b, ...data]);
-      setTotalPages(response.totalPages || 1); // 서버에서 전체 페이지 수 반환
+      setTotalPages(response.totalPages || 0); // 서버에서 전체 페이지 수 반환
     } catch (error) {
       console.error("책 데이터 불러오기 오류:", error);
     }
@@ -105,8 +105,8 @@ const SearchBookComponent = ({ search }) => {
   useEffect(() => {
     if (search) {
       setBooks([]); // 기존 데이터 초기화
-      setCurrentPage(1); // 첫 페이지로 초기화
-      getBooks(search, 1);
+      setCurrentPage(0); // 첫 페이지로 초기화
+      getBooks(search, 0);
       setRegisteredBooks([]);
       getRegisteredBooks(search);
     }
@@ -135,7 +135,7 @@ const SearchBookComponent = ({ search }) => {
 
   // 현재 페이지 데이터 로드
   useEffect(() => {
-    if (currentPage > 1 && search) {
+    if (currentPage > 0 && search) {
       console.log(`페이지 ${currentPage} 데이터 로드`);
       getBooks(search, currentPage);
     }
