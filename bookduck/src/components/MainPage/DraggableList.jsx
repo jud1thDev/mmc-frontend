@@ -1,37 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import deleteIcon2 from "../../assets/mainPage/delete.svg";
+import Card from "./Card";
+import { update } from "@react-spring/web";
 
-const DraggableList = () => {
-  const [items, setItems] = useState([
-    { id: "1", content: "첫 번째 카드" },
-    { id: "2", content: "두 번째 카드" },
-    { id: "3", content: "세 번째 카드" },
-  ]);
+const DraggableList = ({ cards, setCards, isEditMode }) => {
   const handleDragEnd = (result) => {
     if (!result.destination) return;
 
-    const reorderedItems = Array.from(items);
-    const [removed] = reorderedItems.splice(result.source.index, 1);
-    reorderedItems.splice(result.destination.index, 0, removed);
+    const reorderedCards = Array.from(cards);
+    const [removed] = reorderedCards.splice(result.source.index, 1);
+    reorderedCards.splice(result.destination.index, 0, removed);
 
-    setItems(reorderedItems);
+    setCards(reorderedCards); // 부모 컴포넌트 상태 업데이트
+  };
+
+  const handleDeleteCard = (cardId) => {
+    const updatedCards = cards.filter((card) => card.cardId !== cardId);
+    setCards(updatedCards);
   };
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId="list">
+      <Droppable droppableId="list" isDropDisabled={!isEditMode}>
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            {items.map((item, index) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(provided) => (
+            {cards.map((card, index) => (
+              <Draggable
+                key={card.cardId}
+                draggableId={`${card.cardId}`}
+                index={index}
+              >
+                {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    className="bg-gray-200 p-4 mb-2 rounded z-50"
+                    className={`mb-4 p-1 flex justify-center rounded-xl relative ${
+                      isEditMode
+                        ? snapshot.isDragging
+                          ? "bg-[#FFFAE6]"
+                          : "bg-[#EEE]"
+                        : ""
+                    }`}
                   >
-                    {item.content}
+                    {isEditMode && (
+                      <img
+                        src={deleteIcon2}
+                        onClick={() => handleDeleteCard(card.cardId)}
+                        className="z-50 absolute top-1 left-1"
+                      />
+                    )}
+                    <Card card={card} />
                   </div>
                 )}
               </Draggable>

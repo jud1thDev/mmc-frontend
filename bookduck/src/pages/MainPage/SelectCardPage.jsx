@@ -25,14 +25,14 @@ const SelectCardPage = () => {
             navigate("/selectcard/custom", { state: { bookNumber: 1 } })
           }
         >
-          <BookDisplay bookNumber={1} />
+          <BookDisplay display={true} />
         </div>
         <div
           onClick={() =>
             navigate("/selectcard/custom", { state: { bookNumber: 2 } })
           }
         >
-          <BookDisplay bookNumber={2} />
+          <BookDisplay display={true} bookNumber={2} />
         </div>
         <ExtractCard onClick={() => navigate("/selectcard/extract")} />
         <ReviewCard onClick={() => navigate("/selectcard/review")} />

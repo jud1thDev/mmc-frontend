@@ -10,6 +10,7 @@ import right from "../../assets/common/right-yellow.svg";
 import mainDuck from "../../assets/common/main-duck.svg";
 import BookCountDisplay from "../../components/MainPage/BookCountDisplay";
 import { isTokenExpired } from "../../api/oauth";
+import DeleteModal from "../../components/common/modal/DeleteModal";
 
 const MainPage = () => {
   //상태 관리
@@ -19,7 +20,8 @@ const MainPage = () => {
   const [isNavBar, setIsNavBar] = useState("true");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showOutModal, setShowOutModal] = useState(false);
-
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isAllDelete, setIsAllDelete] = useState(false);
   //API 연결
   const getUserInfo = async (userId) => {
     try {
@@ -44,6 +46,26 @@ const MainPage = () => {
     const userId = getUserId();
     getUserInfo(userId);
   }, []);
+
+  useEffect(() => {}, [setShowOutModal]);
+
+  const handleOutModal = () => {
+    setIsEditMode(false);
+    setShowOutModal(false);
+  };
+
+  const handleDelete = () => {
+    setShowDeleteModal(false);
+    setIsAllDelete(true);
+  };
+
+  useEffect(() => {
+    if (isAllDelete) {
+      console.log("전체 삭제 완료");
+      setIsEditMode(false);
+      setIsAllDelete(false);
+    }
+  }, [isAllDelete]);
 
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
@@ -82,8 +104,11 @@ const MainPage = () => {
         <ReadingSpaceComponent
           setColor={setColor}
           setIsNavBar={setIsNavBar}
-          showDeleteModal={showDeleteModal}
-          showOutModal={showOutModal}
+          setShowDeleteModal={setShowDeleteModal}
+          setShowOutModal={setShowOutModal}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+          isAllDelete={isAllDelete}
         />
       </div>
       {isNavBar && <BottomNavbar />}
@@ -93,17 +118,17 @@ const MainPage = () => {
           content="카드들이 모두 삭제되며 복구할 수 없어요."
           leftBtnText="삭제"
           rightBtnText="취소"
-          onLeftClick={() => {}}
-          onRightClick={handleDeleteModal}
+          onLeftClick={handleDelete}
+          onRightClick={() => setShowDeleteModal(false)}
         />
       )}
       {showOutModal && (
         <DeleteModal
           title={`편집된 사항을\n저장하지 않고 나갈까요?`}
           leftBtnText="나가기"
-          rightBtnText="삭제"
+          rightBtnText="계속하기"
           onLeftClick={handleOutModal}
-          onRightClick={() => {}}
+          onRightClick={() => setShowOutModal(false)}
         />
       )}
     </div>

@@ -1,10 +1,19 @@
 import React from "react";
 import emptyImage from "../../assets/recordingPage/rating-empty.svg";
 import filledImage from "../../assets/recordingPage/rating-filled.svg";
-const ReviewCard = ({ selected, content, rating, title, author, onClick }) => {
+const ReviewCard = ({
+  cardId,
+  cardIndex,
+  selected,
+  content,
+  rating,
+  title,
+  author,
+  onClick,
+}) => {
   return (
     <div
-      className={`flex flex-col px-4 py-3 bg-gray-10 shadow-custom h-[6rem] justify-between rounded-[0.75rem]  ${
+      className={`flex w-full flex-col px-4 py-3 bg-gray-10 shadow-custom h-[6rem] justify-between rounded-[0.75rem]  ${
         selected && " border-[1px] border-[#6B7FF0]"
       }`}
       onClick={onClick}

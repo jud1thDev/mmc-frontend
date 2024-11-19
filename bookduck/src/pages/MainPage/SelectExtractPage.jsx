@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { get, post } from "../../api/example";
 import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
@@ -8,6 +9,7 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 
 const SelectExtractPage = () => {
   //상태 관리
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [excerpts, setExcerpts] = useState([]);
   const [excerptId, setExcerptId] = useState();
@@ -79,6 +81,10 @@ const SelectExtractPage = () => {
     }
   }, [search]);
 
+  useEffect(() => {
+    getExcerpts("", 0);
+  }, []);
+
   // 무한 스크롤 감지
   useEffect(() => {
     const handleObserver = (entries) => {
@@ -118,6 +124,11 @@ const SelectExtractPage = () => {
     setExcerptId(id);
   };
 
+  const handleSubmitClick = () => {
+    postCard();
+    navigate("/home");
+  };
+
   return (
     <div className="w-[24.5625rem]">
       <StatusBar />
@@ -150,7 +161,7 @@ const SelectExtractPage = () => {
             text="완료"
             type="primary"
             disabled={!excerptId}
-            onClick={postCard}
+            onClick={handleSubmitClick}
           />
         </div>
       )}

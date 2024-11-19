@@ -140,6 +140,7 @@ const SelectCustomPage = () => {
         <SearchComponent
           search={search}
           setSearch={setSearch}
+          custom={true}
           placeholder="서재에 담긴 책을 검색하세요"
         />
         <div className="px-4">
