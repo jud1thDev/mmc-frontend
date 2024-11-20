@@ -104,7 +104,7 @@ export const deleteOneLine = async (onelineId) => {
   }
 };
 
-//한줄평 좋아요
+//한줄평 좋아요 등록
 export const enrollLike = async (onelineId) => {
   const url = `onelines/${onelineId}/like`;
   try {
@@ -125,6 +125,18 @@ export const deleteLike = async (onelineId) => {
     console.log("한줄평 좋아요 삭제 성공: ", res);
   } catch (error) {
     console.error("한줄평 좋아요 삭제 실패: ", error);
+    throw error;
+  }
+};
+
+//나의 기록 조회
+export const getMyArchive = async ({ bookinfoId }) => {
+  try {
+    const res = await get(`/bookinfo/${bookinfoId}/archives/users/me`);
+    console.log("나의 기록 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("나의 기록 조회 실패: ", error);
     throw error;
   }
 };
