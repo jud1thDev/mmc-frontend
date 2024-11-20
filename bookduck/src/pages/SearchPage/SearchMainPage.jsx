@@ -17,8 +17,9 @@ const SearchMainPage = () => {
   const [submittedSearch, setSubmittedSearch] = useState("");
   const [tab, setTab] = useState("책");
   const [recentBooks, setRecentBooks] = useState([]);
-
+  const [popularBooks, setPopularBooks] = useState([]);
   //API 연결
+  //최근 책 받기
   const getRecentBooks = async () => {
     try {
       const response = await get(`/books/recent`);
@@ -28,9 +29,21 @@ const SearchMainPage = () => {
     }
   };
 
+  //많이 읽는 책 받기
+  const getPopularBooks = async () => {
+    try {
+      const response = await get(`/bookinfo/most`);
+      console.log("많이 읽는", response);
+      setPopularBooks(response.bookList);
+    } catch (error) {
+      console.error("많이 읽는 책 읽기 오류", error);
+    }
+  };
+
   //useEffect 훅
   useEffect(() => {
     getRecentBooks();
+    getPopularBooks();
   }, []);
 
   //이벤트 핸들러
@@ -81,7 +94,7 @@ const SearchMainPage = () => {
           </div>
           <div className="flex flex-col px-4 gap-3">
             <div>요즘 많이 읽는 책 Top 10</div>
-            <CarouselComponent />
+            <CarouselComponent popularBooks={popularBooks} />
           </div>
         </>
       ) : (
