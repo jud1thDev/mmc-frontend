@@ -5,9 +5,6 @@ importScripts(
   "https://www.gstatic.com/firebasejs/9.20.0/firebase-messaging-compat.js"
 );
 
-Notification.requestPermission().then((permission) => {
-  console.log("알림 권한:", permission);
-});
 // Firebase 초기화
 const firebaseConfig = {
   apiKey: "AIzaSyDobXyNl2FmQpOJTcdu0cU6lIw6jZ4V4Dw",
