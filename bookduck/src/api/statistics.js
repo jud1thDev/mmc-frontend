@@ -24,3 +24,15 @@ export const getUserStatisticsInfo = async (userId) => {
     throw error;
   }
 };
+
+// 통계 요약 내보내기 정보 제공
+export const getExportSummaryInfo = async () => {
+  try {
+    const res = await get(`/exports/statistics`);
+    console.log("통계 요약 정보 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("통계 요약 정보 조회 실패: ", error);
+    throw error;
+  }
+};
