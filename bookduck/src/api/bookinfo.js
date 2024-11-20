@@ -140,3 +140,15 @@ export const getMyArchive = async ({ bookinfoId }) => {
     throw error;
   }
 };
+
+//연관 추천도서 조회
+export const getRelatedBookInfo = async ({ bookinfoId }) => {
+  try {
+    const res = await get(`/bookinfo/${bookinfoId}/explore`);
+    console.log("추천도서 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("추천도서 조회 실패: ", error);
+    throw error;
+  }
+};
