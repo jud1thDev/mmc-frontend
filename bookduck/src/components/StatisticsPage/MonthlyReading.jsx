@@ -5,7 +5,7 @@ const MonthlyReading = ({ userData }) => {
   return (
     <div className="flex flex-col pt-5 h-[24.3125rem]">
       <StatisticsHeader
-        title={`${userData.isFirstHalf ? "상반기" : "하반기"} 월별 독서량`}
+        title={`${userData?.isFirstHalf ? "상반기" : "하반기"} 월별 독서량`}
       />
       <div className="flex flex-col pt-[2.3475rem]">
         <div className="flex justify-between items-end">
@@ -15,7 +15,7 @@ const MonthlyReading = ({ userData }) => {
           </div>
           <div className=" bg-gray-100 rounded-tl-[0.625rem] w-[3.5rem] h-[3.75rem]" />
         </div>
-        {userData.isFirstHalf ? (
+        {userData?.isFirstHalf ? (
           <div className="flex justify-center text-center gap-[28px] mt-[0.625rem] text-btn4 font-semibold text-gray-400">
             <span>1월</span>
             <span>2월</span>

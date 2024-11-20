@@ -43,7 +43,7 @@ const StatisticsPage = () => {
         <div className="text-b1 font-semibold">
           {userData?.isFirstHalf ? "상반기" : "하반기"} 기록은 총{" "}
           <span className="text-blue-800">
-            {userData.excerptCount + userData.bookRecordCount}
+            {userData?.excerptCount + userData?.bookRecordCount}
           </span>
           개!
         </div>
@@ -58,12 +58,12 @@ const StatisticsPage = () => {
         </div>
       </div>
       <MonthlyReading userData={userData} />
-      <PreferredGenre userData={userData.mostReadGenres} />
+      <PreferredGenre userData={userData?.mostReadGenres} />
       <Divider2 />
       {/* 같은 작가의 작품을 최소 2권 이상을 읽어야 ‘선호하는 작가' 카드가 보임 */}
       <PreferredAuthor
-        author={userData.mostReadAuthor}
-        imgPath={userData.imgPaths}
+        author={userData?.mostReadAuthor}
+        imgPath={userData?.imgPaths}
       />
       <Divider2 />
       <MyKeyword />
