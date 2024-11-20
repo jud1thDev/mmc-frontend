@@ -1,4 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { requestFcmToken } from "./api/fcm";
+import { useEffect } from "react";
+import { messaging } from "./api/firebase";
+import { onMessage } from "firebase/messaging";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SigninPage from "./pages/LoginPage/SigninPage";
 import SearchMainPage from "./pages/SearchPage/SearchMainPage";
@@ -29,6 +33,22 @@ import FriendListPage from "./pages/FriendPage/FriendListPage";
 import OAuthRedierctPage from "./pages/LoginPage/OAuthRedierctPage";
 
 function App() {
+  useEffect(() => {
+    const fetchFcmToken = async () => {
+      const token = await requestFcmToken();
+      if (token) {
+        console.log("FCM 토큰을 서버로 전송하거나 저장:", token);
+      }
+    };
+    fetchFcmToken();
+  }, []);
+  useEffect(() => {
+    // 포그라운드 메시지 수신 처리
+    onMessage(messaging, (payload) => {
+      console.log("포그라운드 메시지 수신:", payload);
+    });
+  }, []);
+
   return (
     <Routes>
       <Route path="/selectBook" element={<SelectBookPage />} />
