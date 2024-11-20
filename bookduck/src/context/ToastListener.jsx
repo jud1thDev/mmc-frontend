@@ -8,7 +8,7 @@ const ToastListener = () => {
   const { sseData } = useSSE();
   useEffect(() => {
     console.log("sseData:", sseData);
-    if (sseData.isItemUnlockedChecked) {
+    if (!sseData.isItemUnlockedChecked) {
       showToast({
         icon: noti,
         title: "아이템 알림",
