@@ -11,6 +11,7 @@ import mainDuck from "../../assets/common/main-duck.svg";
 import BookCountDisplay from "../../components/MainPage/BookCountDisplay";
 import { isTokenExpired } from "../../api/oauth";
 import DeleteModal from "../../components/common/modal/DeleteModal";
+import handleFcmToken from "../../components/NotificationPage/handleFcmToken";
 
 const MainPage = () => {
   //상태 관리
@@ -40,13 +41,14 @@ const MainPage = () => {
 
   //userInfo 업데이트 확인
   useEffect(() => {
-    console.log("Updated userInfo:", userInfo);
+    console.log("유저 인포 업데이트:", userInfo);
   }, [userInfo]);
 
   useEffect(() => {
     //유저아이디
     const userId = getUserId();
     getUserInfo(userId);
+    handleFcmToken(userId);
   }, []);
 
   useEffect(() => {}, [setShowOutModal]);
