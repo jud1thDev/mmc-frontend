@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header3 from "../../components/common/Header3";
 import StatusBar from "../../components/common/StatusBar";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import GeneralNotiComponent from "../../components/NotificationPage/GeneralNotiComponent";
 import AnnounceNotiComponent from "../../components/NotificationPage/AnnounceNotiComponent";
+import { useSSE } from "../../context/SSEProvider";
 
 const NotificationPage = () => {
   const [tab, setTab] = useState("일반");
+  const { sseData } = useSSE();
+  const [dotStates, setDotStates] = useState([
+    !sseData.isCommonAlarmChecked,
+    !sseData.isAnnouncementChecked,
+  ]);
+
+  useEffect(() => {
+    const newDotStates = [
+      !sseData.isCommonAlarmChecked,
+      !sseData.isAnnouncementChecked,
+    ];
+    console.log("업데이트된 dotStates:", newDotStates);
+    setDotStates(newDotStates);
+  }, [sseData]);
 
   return (
     <div className="relative">
@@ -20,6 +35,7 @@ const NotificationPage = () => {
           size="small"
           isNoti={true}
           borderWidth="3rem"
+          dotStates={dotStates}
         />
       </div>
 

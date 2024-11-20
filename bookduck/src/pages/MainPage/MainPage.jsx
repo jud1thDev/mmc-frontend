@@ -12,6 +12,7 @@ import BookCountDisplay from "../../components/MainPage/BookCountDisplay";
 import { isTokenExpired } from "../../api/oauth";
 import DeleteModal from "../../components/common/modal/DeleteModal";
 import handleFcmToken from "../../components/NotificationPage/handleFcmToken";
+import { useSSE } from "../../context/SSEProvider";
 
 const MainPage = () => {
   //상태 관리
@@ -25,6 +26,8 @@ const MainPage = () => {
   const [showOutModal, setShowOutModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isAllDelete, setIsAllDelete] = useState(false);
+  const [isDot, setIsDot] = useState(false);
+  const { sseData } = useSSE();
   //API 연결
   const getUserInfo = async (userId) => {
     try {
@@ -67,19 +70,23 @@ const MainPage = () => {
     }, 200);
   };
 
-  // useEffect(() => {
-  //   if (isAllDelete) {
-  //     console.log("전체 삭제 완료");
-  //     setIsEditMode(false);
-  //     setIsAllDelete(false);
-  //   }
-  // }, [isAllDelete]);
+  useEffect(() => {
+    console.log("SSE 데이터 업데이트 감지:", sseData);
+
+    const shouldShowDot =
+      !sseData.isCommonAlarmChecked || !sseData.isAnnouncementChecked;
+
+    if (isDot !== shouldShowDot) {
+      console.log(shouldShowDot ? "레드 닷 띄우기" : "레드 닷 없애기");
+      setIsDot(shouldShowDot);
+    }
+  }, [sseData, isDot]);
 
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
       <StatusBar />
       <div className="px-4">
-        <Header2 />
+        <Header2 isDot={isDot} />
       </div>
       <div className="pl-5 mt-[1.75rem]">
         <div className="text-t2 font-semibold text-black">
@@ -88,7 +95,7 @@ const MainPage = () => {
         <div className="text-t2 font-semibold text-black mt-[0.38rem]">
           꾸준한 독서 함께해요!
         </div>
-        <div className="flex flex-col w-[10.625rem] h-[6rem] bg-white rounded-[0.75rem] mt-[2.69rem] pl-4 pr-5 pt-3 gap-2">
+        <div className="flex flesx-col w-[10.625rem] h-[6rem] bg-white rounded-[0.75rem] mt-[2.69rem] pl-4 pr-5 pt-3 gap-2">
           <span className="text-b2 text-gray-500 font-semibold">
             현재 나의 기록수
           </span>

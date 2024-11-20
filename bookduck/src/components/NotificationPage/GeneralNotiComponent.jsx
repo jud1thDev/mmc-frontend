@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { get } from "../../api/example";
 import NotificationItemComponent from "./NotificationItemComponent";
+import { useSSE } from "../../context/SSEProvider";
+
 const GeneralNotiComponent = () => {
   //상태 관리
   const [notifications, setNotifications] = useState([]);
@@ -8,6 +10,11 @@ const GeneralNotiComponent = () => {
   const [totalPages, setTotalPages] = useState(0);
   const loaderRef = useRef(null);
   const DATA_LIMIT = 10;
+
+  const { sseData } = useSSE();
+  useEffect(() => {
+    console.log("새로운 알림", sseData);
+  }, [sseData]);
 
   //API 연결
   //API-알람 목록 받아오기
@@ -38,6 +45,14 @@ const GeneralNotiComponent = () => {
     setCurrentPage(0); // 첫 페이지로 초기화
     getAlarmList(0);
   }, []);
+
+  // SSE 데이터 감시
+  useEffect(() => {
+    if (!sseData.isCommonAlarmChecked) {
+      console.log("새로운 일반 알람 확인. getAlarmList 호출");
+      getAlarmList(0); // 새로운 데이터 가져오기
+    }
+  }, [sseData]);
 
   // 무한 스크롤 감지
   useEffect(() => {
