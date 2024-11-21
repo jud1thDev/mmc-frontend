@@ -19,16 +19,26 @@ const MyBadgePage = () => {
   return (
     <div className="flex flex-col gap-4 justify-center items-center">
       <BadgeHeader />
-      <BadgeList title="열정적인 독자" badgeData={badgeData?.readBadgeList} />
+      <BadgeList
+        title="열정적인 독자"
+        currentData={badgeData}
+        badgeData={badgeData?.readBadgeList}
+      />
       <BadgeList
         title="꼼꼼한 기록자"
         badgeData={badgeData?.archiveBadgeList}
+        currentData={badgeData}
       />
       <BadgeList
         title="성실한 평가자"
         badgeData={badgeData?.oneLineBadgeList}
+        currentData={badgeData}
       />
-      <BadgeList title="레벨업 마스터" badgeData={badgeData?.levelBadgeList} />
+      <BadgeList
+        title="레벨업 마스터"
+        badgeData={badgeData?.levelBadgeList}
+        currentData={badgeData}
+      />
     </div>
   );
 };
