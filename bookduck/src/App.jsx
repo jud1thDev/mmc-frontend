@@ -15,7 +15,7 @@ import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
 import SelectCardPage from "./pages/MainPage/SelectCardPage";
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
-import BookInfoAddedPage from "./pages/BookInfoPage/BoonInfoAddedPage";
+import BookInfoAddedPage from "./pages/BookInfoPage/BookInfoAddedPage";
 import StatisticsPage from "./pages/StatisticsPage/StatisticsPage";
 import CharacterExportPage from "./pages/StatisticsPage/CharacterExportPage";
 import SummaryExportPage from "./pages/StatisticsPage/SummaryExportPage";
@@ -67,7 +67,10 @@ function App() {
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/search/register" element={<RegisterPage />} />
       <Route path="/info/book/:bookinfoId" element={<BookInfoPage />} />
-      <Route path="/info/book/user" element={<BookInfoAddedPage />} />
+      <Route
+        path="/info/book/custom/:bookinfoId"
+        element={<BookInfoAddedPage />}
+      />
       <Route path="/info/book/comment" element={<UserCommentPage />} />
       <Route path="/selectcard" element={<SelectCardPage />} />
       <Route path="/selectcard/extract" element={<SelectExtractPage />} />

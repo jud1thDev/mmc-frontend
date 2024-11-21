@@ -1,10 +1,22 @@
 import { apiAuth } from "./api";
 import { get, post, patch, put, del } from "./example";
 
-// 한줄평,별점 목록 조회
+// 기본 책정보 조회(bookinfoId)
 export const getBookInfo = async ({ bookinfoId }) => {
   try {
     const res = await get(`/bookinfo/${bookinfoId}`);
+    console.log("책정보 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("책정보 조회 실패: ", error);
+    throw error;
+  }
+};
+
+// custom 책정보 조회(bookinfoId)
+export const getCustomBookInfo = async ({ bookinfoId }) => {
+  try {
+    const res = await get(`/bookinfo/custom/${bookinfoId}`);
     console.log("책정보 조회 성공: ", res);
     return res;
   } catch (error) {
