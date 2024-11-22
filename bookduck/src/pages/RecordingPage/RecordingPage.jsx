@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Divider1 from "../../components/common/Divider1";
 import Divider2 from "../../components/common/Divider2";
 import Header1 from "../../components/common/Header1";
@@ -42,7 +42,7 @@ const RecordingPage = () => {
 
   const { reviewColor } = useReviewColorStore();
 
-  const { bookInfo } = useBookInfoStore();
+  const { bookInfo, setBookInfo } = useBookInfoStore();
 
   const handleBack = () => {
     navigate("/selectBook");
@@ -74,37 +74,61 @@ const RecordingPage = () => {
   console.log(bookInfo);
 
   const handleComplete = async () => {
-    const data = {
-      excerpt: {
+    const data = {};
+    if (pageInputValue && extractInputValue && reviewInputValue) {
+      data.excerpt = {
         excerptContent: extractInputValue,
         visibility: extractPublicState === "전체공개" ? "PUBLIC" : "PRIVATE",
         pageNumber: parseInt(pageInputValue, 10),
         userBookId: bookInfo.userBookId,
-      },
-      review: {
+      };
+      data.review = {
         reviewTitle: titleInputValue,
         reviewContent: reviewInputValue,
         color: reviewColor,
         visibility: reviewPublicState === "전체공개" ? "PUBLIC" : "PRIVATE",
         userBookId: bookInfo.userBookId,
-      },
-      userBook: {
-        title: bookInfo.title,
-        authors: [bookInfo.author],
-        publisher: "bookInfo.publisher",
-        publishDate: "2020-10-10",
-        description: "<p><b>description...</p>",
-        genreId: 1,
-        category: ["fiction"],
-        imgPath: bookInfo.imgPath,
-        language: "한글",
-        readStatus: bookInfo.readStatus,
-        providerId: "Q7uTBgAAQBAJTEST3",
-      },
-    };
+      };
+    } else if (pageInputValue && extractInputValue) {
+      data.excerpt = {
+        excerptContent: extractInputValue,
+        visibility: extractPublicState === "전체공개" ? "PUBLIC" : "PRIVATE",
+        pageNumber: parseInt(pageInputValue, 10),
+        userBookId: bookInfo.userBookId,
+      };
+    } else if (reviewInputValue) {
+      data.review = {
+        reviewTitle: titleInputValue,
+        reviewContent: reviewInputValue,
+        color: reviewColor,
+        visibility: reviewPublicState === "전체공개" ? "PUBLIC" : "PRIVATE",
+        userBookId: bookInfo.userBookId,
+      };
+    }
+
+    // userBook: {
+    //   title: bookInfo.title,
+    //   authors: [bookInfo.author],
+    //   publisher: "bookInfo.publisher",
+    //   publishDate: "2020-10-10",
+    //   description: "<p><b>description...</p>",
+    //   genreId: 1,
+    //   category: ["fiction"],
+    //   imgPath: bookInfo.imgPath,
+    //   language: "한글",
+    //   readStatus: bookInfo.readStatus,
+    //   providerId: "Q7uTBgAAQBAJTEST3",
+    // },
+
     console.log(data);
     const res = await postExtractReview(data);
     console.log(res);
+    setBookInfo({});
+    setPageInputValue();
+    setExtractInputValue("");
+    setTitleInputValue("");
+    setReviewInputValue("");
+    navigate("/archive");
   };
 
   return (
@@ -142,8 +166,8 @@ const RecordingPage = () => {
           inputValue={reviewInputValue}
           handleTextField={handleReviewTextField}
           titleInputValue={titleInputValue}
-          bookTitleValue="책제목"
-          authorValue="지은이"
+          bookTitleValue={bookInfo.title}
+          authorValue={bookInfo.author}
           reviewPublicState={reviewPublicState}
           setReviewPublicState={setReviewPublicState}
         />

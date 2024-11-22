@@ -14,7 +14,6 @@ const SelectBookPage = () => {
     setTab(index);
   };
 
-  
   return (
     <>
       <StatusBar />
