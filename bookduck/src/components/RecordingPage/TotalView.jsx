@@ -1,14 +1,27 @@
+import { useQuery } from "@tanstack/react-query";
 import ExtractComponents from "./ExtractComponents";
 import ReviewComponents from "./ReviewComponents";
+import { getExtractReview } from "../../api/archive";
+import { getUserId } from "../../api/oauth";
 
-const TotalView = ({ archiveData }) => {
-  console.log(archiveData.archiveList);
+const TotalView = () => {
+  const userId = getUserId();
+  const {
+    data: archiveData,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["archiveData"],
+    queryFn: () => getExtractReview(userId, "ALL", 0, 20),
+  });
+
   return (
     <div className="flex flex-col gap-[1rem] items-center mt-[1rem]">
       {archiveData.archiveList.map((it, index) => (
         <>
           {it.type === "EXCERPT" ? (
             <ExtractComponents
+              key={index}
               page={it.data.pageNumber}
               content={it.data.excerptContent}
               excerptId={it.data.excerptId}
@@ -17,6 +30,7 @@ const TotalView = ({ archiveData }) => {
             />
           ) : (
             <ReviewComponents
+              key={index}
               page={it.data.pageNumber}
               content={it.data.reviewContent}
               reviewId={it.data.reviewId}
