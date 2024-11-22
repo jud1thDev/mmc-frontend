@@ -20,16 +20,15 @@ const ToastListener = () => {
   }, [sseData]);
 
   return (
-    <div className="relative w-[24.5625rem] ">
+    <div className="relative w-full">
       <ToastContainer
         position={"top-center"}
         autoClose={3000}
         closeButton={false}
         hideProgressBar
-        toastClassName={() =>
-          "p-0 m-0 w-full absolute top-[1rem] left-[-1.3rem]"
-        }
-        bodyClassName={() => "m-0 p-0"}
+        toastClassName={() => "w-full absolute"}
+        bodyClassName={() => "m-auto w-fit"}
+        className={"w-[24.5625rem] p-0"}
       />
     </div>
   );
