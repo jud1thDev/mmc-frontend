@@ -7,13 +7,6 @@ import FriendRequestComponent from "../../components/FriendPage/FriendRequestCom
 const FriendListPage = () => {
   const [tab, setTab] = useState("친구");
 
-  // const friendList = [
-  //   { id: "1", userName: "유저1" },
-  //   { id: "2", userName: "유저2" },
-  //   { id: "3", userName: "유저3" },
-  //   { id: "4", userName: "유저4" },
-  //   { id: "5", userName: "유저5" },
-  // ];
   return (
     <div>
       <StatusBar />

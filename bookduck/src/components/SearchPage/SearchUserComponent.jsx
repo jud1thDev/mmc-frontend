@@ -1,32 +1,44 @@
 import React, { useState, useEffect } from "react";
 import FriendListComponent from "../../components/common/FriendListComponent";
-
+import { get } from "../../api/example";
 const SearchUserComponent = ({ search }) => {
-  const allUsers = [
-    { id: 1, userName: "찬희야", text: "그랬어" },
-    { id: 2, userName: "민수", text: "안녕하세요" },
-    { id: 3, userName: "영희", text: "반가워요" },
-  ];
-  const [results, setResults] = useState(allUsers);
+  //상태
+  const [users, setUsers] = useState([]);
 
+  //API연결
+  //API-일반 책 정보받기
+  const getUsers = async (keyword, page, size) => {
+    try {
+      const response = await get(
+        `/users/search?keyword=${keyword}&page=${page}&size=${size}`
+      );
+      console.log("response", response);
+      const data = response.userList.map((user) => ({
+        userId: user.userId,
+        nickname: user.nickname,
+      }));
+      setUsers(data);
+      console.log("users:", users);
+    } catch (error) {
+      console.error("유저 읽어오기 오류", error);
+    }
+  };
+
+  //useEffect 훅
   useEffect(() => {
     if (search) {
-      const filteredResult = allUsers.filter((user) =>
-        user.userName.includes(search)
-      );
-      setResults(filteredResult);
-    } else {
-      setResults(allUsers);
+      getUsers(search, 0, 10);
     }
   }, [search]);
+
   return (
     <div>
-      {results.length > 0 ? (
-        results.map((result) => (
+      {users.length > 0 ? (
+        users.map((user) => (
           <FriendListComponent
-            key={result.id}
-            userName={result.userName}
-            text={result.text}
+            key={user.userId}
+            userName={user.nickname}
+            text="친구"
           />
         ))
       ) : (

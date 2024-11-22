@@ -17,33 +17,28 @@ import deleteIcon from "../../assets/bookinfoPage/trash.svg";
 import plusIcon from "../../assets/mainPage/plus.svg";
 import helpCircle from "../../assets/mainPage/help-circle.svg";
 
-const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
+const ReadingSpaceComponent = ({
+  setColor,
+  setIsNavBar,
+  setShowDeleteModal = () => {},
+  setShowOutModal = () => {},
+}) => {
   const navigate = useNavigate();
-  const screenHeight = window.innerHeight;
-  const initialHeight = screenHeight * 0.55;
-  const expandedHeight = screenHeight * 0.95;
-  const hideButtonThreshold = initialHeight + 50;
 
-  const [cards, setCards] = useState([
-    // { id: "1", title: "첫 번째 카드" },
-    // { id: "2", title: "두 번째 카드" },
-  ]);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isHelp, setIsHelp] = useState(false);
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
   const [isFloatingVisible, setFloatingVisible] = useState(true);
   const [isHelpVisible, setHelpVisible] = useState(false);
-
-  useEffect(() => {
-    if (isEditMode) {
-      setColor("bg-gray-5");
-    } else {
-      setColor("bg-gray-50");
-    }
-  }, [isEditMode]);
-
+  const screenHeight = window.innerHeight;
+  const initialHeight = screenHeight * 0.55;
+  const expandedHeight = screenHeight * 0.95;
+  const hideButtonThreshold = initialHeight + 50;
+  const [cards, setCards] = useState([
+    // { id: "1", title: "첫 번째 카드" },
+    // { id: "2", title: "두 번째 카드" },
+  ]);
   const [{ height }, api] = useSpring(() => ({
     height: initialHeight,
     onChange: () => {
@@ -52,19 +47,6 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
       setIsNavBar(height.get() < hideButtonThreshold);
     },
   }));
-  const handleDeleteModal = () => {
-    setShowDeleteModal(false);
-  };
-
-  const handleHelpClick = () => {
-    setIsHelp(!isHelp);
-  };
-  const handleMenuClick = () => {
-    setBottomSheetShow(true);
-  };
-  const handleEditClick = () => {
-    setIsEditMode(true);
-  };
 
   const bind = useDrag(
     ({ movement: [, my], memo = height.get(), last }) => {
@@ -83,14 +65,6 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     { axis: "y" }
   );
 
-  const handleDelete = () => {
-    setShowDeleteModal(true);
-  };
-
-  const handleEditMode = () => {
-    setIsEditMode(!isEditMode);
-  };
-
   const handleDragEnd = (result) => {
     if (!result.destination) return;
 
@@ -101,6 +75,51 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
     setCards(reorderedCards);
   };
 
+  //useEffect 훅
+  useEffect(() => {
+    if (isEditMode) {
+      setColor("bg-gray-5");
+    } else {
+      setColor("bg-gray-50");
+    }
+  }, [isEditMode]);
+
+  //이벤트 핸들러
+  const handleDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
+  const handleOutModal = () => {
+    setShowOutModal(false);
+    handleEditMode();
+  };
+
+  const handleHelpClick = () => {
+    setIsHelp(!isHelp);
+  };
+  const handleMenuClick = () => {
+    if (height.get() < expandedHeight) {
+      api.start({ height: expandedHeight });
+    }
+    setBottomSheetShow(true);
+  };
+
+  const handleEditClick = () => {
+    setIsEditMode(true);
+    setVisible(false); // 닫는 애니메이션 시작
+    setTimeout(() => {
+      setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
+    }, 200);
+  };
+
+  const handleDelete = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleEditMode = () => {
+    setIsEditMode(!isEditMode);
+  };
+
   const handleBackdropClick = () => {
     if (!isEditMode) {
       setVisible(false); // 닫는 애니메이션 시작
@@ -108,6 +127,10 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
         setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
       }, 300);
     }
+  };
+
+  const handleOutClick = () => {
+    setShowOutModal(true);
   };
 
   return (
@@ -125,12 +148,18 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
                 <div className="h-1 w-12 bg-gray-300 rounded-full mx-auto" />
               </div>
 
-              <div className="flex flex-row items-center justify-between px-5 pt-1 mb-2">
+              <div className="flex flex-row items-center justify-between px-5 mb-18">
                 <div className="flex flex-row items-center gap-1">
-                  <p className="text-btn3 text-gray-500">리딩 스페이스</p>
+                  <p className="text-btn3 text-gray-500 pt-1">리딩 스페이스</p>
                   {!isEditMode && isHelpVisible && (
                     <img src={helpCircle} onClick={handleHelpClick} />
                   )}
+                  {isEditMode && (
+                    <div className="py-2 px-4 text-c1 ml-2 bg-[#E8E4D5] rounded-[6.25rem]">
+                      카드를 드래그하여 이동해보세요
+                    </div>
+                  )}
+
                   {isHelp && (
                     <img
                       src={goEdit}
@@ -142,9 +171,7 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
                   {/* <div onClick={handleEditMode} className="text-c2">
                     {isEditMode ? "편집" : "완료"}
                   </div> */}
-                  {isHelpVisible && (
-                    <img src={menu} alt="menu" onClick={handleMenuClick} />
-                  )}
+                  <img src={menu} alt="menu" onClick={handleMenuClick} />
                 </div>
               </div>
 
@@ -208,6 +235,22 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
                   )}
                 </Droppable>
               </div>
+              {isEditMode && height.get() === expandedHeight && (
+                <div className="fixed bottom-0 w-[24.5625rem] h-[4rem] bg-[#DDD] p-4 flex justify-between items-center ">
+                  <button
+                    className="w-[8.4375rem] h-[3rem] flex items-center justify-center text-white bg-gray-400 rounded-lg"
+                    onClick={handleOutClick}
+                  >
+                    나가기
+                  </button>
+                  <button
+                    className="w-[13.375rem] h-[3rem] flex items-center justify-center text-white bg-gray-700 rounded-lg"
+                    onClick={() => console.log("저장 버튼 클릭됨")}
+                  >
+                    저장하기
+                  </button>
+                </div>
+              )}
 
               {isFloatingVisible && (
                 <div className="absolute right-1 bottom-[-4rem] z-[100]">
@@ -232,7 +275,10 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
       >
         <div className="w-[24.5625rem] rounded-t-xl pb-[3.125rem] pt-4 px-5 bg-gray-10 ">
           <div className="flex flex-col bg-white rounded-lg">
-            <div className="flex items-center p-4 gap-3 text-btn2 cursor-pointer">
+            <div
+              className="flex items-center p-4 gap-3 text-btn2 cursor-pointer"
+              onClick={() => navigate("/selectcard")}
+            >
               <img className="w-6 h-6" src={plusIcon} />
               추가하기
             </div>
@@ -261,16 +307,6 @@ const ReadingSpaceComponent = ({ setColor, setIsNavBar }) => {
           </div>
         </div>
       </BottomSheetModal>
-      {showDeleteModal && (
-        <DeleteModal
-          title="정말 삭제하시겠어요?"
-          content="카드들이 모두 삭제되며 복구할 수 없어요."
-          leftBtnText="삭제"
-          rightBtnText="취소"
-          onLeftClick={() => {}}
-          onRightClick={handleDeleteModal}
-        />
-      )}
     </>
   );
 };
