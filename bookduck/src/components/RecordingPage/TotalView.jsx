@@ -16,7 +16,7 @@ const TotalView = () => {
   });
 
   return (
-    <div className="flex flex-col gap-[1rem] items-center mt-[1rem]">
+    <div className="flex flex-col gap-[1rem] items-center max-h-[40rem]  mt-[1rem] overflow-y-auto">
       {archiveData.archiveList.map((it, index) => (
         <>
           {it.type === "EXCERPT" ? (

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import AuthorComponent from "../../components/RecordingPage/AuthorComponent";
 import CloseButton from "../../components/RecordingPage/CloseButton";
 import Header2 from "../../components/RecordingPage/Header2";
@@ -20,6 +20,10 @@ const ArchiveDetail = () => {
   const [visibleMenu, setVisibleMenu] = useState(false);
   const [visible, setVisible] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const location = useLocation();
+
+  const archiveDetailData = location.state?.detailData || {};
+  console.log("123");
 
   const ref = useRef(null); // 두 컴포넌트의 높이를 측정할 ref
 
@@ -56,20 +60,20 @@ const ArchiveDetail = () => {
         <div className="flex flex-col gap-[0.31rem]">
           <Header2 handleMenu={handleMenu} />
           <div ref={ref} className="flex flex-col gap-4">
-            {pathname.split("/")[1] === "extract-archive-detail" && (
-              <ExtractDetailComponent />
+            {pathname.split("/")[1] === "excerpt-archive-detail" && (
+              <ExtractDetailComponent archiveDetailData={archiveDetailData} />
             )}
             {pathname.split("/")[1] === "review-archive-detail" && (
-              <ReviewDetailComponent />
+              <ReviewDetailComponent archiveDetailData={archiveDetailData} />
             )}
             {pathname.split("/")[1] === "total-archive-detail" && (
               <>
-                <ExtractDetailComponent />
-                <ReviewDetailComponent />
+                <ExtractDetailComponent archiveDetailData={archiveDetailData} />
+                <ReviewDetailComponent archiveDetailData={archiveDetailData} />
               </>
             )}
 
-            <AuthorComponent />
+            <AuthorComponent archiveDetailData={archiveDetailData} />
           </div>
           <div
             className={`mt-8 ${

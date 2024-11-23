@@ -23,6 +23,16 @@ export const getExtractReview = async (userId, archiveType, page, size) => {
   }
 };
 
+export const getDetailExtractReview = async (id, archiveType) => {
+  try {
+    const res = await get(`/archives/${id}?type=${archiveType}`);
+    console.log("발췌 및 감상평 상세 조회 성공", res);
+    return res;
+  } catch (error) {
+    console.error("발췌 및 감상평 상세 조회 실패", error);
+  }
+};
+
 export const postExtractImage = async (formData) => {
   try {
     const res = await apiAuth.post(`/archives/excerpts/ocr`, formData, {
