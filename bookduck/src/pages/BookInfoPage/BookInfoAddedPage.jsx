@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import polygon from "../../assets/characterPage/polygon.svg";
-import teacherDuck from "../../assets/common/teacher-duck.png";
+import noArchive from "../../assets/bookinfoPage/user-no-archive.svg";
 import BookInfo from "../../components/BookInfoPage/BookInfo";
 import ArchiveView from "../../components/BookInfoPage/ArchiveView";
 import FloatingRecordButton from "../../components/common/FloatingRecordButton";
 import MyComment from "../../components/BookInfoPage/MyComment";
 import Header2 from "../../components/RecordingPage/Header2";
 import Header3 from "../../components/common/Header3";
-import UserDuck from "../../components/CharacterPage/UserDuck";
 import { getCustomBookInfo } from "../../api/bookinfo";
 // 유저가 직접 추가한 책 정보 페이지
 const BookInfoAddedPage = () => {
@@ -69,7 +68,7 @@ const BookInfoAddedPage = () => {
                 </div>
                 <img className="w-4 h-3 mt-[-0.0625rem]" src={polygon} />
               </div>
-              <img src={teacherDuck} />
+              <img src={noArchive} />
             </div>
           </div>
         </div>

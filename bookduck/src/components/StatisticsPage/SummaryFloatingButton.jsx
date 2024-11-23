@@ -25,7 +25,7 @@ const SummaryFloatingButton = () => {
   }, [lastScrollY]);
   return (
     <div
-      className={`fixed bottom-10 flex justify-between items-center px-4 py-2.5 text-btn3 text-white  [background:rgba(107,127,240,0.80)] w-[22.5625rem] rounded-[6.25rem] cursor-pointer transition-transform duration-300
+      className={`fixed bottom-10 flex justify-between items-center px-4 py-2.5 text-btn3 text-white  [background:rgba(18,18,18,0.70)] w-[22.5625rem] rounded-[6.25rem] cursor-pointer transition-transform duration-300
       }`}
       style={{
         transform: `translateY(${isVisible ? "0" : "calc(100% + 50px)"})`,
