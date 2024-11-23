@@ -9,6 +9,20 @@ import { get, patch, post, del } from "../../api/example";
 
 const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
 const DATA_LIMIT = 10;
+const getReadingStatusKey = (status) => {
+  switch (status) {
+    case "읽고 싶어요":
+      return "NOT_STARTED";
+    case "읽고 있어요":
+      return "READING";
+    case "다 읽었어요":
+      return "FINISHED";
+    case "중단했어요":
+      return "STOPPED";
+    default:
+      return "NOT_STARTED";
+  }
+};
 
 const SearchBookComponent = ({ search }) => {
   const navigate = useNavigate();
@@ -20,60 +34,48 @@ const SearchBookComponent = ({ search }) => {
   const [books, setBooks] = useState([]);
   const [currentState, setCurrentState] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const loaderRef = useRef(null);
-
-  const getReadingStatusKey = (status) => {
-    switch (status) {
-      case "읽고 싶어요":
-        return "NOT_STARTED";
-      case "읽고 있어요":
-        return "READING";
-      case "다 읽었어요":
-        return "FINISHED";
-      case "중단했어요":
-        return "STOPPED";
-      default:
-        return "NOT_STARTED";
-    }
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   //API연결
   //API-등록 책 정보받기
-  const getRegisteredBooks = async (keyword, page = 0) => {
-    setRegisteredBooks([]);
-    if (!keyword) return;
+  const getRegisteredBooks = async (keyword) => {
+    if (!keyword) return setRegisteredBooks([]);
     try {
       const response = await get(
-        `/bookinfo/search/custom?keyword=${encodeURIComponent(
-          keyword
-        )}&page=${page}&size=${DATA_LIMIT}`
+        `/bookinfo/search/custom?keyword=${encodeURIComponent(keyword)}`
       );
-      console.log("등록 책 response", response);
-      const data = response.bookList;
-      setRegisteredBooks((b) => [...b, ...data]);
-      s;
+      setRegisteredBooks(response.bookList || []);
     } catch (error) {
       console.error("등록 책 읽어오기 오류", error);
     }
   };
 
-  // API-일반 책 받아오기
+  //API-책 받아오기
   const getBooks = async (keyword, page = 0) => {
-    setBooks([]);
-    if (!keyword) return;
+    if (!keyword || isLoading) return; // isLoading 체크
+    setIsLoading(true); // 로딩 상태 설정
     try {
       const response = await get(
         `/bookinfo/search?keyword=${encodeURIComponent(
           keyword
         )}&page=${page}&size=${DATA_LIMIT}`
       );
+
       console.log("일반 책 response", response);
-      const data = response.bookList;
-      setBooks((b) => [...b, ...data]);
-      setTotalPages(response.totalPages || 0);
+      console.log(
+        `현재 페이지: ${response.currentPage}, 전체 페이지: ${response.totalPages}`
+      );
+
+      setBooks((prevBooks) =>
+        page === 0 ? response.bookList : [...prevBooks, ...response.bookList]
+      );
+      setTotalPages(response.totalPages || 1);
     } catch (error) {
       console.error("책 데이터 불러오기 오류:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -178,27 +180,23 @@ const SearchBookComponent = ({ search }) => {
   useEffect(() => {
     if (search) {
       setCurrentPage(0);
-      getBooks(search, 0);
+      setTotalPages(1);
       getRegisteredBooks(search);
+      getBooks(search, 0);
     }
   }, [search]);
-
-  useEffect(() => {
-    console.log("registered", registeredBooks);
-  }, [registeredBooks]);
 
   // 무한 스크롤 감지
   useEffect(() => {
     const handleObserver = (entries) => {
       const [entry] = entries;
-      if (entry.isIntersecting && currentPage < totalPages) {
-        console.log("다음 페이지 로드");
+      if (entry.isIntersecting && currentPage < totalPages && !isLoading) {
+        console.log("다음 페이지 로드!!!");
         setCurrentPage((p) => p + 1);
       }
     };
 
     const observer = new IntersectionObserver(handleObserver, {
-      root: null, // viewport 사용
       rootMargin: "0px",
       threshold: 1.0,
     });
@@ -206,11 +204,11 @@ const SearchBookComponent = ({ search }) => {
     if (loaderRef.current) observer.observe(loaderRef.current);
 
     return () => observer.disconnect();
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages, isLoading]);
 
   // 현재 페이지 데이터 로드
   useEffect(() => {
-    if (currentPage > 0 && search) {
+    if (search) {
       console.log(`페이지 ${currentPage} 데이터 로드`);
       getBooks(search, currentPage);
     }
