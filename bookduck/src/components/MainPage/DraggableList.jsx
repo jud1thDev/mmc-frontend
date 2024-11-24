@@ -48,7 +48,7 @@ const DraggableList = ({ cards, setCards, isEditMode }) => {
                       <img
                         src={deleteIcon2}
                         onClick={() => handleDeleteCard(card.cardId)}
-                        className="z-50 absolute top-1 left-1"
+                        className="z-10 absolute top-1 left-1"
                       />
                     )}
                     <Card card={card} />

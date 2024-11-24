@@ -326,7 +326,7 @@ const ReadingSpaceComponent = ({
                 </Droppable>
               </div>
               {isEditMode && height.get() === expandedHeight && (
-                <div className="fixed bottom-0 w-[24.5625rem] h-[4rem] bg-[#DDD] p-4 flex justify-between items-center ">
+                <div className="fixed bottom-0 w-[24.5625rem] h-[4rem] bg-[#DDD] p-4 flex justify-between items-center z-50 ">
                   <button
                     className="w-[8.4375rem] h-[3rem] flex items-center justify-center text-white bg-gray-400 rounded-lg"
                     onClick={() => setShowOutModal(true)}
