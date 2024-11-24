@@ -24,6 +24,20 @@ const getReadingStatusKey = (status) => {
       return "NOT_STARTED";
   }
 };
+const getReadingStatusKor = (status) => {
+  switch (status) {
+    case "NOT_STARTED":
+      return "읽고 싶어요";
+    case "READING":
+      return "읽고 있어요";
+    case "FINISHED":
+      return "다 읽었어요";
+    case "STOPPED":
+      return "중단했어요";
+    default:
+      return "NOT_STARTED";
+  }
+};
 
 const SearchBookComponent = ({ search }) => {
   const navigate = useNavigate();
@@ -172,6 +186,8 @@ const SearchBookComponent = ({ search }) => {
       imgPath: isRegistered ? book.imgPath : book.bookUnitDto.imgPath,
       readStatus: isRegistered ? book.readStatus : book.bookUnitDto.readStatus,
     });
+    const status = isRegistered ? book.readStatus : book.bookUnitDto.readStatus;
+    setCurrentState(getReadingStatusKor(status));
 
     setBottomSheetShow(true);
   };
@@ -227,6 +243,10 @@ const SearchBookComponent = ({ search }) => {
       getBooks(search, currentPage);
     }
   }, [currentPage, search]);
+
+  useEffect(() => {
+    console.log(currentState);
+  }, [currentState]);
 
   return (
     <>

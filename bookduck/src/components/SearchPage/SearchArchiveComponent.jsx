@@ -20,24 +20,24 @@ const getSortKey = (sort) => {
 };
 const SearchArchiveComponent = ({ search }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [archives, setArchives] = useState([]);
   const [sort, setSort] = useState("정확도순");
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
   const loaderRef = useRef(null);
 
+  /*API-기록 받아오기*/
   const getArchives = async (search, page) => {
     if (!search) return setArchives([]);
     try {
       const response = await get(
         `/archives/search?page=${page}&size=${DATA_LIMIT}&keyword=${encodeURIComponent(
           search
-        )}&orderBy=accuracy`
+        )}&orderBy=${getSortKey(sort)}`
       );
       console.log("response", response);
 
-      // 중복 제거 및 상태 업데이트
       setArchives((preArchives) => {
         return page === 0
           ? response.archiveList
@@ -50,10 +50,12 @@ const SearchArchiveComponent = ({ search }) => {
     }
   };
 
+  /*sort 클릭*/
   const handleClick = () => {
     setBottomSheetShow(true);
   };
 
+  /*sort클릭*/
   const handleSortChange = (newSort) => {
     setSort(newSort);
     setVisible(false);
@@ -62,18 +64,33 @@ const SearchArchiveComponent = ({ search }) => {
     }, 200);
   };
 
+  /*검색어 바뀔 시*/
   useEffect(() => {
     setArchives([]);
-    console.log("기록 search", search);
+    console.log("기록 검색어 변경", search);
     getArchives(search, 0);
     setCurrentPage(0);
   }, [search]);
 
-  // 무한 스크롤 감지
+  /*정렬 바뀔 시*/
+  useEffect(() => {
+    setCurrentPage(0);
+    getArchives(search, 0);
+  }, [sort]);
+
+  /*현재 페이지 변경 시 데이터 요청*/
+  useEffect(() => {
+    if (search && currentPage >= 0) {
+      console.log(`페이지 ${currentPage} 데이터 로드`);
+      getArchives(search, currentPage);
+    }
+  }, [currentPage]);
+
+  /*무한 스크롤 감지*/
   useEffect(() => {
     const handleObserver = (entries) => {
       const [entry] = entries;
-      if (entry.isIntersecting && currentPage < totalPages - 1 && !isLoading) {
+      if (entry.isIntersecting && currentPage < totalPages - 1) {
         console.log("다음 페이지 로드!");
         setCurrentPage((prev) => prev + 1);
       }
@@ -89,14 +106,6 @@ const SearchArchiveComponent = ({ search }) => {
 
     return () => observer.disconnect();
   }, [currentPage, totalPages]);
-
-  // 현재 페이지 변경 시 데이터 요청
-  useEffect(() => {
-    if (search && currentPage >= 0) {
-      console.log(`페이지 ${currentPage} 데이터 로드`);
-      getArchives(search, currentPage);
-    }
-  }, [currentPage, search, sort]);
 
   return (
     <>

@@ -104,6 +104,7 @@ const SearchMainPage = () => {
             activeTab={tab}
             onTabClick={setTab}
             size="small"
+            borderWidth="3rem"
           />
           {tab === "책" && (
             <SearchBookComponent
