@@ -19,7 +19,7 @@ const BookDisplay = ({
         {/* 첫 번째 북박스 */}
         <div className="flex justify-center items-center w-[5.0625rem] h-[6.8rem] bg-[#DDD] overflow-hidden  rounded-[0.4rem]">
           <img
-            src={bookCard}
+            src={display || !imgPath1 ? bookCard : imgPath1}
             alt="Book Card"
             className={`${imgPath1 ? "object-cover w-full h-full" : ""}`}
           />
@@ -43,7 +43,7 @@ const BookDisplay = ({
           }
           py-3 px-4 flex flex-col justify-between bg-gray-10 shadow-custom rounded-[0.75rem]`}
         >
-          {type === "BOOK_WITH_SONG" ? (
+          {type === "BOOK_WITH_SONG" || display ? (
             <>
               <div className="relative flex flex-row justify-between ">
                 <span className="text-c1 text-gray-500 mr-1">

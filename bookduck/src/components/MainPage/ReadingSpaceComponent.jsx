@@ -207,7 +207,9 @@ const ReadingSpaceComponent = ({
 
               <div className="flex flex-row items-center justify-between px-5 mb-18">
                 <div className="flex flex-row items-center gap-1">
-                  <p className="text-btn3 text-gray-500 pt-1">리딩 스페이스</p>
+                  <p className="text-btn3 text-gray-800 pt-1 font-semibold">
+                    리딩 스페이스
+                  </p>
                   {!isEditMode && isHelpVisible && (
                     <img src={helpCircle} onClick={handleHelpClick} />
                   )}
