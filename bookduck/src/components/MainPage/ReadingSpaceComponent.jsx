@@ -26,6 +26,7 @@ const ReadingSpaceComponent = ({
   setBottomSheetShow,
   setShowDeleteModal = () => {},
   setShowOutModal = () => {},
+  setShowFullModal = () => {},
   isEditMode,
   setIsEditMode,
   isAllDelete = false,
@@ -95,6 +96,10 @@ const ReadingSpaceComponent = ({
   }, []);
 
   useEffect(() => {
+    console.log(cards);
+  }, [cards]);
+
+  useEffect(() => {
     if (isAllDelete) {
       patchCards([]).then(() => {
         setCards([]); // API 응답 후 상태 업데이트
@@ -146,6 +151,14 @@ const ReadingSpaceComponent = ({
       setTimeout(() => {
         setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
       }, 300);
+    }
+  };
+
+  const handleAddCard = () => {
+    if (cards.length === 7) {
+      setShowFullModal(true);
+    } else {
+      navigate("/selectcard");
     }
   };
 
@@ -268,7 +281,7 @@ const ReadingSpaceComponent = ({
                             type="secondary"
                             color="orange"
                             size="small"
-                            onClick={() => navigate("/selectcard")}
+                            onClick={() => navigate("selectcard")}
                           />
                         </div>
                       ) : (
@@ -326,7 +339,7 @@ const ReadingSpaceComponent = ({
           <div className="flex flex-col bg-white rounded-lg">
             <div
               className="flex items-center p-4 gap-3 text-btn2 cursor-pointer"
-              onClick={() => navigate("/selectcard")}
+              onClick={handleAddCard}
             >
               <img className="w-6 h-6" src={plusIcon} />
               추가하기

@@ -13,6 +13,7 @@ import { isTokenExpired } from "../../api/oauth";
 import DeleteModal from "../../components/common/modal/DeleteModal";
 import handleFcmToken from "../../components/NotificationPage/handleFcmToken";
 import { useSSE } from "../../context/SSEProvider";
+import FullModal from "../../components/MainPage/FullModal";
 
 const MainPage = () => {
   //상태 관리
@@ -24,6 +25,7 @@ const MainPage = () => {
   const [isNavBar, setIsNavBar] = useState("true");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showOutModal, setShowOutModal] = useState(false);
+  const [showFullModal, setShowFullModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isAllDelete, setIsAllDelete] = useState(false);
   const [isDot, setIsDot] = useState(false);
@@ -59,6 +61,14 @@ const MainPage = () => {
   const handleOutModal = () => {
     setIsEditMode(false);
     setShowOutModal(false);
+  };
+
+  const handleFullModal = () => {
+    setShowFullModal(false);
+    setVisible(false); // 닫는 애니메이션 시작
+    setTimeout(() => {
+      setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
+    }, 200);
   };
 
   const handleDelete = () => {
@@ -126,6 +136,7 @@ const MainPage = () => {
           setIsNavBar={setIsNavBar}
           setShowDeleteModal={setShowDeleteModal}
           setShowOutModal={setShowOutModal}
+          setShowFullModal={setShowFullModal}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
           isAllDelete={isAllDelete}
@@ -156,6 +167,7 @@ const MainPage = () => {
           onRightClick={() => setShowOutModal(false)}
         />
       )}
+      {showFullModal && <FullModal onClick={handleFullModal} />}
     </div>
   );
 };
