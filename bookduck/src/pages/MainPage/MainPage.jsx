@@ -107,15 +107,20 @@ const MainPage = () => {
           </div>
         </div>
         <button
-          className="flex justify-center items-center gap-[0.38rem] w-[10.625rem] py-1 px-3 bg-white rounded-[0.625rem] mt-[0.81rem]"
-          onClick={() => navigate("/recording")}
+          className="w-[10.5625rem]"
+          onClick={() => navigate("/statistics")}
         >
-          <span className="text-b2 text-gray-800 font-semibold">
-            독서 리포트 보러가기
-          </span>
-          <img src={right} alt="arrow" />
+          <div className="flex justify-center items-center gap-[0.38rem] w-[10.625rem] h-[2.625rem] bg-white rounded-[0.625rem] mt-[0.81rem]">
+            <span className="text-b2 text-gray-800 font-semibold">
+              독서 리포트 보러가기
+            </span>
+            <img src={right} />
+          </div>
         </button>
-        <img src={mainDuck} className="absolute top-[11.42rem] left-[9rem]" />
+        <img
+          src={mainDuck}
+          className="absolute top-[11.42rem] right-0 w-[10rem]"
+        />
         <ReadingSpaceComponent
           setColor={setColor}
           setIsNavBar={setIsNavBar}
