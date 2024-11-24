@@ -95,8 +95,8 @@ const MainPage = () => {
         <div className="text-t2 font-semibold text-black mt-[0.38rem]">
           꾸준한 독서 함께해요!
         </div>
-        <div className="flex flesx-col w-[10.625rem] h-[6rem] bg-white rounded-[0.75rem] mt-[2.69rem] pl-4 pr-5 pt-3 gap-2">
-          <span className="text-b2 text-gray-500 font-semibold">
+        <div className="flex flex-col w-[10.625rem] h-[6rem] bg-white rounded-[0.75rem] mt-[2.69rem] pl-4 pr-5 pt-3 gap-2">
+          <span className="text-b2 text-gray-800 font-semibold">
             현재 나의 기록수
           </span>
           <div className="flex flex-row">
@@ -110,7 +110,7 @@ const MainPage = () => {
           className="flex justify-center items-center gap-[0.38rem] w-[10.625rem] py-1 px-3 bg-white rounded-[0.625rem] mt-[0.81rem]"
           onClick={() => navigate("/recording")}
         >
-          <span className="text-b2 text-gray-500 font-semibold">
+          <span className="text-b2 text-gray-800 font-semibold">
             독서 리포트 보러가기
           </span>
           <img src={right} alt="arrow" />
