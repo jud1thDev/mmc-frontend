@@ -8,6 +8,8 @@ import BottomSheetModal from "../common/BottomSheetModal";
 import Divider2 from "../common/Divider2";
 import ButtonComponent from "../common/ButtonComponent";
 import goEdit from "../../assets/mainPage/go-edit.svg";
+import goRight from "../../assets/mainPage/go-right.svg";
+import cancel from "../../assets/mainPage/cancel.svg";
 import menu from "../../assets/mainPage/menu-vertical.svg";
 import recordCircleIcon from "../../assets/recordingPage/record-circle-icon.svg";
 import editIcon from "../../assets/bookinfoPage/edit.svg";
@@ -162,6 +164,11 @@ const ReadingSpaceComponent = ({
     }
   };
 
+  const handleGoEdit = () => {
+    setIsHelp((h) => !h);
+    setIsEditMode(true);
+  };
+
   //드래그 관련
   const [{ height }, api] = useSpring(() => ({
     height: initialHeight,
@@ -241,10 +248,31 @@ const ReadingSpaceComponent = ({
                     )}
 
                     {isHelp && (
-                      <img
-                        src={goEdit}
-                        className="absolute top-[0.37rem] left-[7.47rem] "
-                      />
+                      <div className="absolute top-[1rem] left-[7.5rem] w-[12.625rem] h-[3rem]">
+                        <img
+                          src={goEdit}
+                          className="absolute top-2 left-0 w-full h-full object-cover"
+                        />
+                        <img
+                          src={cancel}
+                          className="absolute top-4 right-[0.6rem]"
+                          onClick={() => setIsHelp((h) => !h)}
+                        />
+                        <span className="absolute top-[1rem] left-[1.2rem] text-c1 text-gray-800">
+                          위젯을 드래그하여 이동해보세요
+                        </span>
+                        <button
+                          className="absolute left-[1.2rem] top-[2rem] text-black "
+                          onClick={handleGoEdit}
+                        >
+                          <div className="flex ">
+                            <span className="text-c1 underline underline-offset-2 decoration-grau-600 text-gray-600 mr-2">
+                              편집하러 가기
+                            </span>
+                            <img src={goRight} />
+                          </div>
+                        </button>
+                      </div>
                     )}
                   </div>
                   <div className="flex flex-row items-center gap-2 flex-nowrap">
