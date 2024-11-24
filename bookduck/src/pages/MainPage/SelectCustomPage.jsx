@@ -62,6 +62,7 @@ const SelectCustomPage = () => {
 
   //useEffect hook
   useEffect(() => {
+    console.log("books", books);
     getBooks();
   }, []);
 
@@ -85,12 +86,12 @@ const SelectCustomPage = () => {
   }, [enabled]);
 
   //이벤트 핸들러
-  const handleStatusClick = (bookInfoId, bookImg) => {
+  const handleStatusClick = (userBookId, bookImg) => {
     if (selected === "firstBook") {
-      setFirstId(bookInfoId);
+      setFirstId(userBookId);
       setFirstImg(bookImg);
     } else if (selected === "secondBook") {
-      setSecondId(bookInfoId);
+      setSecondId(userBookId);
       setSecondImg(bookImg);
     }
 
@@ -159,7 +160,7 @@ const SelectCustomPage = () => {
               bookImg={book.imgPath}
               rating={book.rating}
               handleOnClick={() =>
-                handleStatusClick(book.bookInfoId, book.imgPath)
+                handleStatusClick(book.userBookId, book.imgPath)
               }
             />
           ))}
