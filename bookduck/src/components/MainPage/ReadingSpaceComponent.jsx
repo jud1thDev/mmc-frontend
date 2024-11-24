@@ -92,7 +92,7 @@ const ReadingSpaceComponent = ({
 
   useEffect(() => {
     getCards();
-  }, [isAllDelete]);
+  }, []);
 
   useEffect(() => {
     if (isAllDelete) {
@@ -201,36 +201,38 @@ const ReadingSpaceComponent = ({
             } fixed z-40 w-[24.5625rem] bottom-0 left-0 right-0 mx-auto max-w-md rounded-t-[1.875rem] shadow-lg cursor-pointer overflow-hidden`}
           >
             <div className="relative">
-              <div className="flex h-8 w-full py-4" {...bind()}>
-                <div className="h-1 w-12 bg-gray-300 rounded-full mx-auto" />
-              </div>
-
-              <div className="flex flex-row items-center justify-between px-5 mb-18">
-                <div className="flex flex-row items-center gap-1">
-                  <p className="text-btn3 text-gray-800 pt-1 font-semibold">
-                    리딩 스페이스
-                  </p>
-                  {!isEditMode && isHelpVisible && (
-                    <img src={helpCircle} onClick={handleHelpClick} />
-                  )}
-                  {isEditMode && (
-                    <div className="py-2 px-4 text-c1 ml-2 bg-[#E8E4D5] rounded-[6.25rem]">
-                      카드를 드래그하여 이동해보세요
-                    </div>
-                  )}
-
-                  {isHelp && (
-                    <img
-                      src={goEdit}
-                      className="absolute top-[0.37rem] left-[7.47rem] "
-                    />
-                  )}
+              <div className="sticky top-0 z-50 bg-white h-[4rem]">
+                <div className="flex h-8 w-full py-4" {...bind()}>
+                  <div className="h-1 w-12 bg-gray-300 rounded-full mx-auto" />
                 </div>
-                <div className="flex flex-row items-center gap-2 flex-nowrap">
-                  {/* <div onClick={handleEditMode} className="text-c2">
+
+                <div className="flex flex-row items-center justify-between px-5  mb-18">
+                  <div className="flex flex-row items-center gap-1">
+                    <p className="text-btn3 text-gray-800 pt-1 font-semibold">
+                      리딩 스페이스
+                    </p>
+                    {!isEditMode && isHelpVisible && (
+                      <img src={helpCircle} onClick={handleHelpClick} />
+                    )}
+                    {isEditMode && (
+                      <div className="py-2 px-4 text-c1 ml-2 bg-[#E8E4D5] rounded-[6.25rem]">
+                        카드를 드래그하여 이동해보세요
+                      </div>
+                    )}
+
+                    {isHelp && (
+                      <img
+                        src={goEdit}
+                        className="absolute top-[0.37rem] left-[7.47rem] "
+                      />
+                    )}
+                  </div>
+                  <div className="flex flex-row items-center gap-2 flex-nowrap">
+                    {/* <div onClick={handleEditMode} className="text-c2">
                     {isEditMode ? "편집" : "완료"}
                   </div> */}
-                  <img src={menu} alt="menu" onClick={handleMenuClick} />
+                    <img src={menu} alt="menu" onClick={handleMenuClick} />
+                  </div>
                 </div>
               </div>
 

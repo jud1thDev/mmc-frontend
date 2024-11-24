@@ -100,7 +100,7 @@ const MainPage = () => {
             현재 나의 기록수
           </span>
           <div className="flex flex-row">
-            <BookCountDisplay bookCount={userInfo?.bookCount} />
+            <BookCountDisplay bookCount={userInfo?.bookCount || 0} />
             <div className="ml-[0.62rem] self-end text-b2 text-gray-500 font-semibold">
               개
             </div>

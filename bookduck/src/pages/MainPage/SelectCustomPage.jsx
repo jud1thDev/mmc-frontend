@@ -52,9 +52,9 @@ const SelectCustomPage = () => {
   // 카드 등록하기
   const postCard = async () => {
     try {
-      console.log(cardData);
+      console.log("cardData", cardData);
       const response = await post(`/readingspace`, cardData);
-      console.log("Card successfully posted:", response);
+      console.log("Card successfully posted:card Data:", response);
     } catch (error) {
       console.error("Error posting card:", error);
     }
