@@ -31,6 +31,7 @@ import SelectCustomPage from "./pages/MainPage/SelectCustomPage";
 import SettingPage from "./pages/SettingPage/SettingPage";
 import FriendListPage from "./pages/FriendPage/FriendListPage";
 import OAuthRedierctPage from "./pages/LoginPage/OAuthRedierctPage";
+import OtherMainPage from "./pages/OtherUserPage/OtherMainPage";
 
 function App() {
   useEffect(() => {
@@ -77,6 +78,7 @@ function App() {
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
       <Route path="/home" element={<MainPage />} />
+      <Route path="/user/:id" element={<OtherMainPage />} />
       <Route path="/friend" element={<FriendListPage />} />
       <Route path="/search" element={<SearchMainPage />} />
       <Route path="/recording" element={<RecordingPage />} />

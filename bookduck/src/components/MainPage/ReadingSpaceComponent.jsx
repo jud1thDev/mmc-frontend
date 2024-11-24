@@ -33,6 +33,7 @@ const ReadingSpaceComponent = ({
   setIsEditMode,
   isAllDelete = false,
   setIsAllDelete,
+  isMine = true,
 }) => {
   //상태관리
   const navigate = useNavigate();
@@ -86,10 +87,12 @@ const ReadingSpaceComponent = ({
 
   //useEffect 훅
   useEffect(() => {
-    if (isEditMode) {
-      setColor("bg-gray-5");
-    } else {
-      setColor("bg-gray-50");
+    if (isMine) {
+      if (isEditMode) {
+        setColor("bg-gray-5");
+      } else {
+        setColor("bg-gray-50");
+      }
     }
   }, [isEditMode]);
 
@@ -175,7 +178,9 @@ const ReadingSpaceComponent = ({
     onChange: () => {
       setFloatingVisible(height.get() < hideButtonThreshold);
       setHelpVisible(height.get() > hideButtonThreshold);
-      setIsNavBar(height.get() < hideButtonThreshold);
+      if (isMine) {
+        setIsNavBar(height.get() < hideButtonThreshold);
+      }
     },
   }));
 
@@ -238,7 +243,7 @@ const ReadingSpaceComponent = ({
                     <p className="text-btn3 text-gray-800 pt-1 font-semibold">
                       리딩 스페이스
                     </p>
-                    {!isEditMode && isHelpVisible && (
+                    {isMine && !isEditMode && isHelpVisible && (
                       <img src={helpCircle} onClick={handleHelpClick} />
                     )}
                     {isEditMode && (
@@ -276,10 +281,9 @@ const ReadingSpaceComponent = ({
                     )}
                   </div>
                   <div className="flex flex-row items-center gap-2 flex-nowrap">
-                    {/* <div onClick={handleEditMode} className="text-c2">
-                    {isEditMode ? "편집" : "완료"}
-                  </div> */}
-                    <img src={menu} alt="menu" onClick={handleMenuClick} />
+                    {isMine && (
+                      <img src={menu} alt="menu" onClick={handleMenuClick} />
+                    )}
                   </div>
                 </div>
               </div>

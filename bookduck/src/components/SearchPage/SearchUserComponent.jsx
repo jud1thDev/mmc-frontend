@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import FriendListComponent from "../../components/common/FriendListComponent";
+import { useNavigate } from "react-router-dom";
 import { get } from "../../api/example";
 const SearchUserComponent = ({ search }) => {
   //상태
@@ -7,6 +8,8 @@ const SearchUserComponent = ({ search }) => {
   const [totalPages, setTotalPages] = useState(0);
   const loaderRef = useRef(null);
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+
   const DATA_LIMIT = 10;
   //API연결
   //API-일반 책 정보받기
@@ -76,6 +79,7 @@ const SearchUserComponent = ({ search }) => {
             key={user.userId}
             userName={user.nickname}
             text={user.isFriend ? "친구" : "none"}
+            handleClick={() => navigate(`/user/${user.userId}`)}
           />
         ))
       ) : (

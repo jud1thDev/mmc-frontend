@@ -6,6 +6,7 @@ const FriendListComponent = ({
   image,
   userName,
   text,
+  handleClick,
   handleDelete,
   handleCancel,
   handleDecline,
@@ -69,7 +70,10 @@ const FriendListComponent = ({
   );
 
   return (
-    <div className="flex justify-between items-center px-4 py-[0.5rem]">
+    <div
+      className="flex justify-between items-center px-4 py-[0.5rem] cursor-pointer"
+      onClick={handleClick}
+    >
       <div className="flex gap-3 items-center">
         <div className="w-[3.5rem] h-[3.5rem]">
           <img
