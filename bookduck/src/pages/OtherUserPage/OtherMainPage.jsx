@@ -19,7 +19,7 @@ const OtherMainPage = () => {
     }
   };
 
-  //API 연결-친구추가
+  //API-친구추가
   const postFriendRequest = async (userId) => {
     try {
       await post(`/friendrequests`, {
@@ -28,6 +28,18 @@ const OtherMainPage = () => {
       console.log("추가완료");
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  //API-친구 요청취소
+  const delFriendRequest = async (friendRequestId) => {
+    // console.log(friendRequestId);
+    try {
+      await del(`/friendrequests/${friendRequestId}`);
+      // console.log("친구 요청취소 성공");
+      getSentFriendList();
+    } catch (error) {
+      console.error("친구 요청취소 에러", error);
     }
   };
 
@@ -45,7 +57,7 @@ const OtherMainPage = () => {
         isFriend={userInfo.isFriend}
         handleAddClick={() => postFriendRequest(userId)}
       />
-      <ReadingSpaceComponent isMine={false} />
+      <ReadingSpaceComponent isMine={false} otherUserId={userId} />
     </div>
   );
 };

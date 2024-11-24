@@ -34,6 +34,7 @@ const ReadingSpaceComponent = ({
   isAllDelete = false,
   setIsAllDelete,
   isMine = true,
+  otherUserId,
 }) => {
   //상태관리
   const navigate = useNavigate();
@@ -50,12 +51,12 @@ const ReadingSpaceComponent = ({
   const expandedHeight = screenHeight * 0.95;
   const hideButtonThreshold = initialHeight + 50;
 
-  //API-API연결
-  //API-리딩스페이스 조회
+  // API - 리딩스페이스 조회
   const getCards = async () => {
     try {
-      const id = await getUserId();
+      const id = isMine ? await getUserId() : otherUserId;
       setUserId(id);
+
       const response = await get(`/users/${id}/readingspace`);
       console.log(response);
       setCards(response.cardList);
@@ -103,6 +104,10 @@ const ReadingSpaceComponent = ({
   useEffect(() => {
     console.log(cards);
   }, [cards]);
+
+  useEffect(() => {
+    console.log("otehruseif", otherUserId);
+  }, [otherUserId]);
 
   useEffect(() => {
     if (isAllDelete) {
