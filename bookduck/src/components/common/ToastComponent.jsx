@@ -1,3 +1,15 @@
+/*사용법
+useEffect안에서 showToast함수 불러서 사용
+예시)
+ showToast({
+        icon: noti,
+        title: "아이템 알림",
+        message: "새로운 아이템이 열렸어요! ✨",
+        buttonLabel: "보러가기",
+        handleClick: () => alert("아이템 보러가기 클릭"),
+      });
+*/
+
 import React from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
