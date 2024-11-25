@@ -18,6 +18,7 @@ import plusIcon from "../../assets/mainPage/plus.svg";
 import helpCircle from "../../assets/mainPage/help-circle.svg";
 import DraggableList from "./DraggableList";
 import { getUserId } from "../../api/oauth";
+import ReadingSpaceDuck from "../../assets/otherUserPage/readingspace-duck.svg";
 
 const ReadingSpaceComponent = ({
   setColor,
@@ -305,22 +306,31 @@ const ReadingSpaceComponent = ({
                       className="flex flex-col gap-1"
                     >
                       {cards.length === 0 ? (
-                        // 카드가 없을 때 렌더링
-                        <div className="m-[5rem] flex flex-col items-center w-[14rem]">
-                          <div className=" text-gray-500 text-c1 mb-[0.38rem]">
-                            리딩 스페이스가 텅 비어있네요!
+                        isMine ? (
+                          // 카드가 없을 때 렌더링
+                          <div className="m-[5rem] flex flex-col items-center w-[14rem]">
+                            <div className=" text-gray-500 text-c1 mb-[0.38rem]">
+                              리딩 스페이스가 텅 비어있네요!
+                            </div>
+                            <div className="text-b1 text-gray-500 font-semibold mb-4">
+                              나만의 리딩 스페이스를 꾸며보세요
+                            </div>
+                            <ButtonComponent
+                              text="추가하기"
+                              type="secondary"
+                              color="orange"
+                              size="small"
+                              onClick={() => navigate("selectcard")}
+                            />
                           </div>
-                          <div className="text-b1 text-gray-500 font-semibold mb-4">
-                            나만의 리딩 스페이스를 꾸며보세요
+                        ) : (
+                          <div className="flex flex-col items-center justify-center m-[5rem]">
+                            <p className=" text-gray-500 text-c1 mb-[2rem]">
+                              리딩스페이스가 텅 비어있어요.
+                            </p>
+                            <img src={ReadingSpaceDuck} />
                           </div>
-                          <ButtonComponent
-                            text="추가하기"
-                            type="secondary"
-                            color="orange"
-                            size="small"
-                            onClick={() => navigate("selectcard")}
-                          />
-                        </div>
+                        )
                       ) : (
                         // 카드가 있을 때 렌더링
                         <DraggableList
@@ -351,7 +361,7 @@ const ReadingSpaceComponent = ({
                 </div>
               )}
 
-              {isFloatingVisible && (
+              {/* {isFloatingVisible && (
                 <div className="absolute right-1 bottom-[-4rem] z-[100]">
                   <img
                     onClick={() => navigate("/selectbook")}
@@ -360,7 +370,7 @@ const ReadingSpaceComponent = ({
                     alt="record_circle_icon"
                   />
                 </div>
-              )}
+              )} */}
             </div>
           </animated.div>
         </DragDropContext>

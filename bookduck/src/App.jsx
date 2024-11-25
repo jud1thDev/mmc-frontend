@@ -32,6 +32,7 @@ import SettingPage from "./pages/SettingPage/SettingPage";
 import FriendListPage from "./pages/FriendPage/FriendListPage";
 import OAuthRedierctPage from "./pages/LoginPage/OAuthRedierctPage";
 import OtherMainPage from "./pages/OtherUserPage/OtherMainPage";
+import OtherStatisticsPage from "./pages/OtherUserPage/OtherStatisticsPage";
 
 function App() {
   useEffect(() => {
