@@ -1,23 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
-import { get } from "../../api/example";
+import { get, patch } from "../../api/example";
 import NotificationItemComponent from "./NotificationItemComponent";
 import { useSSE } from "../../context/SSEProvider";
-
+/*API-일반 알람 읽음 처리*/
+export const patchAlarm = async (alarmId) => {
+  try {
+    await patch(`/alarms/common`, {
+      alarmId: alarmId,
+    });
+    console.log("일반 알림 읽음 처리 완료");
+  } catch (error) {
+    console.error("일반 알람 읽음 처리 에러", error);
+  }
+};
 const GeneralNotiComponent = () => {
-  //상태 관리
   const [notifications, setNotifications] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const loaderRef = useRef(null);
   const DATA_LIMIT = 10;
 
   const { sseData } = useSSE();
-  useEffect(() => {
-    console.log("새로운 알림", sseData);
-  }, [sseData]);
 
-  //API 연결
-  //API-알람 목록 받아오기
+  /* API-알람 리스트 받기*/
   const getAlarmList = async (page = 0) => {
     try {
       const response = await get(
@@ -25,6 +31,7 @@ const GeneralNotiComponent = () => {
       );
       console.log("response", response);
       const data = response.pageContent.map((alarm) => ({
+        resourceId: alarm.resourceId,
         alarmId: alarm.alarmId,
         isRead: alarm.isRead,
         alarmType: alarm.alarmType,
@@ -32,25 +39,37 @@ const GeneralNotiComponent = () => {
         boldText: alarm.boldText,
       }));
       setNotifications((n) => [...n, ...data]);
-      setTotalPages(response.totalPages || 0);
+      setTotalPages(response.totalPages || 1);
     } catch (error) {
       console.error("알람 읽기 오류", error);
     }
   };
 
-  // useEffect 훅
-  // 검색어 변경 시 데이터 초기화 및 첫 페이지 호출
+  // 초기화 로직
   useEffect(() => {
-    setNotifications([]); // 기존 데이터 초기화
-    setCurrentPage(0); // 첫 페이지로 초기화
-    getAlarmList(0);
+    const initialize = async () => {
+      setNotifications([]); // 기존 데이터 초기화
+      setCurrentPage(0); // 첫 페이지로 초기화
+      setIsLoading(true);
+      await getAlarmList(0);
+      setIsLoading(false);
+    };
+
+    initialize();
   }, []);
 
-  // SSE 데이터 감시
+  // SSE 데이터 처리
   useEffect(() => {
     if (!sseData.isCommonAlarmChecked) {
-      console.log("새로운 일반 알람 확인. getAlarmList 호출");
-      getAlarmList(0); // 새로운 데이터 가져오기
+      console.log("새로운 일반 알람 확인");
+      const newAlarm = {
+        alarmId: sseData.alarmId,
+        isRead: sseData.isRead,
+        alarmType: sseData.alarmType,
+        createdTime: sseData.createdTime,
+        boldText: sseData.boldText,
+      };
+      setNotifications((prev) => [newAlarm, ...prev]);
     }
   }, [sseData]);
 
@@ -58,14 +77,14 @@ const GeneralNotiComponent = () => {
   useEffect(() => {
     const handleObserver = (entries) => {
       const [entry] = entries;
-      if (entry.isIntersecting && currentPage < totalPages) {
+      if (entry.isIntersecting && currentPage < totalPages && !isLoading) {
         console.log("다음 페이지 로드");
         setCurrentPage((p) => p + 1);
       }
     };
 
     const observer = new IntersectionObserver(handleObserver, {
-      root: null, // viewport 사용
+      root: null,
       rootMargin: "0px",
       threshold: 1.0,
     });
@@ -73,26 +92,34 @@ const GeneralNotiComponent = () => {
     if (loaderRef.current) observer.observe(loaderRef.current);
 
     return () => observer.disconnect();
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages, isLoading]);
 
   // 현재 페이지 데이터 로드
   useEffect(() => {
-    if (currentPage > 0) {
+    if (currentPage > 0 && !isLoading) {
       console.log(`페이지 ${currentPage} 데이터 로드`);
-      getBooks(currentPage);
+      setIsLoading(true);
+      getAlarmList(currentPage).finally(() => setIsLoading(false));
     }
   }, [currentPage]);
 
-  return notifications.map((notification, index) => (
-    <div key={index}>
-      <NotificationItemComponent
-        alarmType={notification.alarmType}
-        boldText={notification.boldText}
-        isRead={notification.isRead}
-        createdTime={notification.createdTime}
-      />
-    </div>
-  ));
+  return (
+    <>
+      {notifications.map((notification, index) => (
+        <div key={index}>
+          <NotificationItemComponent
+            alarmId={notification.alarmId}
+            alarmType={notification.alarmType}
+            boldText={notification.boldText}
+            isRead={notification.isRead}
+            createdTime={notification.createdTime}
+            resourceId={notification.resourceId}
+          />
+        </div>
+      ))}
+      <div ref={loaderRef} />
+    </>
+  );
 };
 
 export default GeneralNotiComponent;
