@@ -45,13 +45,12 @@ const MainPage = () => {
 
   // SSE 데이터에 따라 Dot 상태 업데이트
   useEffect(() => {
-    console.log("SSE 데이터 업데이트 감지:", sseData);
-
+    // console.log("SSE 데이터 업데이트 감지:", sseData);
     const shouldShowDot =
       !sseData?.isCommonAlarmChecked || !sseData?.isAnnouncementChecked;
 
     if (isDot !== shouldShowDot) {
-      console.log(shouldShowDot ? "레드 닷 띄우기" : "레드 닷 없애기");
+      // console.log(shouldShowDot ? "레드 닷 띄우기" : "레드 닷 없애기");
       setIsDot(shouldShowDot);
     }
   }, [sseData, isDot]);

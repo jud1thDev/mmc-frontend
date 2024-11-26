@@ -3,7 +3,6 @@ import emptyImage from "../../assets/recordingPage/rating-empty.svg";
 import filledImage from "../../assets/recordingPage/rating-filled.svg";
 
 const BookComponent = ({ img, title, author, rating }) => {
-  console.log(rating);
   return (
     <div className="flex flex-col gap-2 w-[6.5rem] h-fit">
       <img src={img} className="w-full h-[9.25rem]" />

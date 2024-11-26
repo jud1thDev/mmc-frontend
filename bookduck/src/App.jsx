@@ -46,16 +46,7 @@ function App() {
           console.error("사용자 ID 또는 액세스 토큰이 없습니다.");
           return;
         }
-
-        console.log(
-          "FCM 처리 시작 - userId:",
-          id,
-          "Access Token:",
-          accessToken
-        );
-
         await handleFcmToken(id);
-        console.log("FCM 처리 완료");
       } catch (error) {
         console.error("FCM 처리 중 오류 발생:", error.message);
       }

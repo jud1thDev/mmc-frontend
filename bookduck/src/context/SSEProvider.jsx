@@ -19,17 +19,14 @@ export const SSEProvider = ({ children }) => {
 
     // LocalStorage에서 토큰 가져오기
     const rawTokenData = localStorage.getItem("token");
-    console.log("Raw token data from localStorage:", rawTokenData);
-
     const tokenData = JSON.parse(rawTokenData || "{}");
     const accessKey = tokenData?.accessToken;
 
     // Access Token 확인
     if (!accessKey) {
-      console.error("Access key가 없습니다. SSE 연결이 중단됩니다.");
+      console.error("Access key가 없습니다.");
       return null;
     }
-    console.log("Access key 확인:", accessKey);
 
     // EventSourcePolyfill 생성
     let eventSource;
@@ -60,7 +57,7 @@ export const SSEProvider = ({ children }) => {
       console.log("SSE 이벤트 수신:", event);
       try {
         const data = JSON.parse(event.data);
-        console.log("수신된 데이터 파싱 성공:", data);
+        // console.log("수신된 데이터 파싱 성공:", data);
         setSseData({
           isCommonAlarmChecked: data.isCommonAlarmChecked,
           isAnnouncementChecked: data.isAnnouncementChecked,
@@ -103,6 +100,5 @@ export const SSEProvider = ({ children }) => {
 
 // SSEContext를 사용하는 커스텀 훅
 export const useSSE = () => {
-  console.log("useSSE 호출 - SSEContext 사용");
   return useContext(SSEContext);
 };

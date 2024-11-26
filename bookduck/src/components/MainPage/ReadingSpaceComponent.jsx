@@ -11,7 +11,6 @@ import goEdit from "../../assets/mainPage/go-edit.svg";
 import goRight from "../../assets/mainPage/go-right.svg";
 import cancel from "../../assets/mainPage/cancel.svg";
 import menu from "../../assets/mainPage/menu-vertical.svg";
-import recordCircleIcon from "../../assets/recordingPage/record-circle-icon.svg";
 import editIcon from "../../assets/bookinfoPage/edit.svg";
 import deleteIcon from "../../assets/bookinfoPage/trash.svg";
 import plusIcon from "../../assets/mainPage/plus.svg";
@@ -57,9 +56,8 @@ const ReadingSpaceComponent = ({
     try {
       const id = isMine ? await getUserId() : otherUserId;
       setUserId(id);
-
       const response = await get(`/users/${id}/readingspace`);
-      console.log(response);
+      // console.log(response);
       setCards(response.cardList);
     } catch (error) {
       console.error("리딩스페이스 조회 오류", error);
@@ -103,14 +101,6 @@ const ReadingSpaceComponent = ({
   }, []);
 
   useEffect(() => {
-    console.log(cards);
-  }, [cards]);
-
-  useEffect(() => {
-    console.log("otehruseif", otherUserId);
-  }, [otherUserId]);
-
-  useEffect(() => {
     if (isAllDelete) {
       patchCards([]).then(() => {
         setCards([]); // API 응답 후 상태 업데이트
@@ -136,8 +126,10 @@ const ReadingSpaceComponent = ({
   const handleMenuClick = () => {
     if (height.get() < expandedHeight) {
       api.start({ height: expandedHeight });
+      setBottomSheetShow(true);
+    } else {
+      setBottomSheetShow(true);
     }
-    setBottomSheetShow(true);
   };
 
   const handleEditClick = () => {
@@ -288,7 +280,12 @@ const ReadingSpaceComponent = ({
                   </div>
                   <div className="flex flex-row items-center gap-2 flex-nowrap">
                     {isMine && (
-                      <img src={menu} alt="menu" onClick={handleMenuClick} />
+                      <div
+                        className="w-[2rem] flex justify-end"
+                        onClick={handleMenuClick}
+                      >
+                        <img src={menu} alt="menu" />
+                      </div>
                     )}
                   </div>
                 </div>
