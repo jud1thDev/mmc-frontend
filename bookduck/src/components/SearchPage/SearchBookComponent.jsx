@@ -244,10 +244,6 @@ const SearchBookComponent = ({ search }) => {
     }
   }, [currentPage, search]);
 
-  useEffect(() => {
-    console.log(currentState);
-  }, [currentState]);
-
   return (
     <>
       {registeredBooks.length > 0 || books.length > 0 ? (

@@ -9,18 +9,21 @@ import { useSSE } from "../../context/SSEProvider";
 const NotificationPage = () => {
   const [tab, setTab] = useState("일반");
   const { sseData } = useSSE();
-  const [dotStates, setDotStates] = useState([
-    !sseData.isCommonAlarmChecked,
-    !sseData.isAnnouncementChecked,
-  ]);
+  const [dotStates, setDotStates] = useState([false, false]);
 
   useEffect(() => {
-    const newDotStates = [
-      !sseData.isCommonAlarmChecked,
-      !sseData.isAnnouncementChecked,
-    ];
-    console.log("업데이트된 dotStates:", newDotStates);
-    setDotStates(newDotStates);
+    if (sseData) {
+      const newDotStates = [
+        sseData.isCommonAlarmChecked === null
+          ? null
+          : !sseData.isCommonAlarmChecked,
+        sseData.isAnnouncementChecked === null
+          ? null
+          : !sseData.isAnnouncementChecked,
+      ];
+      console.log("업데이트된 dotStates:", newDotStates);
+      setDotStates(newDotStates);
+    }
   }, [sseData]);
 
   return (

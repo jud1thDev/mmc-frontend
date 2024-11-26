@@ -33,7 +33,7 @@ const SearchMainPage = () => {
   const getPopularBooks = async () => {
     try {
       const response = await get(`/bookinfo/most`);
-      console.log("많이 읽는", response);
+      // console.log("많이 읽는", response);
       setPopularBooks(response.bookList);
     } catch (error) {
       console.error("많이 읽는 책 읽기 오류", error);

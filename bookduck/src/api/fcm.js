@@ -18,7 +18,6 @@ export const requestFcmToken = async () => {
       });
 
       if (fcmToken) {
-        console.log("FCM 토큰:", fcmToken);
         return fcmToken;
       } else {
         console.error("FCM 토큰을 가져오지 못했습니다.");

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { get } from "../../api/example";
 import { getUserId } from "../../api/oauth";
@@ -9,20 +10,21 @@ import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceCompone
 import right from "../../assets/common/right-yellow.svg";
 import mainDuck from "../../assets/common/main-duck.svg";
 import BookCountDisplay from "../../components/MainPage/BookCountDisplay";
-import { isTokenExpired } from "../../api/oauth";
 import DeleteModal from "../../components/common/modal/DeleteModal";
-import handleFcmToken from "../../components/NotificationPage/handleFcmToken";
 import { useSSE } from "../../context/SSEProvider";
 import FullModal from "../../components/MainPage/FullModal";
 
+// API 호출 함수
+const getUserInfo = async (userId) => {
+  return await get(`/users/${userId}`);
+};
+
 const MainPage = () => {
-  //상태 관리
   const navigate = useNavigate();
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
   const [color, setColor] = useState("bg-gray-50");
-  const [isNavBar, setIsNavBar] = useState("true");
+  const [isNavBar, setIsNavBar] = useState(true); // boolean으로 변경
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showOutModal, setShowOutModal] = useState(false);
   const [showFullModal, setShowFullModal] = useState(false);
@@ -30,34 +32,30 @@ const MainPage = () => {
   const [isAllDelete, setIsAllDelete] = useState(false);
   const [isDot, setIsDot] = useState(false);
   const { sseData } = useSSE();
-  //API 연결
-  const getUserInfo = async (userId) => {
-    try {
-      console.log(isTokenExpired());
-      const data = await get(`/users/${userId}`);
-      setUserInfo(data);
-    } catch (error) {
-      console.error(error);
+
+  const userId = getUserId();
+
+  // React Query - 유저 정보 가져오기
+  const userInfoQuery = useQuery({
+    queryKey: ["userInfo", userId],
+    queryFn: () => getUserInfo(userId),
+    onSuccess: (data) => console.log("유저 정보 로드 성공:", data),
+    onError: (error) => console.error("유저 정보 로드 실패:", error),
+  });
+
+  // SSE 데이터에 따라 Dot 상태 업데이트
+  useEffect(() => {
+    // console.log("SSE 데이터 업데이트 감지:", sseData);
+    const shouldShowDot =
+      !sseData?.isCommonAlarmChecked || !sseData?.isAnnouncementChecked;
+
+    if (isDot !== shouldShowDot) {
+      // console.log(shouldShowDot ? "레드 닷 띄우기" : "레드 닷 없애기");
+      setIsDot(shouldShowDot);
     }
-  };
+  }, [sseData, isDot]);
 
-  //useEffect 훅
-  useEffect(() => {}, [isNavBar]);
-
-  //userInfo 업데이트 확인
-  useEffect(() => {
-    console.log("유저 인포 업데이트:", userInfo);
-  }, [userInfo]);
-
-  useEffect(() => {
-    //유저아이디
-    const userId = getUserId();
-    getUserInfo(userId);
-    handleFcmToken(userId);
-  }, []);
-
-  useEffect(() => {}, [setShowOutModal]);
-
+  // 모달 핸들러
   const handleOutModal = () => {
     setIsEditMode(false);
     setShowOutModal(false);
@@ -65,32 +63,27 @@ const MainPage = () => {
 
   const handleFullModal = () => {
     setShowFullModal(false);
-    setVisible(false); // 닫는 애니메이션 시작
+    setVisible(false);
     setTimeout(() => {
-      setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
+      setBottomSheetShow(false);
     }, 200);
   };
 
   const handleDelete = () => {
     setShowDeleteModal(false);
     setIsAllDelete(true);
-    setVisible(false); // 닫는 애니메이션 시작
+    setVisible(false);
     setTimeout(() => {
-      setBottomSheetShow(false); // 애니메이션이 끝난 후 모달 완전히 닫기
+      setBottomSheetShow(false);
     }, 200);
   };
 
-  useEffect(() => {
-    console.log("SSE 데이터 업데이트 감지:", sseData);
+  // 로딩 처리
+  if (userInfoQuery.isLoading) {
+    return <div>로딩 중...</div>;
+  }
 
-    const shouldShowDot =
-      !sseData.isCommonAlarmChecked || !sseData.isAnnouncementChecked;
-
-    if (isDot !== shouldShowDot) {
-      console.log(shouldShowDot ? "레드 닷 띄우기" : "레드 닷 없애기");
-      setIsDot(shouldShowDot);
-    }
-  }, [sseData, isDot]);
+  const userInfo = userInfoQuery.data;
 
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
@@ -124,12 +117,13 @@ const MainPage = () => {
             <span className="text-b2 text-gray-800 font-semibold">
               독서 리포트 보러가기
             </span>
-            <img src={right} />
+            <img src={right} alt="arrow" />
           </div>
         </button>
         <img
           src={mainDuck}
           className="absolute top-[11.42rem] right-0 w-[10rem]"
+          alt="main duck"
         />
         <ReadingSpaceComponent
           setColor={setColor}
