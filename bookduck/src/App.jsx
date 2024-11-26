@@ -50,7 +50,7 @@ function App() {
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/setting" element={<SettingPage />} />
       <Route path="/notification" element={<NotificationPage />} />
-      <Route path="/statistics" element={<StatisticsPage />} />
+      <Route path="/statistics/:userId" element={<StatisticsPage />} />
       <Route
         path="/statistics/export/character"
         element={<CharacterExportPage />}
