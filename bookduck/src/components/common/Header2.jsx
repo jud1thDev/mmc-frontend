@@ -3,10 +3,10 @@ import logo from "../../assets/common/logo-text.svg";
 import setting from "../../assets/common/setting.svg";
 import alarm from "../../assets/common/alarm.svg";
 import friends from "../../assets/common/people.svg";
-
+import alarmCircle from "../../assets/common/circle-alarm.svg";
 //탭 이름을 props로 받음. default 값은 "제목"
 //BookDuck이 탭 이름인 경우에는 main값이 true
-const Header2 = ({ title = "제목", main = true }) => {
+const Header2 = ({ title = "제목", main = true, isDot = false }) => {
   const navigate = useNavigate();
   return (
     <div className="flex justify-between items-center h-[2.75rem]">
@@ -29,12 +29,20 @@ const Header2 = ({ title = "제목", main = true }) => {
               onClick={() => navigate("/friend")}
               className="cursor-pointer"
             />
-            <img
-              src={alarm}
-              alt="alarm"
-              onClick={() => navigate("/notification")}
-              className="cursor-pointer"
-            />
+            <div className="relative">
+              <img
+                src={alarm}
+                alt="alarm"
+                onClick={() => navigate("/notification")}
+                className="cursor-pointer"
+              />
+              {isDot === true && (
+                <img
+                  src={alarmCircle}
+                  className="absolute right-[0.13rem] top-[0.25rem]"
+                />
+              )}
+            </div>
           </>
         )}
         <img

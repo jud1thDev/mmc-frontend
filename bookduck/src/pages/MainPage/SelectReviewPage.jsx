@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { get, post } from "../../api/example";
+import { useNavigate } from "react-router-dom";
 import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
 import SearchComponent from "../../components/common/SearchComponent";
@@ -8,6 +9,7 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 
 const SelectReviewPage = () => {
   //상태 관리
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [reviews, setReviews] = useState([]);
   const [reviewId, setReviewId] = useState();
@@ -106,9 +108,18 @@ const SelectReviewPage = () => {
     setCardData((c) => ({ ...c, resourceId1: reviewId }));
   }, [reviewId]);
 
+  useEffect(() => {
+    getReviews("", 0);
+  }, []);
+
   //이벤트 핸들러
   const handleSelectCard = (id) => {
     setReviewId(id);
+  };
+
+  const handleSubmitClick = () => {
+    postCard();
+    navigate("/home");
   };
 
   return (
@@ -141,7 +152,7 @@ const SelectReviewPage = () => {
             text="완료"
             type="primary"
             disabled={!reviewId}
-            onClick={postCard}
+            onClick={handleSubmitClick}
           />
         </div>
       )}

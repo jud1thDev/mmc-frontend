@@ -8,6 +8,7 @@
  borderWidth="4rem"
 />
 */
+import alarmCircle from "../../assets/common/circle-alarm.svg";
 const TabBarComponent = ({
   tabs,
   activeTab,
@@ -15,6 +16,7 @@ const TabBarComponent = ({
   size = "big",
   borderWidth,
   isNoti = false,
+  dotStates = [],
   ...props
 }) => {
   const isBig = size === "big";
@@ -40,6 +42,10 @@ const TabBarComponent = ({
             }
           >
             {tab}
+            {/* 빨간 점 표시 */}
+            {dotStates[index] && (
+              <img src={alarmCircle} className="absolute top-0 -right-2" />
+            )}
           </div>
 
           {activeTab === tab && (
