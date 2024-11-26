@@ -2,9 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
-import OneBookCard from "../../components/MainPage/OneBookCard";
 import ExtractCard from "../../components/MainPage/ExtractCard";
 import ReviewCard from "../../components/MainPage/ReviewCard";
+import BookDisplay from "../../components/MainPage/BookDisplay";
 
 const SelectCardPage = () => {
   const navigate = useNavigate();
@@ -25,14 +25,14 @@ const SelectCardPage = () => {
             navigate("/selectcard/custom", { state: { bookNumber: 1 } })
           }
         >
-          <OneBookCard readOnly={true} bookNumber={1} />
+          <BookDisplay display={true} />
         </div>
         <div
           onClick={() =>
             navigate("/selectcard/custom", { state: { bookNumber: 2 } })
           }
         >
-          <OneBookCard readOnly={true} bookNumber={2} />
+          <BookDisplay display={true} bookNumber={2} />
         </div>
         <ExtractCard onClick={() => navigate("/selectcard/extract")} />
         <ReviewCard onClick={() => navigate("/selectcard/review")} />

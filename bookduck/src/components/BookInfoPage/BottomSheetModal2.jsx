@@ -34,6 +34,7 @@ const BottomSheetModal2 = ({
   setBottomSheetShow,
   visible,
   setVisible,
+  handleEdit,
   handleDelete,
   deleteOnly = false,
   children,
@@ -74,7 +75,10 @@ const BottomSheetModal2 = ({
             <div className="flex flex-col bg-white rounded-lg">
               {!deleteOnly && (
                 <>
-                  <div className="flex items-center p-4 gap-3 text-btn2 cursor-pointer">
+                  <div
+                    onClick={handleEdit}
+                    className="flex items-center p-4 gap-3 text-btn2 cursor-pointer"
+                  >
                     <img className="w-6 h-6" src={editIcon} />
                     수정하기
                   </div>

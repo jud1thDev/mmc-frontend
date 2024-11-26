@@ -1,32 +1,85 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import FriendListComponent from "../../components/common/FriendListComponent";
-
+import { useNavigate } from "react-router-dom";
+import { get } from "../../api/example";
 const SearchUserComponent = ({ search }) => {
-  const allUsers = [
-    { id: 1, userName: "찬희야", text: "그랬어" },
-    { id: 2, userName: "민수", text: "안녕하세요" },
-    { id: 3, userName: "영희", text: "반가워요" },
-  ];
-  const [results, setResults] = useState(allUsers);
+  //상태
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const loaderRef = useRef(null);
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+
+  const DATA_LIMIT = 10;
+  //API연결
+  //API-일반 책 정보받기
+  const getUsers = async (keyword, page) => {
+    try {
+      const response = await get(
+        `/users/search?keyword=${keyword}&page=${page}&size=${DATA_LIMIT}`
+      );
+      console.log("response", response);
+      const data = response.pageContent.map((user) => ({
+        userId: user.userId,
+        nickname: user.nickname,
+        isFriend: user.isFriend,
+      }));
+      setUsers(data);
+      console.log("users:", users);
+    } catch (error) {
+      console.error("유저 읽어오기 오류", error);
+    }
+  };
 
   useEffect(() => {
+    getUsers("", 0);
+  }, []);
+  //useEffect 훅
+  useEffect(() => {
     if (search) {
-      const filteredResult = allUsers.filter((user) =>
-        user.userName.includes(search)
-      );
-      setResults(filteredResult);
-    } else {
-      setResults(allUsers);
+      setUsers([]);
+      setCurrentPage(0);
+      getUsers(search, 0);
     }
   }, [search]);
+
+  // 무한 스크롤 감지
+  useEffect(() => {
+    const handleObserver = (entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting && currentPage < totalPages) {
+        console.log("다음 페이지 로드");
+        setCurrentPage((p) => p + 1);
+      }
+    };
+
+    const observer = new IntersectionObserver(handleObserver, {
+      root: null, // viewport 사용
+      rootMargin: "0px",
+      threshold: 1.0,
+    });
+
+    if (loaderRef.current) observer.observe(loaderRef.current);
+
+    return () => observer.disconnect();
+  }, [currentPage, totalPages]);
+
+  // 현재 페이지 데이터 로드
+  useEffect(() => {
+    if (currentPage > 0 && search) {
+      console.log(`페이지 ${currentPage} 데이터 로드`);
+      getBooks(search, currentPage);
+    }
+  }, [currentPage, search]);
   return (
     <div>
-      {results.length > 0 ? (
-        results.map((result) => (
+      {users.length > 0 ? (
+        users.map((user) => (
           <FriendListComponent
-            key={result.id}
-            userName={result.userName}
-            text={result.text}
+            key={user.userId}
+            userName={user.nickname}
+            text={user.isFriend ? "친구" : "none"}
+            handleClick={() => navigate(`/user/${user.userId}`)}
           />
         ))
       ) : (

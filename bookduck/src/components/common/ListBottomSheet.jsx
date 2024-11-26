@@ -39,9 +39,10 @@ const ListBottomSheet = ({
   handleOption,
   isCancel = false,
   cancelText = "서재담기 취소",
+  handlePutCancel, //서재담기 취소 핸들링 함수
 }) => {
   return (
-    <div className="flex flex-col gap-3 mb-[2.81rem]">
+    <div className="flex flex-col gap-3 mb-[1.75rem]">
       {title && (
         <div className="text-st text-gray-800 font-semibold">{title}</div>
       )}
@@ -49,7 +50,7 @@ const ListBottomSheet = ({
         return (
           <div key={index}>
             <div
-              className="flex flex-row justify-between items-center w-[22.5625rem] h-[2rem] py-3 px-1"
+              className="flex flex-row justify-between items-center w-[22.5625rem]  py-3 px-1 cursor-pointer"
               onClick={() => handleOption(option)}
             >
               <div
@@ -66,7 +67,10 @@ const ListBottomSheet = ({
         );
       })}
       {isCancel && (
-        <div className="flex items-center gap-1 w-[22.2625rem] h-[3rem] px-3 py-3 bg-gray-10 rounded-2 mt-4">
+        <div
+          onClick={handlePutCancel}
+          className="flex items-center gap-1 w-[22.2625rem] h-[3rem] px-3 py-3 bg-gray-10 rounded-2 mt-4 cursor-pointer"
+        >
           <img src={trash} className="w-6 h-6" />
           <span className="text-btn3 text-gray-500">{cancelText}</span>
         </div>

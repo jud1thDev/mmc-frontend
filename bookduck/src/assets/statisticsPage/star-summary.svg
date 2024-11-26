@@ -1,0 +1,16 @@
+<svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Info/Star" filter="url(#filter0_i_4256_29276)">
+<path id="Vector 3" d="M12.9327 7.51994L13.1638 7.64822C15.8355 9.13143 19.2021 7.91862 20.3141 5.07227C20.5407 4.49246 21.381 4.55634 21.5173 5.16373L24.7541 19.5902C25.2325 21.7222 24.2698 23.9178 22.3775 25.0103C20.4852 26.1028 18.1025 25.8388 16.4953 24.3585L5.61999 14.342C5.16212 13.9203 5.52697 13.1606 6.14236 13.2543C9.1634 13.7145 11.897 11.4054 11.9484 8.34992L11.9528 8.08566C11.9612 7.58768 12.4972 7.27821 12.9327 7.51994Z" fill="#F6EFCE" stroke="#F6EFCE" stroke-width="2.97319"/>
+</g>
+<defs>
+<filter id="filter0_i_4256_29276" x="0.5" y="0" width="30" height="30" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="2" dy="1"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.907992 0 0 0 0 0.881489 0 0 0 0 0.766266 0 0 0 1 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_4256_29276"/>
+</filter>
+</defs>
+</svg>

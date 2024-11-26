@@ -8,6 +8,7 @@ const SearchComponent = ({
   setSearch,
   onEnter,
   className,
+  custom = false,
 }) => {
   const navigate = useNavigate();
 
@@ -35,7 +36,11 @@ const SearchComponent = ({
         className
       )}
     >
-      <div className="flex w-[19.5625rem] h-[2.5rem] bg-gray-50 items-center rounded-[0.5rem] px-2">
+      <div
+        className={`flex  ${
+          custom ? "w-[23rem]" : "w-[18rem]"
+        } h-[2.5rem] bg-gray-50 items-center rounded-[0.5rem] px-2`}
+      >
         <SearchIcon className=" text-gray-50 mr-2" />
         <input
           type="text"
@@ -43,7 +48,7 @@ const SearchComponent = ({
           placeholder={placeholder}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          className="w-[18rem] bg-gray-50 text-b1 text-black placeholder-gray-300 mr-[1.3125rem]"
+          className=" bg-gray-50 text-b1 text-black placeholder-gray-300 mr-[1.3125rem] w-[16rem]"
         />
         {search.length > 0 && (
           <button onClick={clearSearch}>
@@ -51,12 +56,14 @@ const SearchComponent = ({
           </button>
         )}
       </div>
-      <button
-        onClick={handleCancel}
-        className="text-btn2 text-gray800 w-auto px-[0.62rem] whitespace-nowrap"
-      >
-        취소
-      </button>
+      {!custom && (
+        <button
+          onClick={handleCancel}
+          className="text-btn2 text-gray800 w-auto px-[0.62rem] whitespace-nowrap"
+        >
+          취소
+        </button>
+      )}
     </div>
   );
 };

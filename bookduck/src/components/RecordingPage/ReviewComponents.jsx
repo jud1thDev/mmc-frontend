@@ -5,9 +5,11 @@ import { useEffect } from "react";
 const ReviewComponents = ({
   reviewTitleValue = "감상평 제목",
   contents = "감상평 내용이 들어갈 자리입니다.",
-  bookTitleValue = "감상평 책",
-  authorValue = "감상평 지은이",
+  bookTitleValue,
+  authorValue,
+  reviewData,
 }) => {
+  const createdDate = reviewData?.createdTime.split("T")[0].replace(/-/g, ".");
   const navigate = useNavigate();
 
   const { reviewColor } = useReviewColorStore();
@@ -23,15 +25,22 @@ const ReviewComponents = ({
           !reviewColor && "bg-gray-400"
         } shadow-custom`}
       >
+        {createdDate && (
+          <div className="text-c2 text-[#ffffff99]">{createdDate}</div>
+        )}
         <div className="flex flex-col gap-[0.25rem]">
           <div className="text-st text-[#FFFFFF] font-semibold">
-            {reviewTitleValue}
+            {reviewData?.reviewTitle || reviewTitleValue}
           </div>
-          <div className="text-b2 text-[#FFFFFF]">{contents}</div>
+          <div className="text-b2 text-[#FFFFFF]">
+            {reviewData?.reviewContent || contents}
+          </div>
         </div>
-        <div className="text-c2 text-[#ffffff99]">
-          {bookTitleValue} / {authorValue}
-        </div>
+        {bookTitleValue && (
+          <div className="text-c2 text-[#ffffff99]">
+            {bookTitleValue} / {authorValue}
+          </div>
+        )}
       </div>
     </div>
   );

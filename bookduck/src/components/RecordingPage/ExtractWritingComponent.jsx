@@ -1,7 +1,8 @@
 import camera from "../../assets/recordingPage/camera-gray.svg";
 import WritingTemplate from "./WritingTemplate";
 import PublicRange from "./PublicRange";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { postExtractImage } from "../../api/archive";
 
 const ExtractWritingComponent = ({
   inputValue,
@@ -9,9 +10,23 @@ const ExtractWritingComponent = ({
   pageInputValue,
 }) => {
   const [extractPublicState, setExtractPublicState] = useState("전체공개");
+  const [extractImgURL, setExtractImgURL] = useState("");
 
   const handleState = (state) => {
     setExtractPublicState(state);
+  };
+
+  const handleExtractImage = async (e) => {
+    const file = e.target.files[0]; // 선택한 파일
+    if (file) {
+      setExtractImgURL(URL.createObjectURL(file));
+      console.log(URL.createObjectURL(file));
+      const data = {
+        image: URL.createObjectURL(file),
+      };
+      const res = await postExtractImage(data);
+      console.log(res);
+    }
   };
 
   return (
@@ -20,10 +35,19 @@ const ExtractWritingComponent = ({
         <div className="flex justify-between py-2 mt-4">
           <div className="text-b1 font-semibold">발췌</div>
           <div className="flex gap-[1.12rem]">
-            <div className="flex gap-[0.47rem] items-center cursor-pointer">
+            <label
+              htmlFor="ExtractImage"
+              className="flex gap-[0.47rem] items-center cursor-pointer"
+            >
               <img src={camera} alt="camera" />
               <div className="text-b2 text-gray-500">문장스캔</div>
-            </div>
+            </label>
+            <input
+              id="ExtractImage"
+              type="file"
+              className="hidden"
+              onChange={handleExtractImage}
+            />
             <PublicRange
               publicState={extractPublicState}
               setPublicState={setExtractPublicState}

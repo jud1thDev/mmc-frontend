@@ -13,22 +13,64 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 import EditBookListView from "../../components/common/EditBookListView";
 import add_book_btn from "../../assets/libraryPage/add-book-btn.svg";
 import RoundedTabComponent from "../../components/common/RoundedTabComponent";
+import {
+  getBookFromFolder,
+  getSortedTotalBook,
+  getTotalBook,
+  patchFolderName,
+  postAddFolderBook,
+} from "../../api/library";
+import { useQuery } from "@tanstack/react-query";
 
 const EnterBookCasePage = () => {
   const { id } = useParams(); // URL에서 id를 추출
   const [isClicked, setIsClicked] = useState("list");
-  const { bookList } = useBookListStore();
   const [editState, setEditState] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [selectedIndex, setSelectedIndex] = useState([]);
   const [addBookState, setAddBookState] = useState(false);
-  const [tab, setTab] = useState("");
-  const navigate = useNavigate();
+  const [tabList, setTabList] = useState([]);
+  const [bookList, setBookList] = useState([]);
+  const [sortedBookList, setSortedBookList] = useState([]);
+  const [selectedBookList, setSelectedBookList] = useState([]);
+
+  const getReadingStatusKey = (status) => {
+    switch (status) {
+      case "읽고 싶어요":
+        return "NOT_STARTED";
+      case "읽고 있어요":
+        return "READING";
+      case "다 읽었어요":
+        return "FINISHED";
+      case "중단했어요":
+        return "STOPPED";
+      default:
+        return "NOT_STARTED";
+    }
+  };
+
+  const {
+    data: folderBookListData = { bookList: [] },
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["folderBookListData"],
+    queryFn: () => getBookFromFolder(id),
+  });
+
+  useEffect(() => {
+    setInputValue(folderBookListData.folderName);
+  }, []);
 
   //편집 시 BookListView 클릭 (재클릭하면 클릭 취소)
-  const handleItemClick = (index) => {
+  const handleItemClick = (index, bookId) => {
     setSelectedIndex((prev) =>
       prev.includes(index) ? prev.filter((t) => t !== index) : [...prev, index]
+    );
+    setSelectedBookList((prev) =>
+      prev.includes(bookId)
+        ? prev.filter((t) => t !== bookId)
+        : [...prev, bookId]
     );
   };
 
@@ -36,19 +78,48 @@ const EnterBookCasePage = () => {
     setIsClicked(view);
   };
 
-  const handleEdit = () => {
+  const handleEdit = async () => {
+    if (editState) {
+      const data = {
+        folderName: inputValue,
+      };
+      const res = await patchFolderName(id, data);
+      console.log(res);
+      window.location.reload();
+    }
     setEditState(!editState);
     setSelectedIndex([]);
   };
 
-  const handleAddBook = () => {
+  const handleAddBook = async () => {
     setAddBookState(true);
+    const res = await getTotalBook("latest");
+    setBookList(res.bookList);
   };
 
   const handleTabClick = (tab) => {
-    setTab((prev) =>
+    setTabList((prev) =>
       prev.includes(tab) ? prev.filter((t) => t !== tab) : [...prev, tab]
     );
+  };
+
+  useEffect(() => {
+    const selectSortedList = async () => {
+      const statusList = tabList.map((it) => getReadingStatusKey(it));
+      console.log(statusList);
+      const res = await getSortedTotalBook(statusList, "latest");
+      setSortedBookList(res.bookList);
+    };
+    if (tabList.length !== 0) {
+      selectSortedList();
+    }
+  }, [tabList]);
+
+  const handleButtonClick = async () => {
+    if (addBookState) {
+      const res = await postAddFolderBook(id, userbookId);
+      console.log(res);
+    }
   };
 
   return (
@@ -87,7 +158,7 @@ const EnterBookCasePage = () => {
         ) : (
           !addBookState && (
             <>
-              <Header title="책장명" />
+              <Header title={folderBookListData.folderName} />
               <div className="absolute right-4 top-4 ">
                 <div className="flex gap-2 cursor-pointer">
                   <ListIcon
@@ -103,7 +174,7 @@ const EnterBookCasePage = () => {
             </>
           )
         )}
-        {bookList.length === 0 ? (
+        {!addBookState && folderBookListData.folderBookList.length === 0 ? (
           <div className="mt-[6.62rem] text-b2 text-gray-500 text-center">
             아직 추가된 책이 없어요. <br /> 아래 버튼을 눌러 책을 추가하세요!
           </div>
@@ -112,15 +183,15 @@ const EnterBookCasePage = () => {
             {isClicked === "list" && !editState && !addBookState && (
               <>
                 <div className="h-[42rem] mx-4 overflow-y-auto">
-                  {bookList &&
-                    bookList.map((it, index) => (
+                  {folderBookListData &&
+                    folderBookListData.folderBookList.map((book, index) => (
                       <div key={index}>
                         <BookListView
                           register={true}
-                          bookTitle={it.title}
-                          author={it.author}
+                          bookTitle={book.title}
+                          author={book.author}
                           edit={true}
-                          bookImg={it.img}
+                          bookImg={book.imgPath}
                           handleOnClick={() => {}}
                         />
                       </div>
@@ -132,14 +203,10 @@ const EnterBookCasePage = () => {
             {isClicked === "cover" && !editState && !addBookState && (
               <div className="h-[42rem] mx-4 overflow-y-auto">
                 <div className="grid grid-cols-3 place-items-center gap-x-3 gap-y-5">
-                  {bookList &&
-                    bookList.map((it, index) => (
+                  {folderBookListData &&
+                    folderBookListData.folderBookList.map((book, index) => (
                       <div key={index}>
-                        <BookComponent
-                          img={it.img}
-                          title={it.title}
-                          rating="3"
-                        />
+                        <BookComponent img={book.imgPath} title={book.title} />
                       </div>
                     ))}
                 </div>
@@ -147,22 +214,22 @@ const EnterBookCasePage = () => {
             )}
             {editState && (
               <div className="h-[42rem] overflow-y-auto">
-                {bookList &&
-                  bookList.map((it, index) => (
+                {folderBookListData &&
+                  folderBookListData.folderBookList.map((book, index) => (
                     <div
                       key={index}
-                      onClick={() => handleItemClick(index)}
+                      onClick={() => handleItemClick(index, book.userBookId)}
                       className={`${
                         selectedIndex.includes(index) ? "bg-gray-50" : ""
                       }`}
                     >
                       <div className=" mx-4">
                         <EditBookListView
-                          bookTitle={it.title}
-                          author={it.author}
+                          bookTitle={book.title}
+                          author={book.author}
                           edit={true}
                           addBook={false}
-                          bookImg={it.img}
+                          bookImg={book.imgPath}
                           isSelected={selectedIndex.includes(index)}
                         />
                       </div>
@@ -182,34 +249,61 @@ const EnterBookCasePage = () => {
                       "다 읽었어요",
                       "중단했어요",
                     ]}
-                    activeTabs={tab}
+                    activeTabs={tabList}
                     onTabClick={handleTabClick}
                     multiple={true}
                   />
                 </div>
 
                 <div className="h-[42rem] overflow-y-auto">
-                  {bookList &&
-                    bookList.map((it, index) => (
-                      <div
-                        key={index}
-                        onClick={() => handleItemClick(index)}
-                        className={`${
-                          selectedIndex.includes(index) ? "bg-gray-50" : ""
-                        }`}
-                      >
-                        <div className=" mx-4">
-                          <EditBookListView
-                            bookTitle={it.title}
-                            author={it.author}
-                            edit={false}
-                            addBook={true}
-                            bookImg={it.img}
-                            isSelected={selectedIndex.includes(index)}
-                          />
+                  {tabList.length === 0
+                    ? bookList &&
+                      bookList.map((book, index) => (
+                        <div
+                          key={index}
+                          onClick={() =>
+                            handleItemClick(index, book.userBookId)
+                          }
+                          className={`${
+                            selectedIndex.includes(index) ? "bg-gray-50" : ""
+                          }`}
+                        >
+                          <div className=" mx-4">
+                            <EditBookListView
+                              bookTitle={book.title}
+                              author={book.author}
+                              edit={false}
+                              addBook={true}
+                              bookImg={book.imgPath}
+                              rating={book.rating}
+                              isSelected={selectedIndex.includes(index)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))
+                    : sortedBookList.map((book, index) => (
+                        <div
+                          key={index}
+                          onClick={() =>
+                            handleItemClick(index, book.userBookId)
+                          }
+                          className={`${
+                            selectedIndex.includes(index) ? "bg-gray-50" : ""
+                          }`}
+                        >
+                          <div className=" mx-4">
+                            <EditBookListView
+                              bookTitle={book.title}
+                              author={book.author}
+                              edit={false}
+                              addBook={true}
+                              bookImg={book.imgPath}
+                              rating={book.rating}
+                              isSelected={selectedIndex.includes(index)}
+                            />
+                          </div>
+                        </div>
+                      ))}
                 </div>
               </>
             )}
@@ -235,6 +329,7 @@ const EnterBookCasePage = () => {
               }`}
               type="primary"
               disabled={selectedIndex.length === 0}
+              onClick={handleButtonClick}
             />
           </div>
         </div>

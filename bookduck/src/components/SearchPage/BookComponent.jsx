@@ -2,14 +2,15 @@ import React from "react";
 import emptyImage from "../../assets/recordingPage/rating-empty.svg";
 import filledImage from "../../assets/recordingPage/rating-filled.svg";
 
-const BookComponent = ({ img, title, writer, rating }) => {
+const BookComponent = ({ img, title, author, rating = 0 }) => {
+  console.log(rating);
   return (
     <div className="flex flex-col gap-2 w-[6.5rem] h-fit">
       <img src={img} className="w-full h-[9.25rem]" />
       <div>
         <div>{title}</div>
-        {writer && <div>{writer}</div>}
-        {rating && (
+        {author && <div>{author}</div>}
+        {rating !== undefined && rating !== null && (
           <div className="flex gap-[0.12rem]">
             {[...Array(5)].map((_, index) => (
               <div key={index}>

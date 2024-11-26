@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header3 from "../../components/common/Header3";
 import StatusBar from "../../components/common/StatusBar";
 import TabBarComponent from "../../components/common/TabBarComponent";
@@ -6,14 +7,13 @@ import CurrentFriendComponent from "../../components/FriendPage/CurrentFriendCom
 import FriendRequestComponent from "../../components/FriendPage/FriendRequestComponent";
 const FriendListPage = () => {
   const [tab, setTab] = useState("친구");
+  const location = useLocation();
 
-  // const friendList = [
-  //   { id: "1", userName: "유저1" },
-  //   { id: "2", userName: "유저2" },
-  //   { id: "3", userName: "유저3" },
-  //   { id: "4", userName: "유저4" },
-  //   { id: "5", userName: "유저5" },
-  // ];
+  useEffect(() => {
+    if (location.state?.activeTab) {
+      setTab(location.state.activeTab);
+    }
+  }, [location.state]);
   return (
     <div>
       <StatusBar />

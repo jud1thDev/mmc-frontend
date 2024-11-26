@@ -14,6 +14,7 @@ const TextField = ({
   check = true,
   error = null,
   inputError,
+  nickname = false,
   handleEdit,
   isSubmitted,
   defaultType,
@@ -54,7 +55,7 @@ const TextField = ({
           </div>
         )}
       </div>
-      {!defaultType && !isSubmitted && (
+      {nickname && !defaultType && !isSubmitted && (
         <p
           className={`text-c1 ${
             inputError ? "text-orange-600" : "text-gray-400"

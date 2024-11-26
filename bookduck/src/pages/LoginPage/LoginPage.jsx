@@ -2,6 +2,7 @@ import { KakaoURI, GoogleURI } from "../../api/oauth";
 import mainDuck from "../../assets/common/main-duck.svg";
 import kakao from "../../assets/loginPage/kakao.svg";
 import google from "../../assets/loginPage/google.svg";
+
 const LoginPage = () => {
   return (
     <div className="flex flex-col">
