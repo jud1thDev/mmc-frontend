@@ -25,7 +25,7 @@ const BookInfoAddedPage = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [bookinfoId]);
 
   const [activeTab, setActiveTab] = useState("기록");
   // api받았을때 isMe가 me이면 내가 등록한 페이지, other이면 타유저가 등록한 페이지

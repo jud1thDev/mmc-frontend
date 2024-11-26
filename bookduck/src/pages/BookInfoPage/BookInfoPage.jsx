@@ -14,7 +14,6 @@ const BookInfoPage = () => {
   const [activeTab, setActiveTab] = useState("책 정보");
   const [RatingListData, setRatingListData] = useState(null);
   const [bookData, setBookData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,12 +26,10 @@ const BookInfoPage = () => {
         console.log("조회2 성공: ", res2);
       } catch (err) {
         console.error("오류 발생: ", err);
-      } finally {
-        setLoading(false);
       }
     };
     fetchData();
-  }, []);
+  }, [bookinfoId]);
 
   return (
     <div className="w-[24.5625rem]">
