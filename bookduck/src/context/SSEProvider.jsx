@@ -1,25 +1,36 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { EventSourcePolyfill } from "event-source-polyfill";
 
+// SSE Context 생성
 const SSEContext = createContext();
 
+// SSEProvider 컴포넌트
 export const SSEProvider = ({ children }) => {
+  // SSE 데이터 상태 관리
   const [sseData, setSseData] = useState({
     isCommonAlarmChecked: null,
     isAnnouncementChecked: null,
     isItemUnlockedChecked: null,
   });
 
-  useEffect(() => {
-    console.log("sseData 상태 업데이트:", sseData);
-  }, [sseData]);
+  // SSE 연결 함수
+  const initializeSSE = () => {
+    console.log("SSE 초기화 시작...");
 
-  useEffect(() => {
-    let eventSource;
-    const tokenData = JSON.parse(localStorage.getItem("token"));
+    // LocalStorage에서 토큰 가져오기
+    const rawTokenData = localStorage.getItem("token");
+    const tokenData = JSON.parse(rawTokenData || "{}");
     const accessKey = tokenData?.accessToken;
 
-    if (accessKey) {
+    // Access Token 확인
+    if (!accessKey) {
+      console.error("Access key가 없습니다.");
+      return null;
+    }
+
+    // EventSourcePolyfill 생성
+    let eventSource;
+    try {
       eventSource = new EventSourcePolyfill(
         "https://api.bookduck.kro.kr/alarms/subscribe",
         {
@@ -30,26 +41,50 @@ export const SSEProvider = ({ children }) => {
           withCredentials: true,
         }
       );
+      console.log("EventSourcePolyfill 객체 생성 성공");
+    } catch (error) {
+      console.error("EventSourcePolyfill 생성 중 에러 발생:", error);
+      return null;
+    }
 
-      eventSource.onopen = () => {
-        console.log("SSE 연결이 열렸습니다!");
-      };
+    // 연결 성공 시 로그 출력
+    eventSource.onopen = () => {
+      console.log("SSE 연결이 열렸습니다!");
+    };
 
-      eventSource.addEventListener("sse-alarm", (event) => {
+    // SSE 이벤트 수신
+    eventSource.addEventListener("sse-alarm", (event) => {
+      console.log("SSE 이벤트 수신:", event);
+      try {
         const data = JSON.parse(event.data);
-        console.log("새로운 알림 수신:", data);
+        // console.log("수신된 데이터 파싱 성공:", data);
         setSseData({
           isCommonAlarmChecked: data.isCommonAlarmChecked,
           isAnnouncementChecked: data.isAnnouncementChecked,
           isItemUnlockedChecked: data.isItemUnlockedChecked,
         });
-      });
+      } catch (error) {
+        console.error("SSE 데이터 파싱 오류:", error);
+      }
+    });
 
-      eventSource.onerror = (error) => {
-        console.error("SSE 에러:", error);
-      };
-    }
+    // 오류 처리
+    eventSource.onerror = (error) => {
+      console.error("SSE 연결 에러 발생:", error);
+      if (error.status) {
+        console.error("HTTP 상태 코드:", error.status);
+      }
+    };
 
+    return eventSource;
+  };
+
+  // SSE 초기화 및 정리
+  useEffect(() => {
+    console.log("SSEProvider 마운트 - SSE 연결 시도");
+    const eventSource = initializeSSE();
+
+    // 컴포넌트 언마운트 시 SSE 연결 해제
     return () => {
       if (eventSource) {
         eventSource.close();
@@ -63,6 +98,7 @@ export const SSEProvider = ({ children }) => {
   );
 };
 
+// SSEContext를 사용하는 커스텀 훅
 export const useSSE = () => {
   return useContext(SSEContext);
 };
