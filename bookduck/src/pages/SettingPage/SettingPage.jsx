@@ -215,7 +215,7 @@ const SettingPage = () => {
   const handleLogout = async () => {
     try {
       await postLogout();
-      localStorage.removeItem("token");
+      localStorage.clear();
       navigate(`/login`, { replace: true });
     } catch (error) {
       console.error(error);

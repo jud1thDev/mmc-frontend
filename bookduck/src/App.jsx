@@ -32,18 +32,38 @@ import SettingPage from "./pages/SettingPage/SettingPage";
 import FriendListPage from "./pages/FriendPage/FriendListPage";
 import OAuthRedierctPage from "./pages/LoginPage/OAuthRedierctPage";
 import OtherMainPage from "./pages/OtherUserPage/OtherMainPage";
-import OtherStatisticsPage from "./pages/OtherUserPage/OtherStatisticsPage";
+import handleFcmToken from "./components/NotificationPage/handleFcmToken";
+import { getUserId } from "./api/oauth";
 
 function App() {
   useEffect(() => {
-    const fetchFcmToken = async () => {
-      const token = await requestFcmToken();
-      if (token) {
-        console.log("FCM 토큰을 서버로 전송하거나 저장:", token);
+    const fetchandSendFCM = async () => {
+      try {
+        const id = await getUserId();
+        const accessToken = localStorage.getItem("token");
+
+        if (!id || !accessToken) {
+          console.error("사용자 ID 또는 액세스 토큰이 없습니다.");
+          return;
+        }
+
+        console.log(
+          "FCM 처리 시작 - userId:",
+          id,
+          "Access Token:",
+          accessToken
+        );
+
+        await handleFcmToken(id);
+        console.log("FCM 처리 완료");
+      } catch (error) {
+        console.error("FCM 처리 중 오류 발생:", error.message);
       }
     };
-    fetchFcmToken();
+
+    fetchandSendFCM();
   }, []);
+
   useEffect(() => {
     // 포그라운드 메시지 수신 처리
     onMessage(messaging, (payload) => {
