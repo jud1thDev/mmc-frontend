@@ -15,15 +15,19 @@ const EditBookListView = ({
   isSelected,
   edit,
   addBook,
+  rating,
 }) => {
-  const [rating, setRating] = useState(0);
   return (
     <div
       className={`flex items-center justify-between w-full h-[7.75rem] pb-[0.5rem] pt-[0.5rem] cursor-pointer`}
     >
       <div className="flex gap-[0.75rem] items-center w-[15.75rem] h-[6.75rem]">
         <div className="relative">
-          <img src={bookImg ? bookImg : coverEx} alt="coverEx" />
+          <img
+            className="w-[4.75rem] h-[6.75rem]"
+            src={bookImg ? bookImg : coverEx}
+            alt="coverEx"
+          />
           <div className="absolute top-1 left-1">
             <img src={isSelected ? check : not_checked} alt="check" />
           </div>
@@ -36,7 +40,7 @@ const EditBookListView = ({
               <div key={index}>
                 <img
                   key={index}
-                  src={index <= rating ? filledImage : emptyImage} // 채워진 이미지 또는 비워진 이미지 표시
+                  src={index < rating ? filledImage : emptyImage} // 채워진 이미지 또는 비워진 이미지 표시
                   alt="rating"
                   className="" // 이미지 크기 조절
                 />

@@ -162,8 +162,9 @@ const BookListPage = ({ view }) => {
         {view === "list" && (
           <div className="h-[40rem]  mx-4 overflow-y-auto ">
             {tabList.length === 0
-              ? bookListData.bookList.map((book) => (
+              ? bookListData.bookList.map((book, index) => (
                   <BookListView
+                    key={index}
                     handleStatusClick={() => handleStatusClick(book.userBookId)}
                     edit={true}
                     bottomSheet={true}

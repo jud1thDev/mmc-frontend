@@ -9,7 +9,7 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 import ListIcon from "../../components/LibraryPage/ListIcon";
 import CoverIcon from "../../components/LibraryPage/CoverIcon";
 import plus_orange from "../../assets/common/plus-orange.svg";
-import { getTotalBook } from "../../api/library";
+import { postAddFolder } from "../../api/library";
 
 const LibraryPage = () => {
   const [tab, setTab] = useState("책 목록");
@@ -28,6 +28,16 @@ const LibraryPage = () => {
     setTimeout(() => {
       setShowAddBookCaseBottomSheet(false); // 애니메이션이 끝난 후 모달 완전히 닫기
     }, 300);
+  };
+
+  const handleAddFolder = async () => {
+    const data = {
+      folderName: inputValue,
+    };
+    const res = await postAddFolder(data);
+    window.location.reload();
+    setShowAddBookCaseBottomSheet(false);
+    console.log(res);
   };
 
   return (
@@ -99,6 +109,7 @@ const LibraryPage = () => {
               text="완료"
               type="primary"
               disabled={!inputValue}
+              onClick={handleAddFolder}
             />
           </div>
         </BottomSheetModal>

@@ -6,13 +6,14 @@ const BookCaseComponent = ({
   setShowMenuBottomSheet,
   bookCaseTitle = "책장명",
   bookList = [],
-  id = 1,
+  bookCaseId,
+  setFolderId,
 }) => {
   const { setBookList } = useBookListStore();
   const navigate = useNavigate();
   const handleBookCase = () => {
     setBookList(bookList);
-    navigate(`/library/bookcase/${id}`);
+    navigate(`/library/bookcase/${bookCaseId}`);
   };
   return (
     <>
@@ -27,7 +28,11 @@ const BookCaseComponent = ({
               <div className="text-b2 text-orange-400">({bookList.length})</div>
             </div>
             <div
-              onClick={() => setShowMenuBottomSheet(true)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowMenuBottomSheet(true);
+                setFolderId(bookCaseId);
+              }}
               className="cursor-pointer"
             >
               <img src={horizontal_menu} />
