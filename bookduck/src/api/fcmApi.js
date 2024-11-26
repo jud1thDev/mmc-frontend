@@ -10,6 +10,5 @@ export const postFcmToken = async (userId, fcmToken) => {
     return response;
   } catch (error) {
     console.error("FCM 토큰 전송 실패:", error);
-    // postAccessTokenIssue();
   }
 };

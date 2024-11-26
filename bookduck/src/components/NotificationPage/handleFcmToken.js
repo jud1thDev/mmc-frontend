@@ -14,7 +14,6 @@ const handleFcmToken = async (userId) => {
         // 2. 서버로 FCM 토큰 전송
         await postFcmToken(userId, fcmToken);
         localStorage.setItem("isFcmTokenSent", JSON.stringify(true));
-        console.log("FCM 토큰 서버로 전송 완료되었습니다");
       } else {
         console.error("FCM 토큰 가져오기 실패");
       }
