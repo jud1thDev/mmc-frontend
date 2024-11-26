@@ -29,7 +29,7 @@ const PreferredAuthor = ({ author, imgPath }) => {
       ) : (
         <div className="flex flex-col gap-5 font-semibold w-full">
           선호하는 작가예요
-          <div className="flex justify-center items-center text-btn4 text-center text-gray-400 font-regular w-full h-16">
+          <div className="flex justify-center pr-5 items-center text-btn4 text-center text-gray-400 font-regular w-full h-16">
             북덕이 분석하기에
             <br /> 정보가 부족해요
           </div>

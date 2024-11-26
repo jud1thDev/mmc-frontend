@@ -14,7 +14,6 @@ const BookInfoPage = () => {
   const [activeTab, setActiveTab] = useState("책 정보");
   const [RatingListData, setRatingListData] = useState(null);
   const [bookData, setBookData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,12 +26,10 @@ const BookInfoPage = () => {
         console.log("조회2 성공: ", res2);
       } catch (err) {
         console.error("오류 발생: ", err);
-      } finally {
-        setLoading(false);
       }
     };
     fetchData();
-  }, []);
+  }, [bookinfoId]);
 
   return (
     <div className="w-[24.5625rem]">
@@ -43,22 +40,25 @@ const BookInfoPage = () => {
             <BookInfo bookData={bookData} />
             <MyComment bookData={bookData} />
           </div>
+        </div>
+        <div className="flex flex-col mt-2 gap-4">
           <TabBarComponent
             tabs={["책 정보", "기록"]}
             activeTab={activeTab}
             onTabClick={setActiveTab}
             size=""
           />
-        </div>
-        {activeTab === "책 정보" && (
-          <InfoView
-            bookData={bookData?.bookInfoDetailDto}
-            ratingData={RatingListData}
-          />
-        )}
-        {activeTab === "기록" && <ArchiveView />}
-        <div className="fixed bottom-[2.625rem] flex justify-end w-[24.5625rem] cursor-pointer">
-          <FloatingRecordButton />
+
+          {activeTab === "책 정보" && (
+            <InfoView
+              bookData={bookData?.bookInfoDetailDto}
+              ratingData={RatingListData}
+            />
+          )}
+          {activeTab === "기록" && <ArchiveView bookinfoId={bookinfoId} />}
+          <div className="fixed bottom-[2.625rem] flex justify-end w-[24.5625rem] cursor-pointer">
+            <FloatingRecordButton />
+          </div>
         </div>
       </div>
     </div>

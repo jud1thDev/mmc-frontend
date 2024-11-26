@@ -36,3 +36,15 @@ export const getItemLists = async () => {
     throw error;
   }
 };
+
+// 내 뱃지 목록 조회
+export const getBadgeLists = async () => {
+  try {
+    const res = await get(`/badges`);
+    console.log("배지 리스트 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("배지 리스트 조회 실패: ", error);
+    throw error;
+  }
+};

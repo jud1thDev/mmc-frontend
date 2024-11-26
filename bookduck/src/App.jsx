@@ -19,9 +19,10 @@ import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
 import SelectCardPage from "./pages/MainPage/SelectCardPage";
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
-import BookInfoAddedPage from "./pages/BookInfoPage/BoonInfoAddedPage";
+import BookInfoAddedPage from "./pages/BookInfoPage/BookInfoAddedPage";
 import StatisticsPage from "./pages/StatisticsPage/StatisticsPage";
 import CharacterExportPage from "./pages/StatisticsPage/CharacterExportPage";
+import SummaryExportPage from "./pages/StatisticsPage/SummaryExportPage";
 import CardDecorationPage from "./pages/RecordingPage/CardDecorationPage";
 import LibraryPage from "./pages/LibraryPage/LibraryPage";
 import EnterBookCasePage from "./pages/LibraryPage/EnterBookCasePage";
@@ -70,10 +71,14 @@ function App() {
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/setting" element={<SettingPage />} />
       <Route path="/notification" element={<NotificationPage />} />
-      <Route path="/statistics" element={<StatisticsPage />} />
+      <Route path="/statistics/:userId" element={<StatisticsPage />} />
       <Route
         path="/statistics/export/character"
         element={<CharacterExportPage />}
+      />
+      <Route
+        path="/statistics/export/summary"
+        element={<SummaryExportPage />}
       />
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
@@ -84,7 +89,10 @@ function App() {
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/search/register" element={<RegisterPage />} />
       <Route path="/info/book/:bookinfoId" element={<BookInfoPage />} />
-      <Route path="/info/book/user" element={<BookInfoAddedPage />} />
+      <Route
+        path="/info/book/custom/:bookinfoId"
+        element={<BookInfoAddedPage />}
+      />
       <Route path="/info/book/comment" element={<UserCommentPage />} />
       <Route path="/selectcard" element={<SelectCardPage />} />
       <Route path="/selectcard/extract" element={<SelectExtractPage />} />

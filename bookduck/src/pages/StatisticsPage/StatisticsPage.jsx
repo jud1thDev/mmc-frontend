@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Header3 from "../../components/common/Header3";
 import RecordCalender from "../../components/StatisticsPage/RecordCalender";
 import Divider2 from "../../components/common/Divider2";
@@ -9,18 +10,16 @@ import PreferredGenre from "../../components/StatisticsPage/PreferredGenre";
 import MonthlyReading from "../../components/StatisticsPage/MonthlyReading";
 import UserCard from "../../components/StatisticsPage/UserCard";
 import { getUserStatisticsInfo } from "../../api/statistics";
-import { getUserId } from "../../api/oauth";
+// import { getUserId } from "../../api/oauth";
 
 const StatisticsPage = () => {
+  const { userId } = useParams();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userId = getUserId();
-        // const userId = 1;
-
         const res = await getUserStatisticsInfo(userId);
         console.log("조회성공: ", res);
         setUserData(res);
@@ -31,7 +30,7 @@ const StatisticsPage = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [userId]);
   if (loading) {
     return <div className="text-center mt-10"></div>;
   }
@@ -43,7 +42,7 @@ const StatisticsPage = () => {
         <div className="text-b1 font-semibold">
           {userData?.isFirstHalf ? "상반기" : "하반기"} 기록은 총{" "}
           <span className="text-blue-800">
-            {userData.excerptCount + userData.bookRecordCount}
+            {userData?.excerptCount + userData?.bookRecordCount}
           </span>
           개!
         </div>
@@ -58,12 +57,12 @@ const StatisticsPage = () => {
         </div>
       </div>
       <MonthlyReading userData={userData} />
-      <PreferredGenre userData={userData.mostReadGenres} />
+      <PreferredGenre userData={userData?.mostReadGenres} />
       <Divider2 />
       {/* 같은 작가의 작품을 최소 2권 이상을 읽어야 ‘선호하는 작가' 카드가 보임 */}
       <PreferredAuthor
-        author={userData.mostReadAuthor}
-        imgPath={userData.imgPaths}
+        author={userData?.mostReadAuthor}
+        imgPath={userData?.imgPaths}
       />
       <Divider2 />
       <MyKeyword />
