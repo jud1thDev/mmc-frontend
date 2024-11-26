@@ -99,8 +99,6 @@ const NotificationItemComponent = ({
 }) => {
   const navigate = useNavigate();
   const notificationData = notificationTemplates[alarmType];
-  console.log(notificationData);
-
   useEffect(() => {
     console.log("resourceId", resourceId);
   }, [resourceId]);
