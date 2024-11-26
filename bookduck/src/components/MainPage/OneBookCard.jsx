@@ -9,6 +9,8 @@ const OneBookCard = ({
   setBottomSheetShow,
   selected,
   setSelected,
+  cardId,
+  cardIndex,
 
   bookNumber = 1,
   firstImg,
@@ -55,7 +57,16 @@ const OneBookCard = ({
       text2: cardType === "BOOK_WITH_SONG" ? song : null,
       text3: cardType === "BOOK_WITH_SONG" ? bookTitle : null,
     });
-  }, [firstImg, secondImg, singer, song, memo, cardType, bookNumber]);
+  }, [
+    firstImg,
+    secondImg,
+    singer,
+    song,
+    memo,
+    cardType,
+    bookNumber,
+    bookTitle,
+  ]);
 
   useEffect(() => {
     console.log(bookTitle);
@@ -118,7 +129,13 @@ const OneBookCard = ({
             selected === "firstBook" ? "border-[1px] border-[#6B7FF0]" : ""
           } flex items-center justify-center w-[5.125rem] h-full bg-gray-custom rounded-[0.375rem] shadow-custom`}
         >
-          <img src={firstImg || bookCard} alt="Book Card" />
+          <div className="flex justify-center items-center w-[5.0625rem] h-[6.8rem] overflow-hidden rounded-[0.4rem]">
+            <img
+              src={firstImg || bookCard}
+              alt="Book Card"
+              className={`${firstImg ? "object-cover w-full h-full" : ""}`}
+            />
+          </div>
         </div>
 
         {/* 두 번째 북박스 */}
@@ -137,7 +154,13 @@ const OneBookCard = ({
               selected === "secondBook" ? "border-[1px] border-[#6B7FF0]" : ""
             } flex items-center justify-center w-[5.125rem] h-full bg-gray-custom rounded-[0.375rem] shadow-custom`}
           >
-            <img src={secondImg || bookCard} alt="Book Card" />
+            <div className="flex justify-center items-center w-[5.0625rem] h-[6.8rem] overflow-hidden rounded-[0.4rem]">
+              <img
+                src={secondImg || bookCard}
+                alt="Book Card"
+                className={`${secondImg ? "object-cover w-full h-full" : ""}`}
+              />
+            </div>
           </div>
         )}
 

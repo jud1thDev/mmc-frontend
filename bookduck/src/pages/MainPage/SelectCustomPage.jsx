@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { get, post } from "../../api/example";
 import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
@@ -12,7 +13,7 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 const SelectCustomPage = () => {
   //상태 관리
   const location = useLocation();
-
+  const navigate = useNavigate();
   const bookNumber = location.state?.bookNumber;
   const [selected, setSelected] = useState("firstBook");
   const [firstImg, setFirstImg] = useState();
@@ -51,9 +52,9 @@ const SelectCustomPage = () => {
   // 카드 등록하기
   const postCard = async () => {
     try {
-      console.log(cardData);
+      console.log("cardData", cardData);
       const response = await post(`/readingspace`, cardData);
-      console.log("Card successfully posted:", response);
+      console.log("Card successfully posted:card Data:", response);
     } catch (error) {
       console.error("Error posting card:", error);
     }
@@ -61,6 +62,7 @@ const SelectCustomPage = () => {
 
   //useEffect hook
   useEffect(() => {
+    console.log("books", books);
     getBooks();
   }, []);
 
@@ -84,12 +86,12 @@ const SelectCustomPage = () => {
   }, [enabled]);
 
   //이벤트 핸들러
-  const handleStatusClick = (bookInfoId, bookImg) => {
+  const handleStatusClick = (userBookId, bookImg) => {
     if (selected === "firstBook") {
-      setFirstId(bookInfoId);
+      setFirstId(userBookId);
       setFirstImg(bookImg);
     } else if (selected === "secondBook") {
-      setSecondId(bookInfoId);
+      setSecondId(userBookId);
       setSecondImg(bookImg);
     }
 
@@ -97,6 +99,11 @@ const SelectCustomPage = () => {
     setTimeout(() => {
       setBottomSheetShow(false);
     }, 200);
+  };
+
+  const handleSubmitClick = () => {
+    postCard();
+    navigate("/home");
   };
   return (
     <div className="w-[24.5625rem]">
@@ -125,7 +132,7 @@ const SelectCustomPage = () => {
           text="완료"
           type="primary"
           disabled={!enabled}
-          onClick={postCard}
+          onClick={handleSubmitClick}
         />
       </div>
       <BottomSheetModal
@@ -140,6 +147,7 @@ const SelectCustomPage = () => {
         <SearchComponent
           search={search}
           setSearch={setSearch}
+          custom={true}
           placeholder="서재에 담긴 책을 검색하세요"
         />
         <div className="px-4">
@@ -152,7 +160,7 @@ const SelectCustomPage = () => {
               bookImg={book.imgPath}
               rating={book.rating}
               handleOnClick={() =>
-                handleStatusClick(book.bookInfoId, book.imgPath)
+                handleStatusClick(book.userBookId, book.imgPath)
               }
             />
           ))}

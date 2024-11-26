@@ -5,110 +5,213 @@ import ButtonComponent from "../common/ButtonComponent";
 import BottomSheetModal from "../common/BottomSheetModal";
 import Divider1 from "../../components/common/Divider1";
 import ListBottomSheet from "../common/ListBottomSheet";
-import { get, patch } from "../../api/example";
+import { get, patch, post, del } from "../../api/example";
+
+const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
+const DATA_LIMIT = 10;
+
+const getReadingStatusKey = (status) => {
+  switch (status) {
+    case "읽고 싶어요":
+      return "NOT_STARTED";
+    case "읽고 있어요":
+      return "READING";
+    case "다 읽었어요":
+      return "FINISHED";
+    case "중단했어요":
+      return "STOPPED";
+    default:
+      return "NOT_STARTED";
+  }
+};
+const getReadingStatusKor = (status) => {
+  switch (status) {
+    case "NOT_STARTED":
+      return "읽고 싶어요";
+    case "READING":
+      return "읽고 있어요";
+    case "FINISHED":
+      return "다 읽었어요";
+    case "STOPPED":
+      return "중단했어요";
+    default:
+      return "NOT_STARTED";
+  }
+};
 
 const SearchBookComponent = ({ search }) => {
   const navigate = useNavigate();
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
-
-  const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
-  const [currentState, setCurrentStatus] = useState();
-  const [selectedBookId, setSelectedBookId] = useState();
-  const [isCancel, setIsCancel] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
   const [registeredBooks, setRegisteredBooks] = useState([]);
   const [books, setBooks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentState, setCurrentState] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const loaderRef = useRef(null);
-  const DATA_LIMIT = 10;
 
-  const getReadingStatusKey = (status) => {
-    switch (status) {
-      case "읽고 싶어요":
-        return "NOT_STARTED";
-      case "읽고 있어요":
-        return "READING";
-      case "다 읽었어요":
-        return "FINISHED";
-      case "중단했어요":
-        return "STOPPED";
-      default:
-        return "NOT_STARTED";
-    }
-  };
-
-  //API연결
-  //API-등록 책 정보받기
-  const getRegisteredBooks = async (keyword, page = 1) => {
+  // API - 등록 책 정보 받아오기
+  const getRegisteredBooks = async (keyword) => {
+    if (!keyword) return;
     try {
       const response = await get(
-        `/bookinfo/search/custom?keyword=${encodeURIComponent(
-          keyword
-        )}&page=${page}&size=${DATA_LIMIT}`
+        `/bookinfo/search/custom?keyword=${encodeURIComponent(keyword)}`
       );
-      console.log("response", response);
-      const data = response.bookList.map((book) => ({
-        bookinfoId: book.bookinfoId,
-        title: book.title,
-        author: book.author,
-        imgPath: book.imgPath,
-        myRating: book.myRating,
-        readStatus: book.readStatus,
-      }));
-      console.log("data", data);
-
-      setRegisteredBooks((b) => [...b, data]);
-      console.log("registeredBooks:", registeredBooks);
+      setRegisteredBooks(response.bookList || []);
     } catch (error) {
-      console.error("등록 책 읽어오기 오류", error);
+      console.error("등록 책 읽어오기 오류:", error);
     }
   };
-  // API-일반 책 받아오기
-  const getBooks = async (keyword, page = 1) => {
-    if (!keyword) return;
+
+  // API - 일반 책 데이터 받아오기
+  const getBooks = async (keyword, page = 0) => {
+    if (!keyword) return setBooks([]);
+    setIsLoading(true);
     try {
       const response = await get(
         `/bookinfo/search?keyword=${encodeURIComponent(
           keyword
         )}&page=${page}&size=${DATA_LIMIT}`
       );
-      console.log(response);
-      const data = response.bookList.map((book) => ({
-        id: book.bookinfoId,
-        title: book.title,
-        author: book.author,
-        img: book.imgPath,
-        myRating: book.myRating,
-        readStatus: book.readStatus,
-      }));
 
-      setBooks((b) => [...b, ...data]);
-      setTotalPages(response.totalPages || 1); // 서버에서 전체 페이지 수 반환
+      console.log(`일반 책 response ${currentPage}`, response);
+
+      // 중복 제거 및 상태 업데이트
+      setBooks((prevBooks) => {
+        return page === 0
+          ? response.bookList
+          : [...prevBooks, ...response.bookList];
+      });
+
+      setTotalPages(response.totalPages || 1);
     } catch (error) {
       console.error("책 데이터 불러오기 오류:", error);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  //API-직접 등록 책 상태 변경
-  const patchRegisteredStatus = async (selectedBookId, currentStatus) => {
+  // 책 상태 변경 API 호출
+  const patchRegisteredStatus = async (option) => {
     try {
-      await patch(`/books/${selectedBookId}?status=${currentStatus}`);
+      const statusKey = getReadingStatusKey(option);
+      await patch(`/books/${selectedBook.userbookId}?status=${statusKey}`);
+      console.log(`책 상태 업데이트 성공: ${statusKey}`);
+      setSelectedBook(null);
+      getRegisteredBooks(search); // 등록된 책 갱신
+      getBooks(search, 0); // 일반 책 첫 페이지 갱신
+      setVisible(false);
+      setTimeout(() => {
+        setBottomSheetShow(false);
+      }, 200);
+    } catch (error) {
+      console.error("책 상태 변경 업데이트 오류:", error);
+    }
+  };
+
+  // 책 등록 API 호출
+  const postBooks = async (option) => {
+    const statusKey = getReadingStatusKey(option);
+    try {
+      const requestBody = {
+        title: selectedBook.title,
+        author: selectedBook.author,
+        imgPath: selectedBook.imgPath,
+        readStatus: statusKey,
+      };
+      await post(`/bookinfo/${selectedBook.providerId}/add`, requestBody);
+      console.log(`서재에 도서 추가 완료: ${selectedBook.providerId}`);
+      setVisible(false);
+      setTimeout(() => {
+        setBottomSheetShow(false);
+      }, 200);
+      setSelectedBook(null);
+      getBooks(search, 0); // 첫 페이지 새로 로드
+    } catch (error) {
+      console.error("책 등록 업데이트 오류:", error);
+    }
+  };
+
+  // 책 삭제 API 호출
+  const deleteBook = async (userbookId) => {
+    try {
+      await del(`/books/${userbookId}`);
+      setSelectedBook(null);
+      getRegisteredBooks(search);
+      getBooks(search, 0);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // useEffect 훅
-  // 검색어 변경 시 데이터 초기화 및 첫 페이지 호출
+  const handleStatusChange = (option) => {
+    if (!selectedBook) return;
+
+    if (selectedBook.providerId) {
+      // 일반 책인 경우
+      if (selectedBook.readStatus === null) {
+        // 미등록 책
+        postBooks(option);
+      } else {
+        // 등록된 책
+        patchRegisteredStatus(option);
+      }
+    } else {
+      // 등록된 책만 처리
+      patchRegisteredStatus(option);
+    }
+  };
+
+  // 책 선택 핸들러
+  const handleSelectedBook = (book, isRegistered) => {
+    console.log("북덕", book);
+    const isLibraryBook = !isRegistered && book.bookUnitDto?.userbookId;
+    setSelectedBook({
+      bookInfoId: isRegistered
+        ? book.bookInfoId
+        : isLibraryBook
+        ? book.bookUnitDto.bookInfoId
+        : null,
+      userbookId: isRegistered
+        ? book.userbookId
+        : isLibraryBook
+        ? book.bookUnitDto.userbookId
+        : null,
+      providerId: isRegistered ? null : book.providerId,
+      title: isRegistered ? book.title : book.bookUnitDto.title,
+      author: isRegistered ? book.author : book.bookUnitDto.author,
+      imgPath: isRegistered ? book.imgPath : book.bookUnitDto.imgPath,
+      readStatus: isRegistered ? book.readStatus : book.bookUnitDto.readStatus,
+    });
+    const status = isRegistered ? book.readStatus : book.bookUnitDto.readStatus;
+    setCurrentState(getReadingStatusKor(status));
+
+    setBottomSheetShow(true);
+  };
+
   useEffect(() => {
+    // 검색어가 변경될 때 상태를 초기화하고 첫 페이지 호출
+    const resetSearch = async () => {
+      console.log("검색어 변경:", search);
+
+      // 상태 초기화
+      setBooks([]); // 기존 책 데이터 초기화
+      setCurrentPage(0); // 페이지 초기화
+      setTotalPages(1);
+
+      try {
+        await getRegisteredBooks(search); // 등록된 책 요청
+        await getBooks(search, 0); // 첫 페이지 요청
+      } catch (error) {
+        console.error("검색어 변경 처리 중 오류:", error);
+      }
+    };
+
     if (search) {
-      setBooks([]); // 기존 데이터 초기화
-      setCurrentPage(1); // 첫 페이지로 초기화
-      getBooks(search, 1);
-      setRegisteredBooks([]);
-      getRegisteredBooks(search);
+      resetSearch(); // 검색어 변경 시 초기화 함수 호출
     }
   }, [search]);
 
@@ -116,14 +219,14 @@ const SearchBookComponent = ({ search }) => {
   useEffect(() => {
     const handleObserver = (entries) => {
       const [entry] = entries;
-      if (entry.isIntersecting && currentPage < totalPages) {
-        console.log("다음 페이지 로드");
-        setCurrentPage((p) => p + 1);
+      if (entry.isIntersecting && currentPage < totalPages - 1 && !isLoading) {
+        console.log("다음 페이지 로드!");
+        setCurrentPage((prev) => prev + 1);
       }
     };
 
     const observer = new IntersectionObserver(handleObserver, {
-      root: null, // viewport 사용
+      root: null,
       rootMargin: "0px",
       threshold: 1.0,
     });
@@ -133,112 +236,77 @@ const SearchBookComponent = ({ search }) => {
     return () => observer.disconnect();
   }, [currentPage, totalPages]);
 
-  // 현재 페이지 데이터 로드
+  // 현재 페이지 변경 시 데이터 요청
   useEffect(() => {
-    if (currentPage > 1 && search) {
+    if (search && currentPage >= 0) {
       console.log(`페이지 ${currentPage} 데이터 로드`);
       getBooks(search, currentPage);
     }
   }, [currentPage, search]);
 
-  //이벤트 핸들러
-  const handleStatusClick = (id) => {
-    console.log("id", id);
-    setSelectedBookId(id);
-
-    console.log("id", selectedBookId);
-    setBottomSheetShow(true);
-  };
-
-  /*직접 등록 책 처음 등록*/
-  const handleStatusRegister = async (status) => {
-    setCurrentStatus(status);
-    const res = await patchRegisteredStatus(
-      selectedBookId,
-      getReadingStatusKey(status)
-    );
-    console.log(res);
-    setVisible(false);
-    setTimeout(() => {
-      setBottomSheetShow(false);
-    }, 200);
-  };
-
-  /*직접 등록 책 상태 변경*/
-  const handleStatusChange = async (status) => {
-    setCurrentStatus(status);
-    const res = await patchRegisteredStatus(
-      selectedBookId,
-      getReadingStatusKey(status)
-    );
-    console.log(res);
-    setVisible(false);
-    setTimeout(() => {
-      setBottomSheetShow(false);
-    }, 200);
-  };
+  useEffect(() => {
+    console.log(currentState);
+  }, [currentState]);
 
   return (
     <>
       {registeredBooks.length > 0 || books.length > 0 ? (
         <>
           <div>
-            {/* 직접 등록한 책 */}
-            {registeredBooks.length > 0 &&
-              registeredBooks.map((book, index) => (
-                <BookListView
-                  key={index}
-                  bookTitle={book.title}
-                  author={book.author}
-                  bookImg={book.imgPath}
-                  status={book.readStatus}
-                  register={true}
-                  edit={true}
-                  bottomSheet={true}
-                  handleStatusClick={() => handleStatusClick(book.bookinfoId)}
-                />
-              ))}
+            {/* 등록된 책 */}
+            {registeredBooks.map((book, index) => (
+              <BookListView
+                key={index}
+                bookTitle={book.title}
+                author={book.author}
+                bookImg={book.imgPath}
+                status={book.readStatus}
+                rating={book.myRating}
+                register={true}
+                edit={true}
+                bottomSheet={true}
+                handleStatusClick={() => handleSelectedBook(book, true)}
+              />
+            ))}
           </div>
           {registeredBooks.length > 0 && books.length > 0 && <Divider1 />}
           {/* 일반 책 */}
           <div>
-            {books.length > 0 &&
-              books.map((book, index) => (
-                <BookListView
-                  key={index}
-                  bookTitle={book.title}
-                  author={book.author}
-                  bookImg={book.img}
-                  rating={book.rating}
-                  status={currentState}
-                  edit={true}
-                  bottomSheet={true}
-                  handleStatusClick={() => handleStatusClick(book.userBookdId)}
-                />
-              ))}
+            {books.map((book, index) => (
+              <BookListView
+                key={index}
+                bookTitle={book.bookUnitDto.title}
+                author={book.bookUnitDto.author}
+                bookImg={book.bookUnitDto.imgPath}
+                rating={book.bookUnitDto.myRating}
+                status={book.bookUnitDto.readStatus}
+                edit={true}
+                bottomSheet={true}
+                handleStatusClick={() => handleSelectedBook(book, false)}
+              />
+            ))}
+            <div ref={loaderRef} style={{ height: "1px" }} />
           </div>
         </>
       ) : (
-        <>
-          <div className="flex flex-col gap-2 items-center mt-[8.06rem]">
-            <span className="text-st text-gray-800 font-semibold">
-              {search ? <span>'{search}'</span> : ""}
-            </span>
-            <span className="text-b1 text-gray-800">
-              일치하는 검색 결과가 없어요.
-            </span>
-            <span className="text-b1 text-gray-500 mb-3">
-              책을 직접 등록해보세요!
-            </span>
-            <ButtonComponent
-              text="책 등록하기"
-              type="secondary"
-              color="orange"
-              size="small"
-              onClick={() => navigate("/search/register")}
-            />
-          </div>
-        </>
+        <div className="flex flex-col gap-2 items-center mt-[8.06rem]">
+          <span className="text-st text-gray-800 font-semibold">
+            {search ? <span>'{search}'</span> : ""}
+          </span>
+          <span className="text-b1 text-gray-800">
+            일치하는 검색 결과가 없어요.
+          </span>
+          <span className="text-b1 text-gray-500 mb-3">
+            책을 직접 등록해보세요!
+          </span>
+          <ButtonComponent
+            text="책 등록하기"
+            type="secondary"
+            color="orange"
+            size="small"
+            onClick={() => navigate("/search/register")}
+          />
+        </div>
       )}
       <BottomSheetModal
         bottomSheetShow={bottomSheetShow}
@@ -252,7 +320,7 @@ const SearchBookComponent = ({ search }) => {
             options={statusArr}
             currentOption={currentState}
             handleOption={handleStatusChange}
-            isCancel={isCancel}
+            handlePutCancel={deleteBook}
           />
         </div>
       </BottomSheetModal>

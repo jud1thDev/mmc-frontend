@@ -1,4 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { requestFcmToken } from "./api/fcm";
+import { useEffect } from "react";
+import { messaging } from "./api/firebase";
+import { onMessage } from "firebase/messaging";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SigninPage from "./pages/LoginPage/SigninPage";
 import SearchMainPage from "./pages/SearchPage/SearchMainPage";
@@ -27,8 +31,25 @@ import SelectCustomPage from "./pages/MainPage/SelectCustomPage";
 import SettingPage from "./pages/SettingPage/SettingPage";
 import FriendListPage from "./pages/FriendPage/FriendListPage";
 import OAuthRedierctPage from "./pages/LoginPage/OAuthRedierctPage";
+import OtherMainPage from "./pages/OtherUserPage/OtherMainPage";
 
 function App() {
+  useEffect(() => {
+    const fetchFcmToken = async () => {
+      const token = await requestFcmToken();
+      if (token) {
+        console.log("FCM 토큰을 서버로 전송하거나 저장:", token);
+      }
+    };
+    fetchFcmToken();
+  }, []);
+  useEffect(() => {
+    // 포그라운드 메시지 수신 처리
+    onMessage(messaging, (payload) => {
+      console.log("포그라운드 메시지 수신:", payload);
+    });
+  }, []);
+
   return (
     <Routes>
       <Route path="/selectBook" element={<SelectBookPage />} />
@@ -57,6 +78,7 @@ function App() {
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
       <Route path="/home" element={<MainPage />} />
+      <Route path="/user/:id" element={<OtherMainPage />} />
       <Route path="/friend" element={<FriendListPage />} />
       <Route path="/search" element={<SearchMainPage />} />
       <Route path="/recording" element={<RecordingPage />} />

@@ -1,8 +1,8 @@
-const ReviewComponent = ({ createdTime, title, content }) => {
+const ExcerptComponent = ({ createdTime, visibility = false, content }) => {
   const formatDate = (createdTime) => {
     const date = new Date(createdTime);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     const formattedDate = `${year}.${month}.${day}`;
     return formattedDate;
@@ -10,9 +10,9 @@ const ReviewComponent = ({ createdTime, title, content }) => {
   return (
     <div className="flex flex-col py-5 gap-2 border-b-[0.0625rem] border-b-gray-100 ">
       <div className="text-c1 text-gray-400">
-        <span>{formatDate(createdTime)}</span>
+        <span>{formatDate(createdTime)} /</span>
+        {visibility ? <span> 공개</span> : <span> 나만보기</span>}
       </div>
-      <div className="text-st text-gray-800 font-semibold">{title}</div>
       <div
         className="text-b2 text-gray-800"
         style={{
@@ -30,4 +30,4 @@ const ReviewComponent = ({ createdTime, title, content }) => {
   );
 };
 
-export default ReviewComponent;
+export default ExcerptComponent;

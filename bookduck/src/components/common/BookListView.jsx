@@ -14,12 +14,24 @@ const BookListView = ({
   handleOnClick,
   bookImg,
   handleStatusClick,
-  status = "읽고 싶어요",
+  status = "NOT_STARTED",
   bottomSheet = false,
-
   rating = 0,
-
 }) => {
+  const readingStauts = (status) => {
+    switch (status) {
+      case "NOT_STARTED":
+        return "읽고 싶어요";
+      case "READING":
+        return "읽고 있어요";
+      case "STOPPED":
+        return "중단했어요";
+      case "FINISHED":
+        return "다 읽었어요";
+      default:
+        return "서재 담기";
+    }
+  };
   return (
     <div
       onClick={handleOnClick}
@@ -27,9 +39,7 @@ const BookListView = ({
     >
       <div className="flex gap-[0.75rem] items-center w-[15.75rem] h-[6.75rem]">
         <img
-
           className="w-[4.75rem] h-[6.75rem]"
-
           src={bookImg ? bookImg : coverEx}
           alt="coverEx"
         />
@@ -60,7 +70,9 @@ const BookListView = ({
           </div>
         ) : (
           <button onClick={handleStatusClick} className="flex flex-row">
-            <div className="text-btn4 text-gray-500">{status}</div>
+            <div className="text-btn4 text-gray-500">
+              {readingStauts(status)}
+            </div>
             <img src={downArrow} />
           </button>
         )
