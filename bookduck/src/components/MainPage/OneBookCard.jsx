@@ -175,25 +175,14 @@ const OneBookCard = ({
           {cardType === "BOOK_WITH_SONG" ? (
             <>
               <div className="relative flex flex-row justify-between ">
-                <p>
-                  <span className="text-c1 text-gray-500 mr-1">by</span>
-                  <input
-                    type="text"
-                    value={singer}
-                    name="가수명"
-                    placeholder=""
-                    className="text-c1 text-gray-500 font-semibold bg-gray-10 focus w-[3.25rem]"
-                    onChange={handleChange}
-                  />
-                </p>
-                {!singer && (
-                  <div className="absolute top-[0.8rem] left-[1.1rem] transform -translate-y-1/2 pointer-events-none flex items-center text-c1">
-                    <span className="text-red mr-[0.2rem] font-semibold">
-                      *
-                    </span>
-                    <span className="text-gray-500 font-semibold">가수명</span>
-                  </div>
-                )}
+                <input
+                  type="text"
+                  value={bookTitle}
+                  name="책제목"
+                  placeholder="책 제목"
+                  className="text-left text-gray-800 text-c1 bg-gray-10 w-[8.8125rem]"
+                  onChange={handleChange}
+                />
                 <img src={music} alt="Music Icon" />
               </div>
               <div className="relative flex flex-col items-end">
@@ -215,14 +204,30 @@ const OneBookCard = ({
                     </span>
                   </div>
                 )}
-                <input
-                  type="text"
-                  value={bookTitle}
-                  name="책제목"
-                  placeholder="책 제목"
-                  className="text-right text-gray-800 text-c1 bg-gray-10 w-[8.8125rem]"
-                  onChange={handleChange}
-                />
+                <p className="flex flex-row justify-end">
+                  <span className="text-c1 text-gray-500 mr-1">by</span>
+                  <input
+                    type="text"
+                    value={singer}
+                    name="가수명"
+                    placeholder=""
+                    className="text-right text-c1 text-gray-500 font-semibold bg-gray-10 focus:outline-none"
+                    onChange={handleChange}
+                    style={{
+                      width: `${Math.max(singer.length * 1.4, 2)}ch`,
+                      minWidth: "5.2ch",
+                      maxWidth: "100%",
+                    }}
+                  />
+                </p>
+                {!singer && (
+                  <div className="absolute top-[2rem] right-0 transform -translate-y-1/2 pointer-events-none flex items-center text-c1">
+                    <span className="text-red mr-[0.2rem] font-semibold">
+                      *
+                    </span>
+                    <span className="text-gray-500 font-semibold">가수명</span>
+                  </div>
+                )}
               </div>
             </>
           ) : (
