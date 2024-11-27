@@ -16,16 +16,7 @@ const ReviewView = () => {
   return (
     <div className="flex flex-col gap-[1rem] items-center max-h-[40rem]  mt-[1rem] overflow-y-auto">
       {archiveReviewData.archiveList.map((it, index) => (
-        <ReviewComponents
-          key={index}
-          page={it.data.pageNumber}
-          content={it.data.reviewContent}
-          reviewId={it.data.reviewId}
-          reviewTitle={it.data.reviewTitle}
-          title={it.title}
-          author={it.author}
-          color={it.data.color}
-        />
+        <ReviewComponents key={index} reviewData={it} />
       ))}
     </div>
   );

@@ -4,15 +4,14 @@ import { useEffect } from "react";
 import { getUserId } from "../../api/oauth";
 import { getDetailExtractReview } from "../../api/archive";
 
-const ReviewComponents = ({
-  page,
-  content,
-  reviewId,
-  reviewTitle,
-  title,
-  author,
-  color,
-}) => {
+const ReviewComponents = ({ reviewData }) => {
+  console.log(reviewData);
+  const content = reviewData?.data.reviewContent;
+  const reviewId = reviewData?.data.reviewId;
+  const reviewTitle = reviewData?.data.reviewTitle;
+  const title = reviewData?.title;
+  const author = reviewData?.author;
+  const color = reviewData?.data.color;
   const navigate = useNavigate();
   const { reviewColor } = useReviewColorStore();
 
