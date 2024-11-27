@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { get } from "../../api/example";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../../components/common/StatusBar";
 import SearchComponent from "../../components/common/SearchComponent";
@@ -16,40 +17,41 @@ const SearchMainPage = () => {
   const [search, setSearch] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
   const [tab, setTab] = useState("책");
-  const [recentBooks, setRecentBooks] = useState([]);
-  const [popularBooks, setPopularBooks] = useState([]);
   //API 연결
   //최근 책 받기
   const getRecentBooks = async () => {
-    try {
-      const response = await get(`/books/recent`);
-      setRecentBooks(response.bookList);
-    } catch (error) {
-      console.error("최근 책 정보 읽기 오류", error);
-    }
+    return await get(`/books/recent`);
   };
 
   //많이 읽는 책 받기
   const getPopularBooks = async () => {
-    try {
-      const response = await get(`/bookinfo/most`);
-      // console.log("많이 읽는", response);
-      setPopularBooks(response.bookList);
-    } catch (error) {
-      console.error("많이 읽는 책 읽기 오류", error);
-    }
+    return await get(`/bookinfo/most`);
   };
-
-  //useEffect 훅
-  useEffect(() => {
-    getRecentBooks();
-    getPopularBooks();
-  }, []);
 
   //이벤트 핸들러
   const handleSearch = () => {
     setSubmittedSearch(search);
   };
+
+  const recentBooksQuery = useQuery({
+    queryKey: ["recentBooks"],
+    queryFn: getRecentBooks,
+    onSuccess: () => {
+      console.log("최근 책 받기 성공");
+    },
+    onError: (error) => console.error("최근 책 받기 실패", error),
+  });
+  const recentBooks = recentBooksQuery.data.bookList;
+
+  const popularBooksQuery = useQuery({
+    queryKey: ["popularBooks"],
+    queryFn: getPopularBooks,
+    onSuccess: () => {
+      console.log("많이 읽는 책 받기 성공");
+    },
+    onError: (error) => console.error("많이 읽는 책 받기 실패", error),
+  });
+  const popularBooks = popularBooksQuery.data.bookList;
 
   return (
     <div>

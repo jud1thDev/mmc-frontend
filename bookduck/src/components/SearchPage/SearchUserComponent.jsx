@@ -1,60 +1,52 @@
-import React, { useState, useEffect, useRef } from "react";
-import FriendListComponent from "../../components/common/FriendListComponent";
+import React, { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import FriendListComponent from "../../components/common/FriendListComponent";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { get } from "../../api/example";
+
 const SearchUserComponent = ({ search }) => {
-  //상태
-  const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
-  const loaderRef = useRef(null);
-  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const loaderRef = useRef(null);
 
   const DATA_LIMIT = 10;
-  //API연결
-  //API-일반 책 정보받기
-  const getUsers = async (keyword, page) => {
-    try {
-      const response = await get(
-        `/users/search?keyword=${keyword}&page=${page}&size=${DATA_LIMIT}`
-      );
-      console.log("response", response);
-      const data = response.pageContent.map((user) => ({
-        userId: user.userId,
-        nickname: user.nickname,
-        isFriend: user.isFriend,
-      }));
-      setUsers(data);
-      console.log("users:", users);
-    } catch (error) {
-      console.error("유저 읽어오기 오류", error);
-    }
+
+  // API 호출 함수
+  const fetchUsers = async ({ pageParam = 0 }) => {
+    const response = await get(
+      `/users/search?keyword=${search}&page=${pageParam}&size=${DATA_LIMIT}`
+    );
+    const data = response.pageContent.map((user) => ({
+      userId: user.userId,
+      nickname: user.nickname,
+      isFriend: user.isFriend,
+    }));
+    return {
+      users: data,
+      nextPage: response.page + 1,
+      totalPages: response.totalPages,
+    };
   };
 
-  useEffect(() => {
-    getUsers("", 0);
-  }, []);
-  //useEffect 훅
-  useEffect(() => {
-    if (search) {
-      setUsers([]);
-      setCurrentPage(0);
-      getUsers(search, 0);
-    }
-  }, [search]);
+  const { data, isLoading, fetchNextPage, hasNextPage, refetch } =
+    useInfiniteQuery({
+      queryKey: ["users", search],
+      queryFn: fetchUsers,
+      getNextPageParam: (lastPage) =>
+        lastPage.nextPage < lastPage.totalPages ? lastPage.nextPage : undefined,
+      enabled: !!search,
+    });
 
   // 무한 스크롤 감지
   useEffect(() => {
     const handleObserver = (entries) => {
       const [entry] = entries;
-      if (entry.isIntersecting && currentPage < totalPages) {
-        console.log("다음 페이지 로드");
-        setCurrentPage((p) => p + 1);
+      if (entry.isIntersecting && hasNextPage) {
+        fetchNextPage();
       }
     };
 
     const observer = new IntersectionObserver(handleObserver, {
-      root: null, // viewport 사용
+      root: null,
       rootMargin: "0px",
       threshold: 1.0,
     });
@@ -62,26 +54,31 @@ const SearchUserComponent = ({ search }) => {
     if (loaderRef.current) observer.observe(loaderRef.current);
 
     return () => observer.disconnect();
-  }, [currentPage, totalPages]);
+  }, [fetchNextPage, hasNextPage]);
 
-  // 현재 페이지 데이터 로드
+  // 검색어 변경 시 데이터 초기화
   useEffect(() => {
-    if (currentPage > 0 && search) {
-      console.log(`페이지 ${currentPage} 데이터 로드`);
-      getBooks(search, currentPage);
+    if (search) {
+      refetch();
     }
-  }, [currentPage, search]);
+  }, [search, refetch]);
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
   return (
     <div>
-      {users.length > 0 ? (
-        users.map((user) => (
-          <FriendListComponent
-            key={user.userId}
-            userName={user.nickname}
-            text={user.isFriend ? "친구" : "none"}
-            handleClick={() => navigate(`/user/${user.userId}`)}
-          />
-        ))
+      {data?.pages.flatMap((page) => page.users).length > 0 ? (
+        data.pages.flatMap((page) =>
+          page.users.map((user) => (
+            <FriendListComponent
+              key={user.userId}
+              userName={user.nickname}
+              text={user.isFriend ? "친구" : "none"}
+              handleClick={() => navigate(`/user/${user.userId}`)}
+            />
+          ))
+        )
       ) : (
         <div className="flex flex-col items-center mt-[8.06rem]">
           <span className="text-st text-gray-800 font-semibold">
@@ -92,6 +89,7 @@ const SearchUserComponent = ({ search }) => {
           </span>
         </div>
       )}
+      <div ref={loaderRef} style={{ height: "1px" }} />
     </div>
   );
 };
