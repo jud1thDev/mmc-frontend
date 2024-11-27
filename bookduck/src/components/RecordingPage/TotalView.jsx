@@ -22,7 +22,7 @@ const TotalView = () => {
           {it.type === "EXCERPT" ? (
             <ExtractComponents key={index} excerptData={it} archive={true} />
           ) : (
-            <ReviewComponents key={index} reviewData={it} />
+            <ReviewComponents key={index} reviewData={it} archive={true} />
           )}
         </>
       ))}
