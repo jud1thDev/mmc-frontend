@@ -20,14 +20,7 @@ const TotalView = () => {
       {archiveData.archiveList.map((it, index) => (
         <>
           {it.type === "EXCERPT" ? (
-            <ExtractComponents
-              key={index}
-              page={it.data.pageNumber}
-              content={it.data.excerptContent}
-              excerptId={it.data.excerptId}
-              title={it.title}
-              author={it.author}
-            />
+            <ExtractComponents key={index} excerptData={it} archive={true} />
           ) : (
             <ReviewComponents
               key={index}
