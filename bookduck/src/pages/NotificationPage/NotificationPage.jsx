@@ -4,12 +4,29 @@ import StatusBar from "../../components/common/StatusBar";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import GeneralNotiComponent from "../../components/NotificationPage/GeneralNotiComponent";
 import AnnounceNotiComponent from "../../components/NotificationPage/AnnounceNotiComponent";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSSE } from "../../context/SSEProvider";
+import { patch } from "../../api/example";
 
+export const patchAllAlarm = async () => {
+  await patch(`/alarms/common/all`);
+};
 const NotificationPage = () => {
   const [tab, setTab] = useState("일반");
   const { sseData } = useSSE();
+  const queryClient = useQueryClient();
   const [dotStates, setDotStates] = useState([false, false]);
+
+  const { mutate: markAsAllRead } = useMutation({
+    mutationFn: patchAllAlarm,
+    onSuccess: () => {
+      console.log("다읽기성공");
+      queryClient.invalidateQueries({ queryKey: ["alarmList"] });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
   useEffect(() => {
     if (sseData) {
@@ -36,6 +53,7 @@ const NotificationPage = () => {
           activeTab={tab}
           onTabClick={setTab}
           size="small"
+          handleNotiClick={markAsAllRead}
           isNoti={true}
           borderWidth="3rem"
           dotStates={dotStates}

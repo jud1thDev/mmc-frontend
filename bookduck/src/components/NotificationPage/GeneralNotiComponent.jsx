@@ -14,7 +14,7 @@ export const patchAlarm = async (alarmId) => {
 };
 
 /* API - 알람 리스트 받기 */
-export const fetchAlarmList = async ({ pageParam = 0 }) => {
+export const getAlarmList = async ({ pageParam = 0 }) => {
   const DATA_LIMIT = 10;
   const response = await get(
     `/alarms/common?page=${pageParam}&size=${DATA_LIMIT}`
@@ -37,7 +37,7 @@ const GeneralNotiComponent = () => {
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
       queryKey: ["alarmList"],
-      queryFn: fetchAlarmList,
+      queryFn: getAlarmList,
       getNextPageParam: (lastPage) =>
         lastPage.nextPage < lastPage.totalPages ? lastPage.nextPage : undefined,
     });
