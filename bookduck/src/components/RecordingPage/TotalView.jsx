@@ -14,7 +14,7 @@ const TotalView = () => {
     queryKey: ["archiveData"],
     queryFn: () => getExtractReview(userId, "ALL", 0, 20),
   });
-
+  console.log(archiveData);
   return (
     <div className="flex flex-col gap-[1rem] items-center max-h-[40rem]  mt-[1rem] overflow-y-auto">
       {archiveData.archiveList.map((it, index) => (
@@ -32,6 +32,7 @@ const TotalView = () => {
             <ReviewComponents
               key={index}
               page={it.data.pageNumber}
+              color={it.data.color}
               content={it.data.reviewContent}
               reviewId={it.data.reviewId}
               reviewTitle={it.data.reviewTitle}

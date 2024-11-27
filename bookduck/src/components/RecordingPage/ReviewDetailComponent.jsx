@@ -10,6 +10,8 @@ import link from "../../assets/recordingPage/link.svg";
 
 import BottomSheetModal from "../common/BottomSheetModal";
 import BottomSheetMenuComponent from "../common/BottomSheetMenuComponent";
+import { useParams } from "react-router-dom";
+import { getDetailExtractReview } from "../../api/archive";
 
 const ReviewDetailComponent = ({ archiveDetailData }) => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
@@ -28,10 +30,13 @@ const ReviewDetailComponent = ({ archiveDetailData }) => {
 
   return (
     <div>
-      <div className="w-[22.5825rem]  px-5 py-6 rounded-[0.88rem] bg-gray-400 shadow-custom ">
+      <div
+        style={{ background: archiveDetailData.review.color }}
+        className="w-[22.5825rem]  px-5 py-6 rounded-[0.88rem]  shadow-custom "
+      >
         <div className="flex flex-col gap-2 ">
           <div className="text-c1 text-white ">
-            {formattedDate(archiveDetailData.excerpt.createdTime)}
+            {formattedDate(archiveDetailData.review.createdTime)}
             {archiveDetailData.review.visibility === "PRVATE" && "/ 나만보기"}
           </div>
           <div className="text-st font-semibold text-white ">

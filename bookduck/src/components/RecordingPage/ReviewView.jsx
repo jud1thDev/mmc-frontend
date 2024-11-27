@@ -24,6 +24,7 @@ const ReviewView = () => {
           reviewTitle={it.data.reviewTitle}
           title={it.title}
           author={it.author}
+          color={it.data.color}
         />
       ))}
     </div>

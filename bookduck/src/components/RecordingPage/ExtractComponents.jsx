@@ -2,7 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { getDetailExtractReview } from "../../api/archive";
 import { getUserId } from "../../api/oauth";
 
-const ExtractComponents = ({ page, content, title, author, excerptId }) => {
+const ExtractComponents = ({
+  page,
+  content,
+  title,
+  author,
+  excerptId,
+  color,
+}) => {
   const navigate = useNavigate();
 
   const handleOnClick = async () => {

@@ -11,6 +11,7 @@ const ReviewComponents = ({
   reviewTitle,
   title,
   author,
+  color,
 }) => {
   const navigate = useNavigate();
   const { reviewColor } = useReviewColorStore();
@@ -33,7 +34,7 @@ const ReviewComponents = ({
   return (
     <div onClick={handleOnClick} className="cursor-pointer ">
       <div
-        style={{ backgroundColor: reviewColor }}
+        style={{ backgroundColor: color }}
         className={`flex flex-col gap-[1.75rem] w-[22.5625rem]  p-[1.25rem] rounded-[0.88rem] ${
           !reviewColor && "bg-gray-400"
         } shadow-custom`}
