@@ -30,6 +30,7 @@ const MainPage = () => {
   const [showFullModal, setShowFullModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isAllDelete, setIsAllDelete] = useState(false);
+  const [isFloatingVisible, setIsFloatingVisible] = useState(true);
   const [isDot, setIsDot] = useState(false);
   const { sseData } = useSSE();
 
@@ -143,13 +144,16 @@ const MainPage = () => {
           bottomSheetShow={bottomSheetShow}
           setBottomSheetShow={setBottomSheetShow}
           setIsAllDelete={setIsAllDelete}
+          setIsFloatingVisible={setIsFloatingVisible}
         />
-        <div className="absolute right-0  bottom-24 z-50">
-          <FloatingRecordButton
-            text={!JSON.parse(localStorage.getItem("isFirstLogin"))}
-            handleNavigate={() => navigate("/selectbook")}
-          />
-        </div>
+        {isFloatingVisible && (
+          <div className="absolute right-0  bottom-24 z-50">
+            <FloatingRecordButton
+              text={!JSON.parse(localStorage.getItem("isFirstLogin"))}
+              handleNavigate={() => navigate("/selectbook")}
+            />
+          </div>
+        )}
       </div>
       {isNavBar && <BottomNavbar />}
       {showDeleteModal && (

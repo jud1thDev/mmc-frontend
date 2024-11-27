@@ -29,6 +29,7 @@ const ReadingSpaceComponent = ({
   setShowDeleteModal = () => {},
   setShowOutModal = () => {},
   setShowFullModal = () => {},
+  setIsFloatingVisible,
   isEditMode,
   setIsEditMode,
   isAllDelete = false,
@@ -40,12 +41,9 @@ const ReadingSpaceComponent = ({
   const navigate = useNavigate();
 
   const [isHelp, setIsHelp] = useState(false);
-
-  const [isFloatingVisible, setFloatingVisible] = useState(true);
   const [isHelpVisible, setHelpVisible] = useState(false);
   const [cards, setCards] = useState([]);
   const [userId, setUserId] = useState(null);
-
   const screenHeight = window.innerHeight;
   const initialHeight = screenHeight * 0.55;
   const expandedHeight = screenHeight * 0.95;
@@ -174,7 +172,7 @@ const ReadingSpaceComponent = ({
   const [{ height }, api] = useSpring(() => ({
     height: initialHeight,
     onChange: () => {
-      setFloatingVisible(height.get() < hideButtonThreshold);
+      setIsFloatingVisible(height.get() < hideButtonThreshold);
       setHelpVisible(height.get() > hideButtonThreshold);
       if (isMine) {
         setIsNavBar(height.get() < hideButtonThreshold);
@@ -354,17 +352,6 @@ const ReadingSpaceComponent = ({
                   </button>
                 </div>
               )}
-
-              {/* {isFloatingVisible && (
-                <div className="absolute right-1 bottom-[-4rem] z-[100]">
-                  <img
-                    onClick={() => navigate("/selectbook")}
-                    className=" cursor-pointer"
-                    src={recordCircleIcon}
-                    alt="record_circle_icon"
-                  />
-                </div>
-              )} */}
             </div>
           </animated.div>
         </DragDropContext>
