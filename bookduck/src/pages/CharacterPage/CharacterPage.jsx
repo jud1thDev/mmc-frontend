@@ -87,8 +87,9 @@ const CharacterPage = () => {
         <div className="flex items-center gap-4 w-[20.5625rem] h-6">
           <div className="bg-gray-100 rounded-[6.25rem] w-[17.875rem]">
             <div
-              className={`bg-orange-gradation-level rounded-[6.25rem] w-[${expProgress}%] h-5`}
-            ></div>
+              className={`bg-orange-gradation-level rounded-[6.25rem] h-5`}
+              style={{ width: `${expProgress}%` }}
+            />
           </div>
           <div className="text-b2 text-gray-400">{expProgress}%</div>
         </div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import back from "../../assets/characterPage/back.svg";
 import help from "../../assets/characterPage/help-circle.svg";
-import BadgeModal from "./BadgeModal";
+import BadgeInfoModal from "./BadgeInfoModal";
 
 const BadgeHeader = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const BadgeHeader = () => {
           <img className="w-4 h-4" src={help} />
         </div>
       </div>
-      {isModalOpen && <BadgeModal onClick={toggleModal} />}
+      {isModalOpen && <BadgeInfoModal onClick={toggleModal} />}
     </div>
   );
 };

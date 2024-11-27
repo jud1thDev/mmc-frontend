@@ -29,6 +29,7 @@ import { createPortal } from "react-dom";
 const BottomSheetModal = ({
   bottomSheetShow,
   setBottomSheetShow,
+  height,
   visible,
   setVisible,
   children,
@@ -67,7 +68,8 @@ const BottomSheetModal = ({
         onClick={(e) => e.stopPropagation()}
         className={`bg-white ${
           visible ? "animate-slideUp" : "animate-slideDown"
-        } bg-opacity-100 absolute bottom-0 w-[24.5625rem] h-fit rounded-t-xl pt-8 pb-4 transition-transform shadow-custom duration-300`}
+        } bg-opacity-100 fixed bottom-0 w-[24.5625rem]  rounded-t-xl pt-8 pb-4 transition-transform shadow-custom duration-300`}
+        style={{ height: height ? `${height}` : "auto", overflowY: "auto" }}
       >
         {children}
       </section>

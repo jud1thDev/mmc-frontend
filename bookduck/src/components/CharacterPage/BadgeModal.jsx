@@ -1,43 +1,56 @@
-const BadgeModal = ({ onClick }) => {
+const BadgeModal = ({ badge, currentData }) => {
+  const formattedDate = badge.createdDate?.replace(/-/g, ".");
+  let text = "";
+  let next = "";
+
+  switch (badge.badgeType) {
+    case "READ":
+      text = `완독 수 ${badge?.unlockValue}권을`;
+      next = `현재 완독 수 : ${currentData?.currentReadCount}/${badge?.unlockValue}`;
+      break;
+
+    case "ARCHIVE":
+      text = `기록카드 수 ${badge?.unlockValue}개를`;
+      next = `현재 기록카드 수 : ${currentData?.currentArchiveCount}/${badge?.unlockValue}`;
+      break;
+    case "ONELINE":
+      text = `한줄평 수 ${badge?.unlockValue}개를`;
+      next = `현재 남긴 한줄평 수 : ${currentData?.currentOneLineCount}/${badge?.unlockValue}`;
+      break;
+    case "LEVEL":
+      text = `${badge?.unlockValue}레벨을`;
+      next = `현재 레벨 : ${currentData?.currentLevel}`;
+      break;
+  }
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className="flex flex-col py-4 gap-8 bg-white w-[330px] rounded-[20px]">
-        <div className="flex flex-col gap-3">
-          <div className="flex justify-center items-center text-st text-center font-semibold h-[48px]">
-            배지 종류
+      <div className="flex flex-col items-center py-4 gap-2 bg-white w-[16rem] rounded-2xl">
+        {badge?.isOwned ? (
+          <div className="flex flex-col items-center py-3 gap-2">
+            <div className="text-st font-semibold h-[1.9375rem]">
+              {badge?.description}
+            </div>
+            <img
+              className="w-16 h-16"
+              src={`assets/characterPage/badges/${badge?.badgeType}/${badge?.badgeName}.png`}
+              alt={`${badge?.badgeName} badge`}
+            />
+            <div className="text-b2 text-gray-500">획득일: {formattedDate}</div>
           </div>
-          <div className="flex flex-col px-8 gap-5 ">
-            <div className="flex flex-col gap-1">
-              <div className="text-b1 font-semibold">열정적인 독자</div>
-              <div className="text-b2 text-gray-500">
-                다 읽은 책 권수에 따라 획득할 수 있어요
-              </div>
+        ) : (
+          <div className="flex flex-col items-center py-3 gap-2">
+            <div className="text-st font-semibold">
+              아직 획득하지 못한 배지예요.
             </div>
-            <div className="flex flex-col gap-1">
-              <div className="text-b1 font-semibold">꼼꼼한 기록자</div>
-              <div className="text-b2 text-gray-500">
-                기록카드 개수에 따라 획득할 수 있어요
-              </div>
+            <div className="flex items-center text-center text-b1 ">
+              {text} 달성해야 <br />
+              해당 배지를 얻을 수 있어요.
             </div>
-            <div className="flex flex-col gap-1">
-              <div className="text-b1 font-semibold">성실한 평가자</div>
-              <div className="text-b2 text-gray-500">
-                남긴 한줄평 개수에 따라 획득할 수 있어요
-              </div>
-            </div>
-            <div className="flex flex-col gap-1">
-              <div className="text-b1 font-semibold">레벨업 마스터</div>
-              <div className="text-b2 text-gray-500">
-                레벨이 일정 단계에 도달하면 얻을 수 있어요
-              </div>
-            </div>
+            <div className="text-b2 text-gray-500">{next}</div>
           </div>
-        </div>
-        <div className="px-4 h-12">
-          <button
-            className="text-b1 font-semibold text-white bg-gray-700 p-[10px] w-[100%] h-12 rounded-[8px]"
-            onClick={onClick}
-          >
+        )}
+        <div className="px-4 w-[100%] h-8">
+          <button className="flex justify-center items-center text-btn3 font-semibold text-white bg-gray-700 p-[10px] w-[100%]  h-8 rounded-lg">
             닫기
           </button>
         </div>

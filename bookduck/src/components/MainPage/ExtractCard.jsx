@@ -1,18 +1,20 @@
 import { useNavigate } from "react-router-dom";
 
 const ExtractCard = ({
-  onClick,
-  selected,
-  content,
-  visibility,
-  pageNumber,
+  CardId,
+  CardIndex,
   title,
   author,
+  pageNumber,
+  content,
+  onClick,
+  selected,
+  visibility,
 }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="cursor-pointer h-[8rem]" onClick={onClick}>
+    <div className="cursor-pointer  w-full h-[8rem]" onClick={onClick}>
       <div
         className={`flex flex-col gap-[1.25rem] rounded-[0.875rem] bg-gray-10 shadow-custom p-5
           ${selected && " border-[1px] border-[#6B7FF0]"}`}

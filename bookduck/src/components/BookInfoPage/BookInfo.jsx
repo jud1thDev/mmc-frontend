@@ -20,7 +20,9 @@ const BookInfo = ({ isMe = "default", bookData }) => {
   };
 
   const handlePutCancel = () => {};
-  const bookBasicData = bookData?.bookInfoBasicDto;
+  const bookBasicData =
+    isMe === "default" ? bookData?.bookInfoBasicDto : bookData;
+  console.log(bookBasicData);
   // 기본으로 등록되어 있는 책: default 내가 직접 등록한 책: me 타유저가 직접 등록한 책: other
   return (
     <div className="flex gap-4 w-[22.5625rem]">
@@ -29,8 +31,12 @@ const BookInfo = ({ isMe = "default", bookData }) => {
         src={bookBasicData?.imgPath}
         alt="Cover"
       />
-      <div className="flex flex-col py-2 w-full h-[10.25rem]">
-        <div className="flex flex-col gap-1">
+      <div className={`flex flex-col py-2 w-full  h-[10.25rem]`}>
+        <div
+          className={`flex flex-col ${
+            isMe === "other" ? "justify-center" : ""
+          }  gap-1`}
+        >
           <div className="text-t2 font-semibold max-h-[3.5rem]">
             {bookBasicData?.title}
           </div>
@@ -42,7 +48,11 @@ const BookInfo = ({ isMe = "default", bookData }) => {
               유저닉네임님이 등록한 책
             </div>
           ) : (
-            <div className="flex flex-col justify-between h-full">
+            <div
+              className={`flex flex-col ${
+                isMe === "other" ? "" : "justify-between h-full"
+              }  `}
+            >
               {isMe === "default" ? (
                 <div className="flex items-center gap-1 text-b2 text-gray-500">
                   <div>기본평점</div>

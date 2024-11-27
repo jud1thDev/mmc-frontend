@@ -1,4 +1,4 @@
-import logo from "../../assets/characterPage/bookduck.svg";
+import logo from "../../assets/statisticsPage/bookduck.svg";
 import UserDuck from "../CharacterPage/UserDuck";
 const ExportCharacter = () => {
   return (

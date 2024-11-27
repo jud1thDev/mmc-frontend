@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { get, post, put } from "../../api/example";
+import { get, post, put, del } from "../../api/example";
 import FriendListComponent from "../common/FriendListComponent";
 import up from "../../assets/common/up.svg";
 import down from "../../assets/common/down.svg";
@@ -67,13 +67,14 @@ const FriendRequestComponent = () => {
   const delFriendRequest = async (friendRequestId) => {
     // console.log(friendRequestId);
     try {
-      await delFriendRequest(`/friendrequests/${friendRequestId}`);
+      await del(`/friendrequests/${friendRequestId}`);
       // console.log("친구 요청취소 성공");
       getSentFriendList();
     } catch (error) {
       console.error("친구 요청취소 에러", error);
     }
   };
+
   //useEffect hook
   useEffect(() => {
     getReceivedFriendList();

@@ -4,6 +4,9 @@ import alarmheart from "../../assets/common/heart-alarm.svg";
 import alarmhand from "../../assets/common/waving-hand-alarm.svg";
 import alarmbadge from "../../assets/common/badge-alarm.svg";
 import alarmCircle from "../../assets/common/circle-alarm.svg";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { patchAlarm } from "./GeneralNotiComponent";
 
 const notificationTemplates = {
   FRIEND_REQUEST: {
@@ -14,6 +17,7 @@ const notificationTemplates = {
         요청이 도착했어요.
       </span>
     ),
+    navigateTo: () => ({ pathname: `/friend`, state: { activeTab: "요청" } }),
   },
   FRIEND_APPROVED: {
     icon: alarmhand,
@@ -23,6 +27,7 @@ const notificationTemplates = {
         수락했어요.
       </span>
     ),
+    navigateTo: (resourceId) => `/user/${resourceId}`,
   },
   LEVEL_UP: {
     icon: alarmduck,
@@ -32,26 +37,33 @@ const notificationTemplates = {
         성장했어요.
       </span>
     ),
+    navigateTo: () => `/character`,
   },
   ONELINELIKE_ADDED: {
     icon: alarmheart,
     message: (text) => (
       <span>
-        <strong style={{ fontWeight: "bold" }}>{text}님</strong>이 독서기록에
-        좋아요를 눌렀어요.
+        <strong style={{ fontWeight: "bold" }}>{text}</strong>의 한줄평에
+        좋아요가 눌렸어요.
       </span>
     ),
+    navigateTo: () => `/myBadge`,
   },
   BADGE_UNLOCKED: {
     icon: alarmbadge,
     message: (text) => (
       <span>
-        축하합니다! 🎉
-        <strong style={{ fontWeight: "bold" }}>{text}업적</strong>을 달성하여 새
-        배지를 획득했어요.
+        축하합니다!🎉 새로운{" "}
+        <strong style={{ fontWeight: "bold" }}>{text}</strong>배지를 획득했어요.
       </span>
     ),
+    navigateTo: () => `/myBadge`,
   },
+  ITEM_UNLOCKED: {
+    icon: alarmduck,
+    message: <span>새로운 아이템을 획득했어요. 얼른 착용해봐요!</span>,
+  },
+  navigateTo: () => `/character`,
 };
 
 const formatNotiTime = (rawTime) => {
@@ -82,11 +94,35 @@ const NotificationItemComponent = ({
   boldText,
   isRead,
   createdTime,
+  resourceId,
+  alarmId,
 }) => {
+  const navigate = useNavigate();
   const notificationData = notificationTemplates[alarmType];
-  console.log(notificationData);
+  useEffect(() => {
+    console.log("resourceId", resourceId);
+  }, [resourceId]);
+
+  const handleNavigation = () => {
+    if (notificationData?.navigateTo) {
+      const navigationData = notificationData.navigateTo(resourceId);
+      if (typeof navigationData === "string") {
+        navigate(navigationData);
+      } else {
+        navigate(navigationData.pathname, { state: navigationData.state });
+      }
+    }
+  };
+
+  const handleClick = (alarmId) => {
+    handleNavigation();
+    patchAlarm(alarmId);
+  };
   return (
-    <div className="flex gap-4 items-center w-[24.5625rem] px-4 py-3">
+    <div
+      className="flex gap-4 items-center w-[24.5625rem] px-4 py-3"
+      onClick={() => handleClick(alarmId)}
+    >
       <div className="min-w-12 min-h-12 w-12 h-12  rounded-full bg-gray-50 flex items-center justify-center relative ">
         <img src={notificationData?.icon} alt={alarmType} />
         {!isRead && (
