@@ -64,15 +64,23 @@ const SearchMainPage = () => {
           <div className="flex flex-col px-4 gap-3 mt-4">
             <div>최근 기록한 책</div>
             <div className="flex flex-row gap-3">
-              {recentBooks.map((book, index) => {
-                return (
-                  <BookComponent
-                    key={index}
-                    img={book.imgPath}
-                    title={book.title}
-                  />
-                );
-              })}
+              {recentBooks.length > 0 ? (
+                recentBooks.map((book, index) => {
+                  return (
+                    <BookComponent
+                      key={index}
+                      img={book.imgPath}
+                      title={book.title}
+                    />
+                  );
+                })
+              ) : (
+                <div className="flex w-full h-[11.5rem] justify-center items-center">
+                  <p className="text-gray-400 text-b2">
+                    아직 기록한 책이 없어요.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
           <div className="flex justify-between px-7 py-4 bg-gray-10 my-5">
