@@ -32,6 +32,11 @@ const delFriend = async (friendId) => {
 };
 
 //친구요청수락
+const postFriendAccept = async (friendRequestId) => {
+  return await post(`/friends`, {
+    friendRequestId: friendRequestId,
+  });
+};
 
 const OtherMainPage = () => {
   const navigate = useNavigate();
@@ -74,6 +79,15 @@ const OtherMainPage = () => {
     onError: (error) => console.error("친구삭제 실패", error),
   });
 
+  const postFriendAcceptQuery = useMutation({
+    mutationFn: postFriendAccept,
+    onSuccess: () => {
+      console.log("친구 수락 성공");
+      userInfoQuery.refetch();
+    },
+    onError: (error) => console.error("친구수락 실패", error),
+  });
+
   return (
     <div className="bg-gray-50 overflow-hidden h-screen">
       <StatusBar />
@@ -83,6 +97,9 @@ const OtherMainPage = () => {
         handleDelFriendClick={() => delFriendQuery.mutate(userInfo?.friendId)}
         handleDelRequestClick={() =>
           delFriendRequestQuery.mutate(userInfo?.friendRequestId || null)
+        }
+        handleAcceptClick={() =>
+          postFriendAcceptQuery.mutate(userInfo?.friendRequestId || null)
         }
       />
       <div className="pl-5 mt-[1.75rem]">
