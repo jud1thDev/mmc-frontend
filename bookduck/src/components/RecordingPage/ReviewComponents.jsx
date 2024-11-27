@@ -1,46 +1,59 @@
 import { useNavigate } from "react-router-dom";
 import useReviewColorStore from "../../store/useReviewColorStore";
 import { useEffect } from "react";
+import { getUserId } from "../../api/oauth";
+import { getDetailExtractReview } from "../../api/archive";
 
-const ReviewComponents = ({
-  reviewTitleValue = "감상평 제목",
-  contents = "감상평 내용이 들어갈 자리입니다.",
-  bookTitleValue,
-  authorValue,
-  reviewData,
-}) => {
-  const createdDate = reviewData?.createdTime.split("T")[0].replace(/-/g, ".");
+const ReviewComponents = ({ reviewData, archive = false }) => {
+  console.log(reviewData);
+  const content = reviewData?.data.reviewContent;
+  const reviewId = reviewData?.data.reviewId;
+  const reviewTitle = reviewData?.data.reviewTitle;
+  const title = reviewData?.title;
+  const author = reviewData?.author;
+  const color = reviewData?.data.color;
+  const createdDate = reviewData?.data.createdTime
+    .split("T")[0]
+    .replace(/-/g, ".");
+
   const navigate = useNavigate();
-
   const { reviewColor } = useReviewColorStore();
 
+  const handleOnClick = async () => {
+    const res = await getDetailExtractReview(reviewId, "REVIEW");
+    const typeState =
+      res.excerpt && res.review ? "ALL" : res.excerpt ? "EXCERPT" : "REVIEW";
+
+    if (typeState === "ALL")
+      navigate(`/total-archive-detail/${reviewId}`, {
+        state: { detailData: res },
+      });
+    if (typeState === "REVIEW")
+      navigate(`/review-archive-detail/${reviewId}`, {
+        state: { detailData: res },
+      });
+  };
+
   return (
-    <div
-      onClick={() => navigate("/review-archive-detail")}
-      className="cursor-pointer "
-    >
+    <div onClick={handleOnClick} className="cursor-pointer ">
       <div
-        style={{ backgroundColor: reviewColor }}
+        style={{ backgroundColor: color }}
         className={`flex flex-col gap-[1.75rem] w-[22.5625rem]  p-[1.25rem] rounded-[0.88rem] ${
           !reviewColor && "bg-gray-400"
         } shadow-custom`}
       >
-        {createdDate && (
+        {!archive && createdDate && (
           <div className="text-c2 text-[#ffffff99]">{createdDate}</div>
         )}
         <div className="flex flex-col gap-[0.25rem]">
           <div className="text-st text-[#FFFFFF] font-semibold">
-            {reviewData?.reviewTitle || reviewTitleValue}
+            {reviewTitle}
           </div>
-          <div className="text-b2 text-[#FFFFFF]">
-            {reviewData?.reviewContent || contents}
-          </div>
+          <div className="text-b2 text-[#FFFFFF]">{content}</div>
         </div>
-        {bookTitleValue && (
-          <div className="text-c2 text-[#ffffff99]">
-            {bookTitleValue} / {authorValue}
-          </div>
-        )}
+        <div className="text-c2 text-[#ffffff99]">
+          {title && author && `${title} / ${author}`}
+        </div>
       </div>
     </div>
   );

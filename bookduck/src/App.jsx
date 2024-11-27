@@ -67,9 +67,9 @@ function App() {
     <Routes>
       <Route path="/selectBook" element={<SelectBookPage />} />
       <Route path="/archive" element={<ArchivePage />} />
-      <Route path="/extract-archive-detail" element={<ArchiveDetail />} />
-      <Route path="/review-archive-detail" element={<ArchiveDetail />} />
-      <Route path="/total-archive-detail" element={<ArchiveDetail />} />
+      <Route path="/excerpt-archive-detail/:id" element={<ArchiveDetail />} />
+      <Route path="/review-archive-detail/:id" element={<ArchiveDetail />} />
+      <Route path="/total-archive-detail/:id" element={<ArchiveDetail />} />
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/recording/decoration" element={<CardDecorationPage />} />
 

@@ -1,4 +1,11 @@
 import { useState } from "react";
+import BottomSheetModal from "../common/BottomSheetModal";
+import BottomSheetMenuComponent from "../common/BottomSheetMenuComponent";
+import { useParams } from "react-router-dom";
+import { getDetailExtractReview } from "../../api/archive";
+import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { getDetailExtractReview } from "../../api/archive";
 import heart_gray from "../../assets/recordingPage/heart-gray.svg";
 import share_gray from "../../assets/recordingPage/share-gray.svg";
 import kakao from "../../assets/recordingPage/kakao.svg";
@@ -7,9 +14,7 @@ import x from "../../assets/recordingPage/x.svg";
 import gallery from "../../assets/recordingPage/gallery.svg";
 import link from "../../assets/recordingPage/link.svg";
 
-import BottomSheetModal from "../common/BottomSheetModal";
-import BottomSheetMenuComponent from "../common/BottomSheetMenuComponent";
-const ExtractDetailComponent = ({ archiveDetailData }) => {
+const ArchiveDetailComponent = () => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -20,9 +25,27 @@ const ExtractDetailComponent = ({ archiveDetailData }) => {
     }, 200);
   };
 
+  console.log(archiveDetailData);
+
   const formattedDate = (date) => {
     return date.split("T")[0].replace(/-/g, ".");
   };
+
+  const {
+    data: archiveDetailData,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["archiveDetailData"],
+    queryFn: () => getDetailExtractReview(id, "EXCERPT"),
+  });
+
+  const typeState =
+    archiveDetailData.excerpt && archiveDetailData.review
+      ? "ALL"
+      : archiveDetailData.excerpt
+      ? "EXCERPT"
+      : "REVIEW";
 
   return (
     <div>
@@ -30,9 +53,13 @@ const ExtractDetailComponent = ({ archiveDetailData }) => {
         <div className="flex flex-col gap-5  ">
           <div className="flex justify-between">
             <div className="text-c1 text-gray-400">
-              {formattedDate(archiveDetailData.excerpt.createdTime)}
-              {archiveDetailData.excerpt.visibility === "PRVATE" &&
-                "/ 나만보기"}
+              {formattedDate(archiveDetailData.excerpt.createdTime)} (
+              {archiveDetailData.excerpt.modifiedTime &&
+                formattedDate(archiveDetailData.excerpt.modifiedTime)}{" "}
+              수정) /
+              {archiveDetailData.excerpt.visibility === "PUBLIC"
+                ? "공개"
+                : "비공개"}
             </div>
             <div className="text-b2 text-gray-400">
               {archiveDetailData.excerpt.pageNumber}p
@@ -98,4 +125,3 @@ const ExtractDetailComponent = ({ archiveDetailData }) => {
     </div>
   );
 };
-export default ExtractDetailComponent;

@@ -9,6 +9,9 @@ import ReviewView from "../../components/RecordingPage/ReviewView";
 import StatusBar from "../../components/common/StatusBar";
 import { useNavigate } from "react-router-dom";
 import FloatingRecordButton from "../../components/common/FloatingRecordButton";
+import { useQuery } from "@tanstack/react-query";
+import { getExtractReview } from "../../api/archive";
+import { getUserId } from "../../api/oauth";
 
 const ArchivePage = () => {
   const [tab, setTab] = useState("전체보기");

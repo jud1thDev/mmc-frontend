@@ -27,9 +27,9 @@ const BookListPage = ({ view }) => {
   const [statusVisible, setStatusVisible] = useState(false);
   const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
   const [isCancel, setCancel] = useState(true);
-  const [currentState, setCurrentState] = useState("읽고 싶어요");
   const [sortedBookList, setSortedBookList] = useState([]);
   const [selectedBookId, setSelectedId] = useState();
+  const [currentState, setCurrentState] = useState({});
 
   const getSortKey = (sort) => {
     switch (sort) {
@@ -46,20 +46,20 @@ const BookListPage = ({ view }) => {
     }
   };
 
-  // const getReadingStatus = (status) => {
-  //   switch (status) {
-  //     case "NOT_STARTED":
-  //       return "읽고 싶어요";
-  //     case "READING,":
-  //       return "읽고 있어요";
-  //     case "FINISHED":
-  //       return "다 읽었어요";
-  //     case "STOPPED":
-  //       return "중단했어요";
-  //     default:
-  //       return "읽고 싶어요";
-  //   }
-  // };
+  const getReadingStatus = (status) => {
+    switch (status) {
+      case "NOT_STARTED":
+        return "읽고 싶어요";
+      case "READING,":
+        return "읽고 있어요";
+      case "FINISHED":
+        return "다 읽었어요";
+      case "STOPPED":
+        return "중단했어요";
+      default:
+        return "읽고 싶어요";
+    }
+  };
 
   const getReadingStatusKey = (status) => {
     switch (status) {
@@ -84,6 +84,16 @@ const BookListPage = ({ view }) => {
     queryKey: ["bookListData", getSortKey(sort)],
     queryFn: () => getTotalBook(getSortKey(sort)),
   });
+
+  useEffect(() => {
+    if (bookListData) {
+      const initialState = bookListData.bookList.reduce((acc, book) => {
+        acc[book.userBookId] = book.readStatus;
+        return acc;
+      }, {});
+      setCurrentState(initialState);
+    }
+  }, [bookListData]);
 
   const handleSortChange = (newSort) => {
     setSort(newSort);
@@ -123,6 +133,10 @@ const BookListPage = ({ view }) => {
   };
 
   const handleStatusChange = async (status) => {
+    const initialState = bookListData.bookList.reduce((acc, book) => {
+      acc[book.userBookId] = book.readStatus;
+      return acc;
+    }, {});
     setCurrentState(status);
     const res = await patchBookStatus(
       selectedBookId,
@@ -168,7 +182,7 @@ const BookListPage = ({ view }) => {
                     handleStatusClick={() => handleStatusClick(book.userBookId)}
                     edit={true}
                     bottomSheet={true}
-                    status={currentState}
+                    status={getReadingStatus(currentState[book.userBookId])}
                     bookTitle={book.title}
                     author={book.authors}
                     bookImg={book.imgPath}
@@ -178,10 +192,10 @@ const BookListPage = ({ view }) => {
               : sortedBookList &&
                 sortedBookList.map((book) => (
                   <BookListView
-                    handleStatusClick={handleStatusClick}
+                    handleStatusClick={() => handleStatusClick(book.userBookId)}
                     edit={true}
                     bottomSheet={true}
-                    status={currentState}
+                    status={getReadingStatus(currentState[book.userBookId])}
                     bookTitle={book.title}
                     author={book.authors}
                     bookImg={book.imgPath}

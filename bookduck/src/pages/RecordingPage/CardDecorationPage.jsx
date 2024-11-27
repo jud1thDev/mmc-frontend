@@ -36,10 +36,10 @@ const CardDecorationPage = () => {
       <Header3 title="감상평 카드 꾸미기" />
       <div className="flex justify-center mt-[2.69rem] mb-[5.12rem]">
         <ReviewComponents
-          reviewTitleValue={reviewTitleValue}
-          contents={textValue}
-          bookTitleValue={bookTitleValue}
-          authorValue={authorValue}
+          content={textValue}
+          reviewTitle={reviewTitleValue}
+          title={bookTitleValue}
+          author={authorValue}
         />
       </div>
       <div className="relative min-h-[26rem] rounded-t-[1.25rem] shadow-custom2">
