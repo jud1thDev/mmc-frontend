@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { get } from "../../api/example";
 import { getUserId } from "../../api/oauth";
@@ -13,7 +13,7 @@ import BookCountDisplay from "../../components/MainPage/BookCountDisplay";
 import DeleteModal from "../../components/common/modal/DeleteModal";
 import { useSSE } from "../../context/SSEProvider";
 import FullModal from "../../components/MainPage/FullModal";
-
+import FloatingRecordButton from "../../components/common/FloatingRecordButton";
 // API 호출 함수
 const getUserInfo = async (userId) => {
   return await get(`/users/${userId}`);
@@ -42,19 +42,7 @@ const MainPage = () => {
     onSuccess: (data) => console.log("유저 정보 로드 성공:", data),
     onError: (error) => console.error("유저 정보 로드 실패:", error),
   });
-
-  // SSE 데이터에 따라 Dot 상태 업데이트
-  useEffect(() => {
-    // console.log("SSE 데이터 업데이트 감지:", sseData);
-    const shouldShowDot =
-      !sseData?.isCommonAlarmChecked || !sseData?.isAnnouncementChecked;
-
-    if (isDot !== shouldShowDot) {
-      // console.log(shouldShowDot ? "레드 닷 띄우기" : "레드 닷 없애기");
-      setIsDot(shouldShowDot);
-    }
-  }, [sseData, isDot]);
-
+  const userInfo = userInfoQuery.data;
   // 모달 핸들러
   const handleOutModal = () => {
     setIsEditMode(false);
@@ -77,13 +65,29 @@ const MainPage = () => {
       setBottomSheetShow(false);
     }, 200);
   };
-
   // 로딩 처리
   if (userInfoQuery.isLoading) {
     return <div>로딩 중...</div>;
   }
 
-  const userInfo = userInfoQuery.data;
+  // SSE 데이터에 따라 Dot 상태 업데이트
+  useEffect(() => {
+    // console.log("SSE 데이터 업데이트 감지:", sseData);
+    const shouldShowDot =
+      !sseData?.isCommonAlarmChecked || !sseData?.isAnnouncementChecked;
+
+    if (isDot !== shouldShowDot) {
+      // console.log(shouldShowDot ? "레드 닷 띄우기" : "레드 닷 없애기");
+      setIsDot(shouldShowDot);
+    }
+  }, [sseData, isDot]);
+
+  useEffect(() => {
+    const firstLogin = JSON.parse(localStorage.getItem("isFirstLogin"));
+    if (!firstLogin) {
+      localStorage.setItem("isFirstLogin", JSON.stringify(true));
+    }
+  });
 
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
@@ -140,6 +144,12 @@ const MainPage = () => {
           setBottomSheetShow={setBottomSheetShow}
           setIsAllDelete={setIsAllDelete}
         />
+        <div className="absolute right-0  bottom-24 z-50">
+          <FloatingRecordButton
+            text={!JSON.parse(localStorage.getItem("isFirstLogin"))}
+            handleNavigate={() => navigate("/selectbook")}
+          />
+        </div>
       </div>
       {isNavBar && <BottomNavbar />}
       {showDeleteModal && (
