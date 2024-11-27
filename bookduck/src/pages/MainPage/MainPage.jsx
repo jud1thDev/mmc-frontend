@@ -116,7 +116,7 @@ const MainPage = () => {
         </div>
         <button
           className="w-[10.5625rem]"
-          onClick={() => navigate("/statistics")}
+          onClick={() => navigate(`/statistics/${userId}`)}
         >
           <div className="flex justify-center items-center gap-[0.38rem] w-[10.625rem] h-[2.625rem] bg-white rounded-[0.625rem] mt-[0.81rem]">
             <span className="text-b2 text-gray-800 font-semibold">
