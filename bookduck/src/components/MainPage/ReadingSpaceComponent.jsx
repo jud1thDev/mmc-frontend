@@ -211,11 +211,8 @@ const ReadingSpaceComponent = ({
 
   return (
     <>
-      <div className="relative z-0">
-        <DragDropContext
-          onDragEnd={handleDragEnd}
-          className="z-[-3] bg-white mb-[12rem]"
-        >
+      <div className="relative z-0 ">
+        <DragDropContext onDragEnd={handleDragEnd} className="z-[-3] bg-white ">
           <animated.div
             style={{
               height,
@@ -226,7 +223,7 @@ const ReadingSpaceComponent = ({
               isEditMode ? "bg-[#DDD]" : "bg-white"
             } fixed z-40 w-[24.5625rem] bottom-0 left-0 right-0 mx-auto max-w-md rounded-t-[1.875rem] shadow-lg cursor-pointer overflow-hidden`}
           >
-            <div className="relative">
+            <div className="relative mb-10">
               <div
                 className={`sticky top-0 z-50  h-[4rem] ${
                   isEditMode ? "bg-[#DDD]" : "bg-white"
