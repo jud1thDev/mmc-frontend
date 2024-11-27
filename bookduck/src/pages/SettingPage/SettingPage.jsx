@@ -9,7 +9,6 @@ import BottomSheetModal from "../../components/common/BottomSheetModal";
 import TextField from "../../components/common/TextField";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import DeleteModal from "../../components/common/modal/DeleteModal";
-
 import edit from "../../assets/settingPage/edit.svg";
 import kakaoLogin from "../../assets/settingPage/kakao-login.svg";
 import google from "../../assets/loginPage/google.svg";

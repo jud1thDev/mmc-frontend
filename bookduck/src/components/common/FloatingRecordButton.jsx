@@ -2,32 +2,32 @@ import { useEffect, useState } from "react";
 import record_icon from "../../assets/recordingPage/record-icon.svg";
 import record_icon_circle from "../../assets/recordingPage/record-circle-icon.svg";
 import { useNavigate } from "react-router-dom";
-const FloatingRecordButton = ({ handleNavigate }) => {
-  const [text, setText] = useState(true); //텍스트까지 다 보이는지 아닌지 상태관리
+const FloatingRecordButton = ({ handleNavigate, text = true }) => {
+  const [internalText, setInternalText] = useState(text);
   const navigate = useNavigate();
 
   useEffect(() => {
     let timer;
-    if (text) {
+    if (internalText) {
       timer = setTimeout(() => {
-        setText(false);
-      }, 4000);
+        setInternalText(false);
+      }, 3000);
     }
     return () => clearTimeout(timer);
-  }, [text]);
+  }, [internalText]);
 
   const handleClick = () => {
-    setText(true);
+    setInternalText(true);
   };
 
   return (
     <>
       <div
-        className={`transition-all duration-500 ease-in-out ${
-          text ? "opacity-100" : "opacity-0"
+        className={`transition-all duration-500 ease-in-out z-50 ${
+          internalText ? "opacity-100" : "opacity-0"
         }`}
       >
-        {text ? (
+        {internalText ? (
           <div
             onClick={handleNavigate}
             className="flex gap-[0.75rem] justify-center items-center w-[7.8rem] h-[3.5rem] p-[1rem] mr-[1rem] rounded-[6.25rem] bg-gray-700"
@@ -39,10 +39,10 @@ const FloatingRecordButton = ({ handleNavigate }) => {
       </div>
       <div
         className={`transition-all duration-500 ease-in-out transfrom ${
-          text ? "opacity-0" : "opacity-100"
+          internalText ? "opacity-0" : "opacity-100"
         }`}
       >
-        {!text ? (
+        {!internalText ? (
           <img
             onClick={handleClick}
             className="mr-[1rem] cursor-pointer"
