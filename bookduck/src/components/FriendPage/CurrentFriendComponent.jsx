@@ -38,6 +38,7 @@ const CurrentFriendComponent = () => {
         <FriendListComponent
           key={index}
           userName={friend.nickname}
+          isOfficial={friend.isOfficial}
           text="삭제"
           handleDelete={() => delFriend(friend.friendId)}
         />
