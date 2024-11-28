@@ -7,11 +7,10 @@ import { get } from "../../api/example";
 const SearchUserComponent = ({ search }) => {
   const navigate = useNavigate();
   const loaderRef = useRef(null);
-
   const DATA_LIMIT = 10;
 
   // API 호출 함수
-  const fetchUsers = async ({ pageParam = 0 }) => {
+  const getUsers = async ({ pageParam = 0 }) => {
     const response = await get(
       `/users/search?keyword=${search}&page=${pageParam}&size=${DATA_LIMIT}`
     );
@@ -22,7 +21,7 @@ const SearchUserComponent = ({ search }) => {
     }));
     return {
       users: data,
-      nextPage: response.page + 1,
+      nextPage: response.currentPage + 1,
       totalPages: response.totalPages,
     };
   };
@@ -30,13 +29,11 @@ const SearchUserComponent = ({ search }) => {
   const { data, isLoading, fetchNextPage, hasNextPage, refetch } =
     useInfiniteQuery({
       queryKey: ["users", search],
-      queryFn: fetchUsers,
+      queryFn: getUsers,
       getNextPageParam: (lastPage) =>
         lastPage.nextPage < lastPage.totalPages ? lastPage.nextPage : undefined,
-      enabled: !!search,
     });
 
-  // 무한 스크롤 감지
   useEffect(() => {
     const handleObserver = (entries) => {
       const [entry] = entries;
@@ -56,29 +53,21 @@ const SearchUserComponent = ({ search }) => {
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage]);
 
-  // 검색어 변경 시 데이터 초기화
-  useEffect(() => {
-    if (search) {
-      refetch();
-    }
-  }, [search, refetch]);
-
   if (isLoading) {
     return <div>로딩 중...</div>;
   }
+  const users = data?.pages.flatMap((page) => page.users);
   return (
     <div>
-      {data?.pages.flatMap((page) => page.users).length > 0 ? (
-        data.pages.flatMap((page) =>
-          page.users.map((user) => (
-            <FriendListComponent
-              key={user.userId}
-              userName={user.nickname}
-              text={user.isFriend ? "친구" : "none"}
-              handleClick={() => navigate(`/user/${user.userId}`)}
-            />
-          ))
-        )
+      {users && users.length > 0 ? (
+        users.map((user) => (
+          <FriendListComponent
+            key={user.userId}
+            userName={user.nickname}
+            text={user.isFriend ? "친구" : "none"}
+            handleClick={() => navigate(`/user/${user.userId}`)}
+          />
+        ))
       ) : (
         <div className="flex flex-col items-center mt-[8.06rem]">
           <span className="text-st text-gray-800 font-semibold">
