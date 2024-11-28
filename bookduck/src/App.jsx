@@ -55,7 +55,7 @@ function App() {
   //     console.error("UnauthorizedError 발생:", event.message);
   //     setHasError(true);
   //   };
-
+  //
   //   window.addEventListener("error", handleError);
 
   //   return () => {
