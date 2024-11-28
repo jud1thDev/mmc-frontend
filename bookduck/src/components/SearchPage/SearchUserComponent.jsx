@@ -19,6 +19,7 @@ const SearchUserComponent = ({ search }) => {
       userId: user.userId,
       nickname: user.nickname,
       isFriend: user.isFriend,
+      isOfficial: user.isOfficial,
     }));
     console.log("Processed Data:", data); // `pageContent` 처리 결과 확인
     return {
@@ -68,6 +69,7 @@ const SearchUserComponent = ({ search }) => {
         users.map((user) => (
           <FriendListComponent
             key={user.userId}
+            isOfficial={user.isOfficial}
             userName={user.nickname}
             text={user.isFriend ? "친구" : "none"}
             handleClick={() => navigate(`/user/${user.userId}`)}
