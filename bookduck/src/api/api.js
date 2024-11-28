@@ -36,7 +36,7 @@ apiAuth.interceptors.response.use(
     config.sent = true;
 
     if (status === 401) {
-      console.log(data.errorCode);
+      console.log("에러코드", data.errorCode);
       switch (data.errorCode) {
         case "ACCESS_TOKEN_NOT_EXPIRED":
           console.error("액세스 토큰이 아직 만료되지 않았습니다.");
