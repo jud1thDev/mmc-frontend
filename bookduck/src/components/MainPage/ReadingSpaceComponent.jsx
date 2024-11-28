@@ -312,7 +312,7 @@ const ReadingSpaceComponent = ({
                               type="secondary"
                               color="orange"
                               size="small"
-                              onClick={() => navigate("selectcard")}
+                              onClick={() => navigate("/selectcard")}
                             />
                           </div>
                         ) : (

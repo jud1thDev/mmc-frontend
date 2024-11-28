@@ -102,7 +102,7 @@ const SettingPage = () => {
   //API-회원 탈퇴
   const delUser = async () => {
     try {
-      await del(`/users/me`);
+      await patch(`settings/status`);
       localStorage.clear();
       setTimeout(() => location.reload(true), 2000);
     } catch (error) {

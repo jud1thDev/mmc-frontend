@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { get } from "../../api/example";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import StatusBar from "../../components/common/StatusBar";
 import SearchComponent from "../../components/common/SearchComponent";
@@ -16,40 +17,41 @@ const SearchMainPage = () => {
   const [search, setSearch] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
   const [tab, setTab] = useState("책");
-  const [recentBooks, setRecentBooks] = useState([]);
-  const [popularBooks, setPopularBooks] = useState([]);
   //API 연결
   //최근 책 받기
   const getRecentBooks = async () => {
-    try {
-      const response = await get(`/books/recent`);
-      setRecentBooks(response.bookList);
-    } catch (error) {
-      console.error("최근 책 정보 읽기 오류", error);
-    }
+    return await get(`/books/recent`);
   };
 
   //많이 읽는 책 받기
   const getPopularBooks = async () => {
-    try {
-      const response = await get(`/bookinfo/most`);
-      // console.log("많이 읽는", response);
-      setPopularBooks(response.bookList);
-    } catch (error) {
-      console.error("많이 읽는 책 읽기 오류", error);
-    }
+    return await get(`/bookinfo/most`);
   };
-
-  //useEffect 훅
-  useEffect(() => {
-    getRecentBooks();
-    getPopularBooks();
-  }, []);
 
   //이벤트 핸들러
   const handleSearch = () => {
     setSubmittedSearch(search);
   };
+
+  const recentBooksQuery = useQuery({
+    queryKey: ["recentBooks"],
+    queryFn: getRecentBooks,
+    onSuccess: () => {
+      console.log("최근 책 받기 성공");
+    },
+    onError: (error) => console.error("최근 책 받기 실패", error),
+  });
+  const recentBooks = recentBooksQuery.data.bookList;
+
+  const popularBooksQuery = useQuery({
+    queryKey: ["popularBooks"],
+    queryFn: getPopularBooks,
+    onSuccess: () => {
+      console.log("많이 읽는 책 받기 성공");
+    },
+    onError: (error) => console.error("많이 읽는 책 받기 실패", error),
+  });
+  const popularBooks = popularBooksQuery.data.bookList;
 
   return (
     <div>
@@ -64,15 +66,23 @@ const SearchMainPage = () => {
           <div className="flex flex-col px-4 gap-3 mt-4">
             <div>최근 기록한 책</div>
             <div className="flex flex-row gap-3">
-              {recentBooks.map((book, index) => {
-                return (
-                  <BookComponent
-                    key={index}
-                    img={book.imgPath}
-                    title={book.title}
-                  />
-                );
-              })}
+              {recentBooks.length > 0 ? (
+                recentBooks.map((book, index) => {
+                  return (
+                    <BookComponent
+                      key={index}
+                      img={book.imgPath}
+                      title={book.title}
+                    />
+                  );
+                })
+              ) : (
+                <div className="flex w-full h-[11.5rem] justify-center items-center">
+                  <p className="text-gray-400 text-b2">
+                    아직 기록한 책이 없어요.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
           <div className="flex justify-between px-7 py-4 bg-gray-10 my-5">
