@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import lock from "../../assets/mainPage/lock.svg";
 const ExtractCard = ({
   CardId,
   CardIndex,
@@ -19,8 +19,18 @@ const ExtractCard = ({
         className={`flex flex-col gap-[1.25rem] rounded-[0.875rem] bg-gray-10 shadow-custom p-5
           ${selected && " border-[1px] border-[#6B7FF0]"}`}
       >
-        <div className="text-right text-b2 text-gray-400">
-          {pageNumber || "페이지"}p
+        <div
+          className={`flex ${
+            visibility === "PRIVATE" ? "justify-between" : "text-right"
+          } text-b2 text-gray-400`}
+        >
+          {visibility === "PRIVATE" && (
+            <div className="flex items-center">
+              <img src={lock} />
+              <span className="text-c1">나만보기</span>
+            </div>
+          )}
+          <div>{pageNumber || "페이지"}p</div>
         </div>
         <div className="flex flex-col gap-[0.5rem]">
           <div className="text-b2 text-gray-800">
