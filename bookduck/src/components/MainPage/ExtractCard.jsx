@@ -1,8 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import lock from "../../assets/mainPage/lock.svg";
 const ExtractCard = ({
-  CardId,
-  CardIndex,
   title,
   author,
   pageNumber,
@@ -11,8 +8,6 @@ const ExtractCard = ({
   selected,
   visibility,
 }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="cursor-pointer  w-full h-[8rem]" onClick={onClick}>
       <div

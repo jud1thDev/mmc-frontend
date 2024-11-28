@@ -7,6 +7,7 @@ import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceCompone
 import BookCountDisplay from "../../components/MainPage/BookCountDisplay";
 import right from "../../assets/common/right-yellow.svg";
 import mainDuck from "../../assets/common/main-duck.svg";
+import StopModal from "../../components/OtherUserPage/StopModal";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@tanstack/react-query";
 // API 호출 함수
@@ -40,6 +41,7 @@ const postFriendAccept = async (friendRequestId) => {
 
 const OtherMainPage = () => {
   const navigate = useNavigate();
+  const [isStopModal, setIsStopModal] = useState(false);
   let { id: userId } = useParams();
 
   const userInfoQuery = useQuery({
@@ -88,6 +90,14 @@ const OtherMainPage = () => {
     onError: (error) => console.error("친구수락 실패", error),
   });
 
+  const handleReportClick = () => {
+    if (userInfo.userRelationshipStatus === "FRIEND") {
+      navigate(`/statistics/${userId}`);
+    } else {
+      setIsStopModal(true);
+    }
+  };
+
   return (
     <div className="bg-gray-50 overflow-hidden h-screen">
       <StatusBar />
@@ -120,10 +130,7 @@ const OtherMainPage = () => {
             </div>
           </div>
         </div>
-        <button
-          className="w-[10.5625rem]"
-          onClick={() => navigate(`/statistics/${userId}`)}
-        >
+        <button className="w-[10.5625rem]" onClick={handleReportClick}>
           <div className="flex justify-center items-center gap-[0.38rem] w-[10.625rem] h-[2.625rem] bg-white rounded-[0.625rem] mt-[0.81rem]">
             <span className="text-b2 text-gray-800 font-semibold">
               독서 리포트 보러가기
@@ -133,10 +140,11 @@ const OtherMainPage = () => {
         </button>
         <img
           src={mainDuck}
-          className="absolute top-[11.42rem] right-[5rem] w-[10rem]"
+          className="absolute top-[11.42rem] right-[37rem] w-[10rem]"
         />
         <ReadingSpaceComponent isMine={false} otherUserId={userId} />
       </div>
+      {isStopModal && <StopModal onClick={() => setIsStopModal(false)} />}
     </div>
   );
 };
