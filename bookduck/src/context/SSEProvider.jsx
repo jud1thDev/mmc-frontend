@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { EventSourcePolyfill } from "event-source-polyfill";
 
 // SSE Context 생성
-const SSEContext = createContext();
+const SSEContext = createContext(null);
 
 // SSEProvider 컴포넌트
 export const SSEProvider = ({ children }) => {
@@ -23,6 +23,10 @@ export const SSEProvider = ({ children }) => {
 
     // LocalStorage에서 토큰 가져오기
     const rawTokenData = localStorage.getItem("token");
+    if (!rawTokenData) {
+      console.error("LocalStorage에 토큰이 없습니다. SSE 초기화를 건너뜁니다.");
+      return null;
+    }
     const tokenData = JSON.parse(rawTokenData || "{}");
     const accessKey = tokenData?.accessToken;
 
