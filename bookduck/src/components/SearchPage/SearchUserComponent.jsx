@@ -14,11 +14,13 @@ const SearchUserComponent = ({ search }) => {
     const response = await get(
       `/users/search?keyword=${search}&page=${pageParam}&size=${DATA_LIMIT}`
     );
+    console.log("API Response:", response, "페이지", pageParam); // API 응답 전체 확인
     const data = response.pageContent.map((user) => ({
       userId: user.userId,
       nickname: user.nickname,
       isFriend: user.isFriend,
     }));
+    console.log("Processed Data:", data); // `pageContent` 처리 결과 확인
     return {
       users: data,
       nextPage: response.currentPage + 1,
@@ -32,7 +34,10 @@ const SearchUserComponent = ({ search }) => {
       queryFn: getUsers,
       getNextPageParam: (lastPage) =>
         lastPage.nextPage < lastPage.totalPages ? lastPage.nextPage : undefined,
+      initialPageParam: 0,
     });
+
+  console.log("Rendered data:", data);
 
   useEffect(() => {
     const handleObserver = (entries) => {

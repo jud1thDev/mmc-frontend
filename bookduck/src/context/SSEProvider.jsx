@@ -62,6 +62,8 @@ export const SSEProvider = ({ children }) => {
           isCommonAlarmChecked: data.isCommonAlarmChecked,
           isAnnouncementChecked: data.isAnnouncementChecked,
           isItemUnlockedChecked: data.isItemUnlockedChecked,
+          isLevelUpChecked: data.isLevelUpChecked,
+          isBadgeUnlockedChecked: data.isBadgeUnlockedChecked,
         });
       } catch (error) {
         console.error("SSE 데이터 파싱 오류:", error);
