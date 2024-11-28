@@ -6,10 +6,7 @@ const Header = ({
   handleAddClick,
   handleDelFriendClick,
   handleDelRequestClick,
-<<<<<<< HEAD
-=======
   handleAcceptClick,
->>>>>>> feat/#110
 }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -48,11 +45,7 @@ const Header = ({
         return (
           <button
             className="py-1 px-3 bg-blue-400 rounded-[0.375rem]"
-<<<<<<< HEAD
-            onClick={handleAddClick}
-=======
             onClick={handleAcceptClick}
->>>>>>> feat/#110
           >
             <span className="text-white text-btn3">요청수락</span>
           </button>
