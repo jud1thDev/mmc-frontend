@@ -94,7 +94,6 @@ function App() {
       <Route path="/total-archive-detail/:id" element={<ArchiveDetail />} />
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/recording/decoration" element={<CardDecorationPage />} />
-
       <Route path="/library" element={<LibraryPage />} />
       <Route path="/library/bookcase/:id" element={<EnterBookCasePage />} />
 
@@ -114,8 +113,10 @@ function App() {
         path="/statistics/export/summary"
         element={<SummaryExportPage />}
       />
+
       <Route path="*" element={<Navigate to="/login" replace />} />
       <Route path="/" element={<Navigate to="/home" replace />} />
+      <Route path="/users/null" element={<Navigate to="/login" replace />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
       <Route path="/home" element={<MainPage />} />
       <Route path="/user/:id" element={<OtherMainPage />} />
