@@ -92,6 +92,7 @@ function App() {
         path="/statistics/export/summary"
         element={<SummaryExportPage />}
       />
+      <Route path="*" element={<Navigate to="/login" replace />} />
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
       <Route path="/home" element={<MainPage />} />
