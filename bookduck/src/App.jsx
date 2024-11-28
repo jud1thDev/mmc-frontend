@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { requestFcmToken } from "./api/fcm";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { messaging } from "./api/firebase";
 import { onMessage } from "firebase/messaging";
 import LoginPage from "./pages/LoginPage/LoginPage";
