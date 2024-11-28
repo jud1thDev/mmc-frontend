@@ -11,6 +11,10 @@ export const SSEProvider = ({ children }) => {
     isCommonAlarmChecked: null,
     isAnnouncementChecked: null,
     isItemUnlockedChecked: null,
+    isLevelUpChecked: null,
+    isBadgeUnlockedChecked: null,
+    newLevel: null,
+    newBadgeInfo: null,
   });
 
   // SSE 연결 함수
@@ -64,6 +68,8 @@ export const SSEProvider = ({ children }) => {
           isItemUnlockedChecked: data.isItemUnlockedChecked,
           isLevelUpChecked: data.isLevelUpChecked,
           isBadgeUnlockedChecked: data.isBadgeUnlockedChecked,
+          newLevel: data.newLevel,
+          newBadgeInfo: data.newBadgeInfo,
         });
       } catch (error) {
         console.error("SSE 데이터 파싱 오류:", error);
