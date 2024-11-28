@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { showToast } from "../components/common/ToastComponent";
 import { ToastContainer } from "react-toastify";
 import { useSSE } from "./SSEProvider";
+import { useNavigate } from "react-router-dom";
 import noti from "../assets/notificationPage/item-noti.svg";
 import CharacterAlarmModal from "../components/CharacterPage/CharacterAlarmModal";
 
 const ToastListener = () => {
   const [isAlarmModalOpen, setIsAlarmModalOpen] = useState(false);
   const [modalProps, setModalProps] = useState(null); // 모달의 타입 및 내용 저장
+  const navigate = useNavigate();
   const { sseData } = useSSE();
 
   const toggleAlarmModal = () => {
@@ -22,7 +24,7 @@ const ToastListener = () => {
         title: "아이템 알림",
         message: "새로운 아이템이 열렸어요! ✨",
         buttonLabel: "보러가기",
-        handleClick: () => alert("아이템 보러가기 클릭"),
+        handleClick: () => navigate(`/character/custom`),
       });
     } else if (sseData.isLevelUpChecked === false) {
       setModalProps({
