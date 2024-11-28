@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { requestFcmToken } from "./api/fcm";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { messaging } from "./api/firebase";
 import { onMessage } from "firebase/messaging";
@@ -37,6 +38,27 @@ import handleFcmToken from "./components/NotificationPage/handleFcmToken";
 import { getUserId } from "./api/oauth";
 
 function App() {
+  const [hasError, setHasError] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const handleError = (event) => {
+      console.error("Error 발생:", event.message);
+      setHasError(true);
+    };
+
+    window.addEventListener("error", handleError);
+
+    return () => {
+      window.removeEventListener("error", handleError);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (hasError) {
+      navigate("/login", { replace: true });
+    }
+  }, [hasError, navigate]);
+
   useEffect(() => {
     const fetchandSendFCM = async () => {
       try {
