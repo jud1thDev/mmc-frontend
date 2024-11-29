@@ -65,16 +65,8 @@ export const SSEProvider = ({ children }) => {
       console.log("SSE 이벤트 수신:", event);
       try {
         const data = JSON.parse(event.data);
-        // console.log("수신된 데이터 파싱 성공:", data);
-        setSseData({
-          isCommonAlarmChecked: data.isCommonAlarmChecked,
-          isAnnouncementChecked: data.isAnnouncementChecked,
-          isItemUnlockedChecked: data.isItemUnlockedChecked,
-          isLevelUpChecked: data.isLevelUpChecked,
-          isBadgeUnlockedChecked: data.isBadgeUnlockedChecked,
-          newLevel: data.newLevel,
-          newBadgeInfo: data.newBadgeInfo,
-        });
+        console.log("수신된 데이터 파싱 성공:", data);
+        setSseData(data);
       } catch (error) {
         console.error("SSE 데이터 파싱 오류:", error);
       }

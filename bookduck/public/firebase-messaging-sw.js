@@ -21,20 +21,13 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
   console.log("백그라운드 메시지 수신:", payload);
-  const notificationTitle = payload.data.title || "알림 제목 없음";
+  const notificationTitle = payload.data?.title || "알림 제목 없음";
   const notificationOptions = {
-    body: payload.data.body || "알림 내용 없음",
+    body: payload.data?.body || "알림 내용 없음",
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
-self.addEventListener("install", (event) => {
-  console.log("Service Worker 설치됨");
-  self.skipWaiting(); // 새 Service Worker를 즉시 활성화
-});
-
-self.addEventListener("activate", (event) => {
-  console.log("Service Worker 활성화됨");
-  return self.clients.claim(); // 기존 클라이언트 제어
-});
+self.addEventListener("install", () => self.skipWaiting());
+self.addEventListener("activate", () => self.clients.claim());
