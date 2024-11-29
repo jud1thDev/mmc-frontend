@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { get, post, put, del } from "../../api/example";
 import FriendListComponent from "../common/FriendListComponent";
+import { useNavigate } from "react-router-dom";
 import up from "../../assets/common/up.svg";
 import down from "../../assets/common/down.svg";
 
 const FriendRequestComponent = () => {
+  const navigate = useNavigate();
   //상태 관리
   const [receivedFriendList, setReceivedFriendList] = useState([]);
   const [receivedFriendCount, setReceivedFriendCount] = useState(0);
@@ -135,6 +137,7 @@ const FriendRequestComponent = () => {
                 userName={friend.userNickname}
                 text="취소"
                 handleCancel={() => delFriendRequest(friend.requestId)}
+                handleClick={() => navigate(`/user/${friend.userId}`)}
               />
             ))}
           </div>
