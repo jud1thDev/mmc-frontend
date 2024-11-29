@@ -56,7 +56,13 @@ const ReadingSpaceComponent = ({
       setUserId(id);
       const response = await get(`/users/${id}/readingspace`);
       // console.log(response);
-      setCards(response.cardList);
+      {
+        isMine
+          ? setCards(response.cardList)
+          : setCards(
+              response.cardList.filter((card) => card.visibility === "PUBLIC")
+            );
+      }
     } catch (error) {
       console.error("리딩스페이스 조회 오류", error);
     }
