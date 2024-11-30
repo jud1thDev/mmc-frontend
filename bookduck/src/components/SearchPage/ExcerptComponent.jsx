@@ -1,4 +1,10 @@
-const ExcerptComponent = ({ createdTime, visibility = false, content }) => {
+const ExcerptComponent = ({
+  createdTime,
+  visibility,
+  content,
+  bookTitle,
+  bookAuthor,
+}) => {
   const formatDate = (createdTime) => {
     const date = new Date(createdTime);
     const year = date.getFullYear();
@@ -10,8 +16,8 @@ const ExcerptComponent = ({ createdTime, visibility = false, content }) => {
   return (
     <div className="flex flex-col py-5 gap-2 border-b-[0.0625rem] border-b-gray-100 ">
       <div className="text-c1 text-gray-400">
-        <span>{formatDate(createdTime)} /</span>
-        {visibility ? <span> 공개</span> : <span> 나만보기</span>}
+        <span>{formatDate(createdTime)}</span>
+        {visibility === "PRIVATE" && <span> / 나만보기</span>}
       </div>
       <div
         className="text-b2 text-gray-800"
@@ -25,6 +31,9 @@ const ExcerptComponent = ({ createdTime, visibility = false, content }) => {
         }}
       >
         {content}
+      </div>
+      <div className="text-c1 text-gray-500">
+        {bookTitle}/{bookAuthor}
       </div>
     </div>
   );

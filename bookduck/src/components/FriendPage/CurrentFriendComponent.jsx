@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import FriendListComponent from "../common/FriendListComponent";
+import { useNavigate } from "react-router-dom";
 import { get, del } from "../../api/example";
 const CurrentFriendComponent = () => {
   const [friendList, setFriendList] = useState([]);
   const [friendCount, setFriendCount] = useState(0);
+  const navigate = useNavigate();
   //API연결
   //API-친구 목록 조회
   const getFriendList = async () => {
@@ -38,8 +40,10 @@ const CurrentFriendComponent = () => {
         <FriendListComponent
           key={index}
           userName={friend.nickname}
+          isOfficial={friend.isOfficial}
           text="삭제"
           handleDelete={() => delFriend(friend.friendId)}
+          handleClick={() => navigate(`/user/${friend.userId}`)}
         />
       ))}
     </div>

@@ -1,11 +1,12 @@
 import React from "react";
 import duck from "../../assets/common/duck.svg";
 import ButtonComponent from "./ButtonComponent";
-
+import badge from "../../assets/friendPage/badge.svg";
 const FriendListComponent = ({
   image,
   userName,
   text,
+  isOfficial,
   handleClick,
   handleDelete,
   handleCancel,
@@ -74,8 +75,8 @@ const FriendListComponent = ({
       className="flex justify-between items-center px-4 py-[0.5rem] cursor-pointer"
       onClick={handleClick}
     >
-      <div className="flex gap-3 items-center">
-        <div className="w-[3.5rem] h-[3.5rem]">
+      <div className="flex items-center">
+        <div className="w-[3.5rem] h-[3.5rem] mr-3">
           <img
             src={image || duck}
             alt="userPicture"
@@ -84,6 +85,7 @@ const FriendListComponent = ({
           />
         </div>
         <span>{userName}</span>
+        {isOfficial && <img src={badge} className="ml-1" />}
       </div>
       <div>{text ? renderActionButton() : renderButtons()}</div>
     </div>

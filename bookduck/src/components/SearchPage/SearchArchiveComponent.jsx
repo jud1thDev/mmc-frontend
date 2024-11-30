@@ -134,6 +134,8 @@ const SearchArchiveComponent = ({ search }) => {
                   createdTime={archive.data.createdTime}
                   title={archive.data.reviewTitle}
                   content={archive.data.reviewContent}
+                  bookTitle={archive.title}
+                  bookAuthor={archive.author}
                 />
               );
             } else {
@@ -143,6 +145,8 @@ const SearchArchiveComponent = ({ search }) => {
                   createdTime={archive.data.createdTime}
                   visibility={archive.data.visibility}
                   content={archive.data.excerptContent}
+                  bookTitle={archive.title}
+                  bookAuthor={archive.author}
                 />
               );
             }

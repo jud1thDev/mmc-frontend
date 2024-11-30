@@ -1,4 +1,10 @@
-const ReviewComponent = ({ createdTime, title, content }) => {
+const ReviewComponent = ({
+  createdTime,
+  title,
+  content,
+  bookTitle,
+  bookAuthor,
+}) => {
   const formatDate = (createdTime) => {
     const date = new Date(createdTime);
     const year = date.getFullYear();
@@ -25,6 +31,9 @@ const ReviewComponent = ({ createdTime, title, content }) => {
         }}
       >
         {content}
+      </div>
+      <div className="text-c1 text-gray-500">
+        {bookTitle}/{bookAuthor}
       </div>
     </div>
   );

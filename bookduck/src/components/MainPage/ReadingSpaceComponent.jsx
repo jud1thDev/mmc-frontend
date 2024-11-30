@@ -29,6 +29,7 @@ const ReadingSpaceComponent = ({
   setShowDeleteModal = () => {},
   setShowOutModal = () => {},
   setShowFullModal = () => {},
+  setIsFloatingVisible,
   isEditMode,
   setIsEditMode,
   isAllDelete = false,
@@ -40,12 +41,9 @@ const ReadingSpaceComponent = ({
   const navigate = useNavigate();
 
   const [isHelp, setIsHelp] = useState(false);
-
-  const [isFloatingVisible, setFloatingVisible] = useState(true);
   const [isHelpVisible, setHelpVisible] = useState(false);
   const [cards, setCards] = useState([]);
   const [userId, setUserId] = useState(null);
-
   const screenHeight = window.innerHeight;
   const initialHeight = screenHeight * 0.55;
   const expandedHeight = screenHeight * 0.95;
@@ -58,7 +56,13 @@ const ReadingSpaceComponent = ({
       setUserId(id);
       const response = await get(`/users/${id}/readingspace`);
       // console.log(response);
-      setCards(response.cardList);
+      {
+        isMine
+          ? setCards(response.cardList)
+          : setCards(
+              response.cardList.filter((card) => card.visibility === "PUBLIC")
+            );
+      }
     } catch (error) {
       console.error("리딩스페이스 조회 오류", error);
     }
@@ -174,7 +178,7 @@ const ReadingSpaceComponent = ({
   const [{ height }, api] = useSpring(() => ({
     height: initialHeight,
     onChange: () => {
-      setFloatingVisible(height.get() < hideButtonThreshold);
+      setIsFloatingVisible(height.get() < hideButtonThreshold);
       setHelpVisible(height.get() > hideButtonThreshold);
       if (isMine) {
         setIsNavBar(height.get() < hideButtonThreshold);
@@ -211,11 +215,8 @@ const ReadingSpaceComponent = ({
 
   return (
     <>
-      <div className="relative z-0">
-        <DragDropContext
-          onDragEnd={handleDragEnd}
-          className="z-[-3] bg-white mb-[12rem]"
-        >
+      <div className="relative z-0 ">
+        <DragDropContext onDragEnd={handleDragEnd} className="z-[-3] bg-white ">
           <animated.div
             style={{
               height,
@@ -226,7 +227,7 @@ const ReadingSpaceComponent = ({
               isEditMode ? "bg-[#DDD]" : "bg-white"
             } fixed z-40 w-[24.5625rem] bottom-0 left-0 right-0 mx-auto max-w-md rounded-t-[1.875rem] shadow-lg cursor-pointer overflow-hidden`}
           >
-            <div className="relative">
+            <div className="relative mb-10">
               <div
                 className={`sticky top-0 z-50  h-[4rem] ${
                   isEditMode ? "bg-[#DDD]" : "bg-white"
@@ -317,7 +318,7 @@ const ReadingSpaceComponent = ({
                               type="secondary"
                               color="orange"
                               size="small"
-                              onClick={() => navigate("selectcard")}
+                              onClick={() => navigate("/selectcard")}
                             />
                           </div>
                         ) : (
@@ -357,17 +358,6 @@ const ReadingSpaceComponent = ({
                   </button>
                 </div>
               )}
-
-              {/* {isFloatingVisible && (
-                <div className="absolute right-1 bottom-[-4rem] z-[100]">
-                  <img
-                    onClick={() => navigate("/selectbook")}
-                    className=" cursor-pointer"
-                    src={recordCircleIcon}
-                    alt="record_circle_icon"
-                  />
-                </div>
-              )} */}
             </div>
           </animated.div>
         </DragDropContext>

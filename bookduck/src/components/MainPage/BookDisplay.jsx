@@ -47,7 +47,7 @@ const BookDisplay = ({
             <>
               <div className="relative flex flex-row justify-between ">
                 <span className="text-c1 text-gray-500 mr-1">
-                  by {text1 || "가수"}
+                  {text3 || "책 제목"}
                 </span>
                 <img src={music} alt="Music Icon" />
               </div>
@@ -56,7 +56,7 @@ const BookDisplay = ({
                   {text2 || "노래 제목"}
                 </span>
                 <span className="text-right text-gray-800 text-c1 bg-gray-10 w-[8.8125rem]">
-                  {text3 || "책 제목"}
+                  by {text1 || "가수명"}
                 </span>
               </div>
             </>
