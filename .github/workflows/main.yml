@@ -27,13 +27,13 @@ jobs:
       # 디렉터리 변경 후 의존성 설치
       - name: Install Dependencies
         run: |
-          cd mmc-frontend/bookduck
+          cd MMC-FRONTEND/bookduck
           yarn install
 
       # React 빌드
       - name: Build
         run: |
-          cd mmc-frontend/bookduck
+          cd MMC-FRONTEND/bookduck
           yarn vite build
 
       # build.sh 실행
