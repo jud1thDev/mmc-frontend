@@ -28,6 +28,7 @@ jobs:
       - name: Install Dependencies
         run: |
           cd bookduck
+          ls # 디렉토리 확인
           yarn install
 
       # React 빌드
