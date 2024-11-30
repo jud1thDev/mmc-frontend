@@ -5,10 +5,15 @@ import Skin from "../../components/CharacterPage/Skin";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import Header3 from "../../components/common/Header3";
 import { getUserId } from "../../api/oauth";
-import { getItemLists } from "../../api/character";
+import { getItemLists, patchUserItem } from "../../api/character";
 const CharacterCustomPage = () => {
   const [activeTab, setActiveTab] = useState("전체");
   const [itemLists, setItemLists] = useState([]);
+  const [selectedItems, setSelectedItems] = useState({});
+  const [selectedItemIds, setSelectedItemIds] = useState({});
+  const [isChanged, setIsChanged] = useState(false);
+  const [initialEquippedItems, setInitialEquippedItems] = useState({});
+  const [itemDetails, setItemDetails] = useState({});
 
   const tabToItemType = {
     전체: "ALL",
@@ -25,12 +30,104 @@ const CharacterCustomPage = () => {
         const res = await getItemLists();
         console.log("조회성공: ", res);
         setItemLists(res?.itemList || []);
+
+        // isEquipped가 true인 아이템들을 초기 선택 상태로 설정
+        const equippedItems = {};
+        const equippedItemIds = {};
+        const details = {};
+
+        res?.itemList.forEach((item) => {
+          details[item.itemId] = {
+            userItemId: item.userItemId,
+            itemType: item.itemType,
+          };
+
+          if (item.isEquipped) {
+            equippedItems[item.itemType] = item.itemName;
+            equippedItemIds[item.itemType] = item.itemId;
+          }
+        });
+
+        setItemDetails(details);
+        setSelectedItems(equippedItems);
+        setSelectedItemIds(equippedItemIds);
+        setInitialEquippedItems(equippedItemIds);
+        setIsChanged(false);
       } catch (err) {
         console.error("오류 발생: ", err);
       }
     };
     fetchData();
   }, []);
+
+  const handleItemSelect = (item) => {
+    let newSelectedItemIds;
+
+    if (activeTab !== "전체") {
+      const itemType = tabToItemType[activeTab];
+
+      if (selectedItemIds[itemType] === item.itemId) {
+        newSelectedItemIds = { ...selectedItemIds };
+        delete newSelectedItemIds[itemType];
+      } else {
+        newSelectedItemIds = {
+          ...selectedItemIds,
+          [itemType]: item.itemId,
+        };
+      }
+    } else {
+      if (selectedItemIds[item.itemType] === item.itemId) {
+        newSelectedItemIds = { ...selectedItemIds };
+        delete newSelectedItemIds[item.itemType];
+      } else {
+        newSelectedItemIds = {
+          ...selectedItemIds,
+          [item.itemType]: item.itemId,
+        };
+      }
+    }
+
+    const isEqual =
+      Object.keys(newSelectedItemIds).length ===
+        Object.keys(initialEquippedItems).length &&
+      Object.keys(newSelectedItemIds).every(
+        (key) => newSelectedItemIds[key] === initialEquippedItems[key]
+      );
+
+    setIsChanged(!isEqual);
+    setSelectedItemIds(newSelectedItemIds);
+    setSelectedItems((prev) => {
+      if (newSelectedItemIds[item.itemType] === undefined) {
+        const newSelectedItems = { ...prev };
+        delete newSelectedItems[item.itemType];
+        return newSelectedItems;
+      }
+
+      return {
+        ...prev,
+        [item.itemType]: item.itemName,
+      };
+    });
+  };
+
+  const handleSave = async () => {
+    try {
+      const equippedUserItemIdList = {};
+
+      Object.entries(selectedItemIds).forEach(([itemType, itemId]) => {
+        if (itemId && itemDetails[itemId]) {
+          equippedUserItemIdList[itemType] = itemDetails[itemId].userItemId;
+        } else {
+          equippedUserItemIdList[itemType] = null;
+        }
+      });
+
+      await patchUserItem(equippedUserItemIdList);
+      setIsChanged(false);
+    } catch (error) {
+      console.error("아이템 장착 상태 변경 실패:", error);
+    }
+  };
 
   // 현재 탭에 따라 아이템 필터링
   const filteredItems = itemLists.filter((item) =>
@@ -42,7 +139,7 @@ const CharacterCustomPage = () => {
     <div className="flex flex-col bg-orange-50">
       <Header3 title="" />
       <div className="flex justify-center h-[317px]">
-        <UserDuck userId={getUserId()} />
+        <UserDuck userId={getUserId()} selectedItems={selectedItems} />
       </div>
       <div className="bg-white shadow-custom w-[24.5625rem] h-[27rem] rounded-t-[1.25rem]">
         <div className="pt-1">
@@ -58,14 +155,21 @@ const CharacterCustomPage = () => {
               {filteredItems.map((item) => (
                 <Skin
                   key={item.itemId}
-                  item={item} // 필요한 경우 item 데이터를 props로 전달
+                  item={item}
+                  onItemSelect={handleItemSelect}
+                  isSelected={selectedItemIds[item.itemType] === item.itemId}
                 />
               ))}
             </div>
           </div>
         </div>
         <div className="flex justify-center pt-1.5 h-[5.5rem]">
-          <ButtonComponent text="저장" color="gray700" />
+          <ButtonComponent
+            text="저장"
+            color={isChanged ? "primary" : "gray700"}
+            disabled={!isChanged}
+            onClick={handleSave}
+          />
         </div>
       </div>
     </div>

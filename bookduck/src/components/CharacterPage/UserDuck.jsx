@@ -100,7 +100,7 @@ const Bag = ({ itemName }) => {
   );
 };
 
-const UserDuck = ({ userId }) => {
+const UserDuck = ({ userId, selectedItems }) => {
   const [userItemData, setUserItemData] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -117,32 +117,41 @@ const UserDuck = ({ userId }) => {
     };
     fetchData();
   }, []);
+
   if (loading) {
     return <div className="text-center mt-10"></div>;
   }
+
+  // selectedItems가 있으면 그것을 사용하고, 없으면 userItemData의 아이템을 사용
+  const itemsToRender = selectedItems
+    ? Object.entries(selectedItems).map(([itemType, itemName]) => ({
+        itemType,
+        itemName,
+      }))
+    : userItemData?.itemEquipped || [];
+
   return (
     <div className="w-full h-full">
       <Canvas>
         <ambientLight intensity={3.0} color={"#ffe6a6"} />
         <directionalLight position={[0, 5, 5]} intensity={3.0} />
         <DuckModel />
-        {userItemData &&
-          userItemData.itemEquipped.map((item) => {
-            switch (item.itemType) {
-              case "HAT":
-                return <Hat key="hat" itemName={item.itemName} />;
-              case "CLOTHES":
-                return <Clothes key="clothes" itemName={item.itemName} />;
-              case "PROP":
-                return <Prop key="prop" itemName={item.itemName} />;
-              case "FACE":
-                return <Face key="face" itemName={item.itemName} />;
-              case "BAG":
-                return <Bag key="bag" itemName={item.itemName} />;
-              default:
-                return null;
-            }
-          })}
+        {itemsToRender.map((item) => {
+          switch (item.itemType) {
+            case "HAT":
+              return <Hat key="hat" itemName={item.itemName} />;
+            case "CLOTHES":
+              return <Clothes key="clothes" itemName={item.itemName} />;
+            case "PROP":
+              return <Prop key="prop" itemName={item.itemName} />;
+            case "FACE":
+              return <Face key="face" itemName={item.itemName} />;
+            case "BAG":
+              return <Bag key="bag" itemName={item.itemName} />;
+            default:
+              return null;
+          }
+        })}
         <OrbitControls
           enablePan={true}
           enableRotate={true}
@@ -152,4 +161,5 @@ const UserDuck = ({ userId }) => {
     </div>
   );
 };
+
 export default UserDuck;

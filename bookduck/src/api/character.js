@@ -60,3 +60,17 @@ export const getItemLists = async () => {
     throw error;
   }
 };
+
+// 캐릭터 아이템 장착상태 변경
+export const patchUserItem = async (equippedUserItemIdList) => {
+  try {
+    const res = await patch("items", {
+      equippedUserItemIdList,
+    });
+    console.log("캐릭터 아이템 장착상태 변경 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("캐릭터 아이템 장착상태 변경 실패: ", error);
+    throw error;
+  }
+};

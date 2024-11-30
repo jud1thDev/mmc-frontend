@@ -1,23 +1,14 @@
-import { useState } from "react";
 import noCheck from "../../assets/characterPage/check-no.svg";
 import yesCheck from "../../assets/characterPage/check-yes.svg";
 import lock from "../../assets/characterPage/lock.svg";
 import Item from "./Item";
-const Skin = ({ item }) => {
-  const [isSelected, setIsSelected] = useState(false);
-  console.log("isOwned: ", item.isOwned);
-
+const Skin = ({ item, onItemSelect, isSelected }) => {
   const handleClick = () => {
-    setIsSelected((prevState) => !prevState);
+    onItemSelect(item);
   };
 
   return (
-    <div
-      className="w-[110px] h-[110px] rounded-[12px]"
-      onClick={() => {
-        console.log(item);
-      }}
-    >
+    <div className="w-[110px] h-[110px] rounded-[12px]" onClick={handleClick}>
       {item.isOwned ? (
         <div
           className="relative flex justify-center items-center bg-gray-300 w-[110px] h-[110px] rounded-[12px] cursor-pointer"
