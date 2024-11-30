@@ -14,12 +14,11 @@ jobs:
       # Mustache 설치
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
-      
-      # Node.js 설치
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20.x
+
+      # Node.js 설치 (Alpine 패키지 관리자 사용)
+      - name: Install Node.js
+        run: |
+          apk add --no-cache nodejs npm
 
       # yarn 설치
       - name: Install yarn
@@ -27,7 +26,7 @@ jobs:
 
       # 의존성 설치
       - name: Install Dependencies
-        run: yarn install 
+        run: yarn install
 
       # React 빌드
       - name: Build
