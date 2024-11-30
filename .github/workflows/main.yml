@@ -10,10 +10,37 @@ jobs:
     container: pandoc/latex
     steps:
       - uses: actions/checkout@v2
+
+      # Mustache 설치
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
+
+      # Node.js 설치 (Alpine 패키지 관리자 사용)
+      - name: Install Node.js
+        run: |
+          apk add --no-cache nodejs npm
+
+      # yarn 설치
+      - name: Install yarn
+        run: npm install -g yarn
+        
+      # 디렉터리 변경 후 의존성 설치
+      - name: Install Dependencies
+        run: |
+          cd MMC-FRONTEND/bookduck
+          yarn install
+
+      # React 빌드
+      - name: Build
+        run: |
+          cd MMC-FRONTEND/bookduck
+          yarn vite build
+
+      # build.sh 실행
       - name: creates output
-        run: sh ./build.sh
+        run: sh ./bookduck/build.sh
+
+      # 다른 저장소로 푸시
       - name: Pushes to another repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
@@ -26,5 +53,7 @@ jobs:
           user-email: ${{ secrets.EMAIL }} 
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
+
+      # 푸시 후 변수 확인
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
