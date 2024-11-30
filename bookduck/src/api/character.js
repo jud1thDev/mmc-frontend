@@ -25,18 +25,6 @@ export const getUserLevelInfo = async (userId) => {
   }
 };
 
-// 캐릭터 아이템 조회
-export const getItemLists = async () => {
-  try {
-    const res = await get(`/useritems`);
-    console.log("아이템 리스트 조회 성공: ", res);
-    return res;
-  } catch (error) {
-    console.error("아이템 리스트 조회 실패: ", error);
-    throw error;
-  }
-};
-
 // 내 뱃지 목록 조회
 export const getBadgeLists = async () => {
   try {
@@ -57,6 +45,18 @@ export const getUserItem = async (userId) => {
     return res;
   } catch (error) {
     console.error("유저 아이템 조회 실패: ", error);
+    throw error;
+  }
+};
+
+// 캐릭터 꾸미기 아이템 조회
+export const getItemLists = async () => {
+  try {
+    const res = await get(`/items`);
+    console.log("아이템 리스트 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("아이템 리스트 조회 실패: ", error);
     throw error;
   }
 };
