@@ -1,5 +1,4 @@
 import { post } from "./example";
-import { postAccessTokenIssue } from "./oauth";
 export const postFcmToken = async (userId, fcmToken) => {
   try {
     // POST 요청으로 FCM 토큰 전송

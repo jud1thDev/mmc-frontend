@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import deleteIcon2 from "../../assets/mainPage/delete.svg";
 import Card from "./Card";
-import { update } from "@react-spring/web";
 
 const DraggableList = ({ cards, setCards, isEditMode }) => {
   const handleDragEnd = (result) => {

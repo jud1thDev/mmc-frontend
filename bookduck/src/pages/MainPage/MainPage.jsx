@@ -75,10 +75,10 @@ const MainPage = () => {
   useEffect(() => {
     // console.log("SSE 데이터 업데이트 감지:", sseData);
     const shouldShowDot =
-      !sseData?.isCommonAlarmChecked || !sseData?.isAnnouncementChecked;
+      sseData?.isCommonAlarmChecked === false ||
+      sseData?.isAnnouncementChecked === false;
 
     if (isDot !== shouldShowDot) {
-      // console.log(shouldShowDot ? "레드 닷 띄우기" : "레드 닷 없애기");
       setIsDot(shouldShowDot);
     }
   }, [sseData, isDot]);
