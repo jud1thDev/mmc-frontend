@@ -111,6 +111,19 @@ export const postAddFolderBook = async (folderId, userbookId) => {
   }
 };
 
+/*책장에 책 삭제*/
+export const deleteAddFolderBook = async (folderId, userbookId) => {
+  console.log(userbookId);
+  try {
+    const res = await del(`/folders/${folderId}/books`, { data: userbookId });
+    console.log("책장에 책 삭제 성공", res);
+    return res;
+  } catch (error) {
+    console.error("책장에 책 삭제 실패");
+    return {};
+  }
+};
+
 /*책장명 변경*/
 export const patchFolderName = async (folderId, data) => {
   try {
