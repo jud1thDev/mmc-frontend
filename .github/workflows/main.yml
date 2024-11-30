@@ -26,7 +26,7 @@ jobs:
 
       # 디렉터리 변경 (package.json이 있는 디렉터리로 이동)
       - name: Change directory to bookduck
-        run: cd mmc-frontend/bookduck
+        run: cd mmc-frontend
         
       # 의존성 설치
       - name: Install Dependencies
