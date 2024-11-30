@@ -11,6 +11,7 @@ mkdir output
 yarn vite build || exit 1
 
 # 빌드 결과물을 output 디렉터리로 이동
-cp -R ./dist/* ./output
+cp -R ./mmc-frontend/* ./output
+cp -R ./output ./mmc-frontend/
 
 echo "빌드 성공. Output directory created at ./output."
