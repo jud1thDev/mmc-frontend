@@ -39,12 +39,24 @@ import handleFcmToken from "./components/NotificationPage/handleFcmToken";
 import { getUserId } from "./api/oauth";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const token = localStorage.getItem("token");
+    const userId = getUserId();
+    return !!(token && userId);
+  });
   useEffect(() => {
     const checkAuthentication = async () => {
       const token = localStorage.getItem("token");
-      const userId = await getUserId(); // 사용자 ID 가져오는 함수
-      setIsAuthenticated(!!(token && userId));
+      console.log(token);
+      const userId = await getUserId();
+      console.log(userId);
+      // setIsAuthenticated(!!(token && userId));
+      // console.log(isAuthenticated);
+      const newAuthState = !!(token && userId);
+      console.log("새로운 인증 상태:", newAuthState);
+      setIsAuthenticated(newAuthState);
+      console.log(isAuthenticated);
     };
     checkAuthentication();
   }, []);
