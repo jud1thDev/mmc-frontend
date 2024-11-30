@@ -10,14 +10,30 @@ jobs:
     container: pandoc/latex
     steps:
       - uses: actions/checkout@v2
+
+      # Mustache 설치
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
-      - name: Install Dependencies    # 의존 파일 설치
+
+      # Yarn 설치
+      - name: Install Yarn
+        run: |
+          curl -sL https://yarnpkg.com/install.sh | bash
+          echo "::add-path::$(yarn global bin)"  # yarn을 글로벌 경로에 추가
+
+      # 의존성 설치
+      - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - name: Build                   # React Build
+
+      # React 빌드
+      - name: Build
         run: yarn vite build
+
+      # build.sh 실행
       - name: creates output
         run: sh ./bookduck/build.sh
+
+      # 다른 저장소로 푸시
       - name: Pushes to another repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
@@ -30,5 +46,7 @@ jobs:
           user-email: ${{ secrets.EMAIL }} 
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
+
+      # 푸시 후 변수 확인
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
