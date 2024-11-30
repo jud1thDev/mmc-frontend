@@ -11,7 +11,9 @@ mkdir output
 yarn vite build || exit 1
 
 # 빌드 결과물을 output 디렉터리로 이동
-cp -R ./mmc-frontend/* ./output
-cp -R ./output ./mmc-frontend/
+cp -R ./dist/* ./output/  # dist 디렉토리 내의 파일을 output으로 복사
+
+# output 디렉토리를 원래 위치로 복사
+cp -R ./output /mmc-frontend/bookduck
 
 echo "빌드 성공. Output directory created at ./output."
