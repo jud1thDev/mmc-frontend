@@ -38,7 +38,6 @@ const SelectExtractPage = () => {
         visibility: excerpt.visibility,
         pageNumber: excerpt.pageNumber,
         title: excerpt.title,
-        author: excerpt.author,
       }));
 
       if (page === 0) {
