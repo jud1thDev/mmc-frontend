@@ -40,7 +40,7 @@ jobs:
       - name: creates output
         run: |
            cd bookduck
-           sh build.sh
+           sh ./build.sh
 
       # 다른 저장소로 푸시
       - name: Pushes to another repository
