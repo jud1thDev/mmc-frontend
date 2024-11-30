@@ -33,6 +33,7 @@ const EnterBookCasePage = () => {
   const [bookList, setBookList] = useState([]);
   const [sortedBookList, setSortedBookList] = useState([]);
   const [selectedBookList, setSelectedBookList] = useState([]);
+  const navigate = useNavigate();
 
   const getReadingStatusKey = (status) => {
     switch (status) {
@@ -116,10 +117,13 @@ const EnterBookCasePage = () => {
   }, [tabList]);
 
   const handleButtonClick = async () => {
+    const userbookId = selectedBookList;
+    console.log(userbookId);
     if (addBookState) {
       const res = await postAddFolderBook(id, userbookId);
       console.log(res);
     }
+    window.location.reload();
   };
 
   return (

@@ -102,7 +102,7 @@ export const getBookFromFolder = async (folderId) => {
 /*책장에 책 추가*/
 export const postAddFolderBook = async (folderId, userbookId) => {
   try {
-    const res = await post(`/folders/${folderId}/books/${userbookId}`);
+    const res = await post(`/folders/${folderId}/books`, userbookId);
     console.log("책장에 책 추가 성공", res);
     return res;
   } catch (error) {

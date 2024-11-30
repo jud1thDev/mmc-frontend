@@ -25,8 +25,6 @@ const RecordingPage = () => {
   const [bottomSheetType, setBottomSheetType] = useState("");
   const [privateShow, setPrivateShow] = useState(false);
   const [reviewPrivateShow, setReviewPrivateShow] = useState(false);
-  const author = location.state?.author;
-  const title = location.state?.title;
   console.log(location);
   const {
     pageInputValue,
