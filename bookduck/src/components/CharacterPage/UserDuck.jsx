@@ -24,7 +24,7 @@ const Hat = ({ itemName }) => {
   if (!itemName) return null;
   const gltf = useLoader(
     GLTFLoader,
-    // api 수정후 Hat 코드 수정 필요
+    // Hat 코드 수정 필요
     // `/assets/characterPage/items/HAT/${itemName}.glb`
     "/assets/characterPage/items/HAT/HAT_03.glb"
   );
@@ -32,7 +32,7 @@ const Hat = ({ itemName }) => {
     <primitive
       object={gltf.scene}
       scale={1.9}
-      position={[0, -2.8, 0]}
+      position={[0, -2.85, 0]}
       rotation={[0.15, -0.2, 0]}
     />
   );
