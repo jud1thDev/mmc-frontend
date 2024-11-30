@@ -49,7 +49,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_ACTIONS }} 
         with:
-          source-directory: 'mmc-frontend'
+          source-directory: '.'
           destination-github-username: YoungseoChoi23
           destination-repository-name: mmc-frontend
           user-email: ${{ secrets.EMAIL }} 
