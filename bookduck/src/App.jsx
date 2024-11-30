@@ -46,12 +46,7 @@ function App() {
       setHasError(true);
     };
 
-
     window.addEventListener("error", handleError);
-
-    checkAuthentication();
-  }, []);
-
 
     return () => {
       window.removeEventListener("error", handleError);
