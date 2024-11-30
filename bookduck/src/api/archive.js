@@ -1,5 +1,5 @@
 import { apiAuth } from "./api";
-import { get, post } from "./example";
+import { del, get, post } from "./example";
 
 export const postExtractReview = async (data) => {
   try {
@@ -44,5 +44,17 @@ export const postExtractImage = async (formData) => {
     return res;
   } catch (error) {
     console.error("발췌 이미지 추출 실패", error);
+  }
+};
+
+export const deleteExtractReview = async (archivdId, excerptId, reviewId) => {
+  try {
+    const res = await del(
+      `/archives/${archivdId}?&excerptId=${excerptId}?reviewId=${reviewId}`
+    );
+    console.log("발췌 및 감상평 삭제 성공", res);
+    return res;
+  } catch (error) {
+    console.error("발췌 및 감상평 삭제 실패", error);
   }
 };
