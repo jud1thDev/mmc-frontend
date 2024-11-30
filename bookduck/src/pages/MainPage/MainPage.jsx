@@ -8,12 +8,12 @@ import StatusBar from "../../components/common/StatusBar";
 import Header2 from "../../components/common/Header2";
 import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceComponent";
 import right from "../../assets/common/right-yellow.svg";
-import mainDuck from "../../assets/common/main-duck.svg";
 import BookCountDisplay from "../../components/MainPage/BookCountDisplay";
 import DeleteModal from "../../components/common/modal/DeleteModal";
 import { useSSE } from "../../context/SSEProvider";
 import FullModal from "../../components/MainPage/FullModal";
 import FloatingRecordButton from "../../components/common/FloatingRecordButton";
+import UserDuck from "../../components/CharacterPage/UserDuck";
 // API 호출 함수
 const getUserInfo = async (userId) => {
   return await get(`/users/${userId}`);
@@ -125,11 +125,9 @@ const MainPage = () => {
             <img src={right} alt="arrow" />
           </div>
         </button>
-        <img
-          src={mainDuck}
-          className="absolute top-[11.42rem] right-0 w-[10rem]"
-          alt="main duck"
-        />
+        <div className="absolute top-[14.25rem] right-0 w-[12.6875rem] h-[12.9375rem]">
+          <UserDuck />
+        </div>
         <ReadingSpaceComponent
           setColor={setColor}
           setIsNavBar={setIsNavBar}
