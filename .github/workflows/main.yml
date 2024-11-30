@@ -27,20 +27,20 @@ jobs:
       # 디렉터리 변경 후 의존성 설치
       - name: Install Dependencies
         run: |
-          cd bookduck
+          cd ./bookduck
           ls # 디렉토리 확인
           yarn install
 
       # React 빌드
       - name: Build
         run: |
-          cd bookduck
+          cd ./bookduck
           yarn vite build
 
       # build.sh 실행
       - name: creates output
         run: |
-          cd bookduck
+          cd ./bookduck
           sh ./build.sh
 
       # 다른 저장소로 푸시
