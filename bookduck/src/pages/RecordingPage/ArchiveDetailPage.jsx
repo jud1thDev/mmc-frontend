@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AuthorComponent from "../../components/RecordingPage/AuthorComponent";
 import CloseButton from "../../components/RecordingPage/CloseButton";
 import Header2 from "../../components/RecordingPage/Header2";
@@ -13,6 +13,7 @@ import trash from "../../assets/recordingPage/trash.svg";
 import Divider2 from "../../components/common/Divider2";
 import DeleteModal from "../../components/common/modal/DeleteModal";
 import BottomSheetModal2 from "../../components/BookInfoPage/BottomSheetModal2";
+import { delExtractReview } from "../../api/archive";
 
 const ArchiveDetail = () => {
   const pathname = window.location.pathname;
@@ -21,10 +22,17 @@ const ArchiveDetail = () => {
   const [visible, setVisible] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const location = useLocation();
+  const { id } = useParams();
+  const [excerptId, setExcerptId] = useState();
+  const [reviewId, setReviewId] = useState();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    setExcerptId(archiveDetailData.excerpt?.excerptId);
+    setReviewId(archiveDetailData.review?.reviewId);
+  }, []);
   const archiveDetailData = location.state?.detailData || {};
-  console.log("123");
-
+  console.log(archiveDetailData);
   const ref = useRef(null); // 두 컴포넌트의 높이를 측정할 ref
 
   const handleMenu = () => {
@@ -52,6 +60,13 @@ const ArchiveDetail = () => {
     const totalHeight = ref.current ? ref.current.clientHeight : 0; // 현재 높이 측정
     setIsHeightExceeded(totalHeight > 621);
   }, [pathname]); // pathname이 변경될 때마다 높이를 재계산
+
+  const handleDeleteArchive = async () => {
+    const archiveId = id;
+    const res = await delExtractReview(archiveId, excerptId, reviewId);
+    console.log(res);
+    navigate("/archive");
+  };
 
   return (
     <>
@@ -101,7 +116,7 @@ const ArchiveDetail = () => {
           content="삭제된 카드는 다시 복구할 수 없어요."
           leftBtnText="삭제"
           rightBtnText="취소"
-          onLeftClick={() => {}}
+          onLeftClick={handleDeleteArchive}
           onRightClick={handleDeleteModal}
         />
       )}

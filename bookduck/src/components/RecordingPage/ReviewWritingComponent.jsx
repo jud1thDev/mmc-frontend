@@ -11,13 +11,13 @@ const ReviewWritingComponent = ({
   titleInputValue,
   bookTitleValue = "책제목",
   authorValue = "지은이",
-  reviewPublicState,
-  setReviewPublicState,
+  reviewPrivateShow,
+  setReviewPrivateShow,
 }) => {
   const { reviewColor } = useReviewColorStore();
   const navigate = useNavigate();
-  const handleState = (state) => {
-    setReviewPublicState(state);
+  const handleToggle = () => {
+    setReviewPrivateShow(!reviewPrivateShow);
   };
   return (
     <>
@@ -49,9 +49,9 @@ const ReviewWritingComponent = ({
               </div>
             </div>
             <PublicRange
-              handleState={handleState}
-              publicState={reviewPublicState}
-              setPublicState={setReviewPublicState}
+              privateShow={reviewPrivateShow}
+              setReviewPrivateShow={setReviewPrivateShow}
+              handleToggle={handleToggle}
             />
           </div>
         </div>

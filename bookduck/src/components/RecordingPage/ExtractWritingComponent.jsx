@@ -9,12 +9,11 @@ const ExtractWritingComponent = ({
   setInputValue,
   handleTextField,
   pageInputValue,
-  extractPublicState,
-  setExtractPublicState,
+  setPrivateShow,
+  privateShow,
 }) => {
-  const [extractImgURL, setExtractImgURL] = useState("");
-  const handleState = (state) => {
-    setExtractPublicState(state);
+  const handleToggle = () => {
+    setPrivateShow(!privateShow);
   };
 
   const handleExtractImage = async (e) => {
@@ -49,9 +48,9 @@ const ExtractWritingComponent = ({
               onChange={handleExtractImage}
             />
             <PublicRange
-              publicState={extractPublicState}
-              setPublicState={setExtractPublicState}
-              handleState={handleState}
+              setPrivateShow={setPrivateShow}
+              privateShow={privateShow}
+              handleToggle={handleToggle}
             />
           </div>
         </div>
