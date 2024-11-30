@@ -48,7 +48,6 @@ function App() {
 
     window.addEventListener("error", handleError);
 
-    checkAuthentication();
     return () => {
       window.removeEventListener("error", handleError);
     };
