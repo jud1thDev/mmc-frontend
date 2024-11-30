@@ -1,7 +1,8 @@
-#!/bin/sh
+# 디렉토리 확인
+ls -la
 
 # 프로젝트 루트 디렉토리로 이동 (스크립트 실행 위치를 기준으로)
-cd "/mmc-frontend/bookduck" 
+cd "./bookduck"  # 상대 경로 사용
 
 # 기존 output 디렉터리 삭제 (있을 경우)
 rm -rf output
