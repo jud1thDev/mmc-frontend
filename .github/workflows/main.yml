@@ -15,10 +15,10 @@ jobs:
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
 
-      # Yarn 설치
+      # Yarn 설치 (sh 사용)
       - name: Install Yarn
         run: |
-          curl -sL https://yarnpkg.com/install.sh | bash
+          curl -sL https://yarnpkg.com/install.sh | sh
           echo "::add-path::$(yarn global bin)"  # yarn을 글로벌 경로에 추가
 
       # 의존성 설치
