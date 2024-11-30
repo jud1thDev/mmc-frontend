@@ -224,7 +224,7 @@ const RecordingPage = () => {
                     <input
                       value={titleInputValue}
                       onChange={(e) => setTitleInputValue(e.target.value)}
-                      placeholder="제목"
+                      placeholder="제목 (25자 이내로 작성하세요)"
                       className="text-b1 font-semibold bg-transparent"
                     />
                     <textarea

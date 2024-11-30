@@ -6,11 +6,6 @@ import ReviewDetailComponent from "../../components/RecordingPage/ReviewDetailCo
 import { useEffect, useRef, useState } from "react";
 import ExtractDetailComponent from "../../components/RecordingPage/ExtractDetailComponent";
 import StatusBar from "../../components/common/StatusBar";
-import BottomSheetModal from "../../components/common/BottomSheetModal";
-import BottomSheetMenuComponent from "../../components/common/BottomSheetMenuComponent";
-import pencil from "../../assets/recordingPage/pencil.svg";
-import trash from "../../assets/recordingPage/trash.svg";
-import Divider2 from "../../components/common/Divider2";
 import DeleteModal from "../../components/common/modal/DeleteModal";
 import BottomSheetModal2 from "../../components/BookInfoPage/BottomSheetModal2";
 import { delExtractReview } from "../../api/archive";
@@ -68,6 +63,10 @@ const ArchiveDetail = () => {
     navigate("/archive");
   };
 
+  const handleEdit = () => {
+    navigate("/recording", { state: {} });
+  };
+
   return (
     <>
       <StatusBar />
@@ -108,6 +107,7 @@ const ArchiveDetail = () => {
           visible={visible}
           setVisible={setVisible}
           handleDelete={handleDelete}
+          handleEdit={handleEdit}
         />
       )}
       {showDeleteModal && (

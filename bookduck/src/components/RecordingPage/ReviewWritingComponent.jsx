@@ -24,7 +24,12 @@ const ReviewWritingComponent = ({
       <div className="flex flex-col gap-[0.38rem]">
         <div className="flex items-center justify-between py-2">
           <div className="text-b1 font-semibold">감상평</div>
-          <div className="flex gap-[1.12rem]">
+          <div className="flex gap-3">
+            <PublicRange
+              privateShow={reviewPrivateShow}
+              setReviewPrivateShow={setReviewPrivateShow}
+              handleToggle={handleToggle}
+            />
             <div className="flex items-center cursor-pointer">
               {reviewColor ? (
                 <Cards stroke={reviewColor} />
@@ -48,11 +53,6 @@ const ReviewWritingComponent = ({
                 카드색상
               </div>
             </div>
-            <PublicRange
-              privateShow={reviewPrivateShow}
-              setReviewPrivateShow={setReviewPrivateShow}
-              handleToggle={handleToggle}
-            />
           </div>
         </div>
         <div onClick={handleTextField} className="cursor-pointer">
@@ -60,7 +60,7 @@ const ReviewWritingComponent = ({
             <div className="flex flex-col gap-2">
               <input
                 value={titleInputValue}
-                placeholder="제목"
+                placeholder="제목 (25자 이내로 작성하세요)"
                 className="text-b1 font-semibold bg-transparent"
               />
               <textarea
