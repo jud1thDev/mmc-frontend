@@ -1,6 +1,6 @@
 import right from "../../assets/statisticsPage/right.svg";
 import UserDuck from "../CharacterPage/UserDuck";
-const UserCard = ({ nickname }) => {
+const UserCard = ({ nickname, userId }) => {
   return (
     <div className="flex h-[10rem]">
       <div className="flex flex-col gap-1 mt-[3.8125rem] ml-[1.75rem]">
@@ -16,7 +16,7 @@ const UserCard = ({ nickname }) => {
       </div>
       {/* 임시  */}
       <div className="w-[180px]">
-        <UserDuck />
+        <UserDuck userId={userId} />
       </div>
     </div>
   );

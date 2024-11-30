@@ -4,6 +4,7 @@ import TabBarComponent from "../../components/common/TabBarComponent";
 import Skin from "../../components/CharacterPage/Skin";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import Header3 from "../../components/common/Header3";
+import { getUserId } from "../../api/oauth";
 const CharacterCustomPage = () => {
   const [activeTab, setActiveTab] = useState("전체");
 
@@ -11,7 +12,7 @@ const CharacterCustomPage = () => {
     <div className="flex flex-col bg-orange-50">
       <Header3 title="" />
       <div className="flex justify-center h-[19.8125rem]">
-        <UserDuck />
+        <UserDuck userId={getUserId()} />
       </div>
       <div className="bg-white shadow-custom w-[24.5625rem] h-[27rem] rounded-t-[1.25rem]">
         <div className="pt-1">

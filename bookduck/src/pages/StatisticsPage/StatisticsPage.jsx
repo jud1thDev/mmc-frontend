@@ -37,7 +37,7 @@ const StatisticsPage = () => {
   return (
     <div className="flex flex-col pb-[11.25rem]">
       <Header3 title="독서 리포트" />
-      <UserCard nickname={userData?.nickname} />
+      <UserCard nickname={userData?.nickname} userId={userId} />
       <div className="flex flex-col pt-6 px-7 pb-7 gap-7 bg-gray-50">
         <div className="text-b1 font-semibold">
           {userData?.isFirstHalf ? "상반기" : "하반기"} 기록은 총{" "}

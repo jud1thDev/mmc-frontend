@@ -48,3 +48,15 @@ export const getBadgeLists = async () => {
     throw error;
   }
 };
+
+// 유저가 착용한 아이템 조회
+export const getUserItem = async (userId) => {
+  try {
+    const res = await get(`/users/${userId}/character`);
+    console.log("유저 아이템 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("유저 아이템 조회 실패: ", error);
+    throw error;
+  }
+};
