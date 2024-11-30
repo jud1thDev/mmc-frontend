@@ -14,16 +14,15 @@ jobs:
       # Mustache 설치
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
-
-      # Yarn 설치 (sh 사용)
-      - name: Install Yarn
-        run: |
-          curl -sL https://yarnpkg.com/install.sh | sh
-          echo "::add-path::$(yarn global bin)"  # yarn을 글로벌 경로에 추가
-
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: 14.x
+      
       # 의존성 설치
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install 
 
       # React 빌드
       - name: Build
