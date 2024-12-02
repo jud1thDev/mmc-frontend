@@ -34,7 +34,10 @@ import FriendListPage from "./pages/FriendPage/FriendListPage";
 import OAuthRedierctPage from "./pages/LoginPage/OAuthRedierctPage";
 import OtherMainPage from "./pages/OtherUserPage/OtherMainPage";
 import handleFcmToken from "./components/NotificationPage/handleFcmToken";
+import EditPage from "./pages/RecordingPage/EditPage";
+
 import { getUserId } from "./api/oauth";
+import EditCardDecorationPage from "./pages/RecordingPage/EditCardDecorationPage";
 
 function App() {
   useEffect(() => {
@@ -72,6 +75,11 @@ function App() {
       <Route path="/total-archive-detail/:id" element={<ArchiveDetail />} />
       <Route path="/recording" element={<RecordingPage />} />
       <Route path="/recording/decoration" element={<CardDecorationPage />} />
+      <Route path="/recording/edit/:id" element={<EditPage />} />
+      <Route
+        path="/recording/edit/:id/decoration"
+        element={<EditCardDecorationPage />}
+      />
 
       <Route path="/library" element={<LibraryPage />} />
       <Route path="/library/bookcase/:id" element={<EnterBookCasePage />} />

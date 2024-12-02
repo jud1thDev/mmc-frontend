@@ -1,5 +1,5 @@
 import { apiAuth } from "./api";
-import { del, get, post } from "./example";
+import { del, get, post, put } from "./example";
 
 export const postExtractReview = async (data) => {
   try {
@@ -33,6 +33,16 @@ export const getDetailExtractReview = async (archiveId) => {
   }
 };
 
+export const putDetailExtractReview = async (archiveId, data) => {
+  try {
+    const res = await put(`/archives/${archiveId}`, data);
+    console.log("발췌 및 감상평 수정 성공", res);
+    return res;
+  } catch (error) {
+    console.error("발췌 및 감상평 수정 실패", error);
+  }
+};
+
 export const delExtractReview = async (archiveId, excerptId, reviewId) => {
   try {
     // URL 조합: 필요한 파라미터만 포함
@@ -54,6 +64,7 @@ export const delExtractReview = async (archiveId, excerptId, reviewId) => {
     console.error("발췌 및 감상평 삭제 실패", error);
   }
 };
+
 export const postExtractImage = async (formData) => {
   try {
     const res = await apiAuth.post(`/archives/excerpts/ocr`, formData, {
