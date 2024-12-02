@@ -1,9 +1,5 @@
 import { apiAuth } from "./api";
-<<<<<<< HEAD
 import { del, get, post, put } from "./example";
-=======
-import { del, get, post } from "./example";
->>>>>>> dev
 
 export const postExtractReview = async (data) => {
   try {

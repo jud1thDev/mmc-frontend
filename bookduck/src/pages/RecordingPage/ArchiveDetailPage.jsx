@@ -8,11 +8,7 @@ import ExtractDetailComponent from "../../components/RecordingPage/ExtractDetail
 import StatusBar from "../../components/common/StatusBar";
 import DeleteModal from "../../components/common/modal/DeleteModal";
 import BottomSheetModal2 from "../../components/BookInfoPage/BottomSheetModal2";
-<<<<<<< HEAD
 import { delExtractReview } from "../../api/archive";
-=======
-import { deleteExtractReview } from "../../api/archive";
->>>>>>> dev
 
 const ArchiveDetail = () => {
   const pathname = window.location.pathname;
@@ -61,7 +57,6 @@ const ArchiveDetail = () => {
   }, [pathname]); // pathname이 변경될 때마다 높이를 재계산
 
   const handleDeleteArchive = async () => {
-<<<<<<< HEAD
     const archiveId = id;
     const res = await delExtractReview(archiveId, excerptId, reviewId);
     console.log(res);
@@ -70,10 +65,6 @@ const ArchiveDetail = () => {
 
   const handleEdit = () => {
     navigate(`/recording/edit/${id}`, { state: {} });
-=======
-    const res = await deleteExtractReview(archivdId, excerptId, reviewId);
-    console.log(res);
->>>>>>> dev
   };
 
   return (
