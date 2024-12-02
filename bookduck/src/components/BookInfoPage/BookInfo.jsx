@@ -39,9 +39,7 @@ const BookInfo = ({ isMe = "default", bookData }) => {
             isMe === "other" ? "justify-center" : ""
           }  gap-1`}
         >
-          <div className="text-t2 font-semibold max-h-[3.5rem]">
-            {bookBasicData?.title}
-          </div>
+          <div className="text-t2 font-semibold">{bookBasicData?.title}</div>
           <div className="text-b1 h-6">{bookBasicData?.author}</div>
         </div>
         <div className="flex flex-col mt-1 justify-between h-full">
