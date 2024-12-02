@@ -45,7 +45,7 @@ const ReadingSpaceComponent = ({
   const [cards, setCards] = useState([]);
   const [userId, setUserId] = useState(null);
   const screenHeight = window.innerHeight;
-  const initialHeight = screenHeight * 0.55;
+  const initialHeight = screenHeight * 0.45;
   const expandedHeight = screenHeight * 0.95;
   const hideButtonThreshold = initialHeight + 50;
 
@@ -114,15 +114,15 @@ const ReadingSpaceComponent = ({
     }
   }, [isAllDelete]);
 
-  //이벤트 핸들러
-  const handleDeleteModal = () => {
-    setShowDeleteModal(false);
-  };
+  // //이벤트 핸들러
+  // const handleDeleteModal = () => {
+  //   setShowDeleteModal(false);
+  // };
 
-  const handleOutModal = () => {
-    setShowOutModal(false);
-    handleEditMode();
-  };
+  // const handleOutModal = () => {
+  //   setShowOutModal(false);
+  //   handleEditMode();
+  // };
 
   const handleHelpClick = () => {
     setIsHelp(!isHelp);
@@ -146,10 +146,6 @@ const ReadingSpaceComponent = ({
 
   const handleDelete = () => {
     setShowDeleteModal(true);
-  };
-
-  const handleEditMode = () => {
-    setIsEditMode(!isEditMode);
   };
 
   const handleBackdropClick = () => {
@@ -330,7 +326,6 @@ const ReadingSpaceComponent = ({
                           </div>
                         )
                       ) : (
-                        // 카드가 있을 때 렌더링
                         <DraggableList
                           cards={cards}
                           setCards={setCards}
