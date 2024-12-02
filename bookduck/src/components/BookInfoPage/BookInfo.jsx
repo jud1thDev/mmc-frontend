@@ -31,9 +31,7 @@ const BookInfo = ({ isMe = "default", bookData }) => {
         src={bookBasicData?.imgPath}
         alt="Cover"
       />
-      <div
-        className={`flex flex-col justify-between py-2 w-full  h-[10.25rem]`}
-      >
+      <div className={`flex flex-col justify-between py-2 w-full`}>
         <div
           className={`flex flex-col ${
             isMe === "other" ? "justify-center" : ""
