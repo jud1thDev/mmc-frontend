@@ -90,6 +90,7 @@ const formatNotiTime = (rawTime) => {
 };
 
 const NotificationItemComponent = ({
+  onMarkAsRead,
   alarmType,
   boldText,
   isRead,
@@ -115,8 +116,8 @@ const NotificationItemComponent = ({
   };
 
   const handleClick = (alarmId) => {
+    onMarkAsRead(alarmId);
     handleNavigation();
-    patchAlarm(alarmId);
   };
   return (
     <div

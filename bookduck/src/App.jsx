@@ -1,8 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { requestFcmToken } from "./api/fcm";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { messaging } from "./api/firebase";
 import { onMessage } from "firebase/messaging";
+import ProtectedLayout from "./components/common/ProtectedLayout";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SigninPage from "./pages/LoginPage/SigninPage";
 import SearchMainPage from "./pages/SearchPage/SearchMainPage";
@@ -40,6 +42,48 @@ import { getUserId } from "./api/oauth";
 import EditCardDecorationPage from "./pages/RecordingPage/EditCardDecorationPage";
 
 function App() {
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const token = localStorage.getItem("token");
+    const userId = getUserId();
+    return !!(token && userId);
+  });
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      const token = localStorage.getItem("token");
+      console.log(token);
+      const userId = await getUserId();
+      console.log(userId);
+      // setIsAuthenticated(!!(token && userId));
+      // console.log(isAuthenticated);
+      const newAuthState = !!(token && userId);
+      console.log("새로운 인증 상태:", newAuthState);
+      setIsAuthenticated(newAuthState);
+      console.log(isAuthenticated);
+    };
+    checkAuthentication();
+  }, []);
+  // const [hasError, setHasError] = useState(false);
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   const handleError = (event) => {
+  //     console.error("UnauthorizedError 발생:", event.message);
+  //     setHasError(true);
+  //   };
+  //
+  //   window.addEventListener("error", handleError);
+
+  //   return () => {
+  //     window.removeEventListener("error", handleError);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   if (hasError) {
+  //     navigate("/login", { replace: true });
+  //   }
+  // }, [hasError, navigate]);
+
   useEffect(() => {
     const fetchandSendFCM = async () => {
       try {
@@ -68,56 +112,75 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/selectBook" element={<SelectBookPage />} />
-      <Route path="/archive" element={<ArchivePage />} />
-      <Route path="/excerpt-archive-detail/:id" element={<ArchiveDetail />} />
-      <Route path="/review-archive-detail/:id" element={<ArchiveDetail />} />
-      <Route path="/total-archive-detail/:id" element={<ArchiveDetail />} />
-      <Route path="/recording" element={<RecordingPage />} />
-      <Route path="/recording/decoration" element={<CardDecorationPage />} />
-      <Route path="/recording/edit/:id" element={<EditPage />} />
-      <Route
-        path="/recording/edit/:id/decoration"
-        element={<EditCardDecorationPage />}
-      />
-
-      <Route path="/library" element={<LibraryPage />} />
-      <Route path="/library/bookcase/:id" element={<EnterBookCasePage />} />
-
-      <Route path="/myBadge" element={<MyBadgePage />} />
-      <Route path="/character/custom" element={<CharacterCustomPage />} />
-      <Route path="/character" element={<CharacterPage />} />
+      {/* 공개 경로 */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signin" element={<SigninPage />} />
-      <Route path="/setting" element={<SettingPage />} />
-      <Route path="/notification" element={<NotificationPage />} />
-      <Route path="/statistics/:userId" element={<StatisticsPage />} />
-      <Route
-        path="/statistics/export/character"
-        element={<CharacterExportPage />}
-      />
-      <Route
-        path="/statistics/export/summary"
-        element={<SummaryExportPage />}
-      />
-      <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
-      <Route path="/home" element={<MainPage />} />
-      <Route path="/user/:id" element={<OtherMainPage />} />
-      <Route path="/friend" element={<FriendListPage />} />
-      <Route path="/search" element={<SearchMainPage />} />
-      <Route path="/recording" element={<RecordingPage />} />
-      <Route path="/search/register" element={<RegisterPage />} />
-      <Route path="/info/book/:bookinfoId" element={<BookInfoPage />} />
-      <Route
-        path="/info/book/custom/:bookinfoId"
-        element={<BookInfoAddedPage />}
-      />
-      <Route path="/info/book/comment" element={<UserCommentPage />} />
-      <Route path="/selectcard" element={<SelectCardPage />} />
-      <Route path="/selectcard/extract" element={<SelectExtractPage />} />
-      <Route path="/selectcard/review" element={<SelectReviewPage />} />
-      <Route path="/selectcard/custom" element={<SelectCustomPage />} />
+      <Route path="/users/null" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
+
+      {/* 보호된 경로 그룹 */}
+      <Route element={<ProtectedLayout isAuthenticated={isAuthenticated} />}>
+        {/* 메인 네비게이션 */}
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/home" element={<MainPage />} />
+        <Route path="/user/:id" element={<OtherMainPage />} />
+
+        {/* 검색 관련 */}
+        <Route path="/search" element={<SearchMainPage />} />
+        <Route path="/search/register" element={<RegisterPage />} />
+
+        {/* 도서 정보 관련 */}
+        <Route path="/info/book/:bookinfoId" element={<BookInfoPage />} />
+        <Route
+          path="/info/book/custom/:bookinfoId"
+          element={<BookInfoAddedPage />}
+        />
+        <Route path="/info/book/comment" element={<UserCommentPage />} />
+
+        {/* 기록 관련 */}
+        <Route path="/selectBook" element={<SelectBookPage />} />
+        <Route path="/recording" element={<RecordingPage />} />
+        <Route path="/recording/decoration" element={<CardDecorationPage />} />
+        <Route path="/archive" element={<ArchivePage />} />
+        <Route path="/excerpt-archive-detail/:id" element={<ArchiveDetail />} />
+        <Route path="/review-archive-detail/:id" element={<ArchiveDetail />} />
+        <Route path="/total-archive-detail/:id" element={<ArchiveDetail />} />
+        <Route path="/recording/edit/:id" element={<EditPage />} />
+        <Route
+          path="/recording/edit/:id/decoration"
+          element={<EditCardDecorationPage />}
+        />
+
+        {/* 카드 선택 관련 */}
+        <Route path="/selectcard" element={<SelectCardPage />} />
+        <Route path="/selectcard/extract" element={<SelectExtractPage />} />
+        <Route path="/selectcard/review" element={<SelectReviewPage />} />
+        <Route path="/selectcard/custom" element={<SelectCustomPage />} />
+
+        {/* 캐릭터/뱃지 관련 */}
+        <Route path="/character" element={<CharacterPage />} />
+        <Route path="/character/custom" element={<CharacterCustomPage />} />
+        <Route path="/myBadge" element={<MyBadgePage />} />
+
+        {/* 도서관 관련 */}
+        <Route path="/library" element={<LibraryPage />} />
+        <Route path="/library/bookcase/:id" element={<EnterBookCasePage />} />
+
+        {/* 통계/설정 관련 */}
+        <Route path="/statistics/:userId" element={<StatisticsPage />} />
+        <Route
+          path="/statistics/export/character"
+          element={<CharacterExportPage />}
+        />
+        <Route
+          path="/statistics/export/summary"
+          element={<SummaryExportPage />}
+        />
+        <Route path="/setting" element={<SettingPage />} />
+        <Route path="/notification" element={<NotificationPage />} />
+        <Route path="/friend" element={<FriendListPage />} />
+      </Route>
     </Routes>
   );
 }

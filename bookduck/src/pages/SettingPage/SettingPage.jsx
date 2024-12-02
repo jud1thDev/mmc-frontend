@@ -9,7 +9,6 @@ import BottomSheetModal from "../../components/common/BottomSheetModal";
 import TextField from "../../components/common/TextField";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import DeleteModal from "../../components/common/modal/DeleteModal";
-
 import edit from "../../assets/settingPage/edit.svg";
 import kakaoLogin from "../../assets/settingPage/kakao-login.svg";
 import google from "../../assets/loginPage/google.svg";
@@ -103,7 +102,7 @@ const SettingPage = () => {
   //API-회원 탈퇴
   const delUser = async () => {
     try {
-      await del(`/users/me`);
+      await patch(`settings/status`);
       localStorage.clear();
       setTimeout(() => location.reload(true), 2000);
     } catch (error) {
