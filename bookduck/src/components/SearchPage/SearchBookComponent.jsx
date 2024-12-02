@@ -262,6 +262,7 @@ const SearchBookComponent = ({ search }) => {
                 edit={true}
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, true)}
+                isSearch={true}
               />
             ))}
           </div>
@@ -279,6 +280,7 @@ const SearchBookComponent = ({ search }) => {
                 edit={true}
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, false)}
+                isSearch={true}
               />
             ))}
             <div ref={loaderRef} style={{ height: "1px" }} />
