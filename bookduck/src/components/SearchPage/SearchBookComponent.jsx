@@ -147,6 +147,14 @@ const SearchBookComponent = ({ search }) => {
     }
   };
 
+  const handleBookClick = (bookInfoId, providerId) => {
+    if (bookInfoId === null) {
+      navigate(`/info/book/${providerId}`);
+    } else {
+      navigate(`/info/book/${bookInfoId}`);
+    }
+  };
+
   const handleStatusChange = (option) => {
     if (!selectedBook) return;
 
@@ -263,7 +271,7 @@ const SearchBookComponent = ({ search }) => {
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, true)}
                 handleOnClick={() =>
-                  navigate(`/info/book/${book.bookUnitDto.bookInfoId}`)
+                  handleBookClick(book.bookUnitDto.bookInfoId, book.providerId)
                 }
                 isSearch={true}
               />

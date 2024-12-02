@@ -76,7 +76,13 @@ const BookListView = ({
             <img src={menuBar} alt="menuBar" />
           </div>
         ) : (
-          <button onClick={handleStatusClick} className="flex flex-row ml-3">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleStatusClick();
+            }}
+            className="flex flex-row ml-3"
+          >
             <div className="text-btn4 text-gray-500">
               {readingStauts(status)}
             </div>
