@@ -220,7 +220,7 @@ const EnterBookCasePage = () => {
                     folderBookListData.folderBookList.map((book, index) => (
                       <div key={index}>
                         <BookListView
-                          register={true}
+                          register={book.isCustom}
                           bookTitle={book.title}
                           author={book.author}
                           edit={true}
