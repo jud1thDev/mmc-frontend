@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { get } from "../../api/example";
 import { getUserId } from "../../api/oauth";
 import BottomNavbar from "../../components/common/BottomNavbar";
-import StatusBar from "../../components/common/StatusBar";
 import Header2 from "../../components/common/Header2";
 import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceComponent";
 import right from "../../assets/common/right-yellow.svg";
@@ -92,7 +91,6 @@ const MainPage = () => {
 
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
-      <StatusBar />
       <div className="px-4">
         <Header2 isDot={isDot} />
       </div>
