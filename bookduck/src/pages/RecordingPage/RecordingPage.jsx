@@ -48,6 +48,12 @@ const RecordingPage = () => {
   const { bookInfo, setBookInfo } = useBookInfoStore();
 
   const handleBack = () => {
+    setReviewColor("");
+    navigate("/selectBook");
+  };
+
+  const handleCancel = () => {
+    setReviewColor("");
     navigate("/selectBook");
   };
 
@@ -141,6 +147,7 @@ const RecordingPage = () => {
       <Header3
         title="기록하기"
         check={true}
+        handleCancel={handleCancel}
         handleBack={handleBack}
         handleComplete={handleComplete}
       />

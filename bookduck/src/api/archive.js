@@ -23,9 +23,9 @@ export const getExtractReview = async (userId, archiveType, page, size) => {
   }
 };
 
-export const getDetailExtractReview = async (id, archiveType) => {
+export const getDetailExtractReview = async (archiveId) => {
   try {
-    const res = await get(`/archives/${id}?type=${archiveType}`);
+    const res = await get(`/archives/${archiveId}`);
     console.log("발췌 및 감상평 상세 조회 성공", res);
     return res;
   } catch (error) {
