@@ -262,6 +262,9 @@ const SearchBookComponent = ({ search }) => {
                 edit={true}
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, true)}
+                handleOnClick={() =>
+                  navigate(`/info/book/${book.bookUnitDto.bookInfoId}`)
+                }
                 isSearch={true}
               />
             ))}
@@ -281,6 +284,9 @@ const SearchBookComponent = ({ search }) => {
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, false)}
                 isSearch={true}
+                handleOnClick={() =>
+                  navigate(`/info/book/${book.bookUnitDto.bookInfoId}`)
+                }
               />
             ))}
             <div ref={loaderRef} style={{ height: "1px" }} />
