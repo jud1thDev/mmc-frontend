@@ -6,7 +6,7 @@
 // {isAlarmModalOpen && <CharacterAlarmModal onClick={toggleAlarmModal} />}
 
 import { useEffect, useState } from "react";
-import teacherDuck from "../../assets/common/teacher-duck.png";
+import teacherDuck from "../../assets/common/teacher-duck.svg";
 import Confetti from "react-confetti";
 const CharacterAlarmModal = ({ type, badgeType, badgeName, text, onClick }) => {
   const [isConfettiActive, setIsConfettiActive] = useState(true);
