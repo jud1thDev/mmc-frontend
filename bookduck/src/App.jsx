@@ -117,7 +117,7 @@ function App() {
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
       <Route path="/users/null" element={<Navigate to="/login" replace />} />
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      {/* <Route path="*" element={<Navigate to="/login" replace />} /> */}
 
       {/* 보호된 경로 그룹 */}
       <Route element={<ProtectedLayout isAuthenticated={isAuthenticated} />}>
