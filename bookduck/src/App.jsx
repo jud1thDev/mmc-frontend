@@ -20,6 +20,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import RegisterPage from "./pages/SearchPage/SearchRegisterPage";
 import SelectCardPage from "./pages/MainPage/SelectCardPage";
 import BookInfoPage from "./pages/BookInfoPage/BookInfoPage";
+import BookInfoExternalPage from "./pages/BookInfoPage/BookInfoExternalPage";
 import UserCommentPage from "./pages/BookInfoPage/UserCommentPage";
 import BookInfoAddedPage from "./pages/BookInfoPage/BookInfoAddedPage";
 import StatisticsPage from "./pages/StatisticsPage/StatisticsPage";
@@ -129,6 +130,10 @@ function App() {
 
         {/* 도서 정보 관련 */}
         <Route path="/info/book/:bookinfoId" element={<BookInfoPage />} />
+        <Route
+          path="/info/book/external/:providerId"
+          element={<BookInfoExternalPage />}
+        />
         <Route
           path="/info/book/custom/:bookinfoId"
           element={<BookInfoAddedPage />}
