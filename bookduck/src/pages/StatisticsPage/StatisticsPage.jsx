@@ -45,19 +45,29 @@ const StatisticsPage = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUserData = async () => {
       try {
         const res = await getUserStatisticsInfo(userId);
-        const keywords = await getKeywords(userId);
-        setHasKeywords(keywords && keywords.length > 0);
         setUserData(res);
       } catch (err) {
-        console.error("오류 발생: ", err);
+        console.error("유저 데이터 로딩 오류: ", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
+
+    const fetchKeywords = async () => {
+      try {
+        const keywords = await getKeywords(userId);
+        setHasKeywords(Array.isArray(keywords) && keywords.length > 0);
+      } catch (err) {
+        console.error("키워드 로딩 오류: ", err);
+        setHasKeywords(false);
+      }
+    };
+
+    fetchUserData();
+    fetchKeywords();
   }, [userId]);
 
   useEffect(() => {
