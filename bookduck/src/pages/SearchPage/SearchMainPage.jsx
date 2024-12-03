@@ -9,6 +9,7 @@ import CarouselComponent from "../../components/SearchPage/CarouselComponent";
 import SearchBookComponent from "../../components/SearchPage/SearchBookComponent";
 import SearchArchiveComponent from "../../components/SearchPage/SearchArchiveComponent";
 import SearchUserComponent from "../../components/SearchPage/SearchUserComponent";
+import BottomNavbar from "../../components/common/BottomNavbar";
 import TabBarComponent from "../../components/common/TabBarComponent";
 
 const SearchMainPage = () => {
@@ -19,12 +20,16 @@ const SearchMainPage = () => {
   //API 연결
   //최근 책 받기
   const getRecentBooks = async () => {
-    return await get(`/books/recent`);
+    const response = await get(`/books/recent`);
+    console.log("최근 책", response);
+    return response;
   };
 
   //많이 읽는 책 받기
   const getPopularBooks = async () => {
-    return await get(`/bookinfo/most`);
+    const response = await get(`/bookinfo/most`);
+    console.log("많이 읽는 책", response);
+    return response;
   };
 
   //이벤트 핸들러
@@ -71,6 +76,9 @@ const SearchMainPage = () => {
                       key={index}
                       img={book.imgPath}
                       title={book.title}
+                      handleClick={() =>
+                        navigate(`/info/book/${book.bookInfoId}`)
+                      }
                     />
                   );
                 })
@@ -101,7 +109,7 @@ const SearchMainPage = () => {
             />
           </div>
           <div className="flex flex-col px-4 gap-3">
-            <div>요즘 많이 읽는 책 Top 10</div>
+            <div>요즘 많이 읽는 책 Top 12</div>
             <CarouselComponent popularBooks={popularBooks} />
           </div>
         </>
@@ -134,6 +142,7 @@ const SearchMainPage = () => {
           )}
         </div>
       )}
+      <BottomNavbar />
     </div>
   );
 };
