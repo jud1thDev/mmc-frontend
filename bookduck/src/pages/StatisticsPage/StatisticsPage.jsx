@@ -9,7 +9,7 @@ import PreferredAuthor from "../../components/StatisticsPage/PreferredAuthor";
 import PreferredGenre from "../../components/StatisticsPage/PreferredGenre";
 import MonthlyReading from "../../components/StatisticsPage/MonthlyReading";
 import UserCard from "../../components/StatisticsPage/UserCard";
-import { getUserStatisticsInfo } from "../../api/statistics";
+import { getUserStatisticsInfo, getKeywords } from "../../api/statistics";
 import { getUserId } from "../../api/oauth";
 
 const StatisticsPage = () => {
@@ -17,6 +17,7 @@ const StatisticsPage = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isMyPage, setIsMyPage] = useState(false);
+  const [hasKeywords, setHasKeywords] = useState(false);
 
   const genreToKorean = {
     FICTION: "소설",
@@ -47,7 +48,8 @@ const StatisticsPage = () => {
     const fetchData = async () => {
       try {
         const res = await getUserStatisticsInfo(userId);
-        console.log("조회성공: ", res);
+        const keywords = await getKeywords(userId);
+        setHasKeywords(keywords && keywords.length > 0);
         setUserData(res);
       } catch (err) {
         console.error("오류 발생: ", err);
@@ -61,8 +63,7 @@ const StatisticsPage = () => {
   useEffect(() => {
     const checkIsMyPage = async () => {
       const myUserId = await getUserId();
-      setIsMyPage(myUserId === userId);
-      console.log("아이디 확인", myUserId, userId);
+      setIsMyPage(String(myUserId) === String(userId));
     };
     checkIsMyPage();
   }, [userId]);
@@ -118,7 +119,7 @@ const StatisticsPage = () => {
         독서를 응원합니다!
       </div>
       <div className="flex justify-center">
-        {isMyPage && <SummaryFloatingButton />}
+        {isMyPage && hasKeywords && <SummaryFloatingButton />}
       </div>
     </div>
   );
