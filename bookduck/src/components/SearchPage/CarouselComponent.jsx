@@ -12,8 +12,12 @@ const CarouselComponent = ({ popularBooks }) => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
+    focusOnSelect: false,
+    dotsClass: "slick-dots pointer-events-none",
   };
+
   const navigate = useNavigate();
+
   return (
     <Slider {...settings}>
       {popularBooks.map((book, index) => (
