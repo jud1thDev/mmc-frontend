@@ -132,7 +132,7 @@ const EditPage = () => {
       data.review = {
         reviewTitle: titleInputValue,
         reviewContent: reviewInputValue,
-        color: reviewColor,
+        color: reviewColor ? reviewColor : "#ABABAB",
         reviewVisibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
       };
     } else if (pageInputValue && extractInputValue) {
@@ -145,7 +145,7 @@ const EditPage = () => {
       data.review = {
         reviewTitle: titleInputValue,
         reviewContent: reviewInputValue,
-        color: reviewColor,
+        color: reviewColor ? reviewColor : "#ABABAB",
         reviewVisibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
       };
       setReviewColor("");
@@ -280,7 +280,7 @@ const EditPage = () => {
                           : "text-gray-400"
                       }`}
                     >
-                      {extractInputValue && extractInputValue.length}/300
+                      {extractInputValue ? extractInputValue.length : "0"}/300
                     </div>
                   </div>
                 </WritingTemplate>
@@ -314,12 +314,12 @@ const EditPage = () => {
                   <div className="absolute bottom-5 right-4">
                     <div
                       className={`text-btn3 ${
-                        reviewInputValue.length > 1000
+                        reviewInputValue && reviewInputValue.length > 1000
                           ? "text-red"
                           : "text-gray-400"
                       }`}
                     >
-                      {reviewInputValue.length}/1000
+                      {reviewInputValue ? reviewInputValue.length : "0"}/1000
                     </div>
                   </div>
                 </WritingTemplate>
