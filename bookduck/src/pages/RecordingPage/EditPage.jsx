@@ -289,7 +289,7 @@ const EditPage = () => {
                   type="primary"
                   color="gray"
                   onClick={handleBackdropClick}
-                  disabled={!extractInputValue}
+                  disabled={!extractInputValue || !pageInputValue}
                 />
               </>
             )}
@@ -300,6 +300,7 @@ const EditPage = () => {
                     <input
                       value={titleInputValue}
                       onChange={(e) => setTitleInputValue(e.target.value)}
+                      maxLength={25}
                       placeholder="제목 (25자 이내로 작성하세요)"
                       className="text-b1 font-semibold bg-transparent"
                     />

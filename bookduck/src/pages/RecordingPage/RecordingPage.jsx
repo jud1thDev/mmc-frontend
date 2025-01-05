@@ -55,6 +55,7 @@ const RecordingPage = () => {
     extractInputValue,
     setExtractInputValue,
   } = useExtractData();
+  console.log("pageInputValue:", pageInputValue, "extract:", extractInputValue);
   const {
     reviewPage,
     setReviewPage,
@@ -291,7 +292,7 @@ const RecordingPage = () => {
                   type="primary"
                   color="gray"
                   onClick={handleBackdropClick}
-                  disabled={!extractInputValue}
+                  disabled={!extractInputValue || !pageInputValue}
                 />
               </>
             )}
