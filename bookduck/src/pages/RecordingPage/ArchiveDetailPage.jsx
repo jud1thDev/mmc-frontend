@@ -85,16 +85,20 @@ const ArchiveDetail = () => {
   const handleDeleteArchive = async () => {
     const archiveId = id;
     if (excerptClick && reviewClick) {
-      const res = await delExtractReview(archiveId, excerptId, reviewId);
-      console.log(res);
+      const res = await delExtractReview({ archiveId, excerptId, reviewId });
+      console.log("전체 삭제", res);
       navigate("/archive");
-    } else if (excerptClick || reviewClick) {
-      const res = await delExtractReview(archiveId, excerptId || reviewId);
-      console.log(res);
+    } else if (excerptClick) {
+      const res = await delExtractReview({ archiveId, excerptId });
+      console.log("빨췌 삭제", res);
+      navigate("/archive");
+    } else if (reviewClick) {
+      const res = await delExtractReview({ archiveId, reviewId });
+      console.log("리뷰 삭제", res);
       navigate("/archive");
     } else {
-      const res = await delExtractReview(archiveId, excerptId, reviewId);
-      console.log(res);
+      const res = await delExtractReview({ archiveId, excerptId, reviewId });
+      console.log("삭제", res);
       navigate("/archive");
     }
   };

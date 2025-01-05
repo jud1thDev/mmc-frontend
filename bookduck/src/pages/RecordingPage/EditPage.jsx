@@ -275,12 +275,12 @@ const EditPage = () => {
                   <div className="absolute bottom-5 right-4">
                     <div
                       className={`text-btn3 ${
-                        extractInputValue.length > 300
+                        extractInputValue && extractInputValue.length > 300
                           ? "text-red"
                           : "text-gray-400"
                       }`}
                     >
-                      {extractInputValue.length}/300
+                      {extractInputValue && extractInputValue.length}/300
                     </div>
                   </div>
                 </WritingTemplate>
