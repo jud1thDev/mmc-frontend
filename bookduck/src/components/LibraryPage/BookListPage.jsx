@@ -204,7 +204,7 @@ const BookListPage = ({ view }) => {
                     bottomSheet={true}
                     status={currentState[book.userBookId]}
                     bookTitle={book.title}
-                    author={book.authors}
+                    author={book.author}
                     bookImg={book.imgPath ? book.imgPath : imgEx}
                     rating={book.rating}
                   />
@@ -218,7 +218,7 @@ const BookListPage = ({ view }) => {
                     bottomSheet={true}
                     status={currentState[book.userBookId]}
                     bookTitle={book.title}
-                    author={book.authors}
+                    author={book.author}
                     bookImg={book.imgPath ? book.imgPath : imgEx}
                     rating={book.rating}
                   />

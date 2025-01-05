@@ -6,7 +6,7 @@ import Header3 from "../../components/common/Header3";
 import ColoredAuthorComponent from "../../components/RecordingPage/ColoredAuthorComponent";
 import ExtractWritingComponent from "../../components/RecordingPage/ExtractWritingComponent";
 import ReviewWritingComponent from "../../components/RecordingPage/ReviewWritingComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import WritingTemplate from "../../components/RecordingPage/WritingTemplate";
 import ButtonComponent from "../../components/common/ButtonComponent";
@@ -18,6 +18,8 @@ import useReviewColorStore from "../../store/useReviewColorStore";
 
 const RecordingPage = () => {
   const navigate = useNavigate();
+  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("");
   const [viewBottomSheet, setViewBottomSheet] = useState(false);
   const [visible, setVisible] = useState(false);
   const [bottomSheetType, setBottomSheetType] = useState("");
@@ -25,8 +27,11 @@ const RecordingPage = () => {
   const [reviewPrivateShow, setReviewPrivateShow] = useState(false);
   const { reviewColor, setReviewColor } = useReviewColorStore();
   const { bookInfo, setBookInfo } = useBookInfoStore();
-  const author = location.state?.author;
-  const title = location.state?.title;
+
+  useEffect(() => {
+    setAuthor(location.state?.author);
+    setTitle(location.state?.title);
+  }, []);
 
   const {
     data: font,
