@@ -226,7 +226,7 @@ const SettingPage = () => {
   };
 
   return (
-    <div className="relative w-[24.5625rem]">
+    <div className="relative w-full">
       <Header3 title="설정" />
       <div className="flex flex-col gap-[2.5rem] px-4 pt-[1.31rem]">
         <div>

@@ -32,23 +32,23 @@ const SearchComponent = ({
   return (
     <div
       className={classNames(
-        "flex items-center w-[24.5625rem]  py-1 gap-2",
+        "flex items-center w-full  py-1 px-4 gap-2",
         className
       )}
     >
       <div
         className={`flex  ${
-          custom ? "w-[22rem]" : "w-[19.5625rem]"
-        } h-[2.5rem] bg-gray-50 items-center rounded-[0.5rem] px-2`}
+          custom ? "w-[27rem]" : "w-full"
+        } h-[2.5rem] bg-gray-50 items-center rounded-[0.5rem] p-2`}
       >
-        <SearchIcon className=" text-gray-50 mr-2" />
+        <SearchIcon className=" text-gray-50 mr-2 " />
         <input
           type="text"
           value={search}
           placeholder={placeholder}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          className=" bg-gray-50 text-b1 text-black placeholder-gray-300 mr-[1.3125rem] w-[16rem]"
+          className=" bg-gray-50 text-b1 text-black placeholder-gray-300 w-full  "
         />
         {search.length > 0 && (
           <button onClick={clearSearch}>

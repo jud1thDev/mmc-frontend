@@ -58,90 +58,92 @@ const SearchMainPage = () => {
   const popularBooks = popularBooksQuery.data.bookList;
 
   return (
-    <div className="w-[24.5625rem] px-4">
-      <SearchComponent
-        search={search}
-        setSearch={setSearch}
-        onEnter={handleSearch}
-      />
-      {!search ? (
-        <>
-          <div className="flex flex-col px-4 gap-3 mt-4 margin-auto">
-            <div>최근 기록한 책</div>
-            <div className="flex flex-row gap-3">
-              {recentBooks.length > 0 ? (
-                recentBooks.map((book, index) => {
-                  return (
-                    <BookComponent
-                      key={index}
-                      img={book.imgPath}
-                      title={book.title}
-                      handleClick={() =>
-                        navigate(`/info/book/${book.bookInfoId}`)
-                      }
-                    />
-                  );
-                })
-              ) : (
-                <div className="flex w-full h-[11.5rem] justify-center items-center">
-                  <p className="text-gray-400 text-b2">
-                    아직 기록한 책이 없어요.
-                  </p>
-                </div>
-              )}
+    <div className="w-full">
+      <div className="w-full">
+        <SearchComponent
+          search={search}
+          setSearch={setSearch}
+          onEnter={handleSearch}
+        />
+        {!search ? (
+          <>
+            <div className="w-full flex flex-col gap-3 mt-4 margin-auto px-8">
+              <div>최근 기록한 책</div>
+              <div className="flex flex-row gap-3">
+                {recentBooks.length > 0 ? (
+                  recentBooks.map((book, index) => {
+                    return (
+                      <BookComponent
+                        key={index}
+                        img={book.imgPath}
+                        title={book.title}
+                        handleClick={() =>
+                          navigate(`/info/book/${book.bookInfoId}`)
+                        }
+                      />
+                    );
+                  })
+                ) : (
+                  <div className="flex w-full h-[11.5rem] justify-center items-center">
+                    <p className="text-gray-400 text-b2">
+                      아직 기록한 책이 없어요.
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="flex justify-between px-7 py-4 bg-gray-10 my-5">
-            <div className="flex flex-col gap-1 justify-center">
-              <span className="text-btn3 text-gray-400">
-                원하는 책을 찾을 수 없나요?
-              </span>
-              <span className="text-btn3 text-gray-800">
-                직접 책을 등록해보세요
-              </span>
+            <div className="flex justify-between px-7 py-4 bg-gray-10 my-5">
+              <div className="flex flex-col gap-1 justify-center">
+                <span className="text-btn3 text-gray-400">
+                  원하는 책을 찾을 수 없나요?
+                </span>
+                <span className="text-btn3 text-gray-800">
+                  직접 책을 등록해보세요
+                </span>
+              </div>
+              <ButtonComponent
+                text="책 등록하기"
+                type="secondary"
+                color="orange"
+                size="medium"
+                onClick={() => navigate("/search/register")}
+              />
             </div>
-            <ButtonComponent
-              text="책 등록하기"
-              type="secondary"
-              color="orange"
-              size="medium"
-              onClick={() => navigate("/search/register")}
+            <div className="flex flex-col gap-3 px-8">
+              <div>요즘 많이 읽는 책 Top 12</div>
+              <CarouselComponent popularBooks={popularBooks} />
+            </div>
+          </>
+        ) : (
+          <div className="flex flex-col gap-2">
+            <TabBarComponent
+              tabs={["책", "기록", "사용자"]}
+              activeTab={tab}
+              onTabClick={setTab}
+              size="small"
+              borderWidth="3rem"
             />
+            {tab === "책" && (
+              <SearchBookComponent
+                search={submittedSearch}
+                setSearch={setSearch}
+              />
+            )}
+            {tab === "기록" && (
+              <SearchArchiveComponent
+                search={submittedSearch}
+                setSearch={setSearch}
+              />
+            )}
+            {tab === "사용자" && (
+              <SearchUserComponent
+                search={submittedSearch}
+                setSearch={setSearch}
+              />
+            )}
           </div>
-          <div className="flex flex-col px-4 gap-3">
-            <div>요즘 많이 읽는 책 Top 12</div>
-            <CarouselComponent popularBooks={popularBooks} />
-          </div>
-        </>
-      ) : (
-        <div className="flex flex-col gap-2">
-          <TabBarComponent
-            tabs={["책", "기록", "사용자"]}
-            activeTab={tab}
-            onTabClick={setTab}
-            size="small"
-            borderWidth="3rem"
-          />
-          {tab === "책" && (
-            <SearchBookComponent
-              search={submittedSearch}
-              setSearch={setSearch}
-            />
-          )}
-          {tab === "기록" && (
-            <SearchArchiveComponent
-              search={submittedSearch}
-              setSearch={setSearch}
-            />
-          )}
-          {tab === "사용자" && (
-            <SearchUserComponent
-              search={submittedSearch}
-              setSearch={setSearch}
-            />
-          )}
-        </div>
-      )}
+        )}
+      </div>
       <BottomNavbar />
     </div>
   );

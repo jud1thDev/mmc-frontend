@@ -20,7 +20,7 @@ const Header2 = ({ title = "제목", main = true, isDot = false }) => {
       ) : (
         <div className="text-t2 ml-[16px] font-semibold">{title}</div>
       )}
-      <div className="flex gap-[0.38rem]">
+      <div className="flex  gap-5">
         {main && (
           <>
             <img

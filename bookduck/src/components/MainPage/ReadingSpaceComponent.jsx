@@ -240,7 +240,7 @@ const ReadingSpaceComponent = ({
             }}
             className={` ${
               isEditMode ? "bg-[#DDD]" : "bg-white"
-            } fixed z-40 w-[24.5625rem] bottom-0 left-0 right-0 mx-auto max-w-md rounded-t-[1.875rem] shadow-lg cursor-pointer overflow-hidden`}
+            } fixed z-40 w-full bottom-0 left-0 right-0 mx-auto max-w-md rounded-t-[1.875rem] shadow-lg cursor-pointer overflow-hidden`}
           >
             <div className="relative mb-10">
               <div
@@ -328,13 +328,9 @@ const ReadingSpaceComponent = ({
                             <div className="text-b1 text-gray-500 font-semibold mb-4">
                               나만의 리딩 스페이스를 꾸며보세요
                             </div>
-                            <ButtonComponent
-                              text="추가하기"
-                              type="secondary"
-                              color="orange"
-                              size="small"
-                              onClick={() => navigate("/selectcard")}
-                            />
+                            <button className="text-white text-btn2 bg-orange-300 px-4 py-2 rounded-[0.5rem]">
+                              추가하기
+                            </button>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center m-[4rem]">
