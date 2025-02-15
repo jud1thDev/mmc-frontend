@@ -382,7 +382,7 @@ const ReadingSpaceComponent = ({
         setVisible={setVisible}
         style={{ zIndex: 100, position: "absolute" }}
       >
-        <div className="w-[24.5625rem] rounded-t-xl pb-[3.125rem] pt-4 px-5 bg-gray-10 ">
+        <div className="w-full rounded-t-xl pb-[3.125rem] pt-4 px-5 bg-gray-10 ">
           <div className="flex flex-col bg-white rounded-lg">
             <div
               className="flex items-center p-4 gap-3 text-btn2 cursor-pointer"

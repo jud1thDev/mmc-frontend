@@ -123,8 +123,8 @@ const SelectReviewPage = () => {
   };
 
   return (
-    <div>
-      <Header3 title="한줄평 카드 선택" />
+    <div className="w-full">
+      <Header3 title="한줄평 카드 위젯" />
       <div className="mt-[0.62rem] mb-4">
         <SearchComponent
           placeholder="제목이나 작가로 작성한 카드를 검색하세요"

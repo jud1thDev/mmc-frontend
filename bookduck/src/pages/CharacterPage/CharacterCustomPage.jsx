@@ -136,12 +136,12 @@ const CharacterCustomPage = () => {
   console.log("filteredItems: ", filteredItems);
 
   return (
-    <div className="flex flex-col bg-orange-50">
+    <div className=" flex flex-col bg-orange-50">
       <Header3 title="" />
       <div className="flex justify-center h-[317px]">
         <UserDuck userId={getUserId()} selectedItems={selectedItems} />
       </div>
-      <div className="bg-white shadow-custom w-[24.5625rem] h-[27rem] rounded-t-[1.25rem]">
+      <div className="bg-white shadow-custom w-full rounded-t-[1.25rem]">
         <div className="pt-1">
           <TabBarComponent
             tabs={["전체", "소품", "모자", "얼굴", "옷", "가방"]}
@@ -150,7 +150,7 @@ const CharacterCustomPage = () => {
             size="big"
           />
 
-          <div className="flex flex-col px-4 pt-4 gap-4 h-[18.5rem] overflow-y-scroll">
+          <div className="flex flex-col px-4 pt-4 gap-4 h-full overflow-y-scroll">
             <div className="grid grid-cols-3 gap-4">
               {filteredItems.map((item) => (
                 <Skin
@@ -163,7 +163,7 @@ const CharacterCustomPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center pt-1.5 h-[5.5rem]">
+        <div className="fixed flex bottom-0 left-0 w-full justify-center pt-1.5 h-[5.5rem] bg-white">
           <ButtonComponent
             text="저장"
             color={isChanged ? "primary" : "gray700"}

@@ -106,8 +106,8 @@ const SelectCustomPage = () => {
     window.location.reload();
   };
   return (
-    <div className="w-[24.5625rem]">
-      <Header3 title="커스텀 카드" />
+    <div className="w-full">
+      <Header3 title="커스텀 위젯" />
       <div className="mt-[2.63rem] px-5">
         <OneBookCard
           bookNumber={bookNumber}
@@ -124,7 +124,7 @@ const SelectCustomPage = () => {
           setCardData={setCardData}
         />
       </div>
-      <div className="w-[24.5625rem] h-[12.75rem] flex flex-col fixed bottom-0 bg-gray-50 items-center py-8 text-gray-400 text-b2">
+      <div className="w-full h-[12.75rem] flex flex-col fixed bottom-0 bg-gray-50 items-center py-8 text-gray-400 text-b2">
         <p>꾸미기 카드는 수정이 불가능해요.</p>
         <p className="mb-[2.3rem]">꼼꼼히 확인해주세요:)</p>
         <ButtonComponent
@@ -143,12 +143,12 @@ const SelectCustomPage = () => {
         custom={true}
         setVisible={setVisible}
       >
-        <div className="px-4">
+        <div className="">
           <SearchComponent
             search={search}
             setSearch={setSearch}
             custom={true}
-            placeholder="서재에 담긴 책을 검색하세요"
+            placeholder="내 서재에서 책을 검색하세요"
           />
         </div>
 

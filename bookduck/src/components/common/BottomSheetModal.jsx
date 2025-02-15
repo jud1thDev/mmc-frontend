@@ -60,7 +60,7 @@ const BottomSheetModal = ({
           onClick={handleBackdropClick}
           className={`${
             visible ? "bg-black bg-opacity-50" : "bg-transparent"
-          } w-[24.5625rem] h-screen  fixed top-0 transition-colors duration-300`}
+          } w-full h-screen  fixed top-0 transition-colors duration-300`}
         />
       )}
 
@@ -68,7 +68,7 @@ const BottomSheetModal = ({
         onClick={(e) => e.stopPropagation()}
         className={`bg-white ${
           visible ? "animate-slideUp" : "animate-slideDown"
-        } bg-opacity-100 fixed bottom-0 w-[24.5625rem]  rounded-t-xl pt-8 pb-4 transition-transform shadow-custom duration-300`}
+        } bg-opacity-100 fixed bottom-0 w-full  rounded-t-xl pt-4 pb-4 transition-transform shadow-custom duration-300`}
         style={{ height: height ? `${height}` : "auto", overflowY: "auto" }}
       >
         {children}

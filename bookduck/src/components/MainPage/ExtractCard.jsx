@@ -29,7 +29,7 @@ const ExtractCard = ({
         </div>
         <div className="flex flex-col gap-[0.5rem]">
           <div className="text-b2 text-gray-800">
-            {content || "발췌 카드를 선택해주세요"}
+            {content || "발췌 카드 위젯을 만들어보세요"}
           </div>
           <div className="text-c2 text-gray-400">
             {title || "제목"} / {author || "작가"}

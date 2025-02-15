@@ -112,7 +112,7 @@ const OneBookCard = ({
   };
 
   return (
-    <div className="w-[24.5625rem] relative">
+    <div className="w-full relative">
       <div className="flex gap-2  w-full h-[6.9375rem]">
         {/* 첫 번째 북박스 */}
         <div
@@ -169,7 +169,7 @@ const OneBookCard = ({
           onClick={handleMusicClick}
           className={`${
             selected === "music" ? "border-[1px] border-[#6B7FF0]" : ""
-          } ${bookNumber === 1 ? "w-[16.4375rem]" : "w-[10.8125rem]"}
+          } flex-grow
             py-3 px-4 flex flex-col justify-between bg-gray-10 shadow-custom rounded-[0.75rem]`}
         >
           {cardType === "BOOK_WITH_SONG" ? (

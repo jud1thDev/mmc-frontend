@@ -14,7 +14,7 @@ const BookDisplay = ({
   text3,
 }) => {
   return (
-    <div className="w-[24.5625rem] relative">
+    <div className="w-full relative">
       <div className="flex gap-2  w-full h-[6.9375rem]">
         {/* 첫 번째 북박스 */}
         <div className="flex justify-center items-center w-[5.0625rem] h-[6.8rem] bg-[#DDD] overflow-hidden  rounded-[0.4rem]">
@@ -38,8 +38,8 @@ const BookDisplay = ({
         <div
           className={`${
             (display && bookNumber === 2) || imgPath2
-              ? "w-[10.8125rem]"
-              : "w-[16.4375rem]"
+              ? "flex-grow"
+              : "flex-grow"
           }
           py-3 px-4 flex flex-col justify-between bg-gray-10 shadow-custom rounded-[0.75rem]`}
         >

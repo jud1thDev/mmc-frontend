@@ -129,8 +129,8 @@ const SelectExtractPage = () => {
   };
 
   return (
-    <div className="w-[24.5625rem]">
-      <Header3 title="발췌 카드 선택" />
+    <div className="w-full">
+      <Header3 title="발췌 카드 위젯" />
       <div className="mt-[0.62rem] mb-4">
         <SearchComponent
           placeholder="기록한 발췌 카드를 검색하세요"

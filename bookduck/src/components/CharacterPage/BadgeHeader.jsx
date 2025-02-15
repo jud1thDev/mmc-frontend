@@ -15,8 +15,8 @@ const BadgeHeader = () => {
     setIsModalOpen(!isModalOpen);
   };
   return (
-    <div>
-      <div className="flex justify-between items-center px-4 py-1 w-[393px] h-[44px]">
+    <div className="w-full">
+      <div className="flex items-center justify-between py-1 w-full h-[2.75rem] px-4">
         <div className="flex items-center">
           <button className="w-[36px] h-[36px]" onClick={handleBackClick}>
             <img src={back} alt="backIcon" />
