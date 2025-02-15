@@ -11,7 +11,7 @@ const LoginPage = () => {
           <img src={mainDuck} className="w-[12.75rem] h-[12.375rem] " />
         </div>
         <div className="flex flex-col ">
-          <p className="text-t1 font-semibold mb-2">환영합니다!</p>
+          <p className="text-t1 font-semibold mb-2">환영해요!</p>
           <p className="text-b1 ">북덕과 함께 책을 읽고 기록을 쌓아보세요</p>
         </div>
       </div>
