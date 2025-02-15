@@ -68,7 +68,9 @@ const SearchMainPage = () => {
         {!search ? (
           <>
             <div className="w-full flex flex-col gap-3 mt-4 margin-auto px-8">
-              <div>최근 기록한 책</div>
+              <div className="text-b1 font-semibold text-gray-800">
+                최근 기록한 책
+              </div>
               <div className="flex flex-row gap-3">
                 {recentBooks.length > 0 ? (
                   recentBooks.map((book, index) => {
@@ -94,23 +96,24 @@ const SearchMainPage = () => {
             </div>
             <div className="flex justify-between px-7 py-4 bg-gray-10 my-5">
               <div className="flex flex-col gap-1 justify-center">
-                <span className="text-btn3 text-gray-400">
-                  원하는 책을 찾을 수 없나요?
+                <span className="text-c1 text-gray-400">
+                  책을 찾을 수 없나요?
                 </span>
                 <span className="text-btn3 text-gray-800">
-                  직접 책을 등록해보세요
+                  원하는 책을 직접 등록해보세요
                 </span>
               </div>
-              <ButtonComponent
-                text="책 등록하기"
-                type="secondary"
-                color="orange"
-                size="medium"
+              <button
+                className="text-white text-btn2 bg-orange-300 px-4 py-2 rounded-[0.5rem]"
                 onClick={() => navigate("/search/register")}
-              />
+              >
+                책 등록하기
+              </button>
             </div>
             <div className="flex flex-col gap-3 px-8">
-              <div>요즘 많이 읽는 책 Top 12</div>
+              <div className="text-b1 font-semibold text-gray-800">
+                요즘 많이 읽는 책 Top 12
+              </div>
               <CarouselComponent popularBooks={popularBooks} />
             </div>
           </>

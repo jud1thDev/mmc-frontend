@@ -98,3 +98,7 @@ input[type="number"] {
 .baloo {
   font-family: "Baloo 2", serif;
 }
+
+.slick-dots li {
+  margin: 0 0.28px; /* 점 사이 간격 줄이기 */
+}

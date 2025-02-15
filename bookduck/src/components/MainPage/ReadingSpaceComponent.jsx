@@ -328,7 +328,10 @@ const ReadingSpaceComponent = ({
                             <div className="text-b1 text-gray-500 font-semibold mb-4">
                               나만의 리딩 스페이스를 꾸며보세요
                             </div>
-                            <button className="text-white text-btn2 bg-orange-300 px-4 py-2 rounded-[0.5rem]">
+                            <button
+                              className="text-white text-btn2 bg-orange-300 px-4 py-2 rounded-[0.5rem]"
+                              onClick={() => navigate("/selectcard")}
+                            >
                               추가하기
                             </button>
                           </div>
