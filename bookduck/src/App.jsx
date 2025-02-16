@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { requestFcmToken } from "./api/fcm";
+// import { requestFcmToken } from "./api/fcm";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { messaging } from "./api/firebase";
-import { onMessage } from "firebase/messaging";
+// import { messaging } from "./api/firebase";
+// import { onMessage } from "firebase/messaging";
 import ProtectedLayout from "./components/common/ProtectedLayout";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SigninPage from "./pages/LoginPage/SigninPage";
@@ -36,7 +36,7 @@ import SettingPage from "./pages/SettingPage/SettingPage";
 import FriendListPage from "./pages/FriendPage/FriendListPage";
 import OAuthRedierctPage from "./pages/LoginPage/OAuthRedierctPage";
 import OtherMainPage from "./pages/OtherUserPage/OtherMainPage";
-import handleFcmToken from "./components/NotificationPage/handleFcmToken";
+// import handleFcmToken from "./components/NotificationPage/handleFcmToken";
 import EditPage from "./pages/RecordingPage/EditPage";
 
 import { getUserId } from "./api/oauth";
@@ -85,31 +85,31 @@ function App() {
   //   }
   // }, [hasError, navigate]);
 
-  useEffect(() => {
-    const fetchandSendFCM = async () => {
-      try {
-        const id = await getUserId();
-        const accessToken = localStorage.getItem("token");
+  // useEffect(() => {
+  //   const fetchandSendFCM = async () => {
+  //     try {
+  //       const id = await getUserId();
+  //       const accessToken = localStorage.getItem("token");
 
-        if (!id || !accessToken) {
-          console.error("사용자 ID 또는 액세스 토큰이 없습니다.");
-          return;
-        }
-        await handleFcmToken(id);
-      } catch (error) {
-        console.error("FCM 처리 중 오류 발생:", error.message);
-      }
-    };
+  //       if (!id || !accessToken) {
+  //         console.error("사용자 ID 또는 액세스 토큰이 없습니다.");
+  //         return;
+  //       }
+  //       await handleFcmToken(id);
+  //     } catch (error) {
+  //       console.error("FCM 처리 중 오류 발생:", error.message);
+  //     }
+  //   };
 
-    fetchandSendFCM();
-  }, []);
+  //   fetchandSendFCM();
+  // }, []);
 
-  useEffect(() => {
-    // 포그라운드 메시지 수신 처리
-    onMessage(messaging, (payload) => {
-      console.log("포그라운드 메시지 수신:", payload);
-    });
-  }, []);
+  // useEffect(() => {
+  //   // 포그라운드 메시지 수신 처리
+  //   onMessage(messaging, (payload) => {
+  //     console.log("포그라운드 메시지 수신:", payload);
+  //   });
+  // }, []);
 
   return (
     <Routes>
@@ -119,6 +119,7 @@ function App() {
       <Route path="/api/oauth" element={<OAuthRedierctPage />} />
       <Route path="/users/null" element={<Navigate to="/login" replace />} />
       {/* <Route path="*" element={<Navigate to="/login" replace />} /> */}
+      <Route path="*" element={<Navigate to="/" />} />
 
       {/* 보호된 경로 그룹 */}
       <Route element={<ProtectedLayout isAuthenticated={isAuthenticated} />}>
