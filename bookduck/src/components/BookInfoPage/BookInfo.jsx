@@ -1,5 +1,4 @@
 import { useState } from "react";
-import cover from "../../assets/bookinfoPage/cover.svg";
 import down from "../../assets/common/down-arrow.svg";
 import BottomSheetModal from "../common/BottomSheetModal";
 import ListBottomSheet from "../common/ListBottomSheet";

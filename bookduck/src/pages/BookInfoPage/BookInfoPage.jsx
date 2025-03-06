@@ -8,28 +8,41 @@ import ArchiveView from "../../components/BookInfoPage/ArchiveView";
 import FloatingRecordButton from "../../components/common/FloatingRecordButton";
 import MyComment from "../../components/BookInfoPage/MyComment";
 import { getBookInfo, getOneLineRatingsInfo } from "../../api/bookinfo";
+import SuspenseLoading from "../../components/common/SuspenseLoading";
 
 const BookInfoPage = () => {
   const { bookinfoId } = useParams();
   const [activeTab, setActiveTab] = useState("책 정보");
   const [RatingListData, setRatingListData] = useState(null);
   const [bookData, setBookData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true); // 데이터 요청 전 로딩 시작
         const res = await getBookInfo({ bookinfoId });
         const res2 = await getOneLineRatingsInfo({ bookinfoId });
-        console.log("조회성공: ", res);
+        console.log("조회 성공: ", res);
         setBookData(res);
         setRatingListData(res2);
         console.log("조회2 성공: ", res2);
       } catch (err) {
         console.error("오류 발생: ", err);
+      } finally {
+        setIsLoading(false); // 요청 완료 후 로딩 종료
       }
     };
     fetchData();
   }, [bookinfoId]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <SuspenseLoading />
+      </div>
+    );
+  }
 
   return (
     <div className="w-[24.5625rem]">
@@ -48,7 +61,6 @@ const BookInfoPage = () => {
             onTabClick={setActiveTab}
             size=""
           />
-
           {activeTab === "책 정보" && (
             <InfoView
               bookData={bookData?.bookInfoDetailDto}
@@ -64,4 +76,5 @@ const BookInfoPage = () => {
     </div>
   );
 };
+
 export default BookInfoPage;

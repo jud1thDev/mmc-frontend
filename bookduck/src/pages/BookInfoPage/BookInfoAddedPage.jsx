@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import polygon from "../../assets/characterPage/polygon.svg";
 import noArchive from "../../assets/bookinfoPage/user-no-archive.svg";
@@ -9,27 +9,41 @@ import MyComment from "../../components/BookInfoPage/MyComment";
 import Header2 from "../../components/RecordingPage/Header2";
 import Header3 from "../../components/common/Header3";
 import { getCustomBookInfo } from "../../api/bookinfo";
+import SuspenseLoading from "../../components/common/SuspenseLoading"; // 로딩 컴포넌트
+
 // 유저가 직접 추가한 책 정보 페이지
 const BookInfoAddedPage = () => {
   const { bookinfoId } = useParams();
   const [bookData, setBookData] = useState(null);
-  console.log(`/bookinfo/custom/${bookinfoId}`);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true); // 로딩 시작
         const res = await getCustomBookInfo({ bookinfoId });
         console.log("조회성공: ", res);
         setBookData(res);
       } catch (err) {
         console.error("오류 발생: ", err);
+      } finally {
+        setIsLoading(false); // 로딩 종료
       }
     };
     fetchData();
   }, [bookinfoId]);
 
-  const [activeTab, setActiveTab] = useState("기록");
-  // api받았을때 isMe가 me이면 내가 등록한 페이지, other이면 타유저가 등록한 페이지
-  const isMe = bookData?.isMine ? "me" : "other"; //true or false
+  const isMe = bookData?.isMine ? "me" : "other"; // true or false
+
+  // 로딩 중일 때 SuspenseLoading 표시
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <SuspenseLoading />
+      </div>
+    );
+  }
+
   return (
     <div className="w-[24.5625rem]">
       {bookData?.isMine ? (
@@ -66,9 +80,13 @@ const BookInfoAddedPage = () => {
                   다른유저가 직접 등록한 책에는 <br />
                   기록을 남길 수 없어요.
                 </div>
-                <img className="w-4 h-3 mt-[-0.0625rem]" src={polygon} />
+                <img
+                  className="w-4 h-3 mt-[-0.0625rem]"
+                  src={polygon}
+                  alt="polygon"
+                />
               </div>
-              <img src={noArchive} />
+              <img src={noArchive} alt="no archive" />
             </div>
           </div>
         </div>
@@ -76,4 +94,5 @@ const BookInfoAddedPage = () => {
     </div>
   );
 };
+
 export default BookInfoAddedPage;

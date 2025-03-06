@@ -5,6 +5,7 @@ import ButtonComponent from "../common/ButtonComponent";
 import BottomSheetModal from "../common/BottomSheetModal";
 import Divider1 from "../../components/common/Divider1";
 import ListBottomSheet from "../common/ListBottomSheet";
+import SuspenseLoading from "../common/SuspenseLoading";
 import { get, patch, post, del } from "../../api/example";
 
 const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
@@ -56,41 +57,38 @@ const SearchBookComponent = ({ search, selectBook = false, onClick }) => {
   const getRegisteredBooks = async (keyword) => {
     if (!keyword) return;
     try {
+      setIsLoading(true); // 로딩 시작
       const response = await get(
         `/bookinfo/search/custom?keyword=${encodeURIComponent(keyword)}`
       );
       setRegisteredBooks(response.bookList || []);
     } catch (error) {
       console.error("등록 책 읽어오기 오류:", error);
+    } finally {
+      setIsLoading(false); // 로딩 종료
     }
   };
 
   // API - 일반 책 데이터 받아오기
   const getBooks = async (keyword, page = 0) => {
     if (!keyword) return setBooks([]);
-    setIsLoading(true);
     try {
+      setIsLoading(true); // 로딩 시작
       const response = await get(
         `/bookinfo/search?keyword=${encodeURIComponent(
           keyword
         )}&page=${page}&size=${DATA_LIMIT}`
       );
-
-      console.log(`일반 책 response ${currentPage}`, response);
-
-      // 중복 제거 및 상태 업데이트
       setBooks((prevBooks) => {
         return page === 0
           ? response.bookList
           : [...prevBooks, ...response.bookList];
       });
-
       setTotalPages(response.totalPages || 1);
     } catch (error) {
       console.error("책 데이터 불러오기 오류:", error);
-      setIsLoading(false);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // 로딩 종료
     }
   };
 
@@ -260,10 +258,13 @@ const SearchBookComponent = ({ search, selectBook = false, onClick }) => {
 
   return (
     <>
-      {registeredBooks.length > 0 || books.length > 0 ? (
+      {isLoading ? ( // 로딩 중일 때 로딩바 표시
+        <div className="flex justify-center items-center h-screen">
+          <SuspenseLoading />
+        </div>
+      ) : registeredBooks.length > 0 || books.length > 0 ? (
         <>
           <div>
-            {/* 등록된 책 */}
             {registeredBooks.map((book, index) => (
               <BookListView
                 key={index}
@@ -288,7 +289,6 @@ const SearchBookComponent = ({ search, selectBook = false, onClick }) => {
             ))}
           </div>
           {registeredBooks.length > 0 && books.length > 0 && <Divider1 />}
-          {/* 일반 책 */}
           <div>
             {books.map((book, index) => (
               <BookListView

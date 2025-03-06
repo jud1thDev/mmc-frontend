@@ -28,6 +28,7 @@ const MyComment = ({ bookData }) => {
   const [inputValue, setInputValue] = useState(bookData?.myOneLine || "");
   const [text, setText] = useState(bookData?.myOneLine || "");
   const [rating, setRating] = useState(0);
+
   // bookData.myRating 값이 바뀔 때 rating 상태를 업데이트
   useEffect(() => {
     if (bookInfo?.myRating) {
@@ -38,32 +39,36 @@ const MyComment = ({ bookData }) => {
       setInputValue(bookData.myOneLine);
     }
   }, [bookData, bookInfo]);
+
   const handleChange = (event) => {
     const { value } = event.target;
     if (value.length <= 25) {
       setInputValue(value);
     }
   };
+
   const handleCancleClick = () => {
     setVisible(false);
     setTimeout(() => {
       setBottomSheetShow(false);
     }, 200);
   };
+
   const handleEditCancleClick = () => {
     setEditVisible(false);
     setTimeout(() => {
       setEditSheetShow(false);
     }, 200);
   };
-  //수정하기 버튼 누르면 수정 바텀시트 올라오도록 함
+
+  // 수정하기 버튼 누르면 수정 바텀시트 올라오도록 설정
   const handleEdit = () => {
-    // setEditVisible(true)
     setBottomSheet2Show(false);
     setVisible2(false);
     setEditSheetShow(true);
   };
-  //한줄평 등록
+
+  // 한줄평 등록
   const handleCompleteClick = async (userbookId, oneLineContent) => {
     setText(inputValue);
     setVisible(false);
@@ -77,7 +82,8 @@ const MyComment = ({ bookData }) => {
       console.error(error);
     }
   };
-  //한줄평 수정
+
+  // 한줄평 수정
   const handleEditClick = async (onelineId, oneLineContent) => {
     setText(inputValue);
     setEditVisible(false);
@@ -86,10 +92,12 @@ const MyComment = ({ bookData }) => {
     }, 200);
     try {
       await editOneLine(onelineId, oneLineContent);
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
   };
+
   // 한줄평 삭제
   const handleDeleteClick = async (onelineId) => {
     setText("");
@@ -107,15 +115,15 @@ const MyComment = ({ bookData }) => {
   };
 
   const handleStarClick = async (index, event) => {
-    //클릭된 위치
     const { offsetX, target } = event.nativeEvent;
     const starWidth = target.offsetWidth;
     let newRating = offsetX < starWidth / 2 ? index + 0.5 : index + 1;
+
     // 최소 별점 1점 적용
     if (newRating < 1) {
       newRating = 1;
     }
-    //클릭 범위 절반 이하인지 구분하기
+
     if (rating === newRating) {
       setRating(0);
       try {
@@ -135,10 +143,8 @@ const MyComment = ({ bookData }) => {
 
   return (
     <div>
-      {/* //책이 서재에 담긴 경우  */}
       {bookInfo?.userbookId ? (
         <div>
-          {/* 한줄평이 존재하는 경우 */}
           {text ? (
             <div>
               <div className="relative flex flex-col items-center p-5 gap-4 bg-gray-10 w-[22.5625rem] rounded-lg">
@@ -160,13 +166,14 @@ const MyComment = ({ bookData }) => {
                   })}
                 </div>
                 <div className="flex justify-center items-center gap-2 max-h-12 text-b2">
-                  <img src={leftMark} />
+                  <img src={leftMark} alt="left-quotation" />
                   {text}
-                  <img src={rightMark} />
+                  <img src={rightMark} alt="right-quotation" />
                 </div>
                 <img
                   className="absolute top-5 right-5 cursor-pointer"
                   src={menu}
+                  alt="menu"
                   onClick={() => setBottomSheet2Show(true)}
                 />
               </div>
@@ -191,12 +198,12 @@ const MyComment = ({ bookData }) => {
                     );
                   })}
                 </div>
-                <textfield
+                <input
+                  type="text"
                   className="w-full px-1 py-2 text-b2 text-gray-400 border-b border-[#DDDDDD]"
+                  placeholder="책에 대한 나의 한줄 평을 작성해주세요!"
                   onClick={() => setBottomSheetShow(true)}
-                >
-                  책에 대한 나의 한줄 평을 작성해주세요!
-                </textfield>
+                />
               </div>
             </div>
           )}
@@ -245,7 +252,7 @@ const MyComment = ({ bookData }) => {
         setVisible={setVisible2}
         handleEdit={handleEdit}
         handleDelete={() => handleDeleteClick(bookData?.oneLineId)}
-      ></BottomSheetModal2>
+      />
       <BottomSheetModal
         bottomSheetShow={editSheetShow}
         setBottomSheetShow={setEditSheetShow}
@@ -279,4 +286,5 @@ const MyComment = ({ bookData }) => {
     </div>
   );
 };
+
 export default MyComment;

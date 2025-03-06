@@ -51,21 +51,6 @@ const BookListPage = ({ view }) => {
     }
   };
 
-  const getReadingStatus = (status) => {
-    switch (status) {
-      case "NOT_STARTED":
-        return "읽고 싶어요";
-      case "READING":
-        return "읽고 있어요";
-      case "FINISHED":
-        return "다 읽었어요";
-      case "STOPPED":
-        return "중단했어요";
-      default:
-        return "읽고 싶어요";
-    }
-  };
-
   const getReadingStatusKey = (status) => {
     switch (status) {
       case "읽고 싶어요":
@@ -81,11 +66,7 @@ const BookListPage = ({ view }) => {
     }
   };
 
-  const {
-    data: bookListData = { bookList: [] },
-    isError,
-    error,
-  } = useQuery({
+  const { data: bookListData = { bookList: [] } } = useQuery({
     queryKey: ["bookListData", getSortKey(sort)],
     queryFn: () => getTotalBook(getSortKey(sort)),
   });
@@ -173,6 +154,14 @@ const BookListPage = ({ view }) => {
     window.location.reload();
   };
 
+  const handleBookClick = (isCustom, bookInfoId) => {
+    if (isCustom === false) {
+      navigate(`/info/book/${bookInfoId}`);
+    } else {
+      navigate(`/info/book/custom/${bookInfoId}`);
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col">
@@ -211,9 +200,9 @@ const BookListPage = ({ view }) => {
                     bookImg={book.imgPath ? book.imgPath : imgEx}
                     rating={book.rating}
                     bookInfoId={book.bookInfoId}
-                    handleOnClick={() => {
-                      navigate(`/info/book/custom/${book.bookInfoId}`);
-                    }}
+                    handleOnClick={() =>
+                      handleBookClick(book.isCustom, book.bookInfoId)
+                    }
                   />
                 ))
               : sortedBookList &&
@@ -229,9 +218,9 @@ const BookListPage = ({ view }) => {
                     bookImg={book.imgPath ? book.imgPath : imgEx}
                     rating={book.rating}
                     bookInfoId={book.bookInfoId}
-                    handleOnClick={() => {
-                      navigate(`/info/book/custom/${book.bookInfoId}`);
-                    }}
+                    handleOnClick={() =>
+                      handleBookClick(book.isCustom, book.bookInfoId)
+                    }
                   />
                 ))}
 

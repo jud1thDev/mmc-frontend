@@ -16,7 +16,7 @@ const SearchMainPage = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
-  const [tab, setTab] = useState("책");
+  const [tab, setTab] = useState("도서");
   //API 연결
   //최근 책 받기
   const getRecentBooks = async () => {
@@ -120,13 +120,13 @@ const SearchMainPage = () => {
         ) : (
           <div className="flex flex-col gap-2">
             <TabBarComponent
-              tabs={["책", "기록", "사용자"]}
+              tabs={["도서", "기록", "사용자"]}
               activeTab={tab}
               onTabClick={setTab}
               size="small"
               borderWidth="3rem"
             />
-            {tab === "책" && (
+            {tab === "도서" && (
               <SearchBookComponent
                 search={submittedSearch}
                 setSearch={setSearch}

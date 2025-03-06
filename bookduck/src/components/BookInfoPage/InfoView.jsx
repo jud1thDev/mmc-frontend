@@ -17,19 +17,20 @@ const InfoView = ({ bookData, ratingData }) => {
   const handleCommentClick = () => {
     navigate("/info/book/comment", { state: { ratingList } });
   };
-  const [relatedBookData, setRelatedBookData] = useState(null);
+  const [relatedBookData, setRelatedBookData] = useState([]); // 초기값을 빈 배열로 설정
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await getRelatedBookInfo({ bookinfoId });
         console.log("조회 성공: ", res?.bookList);
-        setRelatedBookData(res?.bookList);
+        setRelatedBookData(res?.bookList || []); // 응답이 없을 경우 빈 배열로 설정
       } catch (err) {
         console.error("오류 발생: ", err);
       }
     };
     fetchData();
-  }, []);
+  }, [bookinfoId]); // bookinfoId 변경 시 데이터를 다시 가져오도록 의존성 추가
+
   // 최대 3개만 표시
   const displayedRatings = ratingList.slice(0, 3);
   return (
@@ -44,6 +45,7 @@ const InfoView = ({ bookData, ratingData }) => {
               className="cursor-pointer"
               src={right}
               onClick={handleCommentClick}
+              alt="right"
             />
           </div>
           {displayedRatings.map((oneLine, index) => (
@@ -57,7 +59,7 @@ const InfoView = ({ bookData, ratingData }) => {
         </div>
       )}
       <Divider1 />
-      {ratingList?.length > 0 && (
+      {relatedBookData?.length > 0 && ( // 데이터가 있을 때만 렌더링
         <div className="flex flex-col px-4 gap-6 text-b1 font-semibold">
           이 책을 읽은 사용자들이 읽은 다른 책
           <div className="flex gap-3 overflow-x-scroll w-full">
