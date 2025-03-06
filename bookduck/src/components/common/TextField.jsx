@@ -22,23 +22,23 @@ const TextField = ({
   inputValue,
 }) => {
   return (
-    <>
+    <div className="w-full max-w-[64rem]">
       {type === "내용" && (
-        <div className="flex gap-[8px]">
+        <div className="w-full flex gap-[8px]">
           <div className="h-[16px] text-c1 text-gray-400">{title}</div>
           {defaultType && error && (
             <div className="text-c1 text-orange-600">필수입력란입니다!</div>
           )}
         </div>
       )}
-      <div className="flex relative">
+      <div className="w-full flex relative">
         <input
           type={type2}
           name={name}
           value={inputValue}
           onChange={handleValue}
           placeholder={placeholder}
-          className={`w-[361px] h-[48px] px-[4px] py-[12px] text-b1 text-gray-800 border-b-[1px] ${
+          className={`w-full h-[48px] px-[4px] py-[12px] text-b1 text-gray-800 border-b-[1px] ${
             !isSubmitted || error === null
               ? "border-gray-200"
               : error === true
@@ -82,7 +82,7 @@ const TextField = ({
             : "사용 가능한 이름입니다!"}
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default TextField;

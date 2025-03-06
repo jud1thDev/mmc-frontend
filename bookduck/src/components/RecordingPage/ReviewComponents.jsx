@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import useReviewColorStore from "../../store/useReviewColorStore";
-import { useEffect } from "react";
-import { getUserId } from "../../api/oauth";
 import { getDetailExtractReview } from "../../api/archive";
 
 const ReviewComponents = ({ reviewData, archive = false, font }) => {
@@ -37,10 +35,10 @@ const ReviewComponents = ({ reviewData, archive = false, font }) => {
   };
 
   return (
-    <div onClick={handleOnClick} className="cursor-pointer ">
+    <div onClick={handleOnClick} className="cursor-pointer w-full">
       <div
         style={{ backgroundColor: color }}
-        className={`flex flex-col gap-[1.75rem] w-[22.5625rem]  p-[1.25rem] rounded-[0.88rem] ${
+        className={`flex flex-col gap-[1.75rem] w-full  p-[1.25rem] rounded-[0.88rem] ${
           !reviewColor && "bg-gray-400"
         } shadow-custom`}
       >

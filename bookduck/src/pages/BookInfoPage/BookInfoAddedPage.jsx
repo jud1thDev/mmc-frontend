@@ -33,19 +33,13 @@ const BookInfoAddedPage = () => {
     fetchData();
   }, [bookinfoId]);
 
-  const isMe = bookData?.isMine ? "me" : "other"; // true or false
-
-  // 로딩 중일 때 SuspenseLoading 표시
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <SuspenseLoading />
-      </div>
-    );
-  }
-
+  console.log("bookdata", bookData);
+  const [activeTab, setActiveTab] = useState("기록");
+  // api받았을때 isMe가 me이면 내가 등록한 페이지, other이면 타유저가 등록한 페이지
+  const isMe = bookData?.isMine ? true : false; //true or false
+  console.log(isMe);
   return (
-    <div className="w-[24.5625rem]">
+    <div className="w-full">
       {bookData?.isMine ? (
         <div>
           <div className="px-4">

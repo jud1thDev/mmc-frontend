@@ -12,8 +12,8 @@ import library_active from "../../assets/common/bottom-nav-library-active.svg";
 
 const BottomNavbar = () => {
   return (
-    <div className="fixed bottom-0 w-full h-[4rem] border-t-[0.3px] border-[#0000004D] bg-[#FFFFFF] z-[110]">
-      <div className="flex justify-center items-center gap-[1.89rem] mt-[0.62rem] cursor-pointer">
+    <div className="fixed bottom-0 w-full max-w-[64rem] h-[4rem] border-t-[0.3px] border-[#0000004D] bg-[#FFFFFF] z-[110]">
+      <div className="flex  w-full justify-evenly items-center mt-[0.62rem] cursor-pointer">
         <NavLink to="/home">
           {({ isActive }) => (
             <>{isActive ? <img src={main_active} /> : <img src={main} />}</>

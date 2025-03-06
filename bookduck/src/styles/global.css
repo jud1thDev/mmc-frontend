@@ -33,21 +33,24 @@ html,
 body {
   width: 100%;
   height: 100%;
+  max-width: 64rem;
   margin: 0 auto;
   overflow-x: hidden;
 }
 
 #root {
   width: 100%;
-  max-width: 30rem;
+  max-width: 64rem;
   height: 100svh;
   margin: 0 auto;
 }
+
 /* @media (max-width: 30rem) {
   #root {
     width: 100svw;
   }
 } */
+
 input:focus {
   outline: none;
 }

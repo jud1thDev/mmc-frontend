@@ -67,7 +67,7 @@ const LibraryPage = () => {
           borderWidth="3rem"
         />
 
-        <div className="absolute right-0 top-[3.8rem] right-[0.63rem]">
+        <div className="absolute  top-[3.8rem] right-[0.63rem]">
           {clickedPage === "책 목록" && (
             <div className="flex gap-2 cursor-pointer">
               <ListIcon handleClick={handleIconClick} isClicked={isClicked} />

@@ -45,7 +45,7 @@ const ButtonComponent = ({
 
   const buttonStyles = classNames(
     type === "primary"
-      ? `${baseStyles} w-[22.5625rem] h-[3rem] font-semibold rounded-[0.5rem] ${
+      ? `${baseStyles} w-full  h-[3rem] font-semibold rounded-[0.5rem] ${
           disabled ? primaryDisabledStyle : primaryEnabledStyle
         }`
       : `${baseStyles} ${sizeStyles[size]} rounded-[0.375rem] ${secondaryColorStyles[color]}`,

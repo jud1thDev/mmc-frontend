@@ -45,7 +45,7 @@ const ArchivePage = () => {
           size="small"
           borderWidth="3rem"
         />
-        <div>
+        <div className="px-4">
           {tab === "전체보기" && <TotalView font={font} />}
           {tab === "발췌" && <ExtractView font={font} />}
           {tab === "감상평" && <ReviewView font={font} />}

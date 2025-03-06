@@ -53,7 +53,7 @@ const CharacterPage = () => {
           (userData?.expInCurrentLevel / userData?.expToNextLevel) * 100
         );
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="w-full w-max-[64rem] flex flex-col justify-center items-center">
       <CharacterHeader />
       <div className="flex flex-col mt-[4.25rem] gap-1 w-full h-[23.125rem]">
         <div className="flex flex-col items-center">
@@ -67,7 +67,7 @@ const CharacterPage = () => {
         </div>
       </div>
       {/* 유저 정보  */}
-      <div className="flex flex-col mt-11 p-4 gap-4 w-[22.5625rem]">
+      <div className="flex flex-col mt-11 p-4 gap-4 w-full">
         <div className="flex justify-between">
           <div className="flex gap-2">
             <div className="text-st font-semibold text-orange-400">
@@ -84,8 +84,8 @@ const CharacterPage = () => {
           </div>
           {isModalOpen && <LevelModal onClick={toggleModal} />}
         </div>
-        <div className="flex items-center gap-4 w-[20.5625rem] h-6">
-          <div className="bg-gray-100 rounded-[6.25rem] w-[17.875rem]">
+        <div className="flex items-center gap-4 w-full h-6">
+          <div className="bg-gray-100 rounded-[6.25rem] w-full">
             <div
               className={`bg-orange-gradation-level rounded-[6.25rem] h-5`}
               style={{ width: `${expProgress}%` }}
@@ -93,16 +93,16 @@ const CharacterPage = () => {
           </div>
           <div className="text-b2 text-gray-400">{expProgress}%</div>
         </div>
+        {/* 나의 배지 */}
+        <div
+          className="flex justify-between my-4 px-4  py-3 bg-gray-10 rounded-xl w-full cursor-pointer"
+          onClick={handleBadgeClick}
+        >
+          <div className="text-b2 text-gray-500 font-semibold ">나의 배지</div>
+          <img className="w-6 h-6" src={right} />
+        </div>
       </div>
 
-      {/* 나의 배지 */}
-      <div
-        className="flex justify-between my-4 px-5 py-3 bg-gray-10 rounded-xl w-[22.5625rem] cursor-pointer"
-        onClick={handleBadgeClick}
-      >
-        <div className="text-b2 text-gray-500 font-semibold ">나의 배지</div>
-        <img className="w-6 h-6" src={right} />
-      </div>
       <BottomNavbar />
     </div>
   );

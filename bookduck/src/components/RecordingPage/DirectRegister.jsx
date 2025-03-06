@@ -56,8 +56,8 @@ const DirectRegister = () => {
   };
 
   return (
-    <>
-      <div className="flex flex-col justify-center items-center pb-[2.15rem] mx-4">
+    <div className="w-full w-max-[64rem] ">
+      <div className="w-full flex flex-col justify-center items-center pb-[2.15rem] px-4">
         <div
           onClick={() => document.getElementById("fileInput").click()}
           className="mt-5"
@@ -75,7 +75,7 @@ const DirectRegister = () => {
           accept="image/*"
           onChange={handleFileChange}
         />
-        <div className="flex flex-col gap-[2rem] mb-[1.23rem]">
+        <div className="w-full flex flex-col gap-[2rem] mb-[1.23rem]">
           <TextField
             type="제목"
             title
@@ -109,7 +109,7 @@ const DirectRegister = () => {
             inputValue={publisher}
           />
         </div>
-        <div className="flex justify-center items-center w-[24.5625rem] h-[7rem] mb-[0.94rem] bg-gray-50 text-b2 text-gray-400 text-center">
+        <div className="flex justify-center items-center w-full h-[7rem] mb-[0.94rem] bg-gray-50 text-b2 text-gray-400 text-center">
           직접 등록한 책에 대해서는 별점 및 한줄평과
           <br /> 독서 기록 모두 나만 남길 수 있어요.
         </div>
@@ -120,7 +120,7 @@ const DirectRegister = () => {
           disabled={!(title && author)}
         />
       </div>
-    </>
+    </div>
   );
 };
 

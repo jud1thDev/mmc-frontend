@@ -80,7 +80,11 @@ const SearchMainPage = () => {
                         img={book.imgPath}
                         title={book.title}
                         handleClick={() =>
-                          navigate(`/info/book/${book.bookInfoId}`)
+                          navigate(
+                            book.isCustom
+                              ? `/info/book/custom/${book.bookInfoId}`
+                              : `/info/book/${book.bookInfoId}`
+                          )
                         }
                       />
                     );

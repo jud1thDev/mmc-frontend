@@ -90,18 +90,18 @@ const MainPage = () => {
   });
 
   return (
-    <div className={`${color} relative overflow-hidden h-screen`}>
+    <div className={`${color} w-full relative overflow-hidden h-screen`}>
       <div className="px-4">
         <Header2 isDot={isDot} />
       </div>
-      <div className="pl-5 mt-[1.75rem]">
+      <div className="pl-5 mt-[1.75rem] w-full">
         <div className="text-t2 font-semibold text-black">
           {userInfo?.nickname}님
         </div>
         <div className="text-t2 font-semibold text-black mt-[0.38rem]">
           꾸준한 독서 함께해요!
         </div>
-        <div className="flex flex-row relative">
+        <div className="flex w-full flex-row relative">
           <div>
             <div
               className="flex flex-col w-[10.625rem] h-[6rem] bg-white rounded-[0.75rem] mt-[2.69rem] pl-4 pr-5 pt-3 gap-2"

@@ -165,7 +165,7 @@ const BookListPage = ({ view }) => {
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex gap-5 w-[24.5625rem] p-4">
+        <div className="flex gap-5 w-full p-4">
           <div
             onClick={handleSorting}
             className="flex items-center justify-center cursor-pointer"
@@ -228,7 +228,7 @@ const BookListPage = ({ view }) => {
           </div>
         )}
         {view === "cover" && (
-          <div className="h-[40rem] mx-4 overflow-y-auto">
+          <div className=" mx-4 overflow-y-auto">
             <div className="grid grid-cols-3 place-items-center gap-x-3 gap-y-5">
               {tabList.length === 0
                 ? bookListData.bookList.map((book) => (

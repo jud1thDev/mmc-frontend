@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { get, patch } from "../../api/example";
 import { useNavigate } from "react-router-dom";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "react-use-gesture";
 import BottomSheetModal from "../common/BottomSheetModal";
 import Divider2 from "../common/Divider2";
-import ButtonComponent from "../common/ButtonComponent";
 import goEdit from "../../assets/mainPage/go-edit.svg";
 import goRight from "../../assets/mainPage/go-right.svg";
 import cancel from "../../assets/mainPage/cancel.svg";
@@ -228,11 +227,16 @@ const ReadingSpaceComponent = ({
   };
 
   return (
-    <>
+    <div
+      style={{
+        maxWidth: "64rem",
+      }}
+    >
       <div className="relative z-0">
         <DragDropContext onDragEnd={handleDragEnd} className="z-[-3] bg-white ">
           <animated.div
             style={{
+              maxWidth: "64rem",
               height,
               boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.10)",
               overflowY: "auto",
@@ -240,7 +244,7 @@ const ReadingSpaceComponent = ({
             }}
             className={` ${
               isEditMode ? "bg-[#DDD]" : "bg-white"
-            } fixed z-40 w-full bottom-0 left-0 right-0 mx-auto max-w-md rounded-t-[1.875rem] shadow-lg cursor-pointer overflow-hidden`}
+            } fixed z-40  bottom-0 left-0 right-0 mx-auto rounded-t-[1.875rem] shadow-lg cursor-pointer overflow-hidden`}
           >
             <div className="relative mb-10">
               <div
@@ -356,15 +360,15 @@ const ReadingSpaceComponent = ({
                 </Droppable>
               </div>
               {isEditMode && height.get() === expandedHeight && (
-                <div className="fixed bottom-0 w-[24.5625rem] h-[4rem] bg-[#DDD] p-4 flex justify-between items-center z-50 ">
+                <div className="fixed  gap-4 w-full bottom-0 flex-row  h-[4rem] bg-[#DDD] p-4 flex justify-between items-center z-50 ">
                   <button
-                    className="w-[8.4375rem] h-[3rem] flex items-center justify-center text-white bg-gray-400 rounded-lg"
+                    className="w-full h-[3rem] flex items-center justify-center text-white bg-gray-400 rounded-lg"
                     onClick={() => setShowOutModal(true)}
                   >
                     나가기
                   </button>
                   <button
-                    className="w-[13.375rem] h-[3rem] flex items-center justify-center text-white bg-gray-700 rounded-lg"
+                    className="w-full h-[3rem] flex items-center justify-center text-white bg-gray-700 rounded-lg"
                     onClick={handleSave}
                   >
                     저장하기
@@ -416,7 +420,7 @@ const ReadingSpaceComponent = ({
           </div>
         </div>
       </BottomSheetModal>
-    </>
+    </div>
   );
 };
 

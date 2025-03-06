@@ -45,7 +45,7 @@ const BookInfoPage = () => {
   }
 
   return (
-    <div className="w-[24.5625rem]">
+    <div className="w-full w-max-[64rem]">
       <Header3 title="" />
       <div className="flex flex-col mt-2 gap-5">
         <div className="flex flex-col gap-2 px-4">

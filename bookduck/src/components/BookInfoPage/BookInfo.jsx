@@ -25,7 +25,7 @@ const BookInfo = ({ isMe = "default", bookData }) => {
   console.log(bookBasicData);
   // 기본으로 등록되어 있는 책: default 내가 직접 등록한 책: me 타유저가 직접 등록한 책: other
   return (
-    <div className="flex gap-4 w-[22.5625rem]">
+    <div className="flex gap-4 w-full">
       <img
         className="w-[7rem] h-[9.75rem] rounded bg-cover bg-no-repeat shadow-custom"
         src={bookBasicData?.imgPath ? bookBasicData?.imgPath : imgEx}

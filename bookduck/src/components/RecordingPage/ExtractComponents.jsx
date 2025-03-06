@@ -40,8 +40,8 @@ const ExtractComponents = ({ excerptData, archive = false, font }) => {
   };
 
   return (
-    <div onClick={handleOnClick} className="cursor-pointer">
-      <div className="flex flex-col gap-[1.25rem] w-[22.5625rem] p-[1.25rem] rounded-[0.875rem] bg-gray-10 shadow-custom">
+    <div onClick={handleOnClick} className="cursor-pointer w-full">
+      <div className="flex flex-col gap-[1.25rem] w-full  p-[1.25rem] rounded-[0.875rem] bg-gray-10 shadow-custom">
         {!archive && createdDate ? (
           <div className="flex justify-between items-center">
             <div className={`text-c2 text-gray-400 ${font}`}>{createdDate}</div>
